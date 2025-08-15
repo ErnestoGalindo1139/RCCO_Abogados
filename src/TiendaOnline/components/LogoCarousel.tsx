@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
-import useEmblaCarousel, { EmblaOptionsType } from 'embla-carousel-react';
 import AutoScroll from 'embla-carousel-auto-scroll';
+import useEmblaCarousel from 'embla-carousel-react';
+import type { EmblaOptionsType } from 'embla-carousel';
 
 type Direction = 'left' | 'right';
 
@@ -63,7 +64,7 @@ export const LogoCarousel: React.FC<LogoCarouselProps> = ({
 
   // opcional: control manual de pausa en hover/touch
   const [isPaused, setIsPaused] = useState(false);
-  const handlePause = (p: boolean) => {
+  const handlePause = (p: boolean): void => {
     if (!emblaApi) return;
     setIsPaused(p);
     const plugin = emblaApi.plugins()?.autoScroll;
@@ -99,10 +100,18 @@ export const LogoCarousel: React.FC<LogoCarouselProps> = ({
         <div
           className="embla__viewport overflow-hidden"
           ref={emblaRef}
-          onMouseEnter={pauseOnHover ? () => handlePause(true) : undefined}
-          onMouseLeave={pauseOnHover ? () => handlePause(false) : undefined}
-          onPointerDown={pauseOnHover ? () => handlePause(true) : undefined}
-          onPointerUp={pauseOnHover ? () => handlePause(false) : undefined}
+          onMouseEnter={
+            pauseOnHover ? (): void => handlePause(true) : undefined
+          }
+          onMouseLeave={
+            pauseOnHover ? (): void => handlePause(false) : undefined
+          }
+          onPointerDown={
+            pauseOnHover ? (): void => handlePause(true) : undefined
+          }
+          onPointerUp={
+            pauseOnHover ? (): void => handlePause(false) : undefined
+          }
           aria-roledescription="carousel"
           aria-label="Clientes que confían en nosotros"
         >
