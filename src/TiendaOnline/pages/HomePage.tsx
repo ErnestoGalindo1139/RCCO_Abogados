@@ -6,6 +6,7 @@ import { NavBar } from '../components/NavBar';
 import { Nosotros } from '../components/Nosotros';
 import { NuestroEquipo } from '../components/NuestroEquipo';
 import { Servicios } from '../components/Servicios';
+import { Slogan } from '../components/Slogan';
 
 export const HomePage = () => {
   return (
@@ -15,6 +16,7 @@ export const HomePage = () => {
       <Servicios />
       <AreasEspecializadas />
       <Nosotros/>
+      <Slogan/>
       <NuestroEquipo />
       <LogoCarousel
         height={128}
