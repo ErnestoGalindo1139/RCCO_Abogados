@@ -80,7 +80,7 @@ export const Servicios = (): React.JSX.Element => {
   const scrollNext = () => emblaApi?.scrollNext();
 
   return (
-    <section className="w-full bg-gradient-to-br from-[#0b4db0] via-[#0a58ca] to-[#0b63d3] py-14 px-4">
+    <section className="w-full bg-gradient-to-br from-[#0b4db0] via-[#0a58ca] to-[#0b63d3] py-14 px-4" id='servicios'>
       <div className="max-w-6xl mx-auto">
         <h2 className="text-center text-white text-3xl md:text-5xl font-bold">
           Servicios Legales
