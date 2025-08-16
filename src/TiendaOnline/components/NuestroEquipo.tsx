@@ -53,7 +53,10 @@ const miembros: Miembro[] = [
 
 export const NuestroEquipo = (): React.JSX.Element => {
   return (
-    <section className="w-full bg-white pt-[3.5rem] pb-[7rem] px-4" id='nosotros'>
+    <section
+      className="w-full bg-white pt-[3.5rem] pb-[7rem] px-4"
+      id="nosotros"
+    >
       <div className="max-w-5xl mx-auto">
         <h2 className="text-center text-[#0b2f79] text-3xl md:text-5xl font-bold mb-[4rem]">
           Nuestro equipo
