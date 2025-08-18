@@ -7,6 +7,7 @@ import { Nosotros } from '../components/Nosotros';
 import { NuestroEquipo } from '../components/NuestroEquipo';
 import { Servicios } from '../components/Servicios';
 import { Slogan } from '../components/Slogan';
+import { Valores } from '../components/Valores';
 
 export const HomePage = () => {
   return (
@@ -16,6 +17,7 @@ export const HomePage = () => {
       <Servicios />
       <AreasEspecializadas />
       <Nosotros/>
+      <Valores/>
       <Slogan/>
       <NuestroEquipo />
       <LogoCarousel
