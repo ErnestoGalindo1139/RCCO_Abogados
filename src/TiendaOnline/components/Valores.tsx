@@ -68,7 +68,7 @@ export const Valores: React.FC = () => {
       {/* ==== Layout escritorio con grid 3x3 ==== */}
       <div className="hidden md:grid gap-6 place-items-center">
         {/* Esquina superior izquierda */}
-        <div className="flex justify-around  w-full">
+        <div className="flex justify-around items-center w-full">
           <ValorCard
             valor={VALORES[0]}
             seleccionado={activo === VALORES[0].id}
@@ -76,7 +76,7 @@ export const Valores: React.FC = () => {
           />
 
           {/* <BotonCentro onReset={() => setActivo(null)} /> */}
-          <CentroConLineasFuera sides={["left","right","bottom"]} setActivo={setActivo}/>
+          <CentroConLineasFuera diameter={100} gap={10} lineWidth={2} lineExtend={90} lineColor="rgba(0,0,0,.22)" sides={["left","right","bottom"]} setActivo={setActivo}/>
 
           {/* Esquina superior derecha */}
           <ValorCard
@@ -132,37 +132,81 @@ const BotonCentro: React.FC<{ onReset: () => void }> = ({ onReset }) => (
   </button>
 );
 
+// const ValorCard: React.FC<{
+//   valor: Valor;
+//   seleccionado: boolean;
+//   onClick: () => void;
+// }> = ({ valor, seleccionado, onClick }) => {
+//   const { Icon } = valor;
+//   return (
+//     <button
+//       type="button"
+//       onClick={onClick}
+//       className={`group relative w-[200px] rounded-xl border bg-white p-3 text-left shadow-sm
+//                   transition-all hover:shadow-lg hover:-translate-y-0.5
+//                   ${seleccionado ? 'border-[#123E7A] ring-1 ring-[#123E7A]/40' : 'border-neutral-200'}`}
+//     >
+//       <div className={`flex items-center gap-2`}>
+//         <div
+//           className={`flex h-10 w-10 items-center justify-center rounded-lg
+//                       transition-transform group-hover:scale-110
+//                       ${seleccionado ? 'bg-[#123E7A] text-white' : 'bg-neutral-100 text-neutral-800'}`}
+//         >
+//           <Icon className="h-6 w-6" />
+//         </div>
+//         <div className="flex flex-col overflow-hidden">
+//           <span
+//             className={`font-semibold text-sm ${seleccionado ? 'text-[#123E7A]' : 'text-neutral-900'}`}
+//           >
+//             {valor.titulo}
+//           </span>
+//           {/* <span className="text-xs text-neutral-500 truncate">
+//             {seleccionado ? 'Seleccionado' : 'Haz clic para ver más'}
+//           </span> */}
+//         </div>
+//       </div>
+//     </button>
+//   );
+// };
+
 const ValorCard: React.FC<{
   valor: Valor;
   seleccionado: boolean;
   onClick: () => void;
-}> = ({ valor, seleccionado, onClick }) => {
+  heightClass?: string;
+}> = ({ valor, seleccionado, onClick, heightClass = "h-16 md:h-20" }) => {
   const { Icon } = valor;
+
   return (
     <button
       type="button"
       onClick={onClick}
-      className={`group relative w-[200px] rounded-xl border bg-white p-3 text-left shadow-sm
-                  transition-all hover:shadow-lg hover:-translate-y-0.5
-                  ${seleccionado ? 'border-[#123E7A] ring-1 ring-[#123E7A]/40' : 'border-neutral-200'}`}
+      className={`
+        group relative w-[210px] ${heightClass}
+        flex items-center               /* centra vertical y evita stretch */
+        rounded-xl border bg-white px-4 /* usamos padding horizontal */
+        text-left shadow-sm transition-all
+        hover:shadow-lg hover:-translate-y-0.5
+        ${seleccionado ? "border-[#123E7A] ring-1 ring-[#123E7A]/40" : "border-neutral-200"}
+      `}
     >
-      <div className={`flex items-center gap-2`}>
+      <div className="flex items-center gap-2 w-full">
         <div
-          className={`flex h-10 w-10 items-center justify-center rounded-lg
-                      transition-transform group-hover:scale-110
-                      ${seleccionado ? 'bg-[#123E7A] text-white' : 'bg-neutral-100 text-neutral-800'}`}
+          className={`
+            flex h-10 w-10 items-center justify-center rounded-lg
+            transition-transform group-hover:scale-110 shrink-0
+            ${seleccionado ? "bg-[#123E7A] text-white" : "bg-neutral-100 text-neutral-800"}
+          `}
         >
           <Icon className="h-6 w-6" />
         </div>
+
         <div className="flex flex-col overflow-hidden">
-          <span
-            className={`font-semibold text-sm ${seleccionado ? 'text-[#123E7A]' : 'text-neutral-900'}`}
-          >
+          <span className={`font-semibold text-sm ${seleccionado ? "text-[#123E7A]" : "text-neutral-900"}`}>
             {valor.titulo}
           </span>
-          {/* <span className="text-xs text-neutral-500 truncate">
-            {seleccionado ? 'Seleccionado' : 'Haz clic para ver más'}
-          </span> */}
+          {/* Si quieres subtítulo, mantén truncate para que no rompa la altura */}
+          {/* <span className="text-xs text-neutral-500 truncate">Haz clic para ver más</span> */}
         </div>
       </div>
     </button>
