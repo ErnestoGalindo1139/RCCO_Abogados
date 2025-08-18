@@ -54,7 +54,7 @@ export const Valores: React.FC = () => {
     VALORES.find((v) => v.id === activo)?.descripcion ?? TEXTO_GENERAL;
 
   return (
-    <section className="mx-auto max-w-5xl px-4 py-10">
+    <section className="mx-auto max-w-5xl px-4 py-10 mb-[6rem] mt-[1rem]">
       {/* Encabezado */}
       <header className="text-center mb-8">
         <h2 className="text-2xl md:text-3xl font-extrabold tracking-wide text-[#123E7A]">
@@ -76,7 +76,15 @@ export const Valores: React.FC = () => {
           />
 
           {/* <BotonCentro onReset={() => setActivo(null)} /> */}
-          <CentroConLineasFuera diameter={100} gap={10} lineWidth={2} lineExtend={90} lineColor="rgba(0,0,0,.22)" sides={["left","right","bottom"]} setActivo={setActivo}/>
+          <CentroConLineasFuera
+            diameter={100}
+            gap={10}
+            lineWidth={2}
+            lineExtend={90}
+            lineColor="rgba(0,0,0,.22)"
+            sides={['left', 'right', 'bottom']}
+            setActivo={setActivo}
+          />
 
           {/* Esquina superior derecha */}
           <ValorCard
@@ -174,7 +182,7 @@ const ValorCard: React.FC<{
   seleccionado: boolean;
   onClick: () => void;
   heightClass?: string;
-}> = ({ valor, seleccionado, onClick, heightClass = "h-16 md:h-20" }) => {
+}> = ({ valor, seleccionado, onClick, heightClass = 'h-16 md:h-20' }) => {
   const { Icon } = valor;
 
   return (
@@ -187,7 +195,7 @@ const ValorCard: React.FC<{
         rounded-xl border bg-white px-4 /* usamos padding horizontal */
         text-left shadow-sm transition-all
         hover:shadow-lg hover:-translate-y-0.5
-        ${seleccionado ? "border-[#123E7A] ring-1 ring-[#123E7A]/40" : "border-neutral-200"}
+        ${seleccionado ? 'border-[#123E7A] ring-1 ring-[#123E7A]/40' : 'border-neutral-200'}
       `}
     >
       <div className="flex items-center gap-2 w-full">
@@ -195,14 +203,16 @@ const ValorCard: React.FC<{
           className={`
             flex h-10 w-10 items-center justify-center rounded-lg
             transition-transform group-hover:scale-110 shrink-0
-            ${seleccionado ? "bg-[#123E7A] text-white" : "bg-neutral-100 text-neutral-800"}
+            ${seleccionado ? 'bg-[#123E7A] text-white' : 'bg-neutral-100 text-neutral-800'}
           `}
         >
           <Icon className="h-6 w-6" />
         </div>
 
         <div className="flex flex-col overflow-hidden">
-          <span className={`font-semibold text-sm ${seleccionado ? "text-[#123E7A]" : "text-neutral-900"}`}>
+          <span
+            className={`font-semibold text-sm ${seleccionado ? 'text-[#123E7A]' : 'text-neutral-900'}`}
+          >
             {valor.titulo}
           </span>
           {/* Si quieres subtítulo, mantén truncate para que no rompa la altura */}
@@ -213,18 +223,17 @@ const ValorCard: React.FC<{
   );
 };
 
-
-type Side = "top" | "right" | "bottom" | "left";
+type Side = 'top' | 'right' | 'bottom' | 'left';
 
 type Props = {
-  diameter?: number;   // px
-  gap?: number;        // separación entre círculo y líneas
-  lineWidth?: number;  // grosor de línea
+  diameter?: number; // px
+  gap?: number; // separación entre círculo y líneas
+  lineWidth?: number; // grosor de línea
   lineExtend?: number; // cuánto salen hacia afuera
   lineColor?: string;
-  sides?: Side[];      // cuáles lados dibujar (default: todas)
+  sides?: Side[]; // cuáles lados dibujar (default: todas)
   className?: string;
-  setActivo?: React.Dispatch<React.SetStateAction<string | null>>
+  setActivo?: React.Dispatch<React.SetStateAction<string | null>>;
 };
 
 export const CentroConLineasFuera: React.FC<Props> = ({
@@ -232,38 +241,40 @@ export const CentroConLineasFuera: React.FC<Props> = ({
   gap = 8,
   lineWidth = 2,
   lineExtend = 80,
-  lineColor = "rgba(0,0,0,0.28)",
-  sides = ["top", "right", "bottom", "left"],
-  className = "",
+  lineColor = 'rgba(0,0,0,0.28)',
+  sides = ['top', 'right', 'bottom', 'left'],
+  className = '',
   setActivo,
 }) => {
   // flags para CSS (0/1)
-  const showTop = Number(sides.includes("top"));
-  const showRight = Number(sides.includes("right"));
-  const showBottom = Number(sides.includes("bottom"));
-  const showLeft = Number(sides.includes("left"));
+  const showTop = Number(sides.includes('top'));
+  const showRight = Number(sides.includes('right'));
+  const showBottom = Number(sides.includes('bottom'));
+  const showLeft = Number(sides.includes('left'));
 
   const styleVars = {
-    ["--d"]: `${diameter}px`,
-    ["--gap"]: `${gap}px`,
-    ["--w"]: `${lineWidth}px`,
-    ["--extend"]: `${lineExtend}px`,
-    ["--line"]: lineColor,
-    ["--show-top"]: showTop,
-    ["--show-right"]: showRight,
-    ["--show-bottom"]: showBottom,
-    ["--show-left"]: showLeft,
+    ['--d']: `${diameter}px`,
+    ['--gap']: `${gap}px`,
+    ['--w']: `${lineWidth}px`,
+    ['--extend']: `${lineExtend}px`,
+    ['--line']: lineColor,
+    ['--show-top']: showTop,
+    ['--show-right']: showRight,
+    ['--show-bottom']: showBottom,
+    ['--show-left']: showLeft,
   } as React.CSSProperties;
 
   return (
-    <div className={`cv-wrap relative inline-flex items-center justify-center ${className}`} style={styleVars}>
+    <div
+      className={`cv-wrap relative inline-flex items-center justify-center ${className}`}
+      style={styleVars}
+    >
       {/* círculo (único nodo en el DOM) */}
       <div
         className="relative z-10 flex items-center justify-center rounded-full bg-[#123E7A] text-white shadow-md"
-        style={{ width: "var(--d)", height: "var(--d)" }}
+        style={{ width: 'var(--d)', height: 'var(--d)' }}
         aria-label="Centro valores"
       >
-
         {/* <Handshake style={{ width: "calc(var(--d)*0.42)", height: "calc(var(--d)*0.42)" }} /> */}
         <BotonCentro onReset={() => setActivo && setActivo(null)} />
       </div>

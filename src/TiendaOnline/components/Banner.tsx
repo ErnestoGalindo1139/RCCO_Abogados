@@ -4,7 +4,11 @@ export const Banner = () => {
   return (
     <section id="inicio" className="relative">
       <div className="w-full h-[100vh] bg-blue-500 flex items-center justify-center">
-        <img src="/img/BannerDemo.jpg" alt="Banner Image" className="object-cover w-full h-full" />
+        <img
+          src="/img/BannerDemo.jpg"
+          alt="Banner Image"
+          className="object-cover w-full h-full"
+        />
       </div>
 
       {/* Botón flotante */}

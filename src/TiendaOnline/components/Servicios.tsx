@@ -154,10 +154,10 @@ export const Servicios: React.FC = () => {
   return (
     <section
       id="servicios"
-      className="w-full bg-gradient-to-br from-[#0b4db0] via-[#0a58ca] to-[#0b63d3] py-16 px-4"
+      className="w-full bg-gradient-to-br from-[#0b4db0] via-[#0a58ca] to-[#0b63d3] py-[4rem] px-4"
     >
       <div className="max-w-[80%] mx-auto">
-        <h2 className="text-center text-white text-3xl md:text-5xl font-bold">
+        <h2 className="text-center text-white text-3xl md:text-5xl font-bold mb-[6rem]">
           Servicios Legales
         </h2>
 
