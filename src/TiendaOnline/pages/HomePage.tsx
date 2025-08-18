@@ -3,8 +3,11 @@ import { Banner } from '../components/Banner';
 import { Footer } from '../components/Footer';
 import { LogoCarousel } from '../components/LogoCarousel';
 import { NavBar } from '../components/NavBar';
+import { Nosotros } from '../components/Nosotros';
 import { NuestroEquipo } from '../components/NuestroEquipo';
 import { Servicios } from '../components/Servicios';
+import { Slogan } from '../components/Slogan';
+import { Valores } from '../components/Valores';
 import { UbicacionComponent } from '../components/Ubicacion';
 
 export const HomePage = () => {
@@ -14,6 +17,9 @@ export const HomePage = () => {
       <Banner />
       <Servicios />
       <AreasEspecializadas />
+      <Nosotros/>
+      <Valores/>
+      <Slogan/>
       <NuestroEquipo />
       <LogoCarousel
         height={128}

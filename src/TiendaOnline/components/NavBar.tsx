@@ -111,7 +111,7 @@ export const NavBar: React.FC = () => {
       <div className="w-full">
         <div
           className="h-[72px] flex items-center justify-between px-8 
-                     bg-blue-900/70 backdrop-blur-md shadow-sm ring-1 ring-white/10"
+                     bg-blue-900 backdrop-blur-md shadow-sm ring-1 ring-white/10"
         >
           {/* Logo */}
           <button onClick={() => scrollToId("inicio")} className="flex items-center gap-3">
