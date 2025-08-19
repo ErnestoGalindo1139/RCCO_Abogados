@@ -17,7 +17,7 @@ export const Banner = () => {
         <div className="absolute inset-0 flex flex-col items-start justify-center text-center px-20">
           <h3 className="text-white text-8xl font-bold">Ingeniería jurídica</h3>
           <h3 className="text-white text-8xl font-bold">para tu empresa</h3>
-          <button className='bg-white text-blue-900 font-semibold h-14 px-2 rounded-lg text-2xl mt-9'>Agenda una cita</button>
+          <button className='bg-white text-blue-900 font-semibold  p-4 rounded-lg text-3xl mt-12'>Agenda una cita</button>
         </div>
       </div>
 

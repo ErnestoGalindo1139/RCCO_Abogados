@@ -1,24 +1,30 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
-import { Menu, X, Facebook, Instagram  } from "lucide-react";
-import { FaInstagram, FaWhatsapp, FaFacebook, FaTiktok, FaYoutube  } from "react-icons/fa";
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { Menu, X, Facebook, Instagram } from 'lucide-react';
+import {
+  FaInstagram,
+  FaWhatsapp,
+  FaFacebook,
+  FaTiktok,
+  FaYoutube,
+} from 'react-icons/fa';
 
 // ──────────────────────────────────────────────────────────────────────────────
 // Configuración
 // ──────────────────────────────────────────────────────────────────────────────
 const LINKS = [
-  { id: "inicio", label: "INICIO" },
-  { id: "nosotros", label: "NOSOTROS" },
-  { id: "servicios", label: "SERVICIOS" },
-  { id: "contacto", label: "CONTACTO" },
-  { id: "blog", label: "BLOG" },
+  { id: 'inicio', label: 'INICIO' },
+  { id: 'nosotros', label: 'NOSOTROS' },
+  { id: 'servicios', label: 'SERVICIOS' },
+  { id: 'contacto', label: 'CONTACTO' },
+  { id: 'blog', label: 'BLOG' },
 ];
 
 const SOCIALS = [
-  { href: "https://www.facebook.com/", label: "Facebook", Icon: FaFacebook  },
-  { href: "https://www.instagram.com/", label: "Instagram", Icon: FaInstagram  },
-//   { href: "https://wa.me/521234567890", label: "WhatsApp", Icon: FaWhatsapp  },
-  { href: "https://www.tiktok.com", label: "Tiktok", Icon: FaTiktok },
-  { href: "https://www.youtube.com", label: "YouTube", Icon: FaYoutube  },
+  { href: 'https://www.facebook.com/', label: 'Facebook', Icon: FaFacebook },
+  { href: 'https://www.instagram.com/', label: 'Instagram', Icon: FaInstagram },
+  //   { href: "https://wa.me/521234567890", label: "WhatsApp", Icon: FaWhatsapp  },
+  { href: 'https://www.tiktok.com', label: 'Tiktok', Icon: FaTiktok },
+  { href: 'https://www.youtube.com', label: 'YouTube', Icon: FaYoutube },
 ];
 
 // Ajusta el alto si cambias el tamaño del navbar
@@ -31,7 +37,7 @@ const scrollToId = (id: string) => {
   const el = document.getElementById(id);
   if (!el) return;
   const top = el.getBoundingClientRect().top + window.scrollY - NAV_HEIGHT + 1;
-  window.scrollTo({ top, behavior: "smooth" });
+  window.scrollTo({ top, behavior: 'smooth' });
 };
 
 // ──────────────────────────────────────────────────────────────────────────────
@@ -84,7 +90,7 @@ export const NavBar: React.FC = () => {
             onClick={() => scrollToId(id)}
             className={
               `text-lg tracking-wide font-semibold transition-colors hover:text-white/90 ` +
-              (active === id ? "text-white" : "text-white/70")
+              (active === id ? 'text-white' : 'text-white/70')
             }
           >
             {label}
@@ -154,7 +160,7 @@ export const NavBar: React.FC = () => {
       {/* Menú móvil desplegable */}
       <div
         className={`md:hidden transition-[max-height] duration-300 ease-out overflow-hidden bg-blue-950/90 backdrop-blur-md
-                    ${open ? "max-h-96" : "max-h-0"}`}
+                    ${open ? 'max-h-96' : 'max-h-0'}`}
       >
         <div className="mx-auto max-w-7xl px-6 py-3 space-y-2">
           {LINKS.map(({ id, label }) => (
@@ -166,7 +172,8 @@ export const NavBar: React.FC = () => {
               }}
               className={
                 `block w-full text-left py-3 text-white/90 font-semibold tracking-wide rounded-xl
-                 hover:bg-white/5 transition-colors ` + (active === id ? "text-white" : "")
+                 hover:bg-white/5 transition-colors ` +
+                (active === id ? 'text-white' : '')
               }
             >
               {label}
