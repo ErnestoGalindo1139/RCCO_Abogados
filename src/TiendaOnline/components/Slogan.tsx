@@ -1,8 +1,19 @@
+import React from 'react';
 
-export const Slogan = () => {
+export const Slogan = (): React.JSX.Element => {
   return (
-    <div className="flex items-center justify-center bg-blue-50 p-4 rounded-md">
-      <span className="text-2xl font-semibold text-blue-700">Ingeniería Jurídica para tu empresa</span>
-    </div>
-  )
-}
+    <figure className="mx-auto max-w-3xl px-4 py-8 text-center">
+      <blockquote className="text-xl sm:text-2xl md:text-3xl lg:text-4xl leading-relaxed tracking-tight">
+        <span className="font-serif">“Ingeniería </span>
+        <span className="text-blue-600 font-semibold font-serif">
+          Jurídica
+        </span>{' '}
+        <span className="font-serif">para tu empresa”</span>
+      </blockquote>
+
+      <figcaption className="mt-6 text-base md:text-lg text-gray-600 w-full text-center md:text-right font-serif">
+        — RCCO
+      </figcaption>
+    </figure>
+  );
+};
