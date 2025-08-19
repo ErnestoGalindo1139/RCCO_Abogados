@@ -40,7 +40,17 @@ const scrollToId = (id: string) => {
 export const NavBar: React.FC = () => {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState<string>(LINKS[0].id);
+  const [isScrolled, setIsScrolled] = useState(false);
   const observerRef = useRef<IntersectionObserver | null>(null);
+
+  // Detectar scroll para cambiar el fondo del navbar
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Scrollspy (resalta el item según la sección visible)
   useEffect(() => {
@@ -110,12 +120,16 @@ export const NavBar: React.FC = () => {
       {/* Capa de fondo con blur (sobre imagen hero azul de referencia) */}
       <div className="w-full">
         <div
-          className="h-[72px] flex items-center justify-between px-8 
-                     bg-blue-900 backdrop-blur-md shadow-sm ring-1 ring-white/10"
+          className={`h-[72px] flex items-center justify-between px-8 transition-colors duration-300 ${
+            isScrolled
+              ? "bg-blue-900 backdrop-blur-md shadow-sm ring-1 ring-white/10"
+              : "bg-transparent"
+          }`}
         >
           {/* Logo */}
-          <button onClick={() => scrollToId("inicio")} className="flex items-center gap-3">
-            <span className="text-3xl font-extrabold tracking-widest text-white">RCCO</span>
+          <button onClick={() => scrollToId("inicio")} className="flex items-center gap-3 w-28">
+            {/* <span className="text-3xl font-extrabold tracking-widest text-white">RCCO</span> */}
+            <img src="/img/logoSinFondo.jpeg" alt="" width={100} height={100}/>
           </button>
 
           {/* Links escritorio */}
