@@ -19,14 +19,6 @@ const LINKS = [
   { id: 'blog', label: 'BLOG' },
 ];
 
-const SOCIALS = [
-  { href: 'https://www.facebook.com/', label: 'Facebook', Icon: FaFacebook },
-  { href: 'https://www.instagram.com/', label: 'Instagram', Icon: FaInstagram },
-  //   { href: "https://wa.me/521234567890", label: "WhatsApp", Icon: FaWhatsapp  },
-  { href: 'https://www.tiktok.com', label: 'Tiktok', Icon: FaTiktok },
-  { href: 'https://www.youtube.com', label: 'YouTube', Icon: FaYoutube },
-];
-
 // Ajusta el alto si cambias el tamaño del navbar
 const NAV_HEIGHT = 72; // px
 
@@ -47,16 +39,41 @@ export const NavBar: React.FC = () => {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState<string>(LINKS[0].id);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [bannerHeight, setBannerHeight] = useState(0);
+  const [isBannerVisible, setIsBannerVisible] = useState(true);
   const observerRef = useRef<IntersectionObserver | null>(null);
+
+  // Obtener altura del Banner cuando el componente se monta
+  useEffect(() => {
+    const getBannerHeight = () => {
+      const bannerElement = document.getElementById('inicio');
+      if (bannerElement) {
+        setBannerHeight(bannerElement.offsetHeight);
+      }
+    };
+    
+    // Ejecutar inmediatamente y también en resize para ajustar si cambia la altura
+    getBannerHeight();
+    window.addEventListener('resize', getBannerHeight);
+    
+    return () => window.removeEventListener('resize', getBannerHeight);
+  }, []);
 
   // Detectar scroll para cambiar el fondo del navbar
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
+      // Solo cambiar a azul cuando pase la altura del banner
+      const scrolledPastBanner = window.scrollY >= bannerHeight - NAV_HEIGHT;
+      setIsScrolled(scrolledPastBanner);
+      setIsBannerVisible(!scrolledPastBanner);
     };
+    
     window.addEventListener("scroll", handleScroll);
+    // Ejecutar una vez al inicio para establecer el estado correcto
+    handleScroll();
+    
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [bannerHeight]);
 
   // Scrollspy (resalta el item según la sección visible)
   useEffect(() => {
@@ -101,101 +118,90 @@ export const NavBar: React.FC = () => {
     [active]
   );
 
-  const SocialButtons = useMemo(
-    () => (
-      <div className="hidden md:flex items-center gap-3">
-        {SOCIALS.map(({ href, label, Icon }) => (
-          <a
-            key={label}
-            href={href}
-            target="_blank"
-            rel="noreferrer noopener"
-            aria-label={label}
-            className="p-2 rounded-full ring-1 ring-white/15 hover:ring-white/40 transition-all hover:scale-[1.03]"
-          >
-            <Icon className="size-5 text-white" />
-          </a>
-        ))}
-      </div>
-    ),
-    []
-  );
+
 
   return (
-    <header className="fixed top-0 inset-x-0 z-50">
-      {/* Capa de fondo con blur (sobre imagen hero azul de referencia) */}
-      <div className="w-full">
-        <div
-          className={`h-[72px] flex items-center justify-between px-8 transition-colors duration-300 ${
-            isScrolled
-              ? "bg-blue-900 backdrop-blur-md shadow-sm ring-1 ring-white/10"
-              : "bg-transparent"
-          }`}
-        >
-          {/* Logo */}
-          <button onClick={() => scrollToId("inicio")} className="flex items-center gap-3 w-28">
-            {/* <span className="text-3xl font-extrabold tracking-widest text-white">RCCO</span> */}
-            <img src="/img/logoSinFondo.jpeg" alt="" width={100} height={100}/>
-          </button>
-
-          {/* Links escritorio */}
-          <div className="flex items-center justify-end gap-6">
-            {DesktopLinks}
-
-            {/* Redes escritorio */}
-            {SocialButtons}
-          </div>
-
-          {/* Botón menú móvil (no hay botón de "agendar") */}
-          <button
-            className="md:hidden p-2 text-white"
-            onClick={() => setOpen((v) => !v)}
-            aria-label="Abrir menú"
+    <>
+      <header className="fixed top-0 inset-x-0 z-50">
+        {/* Capa de fondo con blur (sobre imagen hero azul de referencia) */}
+        <div className="w-full">
+          <div
+            className={`h-[72px] flex items-center justify-between px-8 transition-colors duration-300 ${
+              isScrolled
+                ? "bg-blue-900 backdrop-blur-md shadow-sm ring-1 ring-white/10"
+                : "bg-transparent"
+            }`}
           >
-            {open ? <X className="size-6" /> : <Menu className="size-6" />}
-          </button>
-        </div>
-      </div>
-
-      {/* Menú móvil desplegable */}
-      <div
-        className={`md:hidden transition-[max-height] duration-300 ease-out overflow-hidden bg-blue-950/90 backdrop-blur-md
-                    ${open ? 'max-h-96' : 'max-h-0'}`}
-      >
-        <div className="mx-auto max-w-7xl px-6 py-3 space-y-2">
-          {LINKS.map(({ id, label }) => (
-            <button
-              key={id}
-              onClick={() => {
-                scrollToId(id);
-                setOpen(false);
-              }}
-              className={
-                `block w-full text-left py-3 text-white/90 font-semibold tracking-wide rounded-xl
-                 hover:bg-white/5 transition-colors ` +
-                (active === id ? 'text-white' : '')
-              }
-            >
-              {label}
+            {/* Logo */}
+            <button onClick={() => scrollToId("inicio")} className="flex items-center gap-3 w-28">
+              {/* <span className="text-3xl font-extrabold tracking-widest text-white">RCCO</span> */}
+              <img src="/img/logoSinFondo.jpeg" alt="" width={100} height={100}/>
             </button>
-          ))}
 
-          <div className="flex items-center gap-3 pt-2">
-            {SOCIALS.map(({ href, label, Icon }) => (
-              <a
-                key={label}
-                href={href}
-                target="_blank"
-                rel="noreferrer noopener"
-                aria-label={label}
-                className="p-2 rounded-full ring-1 ring-white/15 hover:ring-white/40 transition-all"
-              >
-                <Icon className="size-5 text-white" />
-              </a>
-            ))}
+            {/* Links escritorio */}
+            <div className="flex items-center justify-end gap-6">
+              {DesktopLinks}
+
+              {/* Redes escritorio */}
+              {/* {SocialButtons} */}
+            </div>
+
+            {/* Botón menú móvil (no hay botón de "agendar") */}
+            <button
+              className="md:hidden p-2 text-white"
+              onClick={() => setOpen((v) => !v)}
+              aria-label="Abrir menú"
+            >
+              {open ? <X className="size-6" /> : <Menu className="size-6" />}
+            </button>
           </div>
         </div>
-      </div>
-    </header>
+
+        {/* Menú móvil desplegable */}
+        <div
+          className={`md:hidden transition-[max-height] duration-300 ease-out overflow-hidden bg-blue-950/90 backdrop-blur-md
+                      ${open ? 'max-h-96' : 'max-h-0'}`}
+        >
+          <div className="mx-auto max-w-7xl px-6 py-3 space-y-2">
+            {LINKS.map(({ id, label }) => (
+              <button
+                key={id}
+                onClick={() => {
+                  scrollToId(id);
+                  setOpen(false);
+                }}
+                className={
+                  `block w-full text-left py-3 text-white/90 font-semibold tracking-wide rounded-xl
+                   hover:bg-white/5 transition-colors ` +
+                  (active === id ? 'text-white' : '')
+                }
+              >
+                {label}
+              </button>
+            ))}
+
+            
+          </div>
+        </div>
+      </header>
+
+      {/* Botón flotante de WhatsApp - Visible solo cuando no estamos en el banner */}
+      <a
+        href="https://wa.me/521234567890" // cambia al número real
+        target="_blank"
+        rel="noopener noreferrer"
+        className={`
+          fixed bottom-6 right-6
+          bg-green-500 hover:bg-green-600
+          p-4 rounded-full shadow-lg
+          transition-all 
+          hover:scale-110
+          z-40
+          ${isBannerVisible ? 'opacity-0 pointer-events-none translate-y-10' : 'opacity-100 pointer-events-auto translate-y-0'}
+        `}
+      >
+        <FaWhatsapp className="w-6 h-6 text-white" />
+      </a>
+    </>
   );
 };
