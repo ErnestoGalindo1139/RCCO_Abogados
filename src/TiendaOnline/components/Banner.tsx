@@ -1,11 +1,9 @@
-import { FaFacebook, FaInstagram, FaTiktok, FaYoutube } from 'react-icons/fa';
+import { FaFacebook, FaInstagram } from 'react-icons/fa';
 
 
 const SOCIALS = [
   { href: 'https://www.facebook.com/', label: 'Facebook', Icon: FaFacebook },
-  { href: 'https://www.instagram.com/', label: 'Instagram', Icon: FaInstagram },
-  { href: 'https://www.tiktok.com', label: 'Tiktok', Icon: FaTiktok },
-  { href: 'https://www.youtube.com', label: 'YouTube', Icon: FaYoutube },
+  { href: 'https://www.instagram.com/', label: 'Instagram', Icon: FaInstagram }
 ];
 
 export const Banner = () => {
@@ -47,7 +45,7 @@ export const Banner = () => {
               aria-label={label}
               className="p-1 md:p-2 rounded-full ring-1 ring-white/15 hover:ring-white/40 transition-all hover:scale-[1.03] bg-blue-900/50"
             >
-              <Icon className="size-4 md:size-5 text-white" />
+              <Icon className="size-7 md:size-9 text-white" />
             </a>
           ))}
         </div>

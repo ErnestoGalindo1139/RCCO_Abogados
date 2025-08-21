@@ -127,7 +127,7 @@ export const NavBar: React.FC = () => {
             {/* Logo */}
             <button
               onClick={() => scrollToId('inicio')}
-              className="flex items-center gap-3 w-36 md:w-44"
+              className="flex items-center gap-3 w-40 md:w-48 p-4"
             >
               {/* <span className="text-3xl font-extrabold tracking-widest text-white">RCCO</span> */}
               <img
