@@ -1,23 +1,28 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import { FaWhatsapp } from 'react-icons/fa';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 // ──────────────────────────────────────────────────────────────────────────────
 // Configuración
 // ──────────────────────────────────────────────────────────────────────────────
-const LINKS = [
-  { id: 'inicio', label: 'INICIO' },
-  { id: 'nosotros', label: 'NOSOTROS' },
-  { id: 'servicios', label: 'SERVICIOS' },
-  { id: 'contacto', label: 'CONTACTO' },
-  { id: 'blog', label: 'BLOG' },
+type LinkItem =
+  | { id: string; label: string; type: 'section' }
+  | { id: string; label: string; type: 'route' };
+
+const LINKS: LinkItem[] = [
+  { id: 'inicio', label: 'INICIO', type: 'section' },
+  { id: 'nosotros', label: 'NOSOTROS', type: 'section' },
+  { id: 'servicios', label: 'SERVICIOS', type: 'section' },
+  { id: 'contacto', label: 'CONTACTO', type: 'section' },
+  { id: '/blog', label: 'BLOG', type: 'route' }, // ← ruta independiente
 ];
 
 // Ajusta el alto si cambias el tamaño del navbar
 const NAV_HEIGHT = 72; // px
 
 // ──────────────────────────────────────────────────────────────────────────────
-// Helper: scroll suave con offset
+// Helpers
 // ──────────────────────────────────────────────────────────────────────────────
 const scrollToId = (id: string) => {
   const el = document.getElementById(id);
@@ -31,46 +36,44 @@ const scrollToId = (id: string) => {
 // ──────────────────────────────────────────────────────────────────────────────
 export const NavBar: React.FC = () => {
   const [open, setOpen] = useState(false);
-  const [active, setActive] = useState<string>(LINKS[0].id);
+  const [active, setActive] = useState<string>('inicio');
   const [isScrolled, setIsScrolled] = useState(false);
   const [bannerHeight, setBannerHeight] = useState(0);
   const [isBannerVisible, setIsBannerVisible] = useState(true);
   const observerRef = useRef<IntersectionObserver | null>(null);
 
-  // Obtener altura del Banner cuando el componente se monta
+  const location = useLocation();
+  const navigate = useNavigate();
+  const isHome = location.pathname === '/';
+
+  // Obtener altura del Banner (solo en Home tiene sentido, pero no estorba en /blog)
   useEffect(() => {
     const getBannerHeight = () => {
       const bannerElement = document.getElementById('inicio');
-      if (bannerElement) {
-        setBannerHeight(bannerElement.offsetHeight);
-      }
+      setBannerHeight(bannerElement ? bannerElement.offsetHeight : 0);
     };
-
-    // Ejecutar inmediatamente y también en resize para ajustar si cambia la altura
     getBannerHeight();
     window.addEventListener('resize', getBannerHeight);
-
     return () => window.removeEventListener('resize', getBannerHeight);
   }, []);
 
   // Detectar scroll para cambiar el fondo del navbar
   useEffect(() => {
     const handleScroll = () => {
-      // Solo cambiar a azul cuando pase la altura del banner
       const scrolledPastBanner = window.scrollY >= bannerHeight - NAV_HEIGHT;
       setIsScrolled(scrolledPastBanner);
       setIsBannerVisible(!scrolledPastBanner);
     };
-
     window.addEventListener('scroll', handleScroll);
-    // Ejecutar una vez al inicio para establecer el estado correcto
-    handleScroll();
-
+    handleScroll(); // init
     return () => window.removeEventListener('scroll', handleScroll);
   }, [bannerHeight]);
 
-  // Scrollspy (resalta el item según la sección visible)
+  // Scrollspy (solo en Home)
   useEffect(() => {
+    if (!isHome) return;
+
+    // eslint-disable-next-line no-undef
     const options: IntersectionObserverInit = {
       root: null,
       rootMargin: `-${NAV_HEIGHT + 8}px 0px -60% 0px`,
@@ -84,38 +87,70 @@ export const NavBar: React.FC = () => {
       if (visible?.target?.id) setActive(visible.target.id);
     }, options);
 
-    LINKS.forEach(({ id }) => {
-      const section = document.getElementById(id);
-      if (section) observerRef.current?.observe(section);
+    LINKS.forEach((item) => {
+      if (item.type === 'section') {
+        const section = document.getElementById(item.id);
+        if (section) observerRef.current?.observe(section);
+      }
     });
 
     return () => observerRef.current?.disconnect();
-  }, []);
+  }, [isHome]);
+
+  // Si llegas a "/" con hash (p.ej. "/#servicios"), hace scroll a esa sección
+  useEffect(() => {
+    if (!isHome) return;
+    const hash = location.hash?.replace('#', '');
+    if (hash) setTimeout(() => scrollToId(hash), 0);
+  }, [isHome, location.hash]);
+
+  // Navegación unificada
+  const handleNav = (item: LinkItem) => {
+    if (item.type === 'route') {
+      navigate(item.id);
+      setOpen(false);
+      return;
+    }
+    // Sección
+    if (isHome) {
+      scrollToId(item.id);
+    } else {
+      // Ir al home con hash; el useEffect hará el scroll
+      navigate(`/#${item.id}`);
+    }
+    setOpen(false);
+  };
 
   const DesktopLinks = useMemo(
     () => (
       <nav className="hidden md:flex items-center gap-6">
-        {LINKS.map(({ id, label }) => (
-          <button
-            key={id}
-            onClick={() => scrollToId(id)}
-            className={
-              `text-lg tracking-wide font-semibold transition-colors hover:text-white/90 ` +
-              (active === id ? 'text-white' : 'text-white/70')
-            }
-          >
-            {label}
-          </button>
-        ))}
+        {LINKS.map((item) => {
+          const isActive =
+            item.type === 'route'
+              ? location.pathname === item.id
+              : isHome && active === item.id;
+
+          return (
+            <button
+              key={item.id}
+              onClick={() => handleNav(item)}
+              className={
+                `text-lg tracking-wide font-semibold transition-colors hover:text-white/90 ` +
+                (isActive ? 'text-white' : 'text-white/70')
+              }
+            >
+              {item.label}
+            </button>
+          );
+        })}
       </nav>
     ),
-    [active]
+    [active, isHome, location.pathname]
   );
 
   return (
     <>
       <header className="fixed top-0 inset-x-0 z-50">
-        {/* Capa de fondo con blur (sobre imagen hero azul de referencia) */}
         <div className="w-full">
           <div
             className={`h-[72px] flex items-center justify-between px-8 transition-colors duration-300 ${
@@ -126,10 +161,11 @@ export const NavBar: React.FC = () => {
           >
             {/* Logo */}
             <button
-              onClick={() => scrollToId('inicio')}
+              onClick={() =>
+                handleNav({ id: 'inicio', label: 'INICIO', type: 'section' })
+              }
               className="flex items-center gap-3 w-40 md:w-48 p-4"
             >
-              {/* <span className="text-3xl font-extrabold tracking-widest text-white">RCCO</span> */}
               <img
                 src="/img/logoSinFondo.jpeg"
                 alt="RCCO Logo"
@@ -140,12 +176,11 @@ export const NavBar: React.FC = () => {
             {/* Links escritorio */}
             <div className="flex items-center justify-end gap-6">
               {DesktopLinks}
-
-              {/* Redes escritorio */}
+              {/* Redes escritorio (si las activas después) */}
               {/* {SocialButtons} */}
             </div>
 
-            {/* Botón menú móvil (no hay botón de "agendar") */}
+            {/* Botón menú móvil */}
             <button
               className="md:hidden p-2 text-white"
               onClick={() => setOpen((v) => !v)}
@@ -156,28 +191,32 @@ export const NavBar: React.FC = () => {
           </div>
         </div>
 
-        {/* Menú móvil desplegable */}
+        {/* Menú móvil */}
         <div
           className={`md:hidden transition-[max-height] duration-300 ease-out overflow-hidden bg-blue-950/90 backdrop-blur-md
                       ${open ? 'max-h-96' : 'max-h-0'}`}
         >
           <div className="mx-auto max-w-7xl px-6 py-3 space-y-2">
-            {LINKS.map(({ id, label }) => (
-              <button
-                key={id}
-                onClick={() => {
-                  scrollToId(id);
-                  setOpen(false);
-                }}
-                className={
-                  `block w-full text-left py-3 text-white/90 font-semibold tracking-wide rounded-xl
-                   hover:bg-white/5 transition-colors ` +
-                  (active === id ? 'text-white' : '')
-                }
-              >
-                {label}
-              </button>
-            ))}
+            {LINKS.map((item) => {
+              const isActive =
+                item.type === 'route'
+                  ? location.pathname === item.id
+                  : isHome && active === item.id;
+
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => handleNav(item)}
+                  className={
+                    `block w-full text-left py-3 text-white/90 font-semibold tracking-wide rounded-xl
+                     hover:bg-white/5 transition-colors ` +
+                    (isActive ? 'text-white' : '')
+                  }
+                >
+                  {item.label}
+                </button>
+              );
+            })}
           </div>
         </div>
       </header>
@@ -202,4 +241,3 @@ export const NavBar: React.FC = () => {
     </>
   );
 };
-

@@ -2,7 +2,6 @@ import AreasEspecializadas from '../components/AreasEspecializadas';
 import { Banner } from '../components/Banner';
 import { Footer } from '../components/Footer';
 import { LogoCarousel } from '../components/LogoCarousel';
-import { NavBar } from '../components/NavBar';
 import { Nosotros } from '../components/Nosotros';
 import { NuestroEquipo } from '../components/NuestroEquipo';
 import { Servicios } from '../components/Servicios';
@@ -13,13 +12,12 @@ import { UbicacionComponent } from '../components/Ubicacion';
 export const HomePage = () => {
   return (
     <div>
-      <NavBar />
       <Banner />
       <Servicios />
       <AreasEspecializadas />
-      <Nosotros/>
-      <Valores/>
-      <Slogan/>
+      <Nosotros />
+      <Valores />
+      <Slogan />
       <NuestroEquipo />
       <LogoCarousel
         height={128}
@@ -40,7 +38,6 @@ export const HomePage = () => {
         hours="Lun – Vie 9:00 – 19:00"
         className="bg-background"
       />
-      <Footer />
     </div>
   );
 };
