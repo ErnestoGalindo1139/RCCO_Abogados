@@ -1,12 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { Menu, X, Facebook, Instagram } from 'lucide-react';
-import {
-  FaInstagram,
-  FaWhatsapp,
-  FaFacebook,
-  FaTiktok,
-  FaYoutube,
-} from 'react-icons/fa';
+import { Menu, X } from 'lucide-react';
+import { FaWhatsapp } from 'react-icons/fa';
 
 // ──────────────────────────────────────────────────────────────────────────────
 // Configuración
@@ -51,11 +45,11 @@ export const NavBar: React.FC = () => {
         setBannerHeight(bannerElement.offsetHeight);
       }
     };
-    
+
     // Ejecutar inmediatamente y también en resize para ajustar si cambia la altura
     getBannerHeight();
     window.addEventListener('resize', getBannerHeight);
-    
+
     return () => window.removeEventListener('resize', getBannerHeight);
   }, []);
 
@@ -67,12 +61,12 @@ export const NavBar: React.FC = () => {
       setIsScrolled(scrolledPastBanner);
       setIsBannerVisible(!scrolledPastBanner);
     };
-    
-    window.addEventListener("scroll", handleScroll);
+
+    window.addEventListener('scroll', handleScroll);
     // Ejecutar una vez al inicio para establecer el estado correcto
     handleScroll();
-    
-    return () => window.removeEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener('scroll', handleScroll);
   }, [bannerHeight]);
 
   // Scrollspy (resalta el item según la sección visible)
@@ -118,8 +112,6 @@ export const NavBar: React.FC = () => {
     [active]
   );
 
-
-
   return (
     <>
       <header className="fixed top-0 inset-x-0 z-50">
@@ -128,14 +120,22 @@ export const NavBar: React.FC = () => {
           <div
             className={`h-[72px] flex items-center justify-between px-8 transition-colors duration-300 ${
               isScrolled
-                ? "bg-blue-900 backdrop-blur-md shadow-sm ring-1 ring-white/10"
-                : "bg-transparent"
+                ? 'bg-blue-900 backdrop-blur-md shadow-sm ring-1 ring-white/10'
+                : 'bg-transparent'
             }`}
           >
             {/* Logo */}
-            <button onClick={() => scrollToId("inicio")} className="flex items-center gap-3 w-28">
+            <button
+              onClick={() => scrollToId('inicio')}
+              className="flex items-center gap-3 w-28"
+            >
               {/* <span className="text-3xl font-extrabold tracking-widest text-white">RCCO</span> */}
-              <img src="/img/logoSinFondo.jpeg" alt="" width={100} height={100}/>
+              <img
+                src="/img/logoSinFondo.jpeg"
+                alt=""
+                width={100}
+                height={100}
+              />
             </button>
 
             {/* Links escritorio */}
@@ -179,8 +179,6 @@ export const NavBar: React.FC = () => {
                 {label}
               </button>
             ))}
-
-            
           </div>
         </div>
       </header>
