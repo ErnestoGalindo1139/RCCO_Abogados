@@ -15,7 +15,7 @@ const LINKS: LinkItem[] = [
   { id: 'nosotros', label: 'NOSOTROS', type: 'section' },
   { id: 'servicios', label: 'SERVICIOS', type: 'section' },
   { id: 'contacto', label: 'CONTACTO', type: 'section' },
-  { id: '/blog', label: 'BLOG', type: 'route' }, // ← ruta independiente
+  { id: 'blog', label: 'BLOG', type: 'route' }, // ← ruta independiente
 ];
 
 // Ajusta el alto si cambias el tamaño del navbar
@@ -59,15 +59,25 @@ export const NavBar: React.FC = () => {
 
   // Detectar scroll para cambiar el fondo del navbar
   useEffect(() => {
+    // En /blog (u otra ruta que no sea "/"), siempre azul y sin escuchar scroll
+    if (!isHome) {
+      setIsScrolled(true); // fuerza fondo azul
+      setIsBannerVisible(false); // como no hay banner, muestra el botón de WhatsApp
+      return; // no suscribas el listener
+    }
+
+    // En Home: comportamiento original
     const handleScroll = () => {
       const scrolledPastBanner = window.scrollY >= bannerHeight - NAV_HEIGHT;
       setIsScrolled(scrolledPastBanner);
       setIsBannerVisible(!scrolledPastBanner);
     };
+
     window.addEventListener('scroll', handleScroll);
     handleScroll(); // init
+
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [bannerHeight]);
+  }, [bannerHeight, isHome]);
 
   // Scrollspy (solo en Home)
   useEffect(() => {
