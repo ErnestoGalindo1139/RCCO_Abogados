@@ -1,4 +1,4 @@
-// components/blog/Pagination.tsx
+// src/app/components/blog/Pagination.tsx
 import React from 'react';
 
 export const Pagination: React.FC<{
