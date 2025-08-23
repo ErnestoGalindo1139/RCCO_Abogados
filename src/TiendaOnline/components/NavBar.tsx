@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import { FaWhatsapp } from 'react-icons/fa';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { LuClock2, LuFacebook, LuInstagram, LuMail } from 'react-icons/lu';
 
 // ──────────────────────────────────────────────────────────────────────────────
 // Configuración
@@ -201,34 +202,91 @@ export const NavBar: React.FC = () => {
           </div>
         </div>
 
-        {/* Menú móvil */}
-        <div
-          className={`md:hidden transition-[max-height] duration-300 ease-out overflow-hidden bg-blue-950/90 backdrop-blur-md
-                      ${open ? 'max-h-96' : 'max-h-0'}`}
+        {/* Menú móvil deslizable (slider) */}
+        <div 
+          className={`md:hidden fixed top-0 right-0 h-full w-3/4 max-w-sm bg-blue-900 shadow-xl 
+                      transform transition-transform duration-300 ease-in-out z-50
+                      ${open ? 'translate-x-0' : 'translate-x-full'}`}
         >
-          <div className="mx-auto max-w-7xl px-6 py-3 space-y-2">
-            {LINKS.map((item) => {
-              const isActive =
-                item.type === 'route'
-                  ? location.pathname === item.id
-                  : isHome && active === item.id;
-
-              return (
-                <button
-                  key={item.id}
-                  onClick={() => handleNav(item)}
-                  className={
-                    `block w-full text-left py-3 text-white/90 font-semibold tracking-wide rounded-xl
-                     hover:bg-white/5 transition-colors ` +
-                    (isActive ? 'text-white' : '')
-                  }
-                >
-                  {item.label}
-                </button>
-              );
-            })}
+          <div className="flex flex-col h-full">
+            {/* Cabecera del slider */}
+            <div className="flex justify-between items-center p-4 border-b border-blue-800">
+              <span className="text-xl font-bold text-white">Menú</span>
+              <button 
+                onClick={() => setOpen(false)}
+                className="p-2 text-white rounded-full hover:bg-blue-800"
+              >
+                <X className="size-6" />
+              </button>
+            </div>
+            
+            {/* Contenido del slider */}
+            <div className="flex-1 overflow-y-auto">
+              <div className="p-4 space-y-1">
+                {LINKS.map(({ id, label }) => (
+                  <button
+                    key={id}
+                    onClick={() => {
+                      scrollToId(id);
+                      setOpen(false);
+                    }}
+                    className={`
+                      block w-full text-left py-4 px-3 text-white/90 font-semibold tracking-wide
+                      rounded-lg transition-colors border-l-4
+                      ${active === id 
+                        ? 'border-white bg-blue-800/50 text-white' 
+                        : 'border-transparent hover:bg-blue-800/30'}
+                    `}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+            </div>
+            
+            {/* Footer del slider con contacto */}
+            <div className="p-4 border-t border-blue-800">
+              <div className="space-y-3">
+                <div className="flex items-center space-x-2 text-white/80">
+                  <LuMail className="size-5" />
+                  <a href="mailto:contacto@rccoabogados.com.mx" className="text-sm hover:text-white">
+                    contacto@rccoabogados.com.mx
+                  </a>
+                </div>
+                <div className="flex items-center space-x-2 text-white/80">
+                  <LuClock2 className="size-5" />
+                  <p className="text-sm">Lunes a Viernes, 9:00 - 17:00</p>
+                </div>
+                <div className="flex items-center space-x-2 text-white/80">
+                  <FaWhatsapp className="size-5" />
+                  <p className="text-sm font-semibold">+52 669-2291-634</p>
+                </div>
+                
+                {/* Redes sociales */}
+                <div className="flex justify-start space-x-4 pt-2">
+                  <a href="#" className="text-white/80 hover:text-white">
+                    <LuFacebook className="size-6" />
+                  </a>
+                  <a href="#" className="text-white/80 hover:text-white">
+                    <FaWhatsapp className="size-6" />
+                  </a>
+                  <a href="#" className="text-white/80 hover:text-white">
+                    <LuInstagram className="size-6" />
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+        
+        {/* Overlay para cerrar al tocar fuera del slider */}
+        {open && (
+          <div 
+            className="fixed inset-0 bg-black/50 md:hidden z-40"
+            onClick={() => setOpen(false)}
+            aria-hidden="true"
+          />
+        )}
       </header>
 
       {/* Botón flotante de WhatsApp - Visible solo cuando no estamos en el banner */}
