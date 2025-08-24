@@ -35,7 +35,15 @@ const scrollToId = (id: string) => {
 // ──────────────────────────────────────────────────────────────────────────────
 // Componente: Navbar
 // ──────────────────────────────────────────────────────────────────────────────
-export const NavBar: React.FC = () => {
+interface NavBarProps {
+  scrollBackground?: boolean;
+  lockScrollOnOpen?: boolean;
+}
+
+export const NavBar: React.FC<NavBarProps> = ({ 
+  scrollBackground = false,
+  lockScrollOnOpen = true
+}) => {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState<string>('inicio');
   const [isScrolled, setIsScrolled] = useState(false);
@@ -59,12 +67,18 @@ export const NavBar: React.FC = () => {
   }, []);
 
   // Detectar scroll para cambiar el fondo del navbar
+  // Controla el fondo y visibilidad del banner
   useEffect(() => {
+    if (scrollBackground) {
+      setIsScrolled(false);
+      setIsBannerVisible(true);
+      return;
+    }
     // En /blog (u otra ruta que no sea "/"), siempre azul y sin escuchar scroll
     if (!isHome) {
       setIsScrolled(true); // fuerza fondo azul
       setIsBannerVisible(false); // como no hay banner, muestra el botón de WhatsApp
-      return; // no suscribas el listener
+      return;
     }
 
     // En Home: comportamiento original
@@ -77,8 +91,43 @@ export const NavBar: React.FC = () => {
     window.addEventListener('scroll', handleScroll);
     handleScroll(); // init
 
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [bannerHeight, isHome]);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [bannerHeight, isHome, scrollBackground]);
+
+  // Controla el scroll del body cuando el slider está abierto
+  useEffect(() => {
+    // Si lockScrollOnOpen es false, no bloquear el scroll
+    if (!lockScrollOnOpen) return;
+    
+    // Crear estilo una vez si no existe
+    if (!document.getElementById('scroll-lock-style')) {
+      const style = document.createElement('style');
+      style.id = 'scroll-lock-style';
+      style.innerHTML = `
+        .body-scroll-lock {
+          overflow: hidden !important;
+          height: 100% !important;
+          width: 100% !important;
+          position: fixed !important;
+        }
+      `;
+      document.head.appendChild(style);
+    }
+    
+    // Aplicar o remover la clase según si el slider está abierto
+    if (open) {
+      document.body.classList.add('body-scroll-lock');
+    } else {
+      document.body.classList.remove('body-scroll-lock');
+    }
+    
+    // Cleanup al desmontar
+    return () => {
+      document.body.classList.remove('body-scroll-lock');
+    };
+  }, [open, lockScrollOnOpen]);
 
   // Scrollspy (solo en Home)
   useEffect(() => {
