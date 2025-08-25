@@ -25,7 +25,7 @@ const NAV_HEIGHT = 72; // px
 // ──────────────────────────────────────────────────────────────────────────────
 // Helpers
 // ──────────────────────────────────────────────────────────────────────────────
-const scrollToId = (id: string) => {
+const scrollToId = (id: string): void => {
   const el = document.getElementById(id);
   if (!el) return;
   const top = el.getBoundingClientRect().top + window.scrollY - NAV_HEIGHT + 1;
@@ -40,9 +40,9 @@ interface NavBarProps {
   lockScrollOnOpen?: boolean;
 }
 
-export const NavBar: React.FC<NavBarProps> = ({ 
+export const NavBar: React.FC<NavBarProps> = ({
   scrollBackground = false,
-  lockScrollOnOpen = true
+  lockScrollOnOpen = true,
 }) => {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState<string>('inicio');
@@ -57,13 +57,13 @@ export const NavBar: React.FC<NavBarProps> = ({
 
   // Obtener altura del Banner (solo en Home tiene sentido, pero no estorba en /blog)
   useEffect(() => {
-    const getBannerHeight = () => {
+    const getBannerHeight = (): void => {
       const bannerElement = document.getElementById('inicio');
       setBannerHeight(bannerElement ? bannerElement.offsetHeight : 0);
     };
     getBannerHeight();
     window.addEventListener('resize', getBannerHeight);
-    return () => window.removeEventListener('resize', getBannerHeight);
+    return (): void => window.removeEventListener('resize', getBannerHeight);
   }, []);
 
   // Detectar scroll para cambiar el fondo del navbar
@@ -82,7 +82,7 @@ export const NavBar: React.FC<NavBarProps> = ({
     }
 
     // En Home: comportamiento original
-    const handleScroll = () => {
+    const handleScroll = (): void => {
       const scrolledPastBanner = window.scrollY >= bannerHeight - NAV_HEIGHT;
       setIsScrolled(scrolledPastBanner);
       setIsBannerVisible(!scrolledPastBanner);
@@ -91,42 +91,29 @@ export const NavBar: React.FC<NavBarProps> = ({
     window.addEventListener('scroll', handleScroll);
     handleScroll(); // init
 
-    return () => {
+    return (): void => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, [bannerHeight, isHome, scrollBackground]);
-
   // Controla el scroll del body cuando el slider está abierto
   useEffect(() => {
-    // Si lockScrollOnOpen es false, no bloquear el scroll
     if (!lockScrollOnOpen) return;
-    
-    // Crear estilo una vez si no existe
-    if (!document.getElementById('scroll-lock-style')) {
-      const style = document.createElement('style');
-      style.id = 'scroll-lock-style';
-      style.innerHTML = `
-        .body-scroll-lock {
-          overflow: hidden !important;
-          height: 100% !important;
-          width: 100% !important;
-          position: fixed !important;
-        }
-      `;
-      document.head.appendChild(style);
-    }
-    
-    // Aplicar o remover la clase según si el slider está abierto
+
     if (open) {
-      document.body.classList.add('body-scroll-lock');
+      const scrollY = window.scrollY;
+      document.body.dataset.scrollPosition = scrollY.toString();
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = '100%';
     } else {
-      document.body.classList.remove('body-scroll-lock');
+      const scrollY = Number(document.body.dataset.scrollPosition || '0');
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      window.scrollTo(0, scrollY);
     }
-    
-    // Cleanup al desmontar
-    return () => {
-      document.body.classList.remove('body-scroll-lock');
-    };
   }, [open, lockScrollOnOpen]);
 
   // Scrollspy (solo en Home)
@@ -163,22 +150,27 @@ export const NavBar: React.FC<NavBarProps> = ({
     const hash = location.hash?.replace('#', '');
     if (hash) setTimeout(() => scrollToId(hash), 0);
   }, [isHome, location.hash]);
-
   // Navegación unificada
-  const handleNav = (item: LinkItem) => {
-    if (item.type === 'route') {
-      navigate(item.id);
+  const handleNav = (item: LinkItem): void => {
+    const performNavigation = (): void => {
+      if (item.type === 'route') {
+        navigate(`/${item.id}`);
+        return;
+      }
+
+      if (isHome) {
+        scrollToId(item.id);
+      } else {
+        navigate(`/#${item.id}`);
+      }
+    };
+
+    if (open) {
       setOpen(false);
-      return;
-    }
-    // Sección
-    if (isHome) {
-      scrollToId(item.id);
+      setTimeout(performNavigation, 300);
     } else {
-      // Ir al home con hash; el useEffect hará el scroll
-      navigate(`/#${item.id}`);
+      performNavigation();
     }
-    setOpen(false);
   };
 
   const DesktopLinks = useMemo(
@@ -187,7 +179,7 @@ export const NavBar: React.FC<NavBarProps> = ({
         {LINKS.map((item) => {
           const isActive =
             item.type === 'route'
-              ? location.pathname === item.id
+              ? location.pathname === `/${item.id}`
               : isHome && active === item.id;
 
           return (
@@ -205,7 +197,7 @@ export const NavBar: React.FC<NavBarProps> = ({
         })}
       </nav>
     ),
-    [active, isHome, location.pathname]
+    [active, isHome, location.pathname, handleNav]
   );
 
   return (
@@ -252,7 +244,7 @@ export const NavBar: React.FC<NavBarProps> = ({
         </div>
 
         {/* Menú móvil deslizable (slider) */}
-        <div 
+        <div
           className={`md:hidden fixed top-0 right-0 h-full w-3/4 max-w-sm bg-blue-900 shadow-xl 
                       transform transition-transform duration-300 ease-in-out z-50
                       ${open ? 'translate-x-0' : 'translate-x-full'}`}
@@ -268,31 +260,34 @@ export const NavBar: React.FC<NavBarProps> = ({
                 <X className="size-6" />
               </button>
             </div>
-            
+
             {/* Contenido del slider */}
             <div className="flex-1 overflow-y-auto">
               <div className="p-4 space-y-1">
-                {LINKS.map(({ id, label }) => (
-                  <button
-                    key={id}
-                    onClick={() => {
-                      scrollToId(id);
-                      setOpen(false);
-                    }}
-                    className={`
-                      block w-full text-left py-4 px-3 text-white/90 font-semibold tracking-wide
-                      rounded-lg transition-colors border-l-4
-                      ${active === id 
-                        ? 'border-white bg-blue-800/50 text-white' 
-                        : 'border-transparent hover:bg-blue-800/30'}
-                    `}
-                  >
-                    {label}
-                  </button>
-                ))}
+                {LINKS.map((item) => {
+                  const isActive = item.type === 'route'
+                    ? location.pathname === `/${item.id}`
+                    : isHome && active === item.id;
+
+                  return (
+                    <button
+                      key={item.id}
+                      onClick={() => handleNav(item)}
+                      className={`
+                        block w-full text-left py-4 px-3 text-white/90 font-semibold tracking-wide
+                        rounded-lg transition-colors border-l-4
+                        ${isActive 
+                          ? 'border-white bg-blue-800/50 text-white' 
+                          : 'border-transparent hover:bg-blue-800/30'}
+                      `}
+                    >
+                      {item.label}
+                    </button>
+                  );
+                })}
               </div>
             </div>
-            
+
             {/* Footer del slider con contacto */}
             <div className="p-4 border-t border-blue-800">
               <div className="space-y-3">
@@ -310,7 +305,7 @@ export const NavBar: React.FC<NavBarProps> = ({
                   <FaWhatsapp className="size-5" />
                   <p className="text-sm font-semibold">+52 669-2291-634</p>
                 </div>
-                
+
                 {/* Redes sociales */}
                 <div className="flex justify-start space-x-4 pt-2">
                   <a href="#" className="text-white/80 hover:text-white">
@@ -327,10 +322,10 @@ export const NavBar: React.FC<NavBarProps> = ({
             </div>
           </div>
         </div>
-        
+
         {/* Overlay para cerrar al tocar fuera del slider */}
         {open && (
-          <div 
+          <div
             className="fixed inset-0 bg-black/50 md:hidden z-40"
             onClick={() => setOpen(false)}
             aria-hidden="true"
