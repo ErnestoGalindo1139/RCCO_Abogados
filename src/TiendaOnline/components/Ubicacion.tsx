@@ -21,7 +21,7 @@ type Props = {
 };
 
 export const UbicacionComponent: React.FC<Props> = ({
-  title = 'Nuestra ubicación',
+  title = 'Información de Contacto',
   address,
   lat,
   lng,
@@ -54,7 +54,7 @@ export const UbicacionComponent: React.FC<Props> = ({
       id="ubicacion"
       className={`scroll-mt-28 py-16 sm:py-[8rem] bg-neutral-50 ${className}`}
     >
-      <div className="mx-auto max-w-[64%] px-4 sm:px-6">
+      <div className="mx-auto max-w-[90%] md:max-w-[64%] px-4 sm:px-6">
         <header className="mb-10">
           <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-neutral-900">
             {title}

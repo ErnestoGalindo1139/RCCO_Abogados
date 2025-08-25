@@ -41,7 +41,7 @@ export const SECTORES: readonly Sector[] = [
   },
   {
     id: 'hidrocarburos',
-    titulo: 'Industria de Hidrocarburos',
+    titulo: 'Hotelería y Turismo',
     icon: Droplet,
     colorA: '#7DD3FC',
     colorB: '#0EA5E9',
@@ -99,7 +99,7 @@ export const SECTORES: readonly Sector[] = [
   },
   {
     id: 'discografica',
-    titulo: 'Industria Discográfica',
+    titulo: 'Industria de Entretenimiento',
     icon: Disc,
     colorA: '#F472B6',
     colorB: '#EC4899',
