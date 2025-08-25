@@ -11,14 +11,14 @@ export const Banner = () => {
     <section id="inicio" className="">
       <div className="relative w-full h-[100vh]">
         {/* Imagen de fondo */}
-        <img 
-          src="/img/BannerDemo.jpg" 
-          alt="Banner Image" 
-          className="object-cover w-full h-full" 
+        <img
+          src="/img/BannerDemo.jpg"
+          alt="Banner Image"
+          className="object-cover w-full h-full"
         />
         {/* Capa de superposición azul */}
         <div className="absolute inset-0 bg-blue-900 opacity-85"></div>
-        
+
         {/* Contenido del banner con estilos responsivos */}
         <div className="absolute inset-0 flex flex-col items-center md:items-start justify-center px-6 md:px-20">
           <div className="text-center md:text-left max-w-full">
@@ -33,9 +33,9 @@ export const Banner = () => {
             </button>
           </div>
         </div>
-        
+
         {/* Social Icons - Responsive positioning */}
-        <div className="absolute bottom-8 md:bottom-16 lg:bottom-24 right-4 md:right-8 flex items-center gap-2 md:gap-4">
+        <div className="absolute bottom-4 md:bottom-8 lg:bottom-10 right-4 md:right-8 flex items-center gap-2 md:gap-4">
           {SOCIALS.map(({ href, label, Icon }) => (
             <a
               key={label}
