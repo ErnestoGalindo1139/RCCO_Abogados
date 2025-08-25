@@ -154,8 +154,16 @@ export const Servicios: React.FC = () => {
   return (
     <section
       id="servicios"
-      className="w-full bg-gradient-to-br from-[#0b4db0] via-[#0a58ca] to-[#0b63d3] py-[4rem] px-4"
+      className="relative w-full overflow-hidden py-[4rem] px-4"
+      style={{
+        backgroundImage: `
+          linear-gradient(to bottom, #0A1931 0%, #0E2A73 50%, #081630 100%),
+          radial-gradient(600px at 75% 60%, rgba(59,130,246,0.25), transparent 70%)
+        `,
+        backgroundBlendMode: 'overlay, normal',
+      }}
     >
+
       <div className="max-w-[80%] mx-auto">
         <h2 className="text-center text-white text-3xl md:text-5xl font-bold mb-[6rem]">
           Servicios Legales
@@ -239,7 +247,7 @@ export const Servicios: React.FC = () => {
                             )
                           }
                           className="
-                            h-full aspect-[5/4]  /* <- mismo tamaño */
+                            h-full md:aspect-[4/4] 2xl:aspect-[5/4]  /* <- mismo tamaño */
                             group rounded-2xl px-6 py-10 text-white
                             bg-[#0b3ea6] hover:bg-[#0840b0]
                             ring-1 ring-white/10
