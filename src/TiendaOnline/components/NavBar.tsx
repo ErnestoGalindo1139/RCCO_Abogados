@@ -15,7 +15,7 @@ const LINKS: LinkItem[] = [
   { id: 'inicio', label: 'INICIO', type: 'section' },
   { id: 'nosotros', label: 'NOSOTROS', type: 'section' },
   { id: 'servicios', label: 'SERVICIOS', type: 'section' },
-  { id: 'contacto', label: 'CONTACTO', type: 'section' },
+  { id: 'ubicacion', label: 'CONTACTO', type: 'section' },
   { id: 'blog', label: 'BLOG', type: 'route' }, // ← ruta independiente
 ];
 
@@ -57,13 +57,18 @@ export const NavBar: React.FC<NavBarProps> = ({
 
   // Obtener altura del Banner (solo en Home tiene sentido, pero no estorba en /blog)
   useEffect(() => {
+    const cleanup = (): void => {
+      window.removeEventListener('resize', getBannerHeight);
+    };
+
     const getBannerHeight = (): void => {
       const bannerElement = document.getElementById('inicio');
       setBannerHeight(bannerElement ? bannerElement.offsetHeight : 0);
     };
+
     getBannerHeight();
     window.addEventListener('resize', getBannerHeight);
-    return (): void => window.removeEventListener('resize', getBannerHeight);
+    return cleanup;
   }, []);
 
   // Detectar scroll para cambiar el fondo del navbar
@@ -117,22 +122,23 @@ export const NavBar: React.FC<NavBarProps> = ({
   }, [open, lockScrollOnOpen]);
 
   // Scrollspy (solo en Home)
+  const observerCallback = (entries: IntersectionObserverEntry[]): void => {
+    const visible = entries
+      .filter((e) => e.isIntersecting)
+      .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+    if (visible?.target?.id) setActive(visible.target.id);
+  };
+
   useEffect(() => {
     if (!isHome) return;
 
-    // eslint-disable-next-line no-undef
-    const options: IntersectionObserverInit = {
+    const options = {
       root: null,
       rootMargin: `-${NAV_HEIGHT + 8}px 0px -60% 0px`,
       threshold: [0, 0.25, 0.5, 0.75, 1],
     };
 
-    observerRef.current = new IntersectionObserver((entries) => {
-      const visible = entries
-        .filter((e) => e.isIntersecting)
-        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-      if (visible?.target?.id) setActive(visible.target.id);
-    }, options);
+    observerRef.current = new IntersectionObserver(observerCallback, options);
 
     LINKS.forEach((item) => {
       if (item.type === 'section') {
@@ -141,22 +147,30 @@ export const NavBar: React.FC<NavBarProps> = ({
       }
     });
 
-    return () => observerRef.current?.disconnect();
+    return (): void => {
+      observerRef.current?.disconnect();
+    };
   }, [isHome]);
 
   // Si llegas a "/" con hash (p.ej. "/#servicios"), hace scroll a esa sección
   useEffect(() => {
     if (!isHome) return;
     const hash = location.hash?.replace('#', '');
-    if (hash) setTimeout(() => scrollToId(hash), 0);
+    if (hash) {
+      setActive(hash); // Actualizar el estado active con el hash
+      setTimeout(() => scrollToId(hash), 0);
+    }
   }, [isHome, location.hash]);
-  // Navegación unificada
+
   const handleNav = (item: LinkItem): void => {
     const performNavigation = (): void => {
       if (item.type === 'route') {
         navigate(`/${item.id}`);
         return;
       }
+
+      // Actualizar el estado active inmediatamente para la UI
+      setActive(item.id);
 
       if (isHome) {
         scrollToId(item.id);
@@ -172,7 +186,6 @@ export const NavBar: React.FC<NavBarProps> = ({
       performNavigation();
     }
   };
-
   const DesktopLinks = useMemo(
     () => (
       <nav className="hidden md:flex items-center gap-6">
@@ -186,10 +199,10 @@ export const NavBar: React.FC<NavBarProps> = ({
             <button
               key={item.id}
               onClick={() => handleNav(item)}
-              className={
-                `text-lg tracking-wide font-semibold transition-colors hover:text-white/90 ` +
-                (isActive ? 'text-white' : 'text-white/70')
-              }
+              className={`
+                text-lg tracking-wide font-semibold transition-colors 
+                hover:text-white/90 ${isActive ? 'text-white' : 'text-white/70'}
+              `}
             >
               {item.label}
             </button>
@@ -197,7 +210,7 @@ export const NavBar: React.FC<NavBarProps> = ({
         })}
       </nav>
     ),
-    [active, isHome, location.pathname, handleNav]
+    [active, isHome, location.pathname, navigate, handleNav]
   );
 
   return (
