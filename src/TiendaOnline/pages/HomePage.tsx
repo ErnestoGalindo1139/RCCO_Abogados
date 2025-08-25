@@ -13,12 +13,12 @@ export const HomePage = () => {
   return (
     <div>
       <Banner />
-      <Servicios />
-      <AreasEspecializadas />
       <Nosotros />
       <Valores />
       <Slogan />
       <NuestroEquipo />
+      <Servicios />
+      <AreasEspecializadas />
       <LogoCarousel
         height={128}
         gap={1}
@@ -29,7 +29,7 @@ export const HomePage = () => {
         title="Nuestros Clientes confían en nosotros"
       />
       <UbicacionComponent
-        title="Nuestra ubicación"
+        title="Información de Contacto"
         address="Av. del Mar 123, Mazatlán, Sinaloa, México"
         lat={23.2377259}
         lng={-106.4303041}
