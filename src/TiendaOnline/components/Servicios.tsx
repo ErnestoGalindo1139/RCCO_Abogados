@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import useEmblaCarousel, { EmblaCarouselType } from 'embla-carousel-react';
+import useEmblaCarousel from 'embla-carousel-react';
+import type { EmblaCarouselType } from 'embla-carousel';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Scale,
@@ -12,6 +13,8 @@ import {
   ChevronRight,
   X,
 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+import { TFunction } from 'i18next';
 
 // ──────────────────────────────────────────────────────────────────────────────
 // Tipos y datos
@@ -24,72 +27,38 @@ type Servicio = {
   bullets: string[];
 };
 
-const DATA: Servicio[] = [
-  {
-    id: 'laboral',
-    titulo: 'Materia Laboral',
-    icon: <Scale className="w-7 h-7" />,
-    resumen:
-      'Asesoría integral para relaciones laborales individuales y colectivas.',
-    bullets: [
-      'Contratos y cumplimiento',
-      'Litigio y conciliación',
-      'Auditorías laborales',
-    ],
-  },
-  {
-    id: 'mercantil',
-    titulo: 'Materia Mercantil',
-    icon: <BriefcaseBusiness className="w-7 h-7" />,
-    resumen:
-      'Operaciones comerciales, contratos y resolución de controversias.',
-    bullets: ['Contratos mercantiles', 'Cobranza judicial', 'Arbitraje'],
-  },
-  {
-    id: 'societario',
-    titulo: 'Derecho Societario',
-    icon: <Building2 className="w-7 h-7" />,
-    resumen: 'Gobierno corporativo y cumplimiento regulatorio.',
-    bullets: [
-      'Constitución y fusiones',
-      'Actas y libros',
-      'Secretaría corporativa',
-    ],
-  },
-  {
-    id: 'inmobiliario',
-    titulo: 'Derecho Inmobiliario',
-    icon: <Home className="w-7 h-7" />,
-    resumen: 'Transacciones y regularización de inmuebles.',
-    bullets: [
-      'Compraventas y arrendamientos',
-      'Debida diligencia',
-      'Fideicomisos',
-    ],
-  },
-  {
-    id: 'planeacion',
-    titulo: 'Planeación Patrimonial',
-    icon: <ClipboardCheck className="w-7 h-7" />,
-    resumen: 'Protección y transmisión ordenada del patrimonio.',
-    bullets: [
-      'Testamentos',
-      'Protocolos familiares',
-      'Fideicomisos patrimoniales',
-    ],
-  },
-  {
-    id: 'financiero',
-    titulo: 'Derecho Financiero',
-    icon: <TrendingUp className="w-7 h-7" />,
-    resumen: 'Instrumentos y regulación del sistema financiero.',
-    bullets: ['Regulación y cumplimiento', 'Estructuras de crédito', 'Fintech'],
-  },
+const ICONS: Record<string, React.ReactNode> = {
+  laboral: <Scale className="w-7 h-7" />,
+  mercantil: <BriefcaseBusiness className="w-7 h-7" />,
+  societario: <Building2 className="w-7 h-7" />,
+  inmobiliario: <Home className="w-7 h-7" />,
+  planeacion: <ClipboardCheck className="w-7 h-7" />,
+  financiero: <TrendingUp className="w-7 h-7" />,
+};
+
+const IDS: string[] = [
+  'laboral',
+  'mercantil',
+  'societario',
+  'inmobiliario',
+  'planeacion',
+  'financiero',
 ];
 
-// Duplicamos para el carrusel
-const servicios = [...DATA, ...DATA];
+const buildServicios = (t: TFunction<'home'>): Servicio[] =>
+  IDS.map(
+    (id): Servicio => ({
+      id,
+      titulo: t(`servicios.items.${id}.title`),
+      icon: ICONS[id],
+      resumen: t(`servicios.items.${id}.summary`),
+      bullets: t(`servicios.items.${id}.bullets`, {
+        returnObjects: true,
+      }) as string[],
+    })
+  );
 
+// Duplicamos para el carrusel
 const chunkArray = <T,>(arr: T[], size: number): T[][] =>
   arr.reduce<T[][]>(
     (acc, _, i) => (i % size ? acc : [...acc, arr.slice(i, i + size)]),
@@ -97,16 +66,16 @@ const chunkArray = <T,>(arr: T[], size: number): T[][] =>
   );
 
 /** Hook: 6 (>=1024px) → 4 (>=640px) → 2 (<640px)  */
-const useResponsiveChunk = () => {
+const useResponsiveChunk = (): number => {
   const [size, setSize] = useState(6);
   useEffect(() => {
-    const compute = () => {
+    const compute = (): void => {
       const w = typeof window !== 'undefined' ? window.innerWidth : 1920;
       setSize(w >= 1024 ? 6 : w >= 640 ? 4 : 2);
     };
     compute();
     window.addEventListener('resize', compute);
-    return () => window.removeEventListener('resize', compute);
+    return (): void => window.removeEventListener('resize', compute);
   }, []);
   return size;
 };
@@ -115,12 +84,19 @@ const useResponsiveChunk = () => {
 // Componente principal
 // ──────────────────────────────────────────────────────────────────────────────
 export const Servicios: React.FC = () => {
+  const { t } = useTranslation('home');
+
+  const DATA = useMemo(() => buildServicios(t), [t]);
+  const servicios = useMemo(() => [...DATA, ...DATA], [DATA]); // duplicado para loop
+
   const chunkSize = useResponsiveChunk();
-  const slides = useMemo(() => chunkArray(servicios, chunkSize), [chunkSize]);
+  const slides = useMemo(
+    () => chunkArray(servicios, chunkSize),
+    [servicios, chunkSize]
+  );
 
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
   const [selectedIndex, setSelectedIndex] = useState(0);
-
   const [activo, setActivo] = useState<Servicio | null>(null);
 
   const onSelect = useCallback((api: EmblaCarouselType) => {
@@ -142,14 +118,15 @@ export const Servicios: React.FC = () => {
 
   // Cerrar con ESC
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setActivo(null);
+    const onKey = (e: KeyboardEvent): boolean | void =>
+      e.key === 'Escape' && setActivo(null);
     window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
+    return (): void => window.removeEventListener('keydown', onKey);
   }, []);
 
-  const scrollTo = (i: number) => emblaApi?.scrollTo(i);
-  const prev = () => emblaApi?.scrollPrev();
-  const next = () => emblaApi?.scrollNext();
+  const scrollTo = (i: number): void => emblaApi?.scrollTo(i);
+  const prev = (): void => emblaApi?.scrollPrev();
+  const next = (): void => emblaApi?.scrollNext();
 
   return (
     <section
@@ -163,10 +140,9 @@ export const Servicios: React.FC = () => {
         backgroundBlendMode: 'overlay, normal',
       }}
     >
-
       <div className="max-w-[80%] mx-auto">
         <h2 className="text-center text-white text-3xl md:text-5xl font-bold mb-[6rem]">
-          Servicios Legales
+          {t('servicios.title')}
         </h2>
 
         {/* Layout 2 columnas */}
@@ -198,8 +174,8 @@ export const Servicios: React.FC = () => {
                     <button
                       onClick={() => setActivo(null)}
                       className="shrink-0 rounded-full p-2 hover:bg-white/10 transition"
-                      aria-label="Cerrar"
-                      title="Cerrar"
+                      aria-label={t('servicios.aria.close')}
+                      title={t('servicios.aria.close') as string}
                     >
                       <X className="w-5 h-5" />
                     </button>
@@ -220,10 +196,7 @@ export const Servicios: React.FC = () => {
                   animate={{ opacity: 1 }}
                   className="rounded-3xl bg-white/5 ring-1 ring-white/10 p-8 text-white/70"
                 >
-                  <p className="text-lg">
-                    Selecciona un servicio a la derecha para ver los detalles
-                    aquí.
-                  </p>
+                  <p className="text-lg">{t('servicios.placeholder')}</p>
                 </motion.div>
               )}
             </AnimatePresence>
@@ -241,13 +214,11 @@ export const Servicios: React.FC = () => {
                           key={`${s.id}-${idx}-${i}`}
                           onClick={() =>
                             setActivo(
-                              DATA.find(
-                                (d) => d.id === s.id.replace(/-\d+$/, '')
-                              ) || DATA[0]
+                              DATA.find((d) => d.id === s.id) || DATA[0]
                             )
                           }
                           className="
-                            h-full md:aspect-[4/4] 2xl:aspect-[5/4]  /* <- mismo tamaño */
+                            h-full md:aspect-[4/4] 2xl:aspect-[5/4]
                             group rounded-2xl px-6 py-10 text-white
                             bg-[#0b3ea6] hover:bg-[#0840b0]
                             ring-1 ring-white/10
@@ -288,7 +259,7 @@ export const Servicios: React.FC = () => {
                 onClick={prev}
                 className="rounded-full p-2 hover:bg-white/10 text-white/90 disabled:opacity-40 transition"
                 disabled={slides.length <= 1}
-                aria-label="Página anterior"
+                aria-label={t('servicios.aria.prev')}
               >
                 <ChevronLeft className="w-6 h-6" />
               </button>
@@ -298,7 +269,9 @@ export const Servicios: React.FC = () => {
                   <button
                     key={i}
                     onClick={() => scrollTo(i)}
-                    aria-label={`Ir a la página ${i + 1}`}
+                    aria-label={
+                      t('servicios.aria.goto', { n: i + 1 }) as string
+                    }
                     className={`h-2.5 w-2.5 rounded-full transition-all ${
                       i === selectedIndex
                         ? 'bg-white'
@@ -312,7 +285,7 @@ export const Servicios: React.FC = () => {
                 onClick={next}
                 className="rounded-full p-2 hover:bg-white/10 text-white/90 disabled:opacity-40 transition"
                 disabled={slides.length <= 1}
-                aria-label="Página siguiente"
+                aria-label={t('servicios.aria.next')}
               >
                 <ChevronRight className="w-6 h-6" />
               </button>
@@ -356,7 +329,7 @@ export const Servicios: React.FC = () => {
                 <button
                   onClick={() => setActivo(null)}
                   className="rounded-full p-2 hover:bg-white/10 transition"
-                  aria-label="Cerrar"
+                  aria-label={t('servicios.aria.close')}
                 >
                   <X className="w-5 h-5" />
                 </button>

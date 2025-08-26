@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Shield, Target } from 'lucide-react';
 import { LuShield, LuTarget } from 'react-icons/lu';
+import { useTranslation } from 'react-i18next';
 
 // ————————————————————————————————————————————————
 // Card con glow azul en el borde + sensación de sobresalir
@@ -11,7 +11,7 @@ const GlowCard: React.FC<React.PropsWithChildren<{ className?: string }>> = ({
 }) => {
   const [pos, setPos] = useState({ x: 0, y: 0 });
 
-  const handleMove = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleMove = (e: React.MouseEvent<HTMLDivElement>): void => {
     const rect = e.currentTarget.getBoundingClientRect();
     setPos({ x: e.clientX - rect.left, y: e.clientY - rect.top });
   };
@@ -44,59 +44,36 @@ const GlowCard: React.FC<React.PropsWithChildren<{ className?: string }>> = ({
 // Sección principal
 // ————————————————————————————————————————————————
 export const Nosotros: React.FC = () => {
+  const { t } = useTranslation('home');
+
   return (
-    <section id="quienes-somos" className="relative py-10 sm:py-14 lg:py-16">
+    <section id="nosotros" className="relative py-10 sm:py-14 lg:py-16">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <GlowCard className="mb-8">
           <h2 className="text-2xl sm:text-3xl font-bold text-blue-700 mb-4">
-            ¿Quiénes somos?
+            {t('nosotros.title')}
           </h2>
 
-          {/* Texto NO MODIFICAR */}
           <div className="space-y-4 text-slate-700 leading-relaxed">
-            <p>
-              Somos una firma de abogados especializada en derecho empresarial,
-              enfocada en la innovación y consolidación de empresas y negocios.
-              Brindamos servicios legales para impulsar y potenciar las ideas de
-              nuestros clientes, alineándonos con su modelo de negocio.
-            </p>
-            <p>
-              Ofrecemos una asesoría jurídica integral bajo un enfoque 360°,
-              basado en instrumentación, estructuración e ingeniería jurídica.
-              Con más de 11 años de experiencia, hemos asesorado y consolidado
-              empresas de diversos sectores, como el financiero, la industria
-              alimentaria, el sector inmobiliario, la construcción, la
-              hotelería, los hidrocarburos, la agricultura y la minería.
-              Ofrecemos servicios legales corporativos tales como derecho civil,
-              mercantil, societario, contractual, laboral, financiero, propiedad
-              industrial e intelectual, planeación patrimonial y cumplimiento en
-              materia de prevención al lavado de dinero.
-            </p>
+            <p>{t('nosotros.p1')}</p>
+            <p>{t('nosotros.p2')}</p>
           </div>
         </GlowCard>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
           <GlowCard>
             <div className="flex items-start gap-3">
-              {/* <span className="flex h-14 w-14 items-center justify-center rounded-full bg-blue-600 shadow-md">
-                <Shield className="h-6 w-6 text-white" />
-              </span> */}
               <div>
                 <div className="flex items-center gap-2">
                   <div className="bg-blue-200 w-10 h-10 flex items-center justify-center rounded-full p-2">
                     <LuShield className="h-full w-full" />
                   </div>
                   <h3 className="text-lg sm:text-xl font-semibold text-blue-700">
-                    Misión
+                    {t('nosotros.mission.title')}
                   </h3>
                 </div>
-                {/* Texto NO MODIFICAR */}
                 <p className="mt-2 text-slate-700 leading-relaxed">
-                  Brindamos servicios legales corporativos especializados para
-                  la consolidación de empresas y negocios en distintos sectores,
-                  con eficiencia y profesionalismo. Aplicamos ingeniería
-                  jurídica para resolver necesidades específicas con soluciones
-                  estratégicas.
+                  {t('nosotros.mission.text')}
                 </p>
               </div>
             </div>
@@ -110,17 +87,11 @@ export const Nosotros: React.FC = () => {
                     <LuTarget className="h-full w-full" />
                   </div>
                   <h3 className="text-lg sm:text-xl font-semibold text-blue-700">
-                    Visión
+                    {t('nosotros.vision.title')}
                   </h3>
                 </div>
-                {/* Texto NO MODIFICAR */}
                 <p className="mt-2 text-slate-700 leading-relaxed">
-                  Ser un referente en la prestación de servicios legales
-                  corporativos, reconocidos por nuestra capacidad para
-                  consolidar y fortalecer empresas y negocios. A través de la
-                  investigación, la innovación, la resolución de problemas y la
-                  adaptabilidad al entorno empresarial, aspiramos a contribuir
-                  al desarrollo económico y social de nuestro país.
+                  {t('nosotros.vision.text')}
                 </p>
               </div>
             </div>

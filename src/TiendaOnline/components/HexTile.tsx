@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Sector } from '../types/Types';
 import { HexSvg } from './HexSvg';
+import type { Sector } from '../types/types';
+import { useTranslation } from 'react-i18next';
 
 export const HexTile: React.FC<{
   sector: Sector;
@@ -9,6 +10,7 @@ export const HexTile: React.FC<{
   onClick: (s: Sector) => void;
 }> = ({ sector, sizeRem, onClick }) => {
   const [hovered, setHovered] = useState(false);
+  const { t } = useTranslation('home');
   const Icon = sector.icon;
 
   return (
@@ -31,7 +33,7 @@ export const HexTile: React.FC<{
           <Icon size={24} />
         </div>
         <span className="text-sm md:text-base font-medium drop-shadow-sm leading-tight">
-          {sector.titulo}
+          {t(`areas.items.${sector.id}.title`)}
         </span>
       </div>
     </motion.button>

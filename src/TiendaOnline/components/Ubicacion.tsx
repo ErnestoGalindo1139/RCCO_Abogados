@@ -8,9 +8,11 @@ import {
   ExternalLink,
   Copy,
 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
-  title?: string;
+  /** Texto o clave i18n para el título; null = ocultar título */
+  title?: string | null;
   address: string;
   lat: number;
   lng: number;
@@ -21,7 +23,7 @@ type Props = {
 };
 
 export const UbicacionComponent: React.FC<Props> = ({
-  title = 'Información de Contacto',
+  title = 'ubicacion.title', // por default usamos la key
   address,
   lat,
   lng,
@@ -30,6 +32,8 @@ export const UbicacionComponent: React.FC<Props> = ({
   hours,
   className = '',
 }) => {
+  const { t } = useTranslation('home');
+
   const [interactive, setInteractive] = useState(false);
   const [loaded, setLoaded] = useState(false);
 
@@ -41,7 +45,7 @@ export const UbicacionComponent: React.FC<Props> = ({
   const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
   const mapsPlaceUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
 
-  const copyAddress = async () => {
+  const copyAddress = async (): Promise<void> => {
     try {
       await navigator.clipboard.writeText(address);
     } catch (error) {
@@ -49,18 +53,25 @@ export const UbicacionComponent: React.FC<Props> = ({
     }
   };
 
+  // 🔑 Título tip-safe: null => ocultar, string => traducir con fallback al literal
+  const computedTitle =
+    title === null ? null : t(title, { defaultValue: title });
+
   return (
     <section
       id="ubicacion"
       className={`scroll-mt-28 py-16 sm:py-[8rem] bg-neutral-50 ${className}`}
+      aria-label={t('ubicacion.aria.section')}
     >
       <div className="mx-auto max-w-[90%] md:max-w-[64%] px-4 sm:px-6">
         <header className="mb-10">
-          <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-neutral-900">
-            {title}
-          </h2>
+          {computedTitle && (
+            <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-neutral-900">
+              {computedTitle}
+            </h2>
+          )}
           <p className="mt-2 text-sm text-neutral-600">
-            Encuéntranos fácilmente y obtén indicaciones en un click.
+            {t('ubicacion.subtitle')}
           </p>
         </header>
 
@@ -75,7 +86,9 @@ export const UbicacionComponent: React.FC<Props> = ({
                     <MapPin className="size-5" />
                   </div>
                   <div>
-                    <h3 className="font-medium text-neutral-900">Dirección</h3>
+                    <h3 className="font-medium text-neutral-900">
+                      {t('ubicacion.address')}
+                    </h3>
                     <p className="text-sm text-neutral-600">{address}</p>
                     <div className="mt-2 flex flex-wrap gap-2">
                       <a
@@ -84,14 +97,16 @@ export const UbicacionComponent: React.FC<Props> = ({
                         target="_blank"
                         rel="noreferrer"
                       >
-                        Ver en Google Maps <ExternalLink className="size-3.5" />
+                        {t('ubicacion.actions.viewOnMaps')}{' '}
+                        <ExternalLink className="size-3.5" />
                       </a>
                       <button
                         onClick={copyAddress}
                         className="inline-flex items-center gap-1 rounded-md border border-neutral-200 px-2 py-1 text-xs hover:bg-neutral-50"
-                        aria-label="Copiar dirección"
+                        aria-label={t('ubicacion.aria.copyAddress')}
                       >
-                        <Copy className="size-3.5" /> Copiar
+                        <Copy className="size-3.5" />{' '}
+                        {t('ubicacion.actions.copy')}
                       </button>
                     </div>
                   </div>
@@ -104,7 +119,9 @@ export const UbicacionComponent: React.FC<Props> = ({
                       <Phone className="size-5" />
                     </div>
                     <div>
-                      <h3 className="font-medium text-neutral-900">Teléfono</h3>
+                      <h3 className="font-medium text-neutral-900">
+                        {t('ubicacion.phone')}
+                      </h3>
                       <a
                         href={`tel:${phone.replace(/\s+/g, '')}`}
                         className="text-sm text-neutral-600 hover:underline underline-offset-4"
@@ -122,8 +139,13 @@ export const UbicacionComponent: React.FC<Props> = ({
                       <Clock className="size-5" />
                     </div>
                     <div>
-                      <h3 className="font-medium text-neutral-900">Horario</h3>
-                      <p className="text-sm text-neutral-600">{hours}</p>
+                      <h3 className="font-medium text-neutral-900">
+                        {t('ubicacion.hours')}
+                      </h3>
+                      <p className="text-sm text-neutral-600">
+                        {t(hours, { defaultValue: hours })}{' '}
+                        {/* 🔑 ahora traduce si es clave */}
+                      </p>
                     </div>
                   </div>
                 )}
@@ -138,7 +160,7 @@ export const UbicacionComponent: React.FC<Props> = ({
                   className="inline-flex items-center gap-2 rounded-lg border border-blue-600/20 bg-blue-600/10 px-4 py-2 text-sm font-medium hover:bg-blue-600/15"
                 >
                   <Navigation className="size-4" />
-                  Cómo llegar
+                  {t('ubicacion.actions.directions')}
                 </a>
                 <a
                   href={mapsPlaceUrl}
@@ -146,7 +168,7 @@ export const UbicacionComponent: React.FC<Props> = ({
                   rel="noreferrer"
                   className="inline-flex items-center gap-2 rounded-lg border border-neutral-200 bg-white px-4 py-2 text-sm hover:bg-neutral-50"
                 >
-                  Abrir en Maps
+                  {t('ubicacion.actions.openMaps')}
                 </a>
               </div>
             </div>
@@ -160,7 +182,7 @@ export const UbicacionComponent: React.FC<Props> = ({
                 <div className="absolute inset-0 animate-pulse bg-neutral-200" />
               )}
 
-              {/* Botón/Hint abajo-izquierda para no chocar con el panel de Google */}
+              {/* Hint abajo-izquierda */}
               <div className="absolute left-3 bottom-3 z-10">
                 <button
                   type="button"
@@ -169,18 +191,18 @@ export const UbicacionComponent: React.FC<Props> = ({
                     interactive ? 'hidden' : 'inline-flex'
                   }`}
                 >
-                  Activar mapa
+                  {t('ubicacion.actions.enableMap')}
                 </button>
                 {interactive && (
                   <span className="rounded-full border border-neutral-200 bg-white px-3 py-1.5 text-[11px] shadow">
-                    En móvil: usa dos dedos para mover el mapa
+                    {t('ubicacion.actions.mobileHint')}
                   </span>
                 )}
               </div>
 
               <iframe
-                title="Mapa de ubicación"
-                aria-label="Mapa de Google con la ubicación del negocio"
+                title={t('ubicacion.aria.mapTitle')}
+                aria-label={t('ubicacion.aria.mapLabel')}
                 className={`absolute inset-0 h-full w-full ${
                   interactive ? 'pointer-events-auto' : 'pointer-events-none'
                 }`}

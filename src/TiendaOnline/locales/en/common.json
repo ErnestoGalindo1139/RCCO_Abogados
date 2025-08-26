@@ -1,0 +1,31 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "services": "Services",
+    "contact": "Contact",
+    "blog": "Blog",
+    "menu": "Menu",
+    "logoAlt": "RCCO Logo"
+  },
+  "actions": {
+    "close": "Close"
+  },
+  "footer": {
+    "cta": {
+      "title": "Looking for someone to help?",
+      "subtitle": "Let us advise you!"
+    },
+    "contact": {
+      "emailAria": "Send email to",
+      "hours": "Mon–Fri, 9:00 AM – 5:00 PM",
+      "writeUs": "Text us:"
+    },
+    "socials": {
+      "facebook": "RCCO on Facebook",
+      "instagram": "RCCO on Instagram",
+      "linkedin": "RCCO on LinkedIn"
+    },
+    "copyright": "All rights reserved."
+  }
+}

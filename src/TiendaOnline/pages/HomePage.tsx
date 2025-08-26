@@ -1,6 +1,4 @@
-import AreasEspecializadas from '../components/AreasEspecializadas';
 import { Banner } from '../components/Banner';
-import { Footer } from '../components/Footer';
 import { LogoCarousel } from '../components/LogoCarousel';
 import { Nosotros } from '../components/Nosotros';
 import { NuestroEquipo } from '../components/NuestroEquipo';
@@ -8,8 +6,10 @@ import { Servicios } from '../components/Servicios';
 import { Slogan } from '../components/Slogan';
 import { Valores } from '../components/Valores';
 import { UbicacionComponent } from '../components/Ubicacion';
+import React from 'react';
+import { AreasEspecializadas } from '../components/AreasEspecializadas';
 
-export const HomePage = () => {
+export const HomePage = (): React.JSX.Element => {
   return (
     <div>
       <Banner />
@@ -26,16 +26,16 @@ export const HomePage = () => {
         direction="left"
         pauseOnHover
         grayscaleOnIdle
-        title="Nuestros Clientes confían en nosotros"
+        title="logos.trustHeadline"
       />
       <UbicacionComponent
-        title="Información de Contacto"
+        title="ubicacion.title"
         address="Av. del Mar 123, Mazatlán, Sinaloa, México"
         lat={23.2377259}
         lng={-106.4303041}
         zoom={16}
         phone="+52 669 229 1634"
-        hours="Lun – Vie 9:00 – 19:00"
+        hours="ubicacion.schedule.week"
         className="bg-background"
       />
     </div>

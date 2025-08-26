@@ -6,52 +6,69 @@ import {
   LuLinkedin,
   LuMail,
 } from 'react-icons/lu';
+import { useTranslation } from 'react-i18next';
 
-export const Footer = (): React.JSX.Element => {
+type FooterProps = {
+  email?: string; // por si lo quieres parametrizar (default: tu correo)
+  phone?: string; // por si cambias el número
+  hoursKeyOrText?: string; // clave o texto literal para el horario (default: footer.contact.hours)
+  company?: string; // nombre para copyright (default: RCCO Abogados)
+};
+
+export const Footer: React.FC<FooterProps> = ({
+  email = 'contacto@rccoabogados.com.mx',
+  phone = '(+52) 669-2291-634',
+  hoursKeyOrText = 'footer.contact.hours',
+  company = 'RCCO Abogados',
+}) => {
+  const { t } = useTranslation('common');
+
+  // Si recibes un literal en hoursKeyOrText, se usa tal cual; si es clave, se traduce.
+  const hoursText = t(hoursKeyOrText, { defaultValue: hoursKeyOrText });
+
   return (
     <footer className="bg-gray-900 text-white py-6 px-4">
       <div className="container mx-auto text-center">
-        {/* Sección superior: Llamada a la acción */}
+        {/* CTA */}
         <div className="mb-4">
           <h3 className="text-2xl md:text-3xl font-semibold mb-2">
-            ¿Estás buscando a alguien que te ayude?
+            {t('footer.cta.title')}
           </h3>
           <p className="text-blue-300 font-bold text-xl md:text-2xl">
-            ¡Permítenos asesorarte!
+            {t('footer.cta.subtitle')}
           </p>
         </div>
 
-        {/* Sección central: Información de contacto */}
+        {/* Contacto */}
         <div className="flex flex-col md:flex-row items-center justify-center space-y-2 md:space-y-0 md:space-x-6 mb-4">
           <div className="flex items-center space-x-2">
             <LuMail />
             <a
-              href="mailto:contacto@rccoabogados.com.mx"
+              href={`mailto:${email}`}
               className="text-base md:text-lg hover:text-blue-300"
+              aria-label={`${t('footer.contact.emailAria')} ${email}`}
             >
-              contacto@rccoabogados.com.mx
+              {email}
             </a>
           </div>
           <div className="flex items-center space-x-2">
             <LuClock2 />
-            <p className="text-base md:text-lg">
-              Lunes a Viernes, de 9:00 a 17:00 hrs.
-            </p>
+            <p className="text-base md:text-lg">{hoursText}</p>
           </div>
           <div className="text-blue-300 font-bold text-xl md:text-2xl">
-            Escríbenos: (+52) 669-2291-634
+            {t('footer.contact.writeUs')} {phone}
           </div>
         </div>
 
-        {/* Sección inferior: Redes sociales */}
+        {/* Redes */}
         <div className="flex justify-center space-x-4 text-4xl mt-4">
           <a
             href="https://www.facebook.com/profile.php?id=100063488083767"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-blue-300"
+            aria-label={t('footer.socials.facebook')}
           >
-            {/* <FontAwesomeIcon icon={faFacebookF} /> */}
             <LuFacebook />
           </a>
           <a
@@ -59,8 +76,8 @@ export const Footer = (): React.JSX.Element => {
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-blue-300"
+            aria-label={t('footer.socials.instagram')}
           >
-            {/* <FontAwesomeIcon icon={faInstagram} /> */}
             <LuInstagram />
           </a>
           <a
@@ -68,19 +85,18 @@ export const Footer = (): React.JSX.Element => {
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-blue-300"
+            aria-label={t('footer.socials.linkedin')}
           >
-            {/* <FontAwesomeIcon icon={faWhatsapp} /> */}
             <LuLinkedin />
           </a>
         </div>
 
-        {/* Línea divisoria sutil */}
+        {/* Línea divisoria */}
         <hr className="border-t border-blue-700 my-4" />
 
-        {/* Derechos de autor (opcional) */}
+        {/* Copyright */}
         <p className="text-md text-blue-400">
-          © {new Date().getFullYear()} RCCO Abogados. Todos los derechos
-          reservados.
+          © {new Date().getFullYear()} {company}. {t('footer.copyright')}
         </p>
       </div>
     </footer>
