@@ -12,9 +12,14 @@ import {
   ChevronLeft,
   ChevronRight,
   X,
+  Copyright,
+  FileSearch,
+  Landmark,
+  FileSignature,
+  ShieldCheck,
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { TFunction } from 'i18next';
+import type { TFunction } from 'i18next';
 
 // ──────────────────────────────────────────────────────────────────────────────
 // Tipos y datos
@@ -28,12 +33,18 @@ type Servicio = {
 };
 
 const ICONS: Record<string, React.ReactNode> = {
-  laboral: <Scale className="w-7 h-7" />,
-  mercantil: <BriefcaseBusiness className="w-7 h-7" />,
-  societario: <Building2 className="w-7 h-7" />,
-  inmobiliario: <Home className="w-7 h-7" />,
-  planeacion: <ClipboardCheck className="w-7 h-7" />,
-  financiero: <TrendingUp className="w-7 h-7" />,
+  laboral: <Scale className="w-7 h-7" />, // Balanza: justicia laboral
+  mercantil: <BriefcaseBusiness className="w-7 h-7" />, // Maletín: negocios
+  societario: <Building2 className="w-7 h-7" />, // Edificio: corporaciones
+  inmobiliario: <Home className="w-7 h-7" />, // Casa: bienes raíces
+  planeacion: <ClipboardCheck className="w-7 h-7" />, // Lista: planeación patrimonial
+  propiedad_industrial: <Copyright className="w-7 h-7" />, // Símbolo de copyright
+  fideicomisos: <TrendingUp className="w-7 h-7" />, // Crecimiento: fideicomisos / inversión
+  pld: <ShieldCheck className="w-7 h-7" />, // Escudo: compliance / prevención
+  due_diligence: <FileSearch className="w-7 h-7" />, // Lupa: revisión legal
+  sociedades_financieras: <Landmark className="w-7 h-7" />, // Columna: instituciones financieras
+  contratos_financieros: <FileSignature className="w-7 h-7" />, // Documento firmado
+  cumplimiento_regulatorio: <ClipboardCheck className="w-7 h-7" />, // Lista: compliance regulatorio
 };
 
 const IDS: string[] = [
@@ -42,7 +53,13 @@ const IDS: string[] = [
   'societario',
   'inmobiliario',
   'planeacion',
-  'financiero',
+  'propiedad_industrial',
+  'fideicomisos',
+  'pld',
+  'due_diligence',
+  'sociedades_financieras',
+  'contratos_financieros',
+  'cumplimiento_regulatorio',
 ];
 
 const buildServicios = (t: TFunction<'home'>): Servicio[] =>
@@ -81,10 +98,8 @@ const useResponsiveChunk = (): number => {
 };
 
 // ──────────────────────────────────────────────────────────────────────────────
-// Componente principal
-// ──────────────────────────────────────────────────────────────────────────────
 export const Servicios: React.FC = () => {
-  const { t } = useTranslation('home');
+  const { t, i18n } = useTranslation('home');
 
   const DATA = useMemo(() => buildServicios(t), [t]);
   const servicios = useMemo(() => [...DATA, ...DATA], [DATA]); // duplicado para loop
@@ -97,7 +112,13 @@ export const Servicios: React.FC = () => {
 
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [activo, setActivo] = useState<Servicio | null>(null);
+
+  // 🔑 Guardamos solo el id del activo y derivamos el objeto desde DATA
+  const [activoId, setActivoId] = useState<string | null>(null);
+  const activo = useMemo(
+    () => (activoId ? (DATA.find((d) => d.id === activoId) ?? null) : null),
+    [DATA, activoId]
+  );
 
   const onSelect = useCallback((api: EmblaCarouselType) => {
     setSelectedIndex(api.selectedScrollSnap());
@@ -119,7 +140,7 @@ export const Servicios: React.FC = () => {
   // Cerrar con ESC
   useEffect(() => {
     const onKey = (e: KeyboardEvent): boolean | void =>
-      e.key === 'Escape' && setActivo(null);
+      e.key === 'Escape' && setActivoId(null);
     window.addEventListener('keydown', onKey);
     return (): void => window.removeEventListener('keydown', onKey);
   }, []);
@@ -152,7 +173,7 @@ export const Servicios: React.FC = () => {
             <AnimatePresence mode="wait">
               {activo ? (
                 <motion.aside
-                  key={activo.id}
+                  key={`${activo.id}-${i18n.language}`}
                   initial={{ opacity: 0, x: -24, filter: 'blur(4px)' }}
                   animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
                   exit={{ opacity: 0, x: -24, filter: 'blur(4px)' }}
@@ -172,8 +193,8 @@ export const Servicios: React.FC = () => {
                       </p>
                     </div>
                     <button
-                      onClick={() => setActivo(null)}
-                      className="shrink-0 rounded-full p-2 hover:bg-white/10 transition"
+                      onClick={() => setActivoId(null)}
+                      className="shrink-0 rounded-full p-2 hover:bg白/10 transition"
                       aria-label={t('servicios.aria.close')}
                       title={t('servicios.aria.close') as string}
                     >
@@ -191,7 +212,7 @@ export const Servicios: React.FC = () => {
                 </motion.aside>
               ) : (
                 <motion.div
-                  key="placeholder"
+                  key={`placeholder-${i18n.language}`}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   className="rounded-3xl bg-white/5 ring-1 ring-white/10 p-8 text-white/70"
@@ -212,11 +233,7 @@ export const Servicios: React.FC = () => {
                       {grupo.map((s, i) => (
                         <button
                           key={`${s.id}-${idx}-${i}`}
-                          onClick={() =>
-                            setActivo(
-                              DATA.find((d) => d.id === s.id) || DATA[0]
-                            )
-                          }
+                          onClick={() => setActivoId(s.id)}
                           className="
                             h-full md:aspect-[4/4] 2xl:aspect-[5/4]
                             group rounded-2xl px-6 py-10 text-white
@@ -299,13 +316,14 @@ export const Servicios: React.FC = () => {
         {activo && (
           <motion.div
             className="fixed inset-0 z-50 lg:hidden"
+            key={`${activo.id}-modal-${i18n.language}`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
             <div
               className="absolute inset-0 bg-black/50"
-              onClick={() => setActivo(null)}
+              onClick={() => setActivoId(null)}
             />
             <motion.div
               role="dialog"
@@ -327,7 +345,7 @@ export const Servicios: React.FC = () => {
                   </p>
                 </div>
                 <button
-                  onClick={() => setActivo(null)}
+                  onClick={() => setActivoId(null)}
                   className="rounded-full p-2 hover:bg-white/10 transition"
                   aria-label={t('servicios.aria.close')}
                 >

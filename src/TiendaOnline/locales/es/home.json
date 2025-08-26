@@ -80,12 +80,12 @@
     },
     "items": {
       "laboral": {
-        "title": "Materia Laboral",
+        "title": "Derecho Laboral",
         "summary": "Asesoría integral para relaciones laborales individuales y colectivas.",
         "bullets": ["Contratos y cumplimiento", "Litigio y conciliación", "Auditorías laborales"]
       },
       "mercantil": {
-        "title": "Materia Mercantil",
+        "title": "Derecho Mercantil",
         "summary": "Operaciones comerciales, contratos y resolución de controversias.",
         "bullets": ["Contratos mercantiles", "Cobranza judicial", "Arbitraje"]
       },
@@ -97,19 +97,50 @@
       "inmobiliario": {
         "title": "Derecho Inmobiliario",
         "summary": "Transacciones y regularización de inmuebles.",
-        "bullets": ["Compraventas y arrendamientos", "Debida diligencia", "Fideicomisos"]
+        "bullets": ["Compraventas y arrendamientos", "Debida diligencia", "Fideicomisos inmobiliarios"]
       },
       "planeacion": {
         "title": "Planeación Patrimonial",
         "summary": "Protección y transmisión ordenada del patrimonio.",
         "bullets": ["Testamentos", "Protocolos familiares", "Fideicomisos patrimoniales"]
       },
-      "financiero": {
-        "title": "Derecho Financiero",
-        "summary": "Instrumentos y regulación del sistema financiero.",
-        "bullets": ["Regulación y cumplimiento", "Estructuras de crédito", "Fintech"]
+      "propiedad_industrial": {
+        "title": "Propiedad Industrial",
+        "summary": "Protección de marcas, patentes y secretos industriales.",
+        "bullets": ["Registro de marcas", "Defensa de patentes", "Licencias y franquicias"]
+      },
+      "fideicomisos": {
+        "title": "Fideicomisos",
+        "summary": "Estructuración y administración de vehículos fiduciarios.",
+        "bullets": ["Fideicomisos de garantía", "Fideicomisos patrimoniales", "Fideicomisos inmobiliarios"]
+      },
+      "pld": {
+        "title": "Prevención de Lavado de Dinero (PLD)",
+        "summary": "Cumplimiento normativo en materia antilavado.",
+        "bullets": ["Identificación de clientes", "Avisos a autoridades", "Políticas de compliance"]
+      },
+      "due_diligence": {
+        "title": "Due Diligence Corporativo",
+        "summary": "Análisis legal y operativo de empresas y operaciones.",
+        "bullets": ["Revisión contractual", "Cumplimiento normativo", "Evaluación de riesgos"]
+      },
+      "sociedades_financieras": {
+        "title": "Creación de Sociedades Financieras",
+        "summary": "Constitución y autorización de entidades del sistema financiero.",
+        "bullets": ["Asesoría ante CNBV", "Estructuración legal", "Obtención de permisos"]
+      },
+      "contratos_financieros": {
+        "title": "Contratos Financieros",
+        "summary": "Diseño y revisión de instrumentos financieros.",
+        "bullets": ["Créditos y garantías", "Derivados", "Contratos bancarios"]
+      },
+      "cumplimiento_regulatorio": {
+        "title": "Cumplimiento Regulatorio",
+        "summary": "Implementación de programas de cumplimiento para empresas.",
+        "bullets": ["Mapeo normativo", "Políticas internas", "Reportes regulatorios"]
       }
     }
+
   },
   "areas": {
     "center": {

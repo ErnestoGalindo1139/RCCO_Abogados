@@ -5,7 +5,7 @@ export const Slogan: React.FC = () => {
   const { t } = useTranslation('home');
 
   return (
-    <figure className="mx-auto max-w-3xl px-4 py-8 text-center">
+    <figure className="mx-auto max-w-3xl px-4 py-8 text-center mt-[3rem]">
       <blockquote className="text-xl sm:text-2xl md:text-3xl lg:text-4xl leading-relaxed tracking-tight font-serif">
         “<span className="text-blue-600 font-semibold">{t('slogan.text')}</span>
         ”

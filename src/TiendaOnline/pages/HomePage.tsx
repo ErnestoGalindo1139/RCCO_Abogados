@@ -15,10 +15,10 @@ export const HomePage = (): React.JSX.Element => {
       <Banner />
       <Nosotros />
       <Valores />
-      <Slogan />
-      <NuestroEquipo />
       <Servicios />
       <AreasEspecializadas />
+      <Slogan />
+      <NuestroEquipo />
       <LogoCarousel
         height={128}
         gap={1}

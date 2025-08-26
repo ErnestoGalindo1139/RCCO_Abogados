@@ -80,6 +80,26 @@ export const UbicacionComponent: React.FC<Props> = ({
           <article>
             <div className="rounded-2xl border border-neutral-200 bg-white p-6 sm:p-7 shadow-sm">
               <div className="space-y-6">
+                {/* Teléfono */}
+                {phone && (
+                  <div className="flex items-start gap-3">
+                    <div className="grid size-10 place-items-center rounded-full border border-neutral-200">
+                      <Phone className="size-5" />
+                    </div>
+                    <div>
+                      <h3 className="font-medium text-neutral-900">
+                        {t('ubicacion.phone')}
+                      </h3>
+                      <a
+                        href={`tel:${phone.replace(/\s+/g, '')}`}
+                        className="text-sm text-neutral-600 hover:underline underline-offset-4"
+                      >
+                        {phone}
+                      </a>
+                    </div>
+                  </div>
+                )}
+
                 {/* Dirección */}
                 <div className="flex items-start gap-3">
                   <div className="grid size-10 place-items-center rounded-full border border-neutral-200">
@@ -111,26 +131,6 @@ export const UbicacionComponent: React.FC<Props> = ({
                     </div>
                   </div>
                 </div>
-
-                {/* Teléfono */}
-                {phone && (
-                  <div className="flex items-start gap-3">
-                    <div className="grid size-10 place-items-center rounded-full border border-neutral-200">
-                      <Phone className="size-5" />
-                    </div>
-                    <div>
-                      <h3 className="font-medium text-neutral-900">
-                        {t('ubicacion.phone')}
-                      </h3>
-                      <a
-                        href={`tel:${phone.replace(/\s+/g, '')}`}
-                        className="text-sm text-neutral-600 hover:underline underline-offset-4"
-                      >
-                        {phone}
-                      </a>
-                    </div>
-                  </div>
-                )}
 
                 {/* Horario */}
                 {hours && (

@@ -81,8 +81,8 @@
     "items": {
       "laboral": {
         "title": "Labor Law",
-        "summary": "Comprehensive advice for individual and collective labor relations.",
-        "bullets": ["Contracts & compliance", "Litigation & conciliation", "Labor audits"]
+        "summary": "Comprehensive advisory services for individual and collective labor relations.",
+        "bullets": ["Contracts and compliance", "Litigation and conciliation", "Labor audits"]
       },
       "mercantil": {
         "title": "Commercial Law",
@@ -92,24 +92,55 @@
       "societario": {
         "title": "Corporate Law",
         "summary": "Corporate governance and regulatory compliance.",
-        "bullets": ["Incorporations & mergers", "Minutes & corporate books", "Corporate secretariat"]
+        "bullets": ["Incorporations and mergers", "Minutes and corporate books", "Corporate secretariat"]
       },
       "inmobiliario": {
         "title": "Real Estate Law",
-        "summary": "Transactions and property regularization.",
-        "bullets": ["Sales & leases", "Due diligence", "Trusts"]
+        "summary": "Real estate transactions and property regularization.",
+        "bullets": ["Purchase and lease agreements", "Due diligence", "Real estate trusts"]
       },
       "planeacion": {
         "title": "Estate Planning",
-        "summary": "Protection and orderly transfer of assets.",
+        "summary": "Protection and orderly transfer of wealth.",
         "bullets": ["Wills", "Family protocols", "Estate trusts"]
       },
-      "financiero": {
-        "title": "Financial Law",
-        "summary": "Instruments and regulation of the financial system.",
-        "bullets": ["Regulation & compliance", "Credit structures", "Fintech"]
+      "propiedad_industrial": {
+        "title": "Intellectual Property",
+        "summary": "Protection of trademarks, patents, and trade secrets.",
+        "bullets": ["Trademark registration", "Patent defense", "Licensing and franchising"]
+      },
+      "fideicomisos": {
+        "title": "Trusts",
+        "summary": "Structuring and administration of fiduciary vehicles.",
+        "bullets": ["Guarantee trusts", "Estate trusts", "Real estate trusts"]
+      },
+      "pld": {
+        "title": "Anti-Money Laundering (AML)",
+        "summary": "Regulatory compliance in anti-money laundering matters.",
+        "bullets": ["Client identification", "Reports to authorities", "Compliance policies"]
+      },
+      "due_diligence": {
+        "title": "Corporate Due Diligence",
+        "summary": "Legal and operational analysis of companies and transactions.",
+        "bullets": ["Contract review", "Regulatory compliance", "Risk assessment"]
+      },
+      "sociedades_financieras": {
+        "title": "Creation of Financial Entities",
+        "summary": "Incorporation and authorization of financial system entities.",
+        "bullets": ["Advisory before CNBV", "Legal structuring", "Permit acquisition"]
+      },
+      "contratos_financieros": {
+        "title": "Financial Contracts",
+        "summary": "Drafting and review of financial instruments.",
+        "bullets": ["Loans and guarantees", "Derivatives", "Banking contracts"]
+      },
+      "cumplimiento_regulatorio": {
+        "title": "Regulatory Compliance",
+        "summary": "Implementation of compliance programs for companies.",
+        "bullets": ["Regulatory mapping", "Internal policies", "Regulatory reporting"]
       }
     }
+
   },
   "areas": {
     "center": {
