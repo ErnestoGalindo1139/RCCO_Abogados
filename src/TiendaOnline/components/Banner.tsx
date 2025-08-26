@@ -26,7 +26,7 @@ export const Banner: React.FC = () => {
         {/* Contenido */}
         <div className="absolute inset-0 flex flex-col items-center md:items-start justify-center px-6 md:px-20">
           <div className="text-center md:text-left w-full sm:px-6 md:px-8 lg:px-10 xl:px-16">
-            <h3 className="text-white text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold ">
+            <h3 className="text-white text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-tight">
               “{t('banner.headline1')}”
             </h3>
             {/* <h3 className="text-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-tight">
