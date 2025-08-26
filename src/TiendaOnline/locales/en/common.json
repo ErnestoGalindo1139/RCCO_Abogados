@@ -16,16 +16,16 @@
       "title": "Looking for someone to help?",
       "subtitle": "Let us advise you!"
     },
-    "contact": {
-      "emailAria": "Send email to",
-      "hours": "Mon–Fri, 9:00 AM – 5:00 PM",
-      "writeUs": "Text us:"
-    },
     "socials": {
       "facebook": "RCCO on Facebook",
       "instagram": "RCCO on Instagram",
-      "linkedin": "RCCO on LinkedIn"
+      "linkedin": "RCCO on LinkedIn",
+      "youtube": "RCCO on YouTube",
+      "tiktok": "RCCO on TikTok"
     },
-    "copyright": "All rights reserved."
+    "copyright": "All rights reserved.",
+    "poweredBy": "Powered by",
+    "poweredByAria": "Open {{brand}}",
+    "privacy": "Privacy Policy"
   }
 }

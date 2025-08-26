@@ -47,9 +47,10 @@ export const AreasEspecializadas: React.FC = () => {
             }}
           >
             <div>
-              <p className="text-sm tracking-[0.2em] uppercase opacity-80">
+              {/* <img src="/img/logoSinFondo.jpeg" className="w-[90%] m-auto" /> */}
+              {/* <p className="text-sm tracking-[0.2em] uppercase opacity-80">
                 {t('areas.center.brand')}
-              </p>
+              </p> */}
               <h2 className="text-2xl font-extrabold tracking-tight">
                 {t('areas.center.title1')}
               </h2>
