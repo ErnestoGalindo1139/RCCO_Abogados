@@ -16,16 +16,16 @@
       "title": "¿Estás buscando a alguien que te ayude?",
       "subtitle": "¡Permítenos asesorarte!"
     },
-    "contact": {
-      "emailAria": "Enviar correo a",
-      "hours": "Lunes a Viernes, de 9:00 a 17:00 hrs.",
-      "writeUs": "Escríbenos:"
-    },
     "socials": {
       "facebook": "Facebook de RCCO",
       "instagram": "Instagram de RCCO",
-      "linkedin": "LinkedIn de RCCO"
+      "linkedin": "LinkedIn de RCCO",
+      "youtube": "YouTube de RCCO",
+      "tiktok": "TikTok de RCCO"
     },
-    "copyright": "Todos los derechos reservados."
+    "copyright": "Todos los derechos reservados.",
+    "poweredBy": "Desarrollado por",
+    "poweredByAria": "Abrir {{brand}}",
+    "privacy": "Política de Privacidad"
   }
 }
