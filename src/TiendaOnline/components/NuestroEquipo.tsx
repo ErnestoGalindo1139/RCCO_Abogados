@@ -1,65 +1,44 @@
 import React from 'react';
 import { TarjetaMiembro } from './TarjetaMiembro';
+import { useTranslation } from 'react-i18next';
 
 type Miembro = {
   id: string;
   nombre: string;
-  cargo: string; // línea 1 debajo del nombre
-  subcargo?: string; // línea 2 opcional
-  src: string; // ruta de la imagen
-  destacado?: boolean; // si true: sin gris y título/cargo en color
+  src: string;
+  destacado?: boolean;
 };
 
 const miembros: Miembro[] = [
   {
     id: 'dionisio',
     nombre: 'DIONISIO PAZ DÍAZ',
-    cargo: 'Director General de RCCO',
     src: '/img/colaborador1.jpeg',
     destacado: true,
   },
-  {
-    id: 'jose',
-    nombre: 'JOSÉ VALDEZ ZATARAIN',
-    cargo: 'Presidente del Consejo de',
-    subcargo: 'Administración',
-    src: '/img/colaborador3.jpeg',
-  },
+  { id: 'jose', nombre: 'JOSÉ VALDEZ ZATARAIN', src: '/img/colaborador3.jpeg' },
   {
     id: 'felipe',
     nombre: 'FELIPE HERNÁNDEZ GARCÍA',
-    cargo: 'Socio Abogado de la firma',
     src: '/img/colaborador5.jpeg',
   },
   {
     id: 'aurora',
     nombre: 'AURORA LIZÁRRAGA FERNÁNDEZ',
-    cargo: 'Abogada Jr.',
     src: '/img/colaborador2.jpeg',
   },
-  {
-    id: 'liz',
-    nombre: 'LIZ LASCÁREZ CALDERÓN',
-    cargo: 'Abogada',
-    src: '/img/colaborador6.jpeg',
-  },
-  {
-    id: 'alfredo',
-    nombre: 'ALFREDO SOTO VELA',
-    cargo: 'Abogado Sr.',
-    src: '/img/colaborador4.jpeg',
-  },
+  { id: 'liz', nombre: 'LIZ LASCÁREZ CALDERÓN', src: '/img/colaborador6.jpeg' },
+  { id: 'alfredo', nombre: 'ALFREDO SOTO VELA', src: '/img/colaborador4.jpeg' },
 ];
 
-export const NuestroEquipo = (): React.JSX.Element => {
+export const NuestroEquipo: React.FC = () => {
+  const { t } = useTranslation('home');
+
   return (
-    <section
-      className="w-full bg-white pt-[3.5rem] pb-[7rem] px-4"
-      id="nosotros"
-    >
+    <section className="w-full bg-white pt-[3.5rem] pb-[7rem] px-4" id="equipo">
       <div className="max-w-5xl mx-auto">
         <h2 className="text-center text-[#0b2f79] text-3xl md:text-5xl font-bold mb-[4rem]">
-          Nuestro equipo
+          {t('equipo.title')}
         </h2>
 
         <div
@@ -70,7 +49,16 @@ export const NuestroEquipo = (): React.JSX.Element => {
           "
         >
           {miembros.map((m) => (
-            <TarjetaMiembro key={m.id} m={m} />
+            <TarjetaMiembro
+              key={m.id}
+              m={{
+                ...m,
+                cargo: t(`equipo.miembros.${m.id}.cargo`),
+                subcargo:
+                  t(`equipo.miembros.${m.id}.subcargo`, { defaultValue: '' }) ||
+                  undefined,
+              }}
+            />
           ))}
         </div>
       </div>

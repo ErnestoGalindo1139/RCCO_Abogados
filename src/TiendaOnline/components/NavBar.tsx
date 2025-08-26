@@ -3,6 +3,8 @@ import { Menu, X } from 'lucide-react';
 import { FaWhatsapp } from 'react-icons/fa';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { LuClock2, LuFacebook, LuInstagram, LuMail } from 'react-icons/lu';
+import { useTranslation } from 'react-i18next';
+import { LanguageFlagSwitch } from './LanguageFlagSwitch';
 
 // ──────────────────────────────────────────────────────────────────────────────
 // Configuración
@@ -12,18 +14,16 @@ type LinkItem =
   | { id: string; label: string; type: 'route' };
 
 const LINKS: LinkItem[] = [
-  { id: 'inicio', label: 'INICIO', type: 'section' },
-  { id: 'nosotros', label: 'NOSOTROS', type: 'section' },
-  { id: 'servicios', label: 'SERVICIOS', type: 'section' },
-  { id: 'ubicacion', label: 'CONTACTO', type: 'section' },
-  { id: 'blog', label: 'BLOG', type: 'route' }, // ← ruta independiente
+  { id: 'inicio', label: 'nav.home', type: 'section' },
+  { id: 'nosotros', label: 'nav.about', type: 'section' },
+  { id: 'servicios', label: 'nav.services', type: 'section' },
+  { id: 'ubicacion', label: 'nav.contact', type: 'section' },
+  { id: 'blog', label: 'nav.blog', type: 'route' },
 ];
 
 // Ajusta el alto si cambias el tamaño del navbar
 const NAV_HEIGHT = 72; // px
 
-// ──────────────────────────────────────────────────────────────────────────────
-// Helpers
 // ──────────────────────────────────────────────────────────────────────────────
 const scrollToId = (id: string): void => {
   const el = document.getElementById(id);
@@ -55,7 +55,9 @@ export const NavBar: React.FC<NavBarProps> = ({
   const navigate = useNavigate();
   const isHome = location.pathname === '/';
 
-  // Obtener altura del Banner (solo en Home tiene sentido, pero no estorba en /blog)
+  const { t } = useTranslation(['common']);
+
+  // Obtener altura del Banner
   useEffect(() => {
     const cleanup = (): void => {
       window.removeEventListener('resize', getBannerHeight);
@@ -71,22 +73,19 @@ export const NavBar: React.FC<NavBarProps> = ({
     return cleanup;
   }, []);
 
-  // Detectar scroll para cambiar el fondo del navbar
-  // Controla el fondo y visibilidad del banner
+  // Fondo del navbar y visibilidad del botón de WhatsApp
   useEffect(() => {
     if (scrollBackground) {
       setIsScrolled(false);
       setIsBannerVisible(true);
       return;
     }
-    // En /blog (u otra ruta que no sea "/"), siempre azul y sin escuchar scroll
     if (!isHome) {
-      setIsScrolled(true); // fuerza fondo azul
-      setIsBannerVisible(false); // como no hay banner, muestra el botón de WhatsApp
+      setIsScrolled(true);
+      setIsBannerVisible(false);
       return;
     }
 
-    // En Home: comportamiento original
     const handleScroll = (): void => {
       const scrolledPastBanner = window.scrollY >= bannerHeight - NAV_HEIGHT;
       setIsScrolled(scrolledPastBanner);
@@ -94,25 +93,28 @@ export const NavBar: React.FC<NavBarProps> = ({
     };
 
     window.addEventListener('scroll', handleScroll);
-    handleScroll(); // init
+    handleScroll();
 
     return (): void => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, [bannerHeight, isHome, scrollBackground]);
-  // Controla el scroll del body cuando el slider está abierto
+
+  // Lock scroll body cuando el slider está abierto
   useEffect(() => {
     if (!lockScrollOnOpen) return;
 
     if (open) {
       const scrollY = window.scrollY;
-      document.body.dataset.scrollPosition = scrollY.toString();
+      (document.body as any).dataset.scrollPosition = scrollY.toString();
       document.body.style.overflow = 'hidden';
       document.body.style.position = 'fixed';
       document.body.style.top = `-${scrollY}px`;
       document.body.style.width = '100%';
     } else {
-      const scrollY = Number(document.body.dataset.scrollPosition || '0');
+      const scrollY = Number(
+        (document.body as any).dataset.scrollPosition || '0'
+      );
       document.body.style.overflow = '';
       document.body.style.position = '';
       document.body.style.top = '';
@@ -152,12 +154,12 @@ export const NavBar: React.FC<NavBarProps> = ({
     };
   }, [isHome]);
 
-  // Si llegas a "/" con hash (p.ej. "/#servicios"), hace scroll a esa sección
+  // Si llegas a "/" con hash (p.ej. "/#servicios")
   useEffect(() => {
     if (!isHome) return;
     const hash = location.hash?.replace('#', '');
     if (hash) {
-      setActive(hash); // Actualizar el estado active con el hash
+      setActive(hash);
       setTimeout(() => scrollToId(hash), 0);
     }
   }, [isHome, location.hash]);
@@ -169,7 +171,6 @@ export const NavBar: React.FC<NavBarProps> = ({
         return;
       }
 
-      // Actualizar el estado active inmediatamente para la UI
       setActive(item.id);
 
       if (isHome) {
@@ -186,6 +187,7 @@ export const NavBar: React.FC<NavBarProps> = ({
       performNavigation();
     }
   };
+
   const DesktopLinks = useMemo(
     () => (
       <nav className="hidden md:flex items-center gap-6">
@@ -204,13 +206,13 @@ export const NavBar: React.FC<NavBarProps> = ({
                 hover:text-white/90 ${isActive ? 'text-white' : 'text-white/70'}
               `}
             >
-              {item.label}
+              {t(item.label)}
             </button>
           );
         })}
       </nav>
     ),
-    [active, isHome, location.pathname, navigate, handleNav]
+    [active, isHome, location.pathname, navigate, handleNav, t]
   );
 
   return (
@@ -227,13 +229,15 @@ export const NavBar: React.FC<NavBarProps> = ({
             {/* Logo */}
             <button
               onClick={() =>
-                handleNav({ id: 'inicio', label: 'INICIO', type: 'section' })
+                handleNav({ id: 'inicio', label: 'nav.home', type: 'section' })
               }
               className="flex items-center gap-3 w-40 md:w-48 p-4"
+              aria-label={t('nav.logoAlt')}
+              title={t('nav.logoAlt')}
             >
               <img
                 src="/img/logoSinFondo.jpeg"
-                alt="RCCO Logo"
+                alt={t('nav.logoAlt')}
                 className="w-full h-auto object-contain"
               />
             </button>
@@ -241,7 +245,7 @@ export const NavBar: React.FC<NavBarProps> = ({
             {/* Links escritorio */}
             <div className="flex items-center justify-end gap-6">
               {DesktopLinks}
-              {/* Redes escritorio (si las activas después) */}
+              <LanguageFlagSwitch />
               {/* {SocialButtons} */}
             </div>
 
@@ -249,7 +253,7 @@ export const NavBar: React.FC<NavBarProps> = ({
             <button
               className="md:hidden p-2 text-white"
               onClick={() => setOpen((v) => !v)}
-              aria-label="Abrir menú"
+              aria-label={open ? t('actions.close') : t('nav.menu')}
             >
               {open ? <X className="size-6" /> : <Menu className="size-6" />}
             </button>
@@ -265,10 +269,13 @@ export const NavBar: React.FC<NavBarProps> = ({
           <div className="flex flex-col h-full">
             {/* Cabecera del slider */}
             <div className="flex justify-between items-center p-4 border-b border-blue-800">
-              <span className="text-xl font-bold text-white">Menú</span>
-              <button 
+              <span className="text-xl font-bold text-white">
+                {t('nav.menu')}
+              </span>
+              <button
                 onClick={() => setOpen(false)}
                 className="p-2 text-white rounded-full hover:bg-blue-800"
+                aria-label={t('actions.close')}
               >
                 <X className="size-6" />
               </button>
@@ -278,9 +285,10 @@ export const NavBar: React.FC<NavBarProps> = ({
             <div className="flex-1 overflow-y-auto">
               <div className="p-4 space-y-1">
                 {LINKS.map((item) => {
-                  const isActive = item.type === 'route'
-                    ? location.pathname === `/${item.id}`
-                    : isHome && active === item.id;
+                  const isActive =
+                    item.type === 'route'
+                      ? location.pathname === `/${item.id}`
+                      : isHome && active === item.id;
 
                   return (
                     <button
@@ -289,24 +297,31 @@ export const NavBar: React.FC<NavBarProps> = ({
                       className={`
                         block w-full text-left py-4 px-3 text-white/90 font-semibold tracking-wide
                         rounded-lg transition-colors border-l-4
-                        ${isActive 
-                          ? 'border-white bg-blue-800/50 text-white' 
-                          : 'border-transparent hover:bg-blue-800/30'}
+                        ${
+                          isActive
+                            ? 'border-white bg-blue-800/50 text-white'
+                            : 'border-transparent hover:bg-blue-800/30'
+                        }
                       `}
                     >
-                      {item.label}
+                      {t(item.label)}
                     </button>
                   );
                 })}
               </div>
             </div>
 
-            {/* Footer del slider con contacto */}
-            <div className="p-4 border-t border-blue-800">
+            {/* Footer del slider con contacto + switch de idioma */}
+            <div className="p-4 border-t border-blue-800 space-y-4">
+              <LanguageFlagSwitch />
+
               <div className="space-y-3">
                 <div className="flex items-center space-x-2 text-white/80">
                   <LuMail className="size-5" />
-                  <a href="mailto:contacto@rccoabogados.com.mx" className="text-sm hover:text-white">
+                  <a
+                    href="mailto:contacto@rccoabogados.com.mx"
+                    className="text-sm hover:text-white"
+                  >
                     contacto@rccoabogados.com.mx
                   </a>
                 </div>
@@ -321,13 +336,25 @@ export const NavBar: React.FC<NavBarProps> = ({
 
                 {/* Redes sociales */}
                 <div className="flex justify-start space-x-4 pt-2">
-                  <a href="#" className="text-white/80 hover:text-white">
+                  <a
+                    href="#"
+                    className="text-white/80 hover:text-white"
+                    aria-label="Facebook"
+                  >
                     <LuFacebook className="size-6" />
                   </a>
-                  <a href="#" className="text-white/80 hover:text-white">
+                  <a
+                    href="#"
+                    className="text-white/80 hover:text-white"
+                    aria-label="WhatsApp"
+                  >
                     <FaWhatsapp className="size-6" />
                   </a>
-                  <a href="#" className="text-white/80 hover:text-white">
+                  <a
+                    href="#"
+                    className="text-white/80 hover:text-white"
+                    aria-label="Instagram"
+                  >
                     <LuInstagram className="size-6" />
                   </a>
                 </div>
@@ -348,7 +375,7 @@ export const NavBar: React.FC<NavBarProps> = ({
 
       {/* Botón flotante de WhatsApp - Visible solo cuando no estamos en el banner */}
       <a
-        href="https://wa.me/521234567890" // cambia al número real
+        href="https://wa.me/521234567890"
         target="_blank"
         rel="noopener noreferrer"
         className={`
@@ -360,6 +387,7 @@ export const NavBar: React.FC<NavBarProps> = ({
           z-40
           ${isBannerVisible ? 'opacity-0 pointer-events-none translate-y-10' : 'opacity-100 pointer-events-auto translate-y-0'}
         `}
+        aria-label="Abrir chat de WhatsApp"
       >
         <FaWhatsapp className="w-6 h-6 text-white" />
       </a>

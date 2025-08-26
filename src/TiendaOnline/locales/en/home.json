@@ -1,0 +1,202 @@
+{
+  "banner": {
+    "headline1": "Committed to",
+    "headline2": "your legal peace of mind",
+    "cta": "Book an appointment",
+    "bgAlt": "Banner image"
+  },
+  "nosotros": {
+    "title": "About us",
+    "p1": "We are a law firm specialized in business law, focused on the innovation and consolidation of companies. We provide legal services to boost and strengthen our clients’ ideas, aligned with their business model.",
+    "p2": "We offer comprehensive legal counsel with a 360° approach, based on legal instrumentation, structuring, and legal engineering. With over 11 years of experience, we have advised and consolidated companies across sectors such as finance, food industry, real estate, construction, hospitality, hydrocarbons, agriculture, and mining. Our corporate legal services include civil, commercial, corporate, contractual, labor, financial, industrial and intellectual property law, estate planning, and AML compliance.",
+    "mission": {
+      "title": "Mission",
+      "text": "We provide specialized corporate legal services to consolidate companies across different sectors with efficiency and professionalism. We apply legal engineering to address specific needs with strategic solutions."
+    },
+    "vision": {
+      "title": "Vision",
+      "text": "To be a benchmark in corporate legal services, recognized for our ability to consolidate and strengthen companies. Through research, innovation, problem-solving, and adaptability to the business environment, we aim to contribute to our country’s economic and social development."
+    }
+  },
+  "valores": {
+    "title": "OUR VALUES",
+    "general": "We highlight our commitment to integrity, professionalism, responsibility, and ethics in every legal service we provide.",
+    "items": {
+      "confianza": {
+        "title": "TRUST",
+        "desc": "We build legal certainty in every interaction, communicating clearly and delivering on our promises."
+      },
+      "lealtad": {
+        "title": "LOYALTY",
+        "desc": "We act with genuine commitment to our clients and their goals, always protecting their interests."
+      },
+      "honestidad": {
+        "title": "HONESTY",
+        "desc": "We are transparent and straightforward. We state what is viable and what is not, with sound reasoning and professional ethics."
+      },
+      "responsabilidad": {
+        "title": "RESPONSIBILITY",
+        "desc": "We handle each matter with discipline, timely follow-up, and accountability at all times."
+      }
+    },
+    "centerAria": "Values center"
+  },
+  "slogan": {
+    "text": "Legal Engineering for your business",
+    "author": "— RCCO"
+  },
+  "equipo": {
+    "title": "Our team",
+    "miembros": {
+      "dionisio": {
+        "cargo": "General Director of RCCO"
+      },
+      "jose": {
+        "cargo": "Chairman of the Board of",
+        "subcargo": "Directors"
+      },
+      "felipe": {
+        "cargo": "Partner Lawyer of the firm"
+      },
+      "aurora": {
+        "cargo": "Junior Lawyer"
+      },
+      "liz": {
+        "cargo": "Lawyer"
+      },
+      "alfredo": {
+        "cargo": "Senior Lawyer"
+      }
+    }
+  },
+  "servicios": {
+    "title": "Legal Services",
+    "placeholder": "Select a service on the right to view details here.",
+    "aria": {
+      "close": "Close",
+      "prev": "Previous page",
+      "next": "Next page",
+      "goto": "Go to page {{n}}"
+    },
+    "items": {
+      "laboral": {
+        "title": "Labor Law",
+        "summary": "Comprehensive advice for individual and collective labor relations.",
+        "bullets": ["Contracts & compliance", "Litigation & conciliation", "Labor audits"]
+      },
+      "mercantil": {
+        "title": "Commercial Law",
+        "summary": "Business operations, contracts, and dispute resolution.",
+        "bullets": ["Commercial contracts", "Judicial collection", "Arbitration"]
+      },
+      "societario": {
+        "title": "Corporate Law",
+        "summary": "Corporate governance and regulatory compliance.",
+        "bullets": ["Incorporations & mergers", "Minutes & corporate books", "Corporate secretariat"]
+      },
+      "inmobiliario": {
+        "title": "Real Estate Law",
+        "summary": "Transactions and property regularization.",
+        "bullets": ["Sales & leases", "Due diligence", "Trusts"]
+      },
+      "planeacion": {
+        "title": "Estate Planning",
+        "summary": "Protection and orderly transfer of assets.",
+        "bullets": ["Wills", "Family protocols", "Estate trusts"]
+      },
+      "financiero": {
+        "title": "Financial Law",
+        "summary": "Instruments and regulation of the financial system.",
+        "bullets": ["Regulation & compliance", "Credit structures", "Fintech"]
+      }
+    }
+  },
+  "areas": {
+    "center": {
+      "brand": "RCCO",
+      "title1": "AREAS",
+      "title2": "Specialized"
+    },
+    "placeholder": {
+      "title": "Explore our areas",
+      "text": "Hover over each hexagon for an interactive effect and click to view detailed information. Design optimized for desktop and mobile."
+    },
+    "aria": {
+      "close": "Close"
+    },
+    "items": {
+      "financiero": {
+        "title": "Financial Sector",
+        "desc": "Regulatory advice, compliance, anti-money laundering, M&A, financial litigation, and product structuring.",
+        "bullets": ["Compliance & CNBV", "Fintech / SOFOM / Investment companies", "Contracts & guarantees"]
+      },
+      "minera": {
+        "title": "Mining Industry",
+        "desc": "Concession titles, prior consultation, environmental management, and administrative defense across all project stages.",
+        "bullets": ["Concessions & easements", "Environmental impact", "Contracts & compliance"]
+      },
+      "hidrocarburos": {
+        "title": "Hospitality & Tourism",
+        "desc": "Midstream, downstream, CRE/ASEA permits, transport, storage, and commercialization contracts.",
+        "bullets": ["Permits & regulation", "Contracts & logistics", "Litigation & defense"]
+      },
+      "construccion": {
+        "title": "Construction Sector",
+        "desc": "EPC contracts, public and private works, bonds, claims, arbitration, and risk management.",
+        "bullets": ["Contracts & guarantees", "Public works", "Arbitration & claims"]
+      },
+      "alimentaria": {
+        "title": "Food Industry",
+        "desc": "Sanitary compliance, labeling, standards, traceability, import/export, and advertising.",
+        "bullets": ["COFEPRIS & NOMs", "Labeling & claims", "Foreign trade"]
+      },
+      "inmobiliario": {
+        "title": "Real Estate Sector",
+        "desc": "Acquisition, due diligence, trusts, development, leasing, and property regularization.",
+        "bullets": ["Trusts & vehicles", "Due diligence", "Contracts & leasing"]
+      },
+      "agricola": {
+        "title": "Agricultural Sector",
+        "desc": "Land tenure, certifications, labor hiring, and national/international commercialization.",
+        "bullets": ["Land & ejidos", "Certifications", "Export"]
+      },
+      "discografica": {
+        "title": "Entertainment Industry",
+        "desc": "Intellectual property, licensing, management, royalties, syncs, and dispute resolution.",
+        "bullets": ["Trademarks & rights", "Artist contracts", "Royalties & sync"]
+      }
+    }
+  },
+  "logos": {
+    "trustHeadline": "Our clients trust us",
+    "aria": {
+      "section": "Client logos carousel",
+      "viewport": "Clients who trust us",
+      "srNote": "Carousel with continuous auto-scrolling and infinite loop."
+    }
+  },
+  "ubicacion": {
+    "title": "Contact Information",
+    "subtitle": "Find us easily and get directions in one click.",
+    "address": "Address",
+    "phone": "Phone",
+    "hours": "Hours",
+    "schedule": {
+      "week": "Mon – Fri 9:00 AM – 7:00 PM"
+    },
+    "actions": {
+      "viewOnMaps": "View on Google Maps",
+      "copy": "Copy",
+      "directions": "Get directions",
+      "openMaps": "Open in Maps",
+      "enableMap": "Enable map",
+      "mobileHint": "On mobile: use two fingers to move the map"
+    },
+    "aria": {
+      "section": "Location and contact section",
+      "copyAddress": "Copy address",
+      "mapTitle": "Location map",
+      "mapLabel": "Google Map with the business location"
+    }
+  }
+}

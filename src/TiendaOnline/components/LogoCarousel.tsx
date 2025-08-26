@@ -2,18 +2,24 @@ import React, { useMemo, useState } from 'react';
 import AutoScroll from 'embla-carousel-auto-scroll';
 import useEmblaCarousel from 'embla-carousel-react';
 import type { EmblaOptionsType } from 'embla-carousel';
+import { useTranslation } from 'react-i18next';
 
 type Direction = 'left' | 'right';
 
 type LogoCarouselProps = {
   height?: number; // alto del logo (px)
   gap?: number; // separación entre logos (px)
-  speed?: number; // velocidad del autoscroll (1 lento — 5 rápido aprox.)
-  direction?: Direction; // "left" (default) | "right"
+  speed?: number; // velocidad autoscroll
+  direction?: Direction; // "left" | "right"
   pauseOnHover?: boolean; // pausa al pasar el cursor/tocar
   grayscaleOnIdle?: boolean; // gris → color al hover
-  title?: string;
+  /** Texto o clave de i18n (si existe en los JSON se traduce, si no, se usa literal) */
+  title?: string | null;
+  /** Clave de i18n para fallback, default: "home:logos.title" */
+  titleKey?: string;
   className?: string;
+  /** Lista de URLs de logos. Si no se provee, se usa la default */
+  logos?: string[];
 };
 
 export const LogoCarousel: React.FC<LogoCarouselProps> = ({
@@ -23,10 +29,10 @@ export const LogoCarousel: React.FC<LogoCarouselProps> = ({
   direction = 'left',
   pauseOnHover = true,
   grayscaleOnIdle = true,
-  title = 'Nuestros clientes',
+  title = undefined,
+  titleKey = 'home:logos.title',
   className = '',
-}) => {
-  const logos = [
+  logos = [
     'https://digito-r.com/wp-content/uploads/2020/07/grupo-modelo.png',
     'https://digito-r.com/wp-content/uploads/2020/07/pisa.png',
     'https://digito-r.com/wp-content/uploads/2020/07/redbull.png',
@@ -37,12 +43,14 @@ export const LogoCarousel: React.FC<LogoCarouselProps> = ({
     'https://digito-r.com/wp-content/uploads/2025/06/logo-universa-blanco-768x768.png',
     'https://digito-r.com/wp-content/uploads/2023/06/korber500.png',
     'https://digito-r.com/wp-content/uploads/2020/07/affipay.png',
-  ];
+  ],
+}) => {
+  const { t } = useTranslation('home');
 
   const options: EmblaOptionsType = useMemo(
     () => ({
       loop: true,
-      dragFree: true, // arrastre suave sin “snap”
+      dragFree: true,
       direction: direction === 'left' ? 'ltr' : 'rtl',
       align: 'start',
       containScroll: 'trimSnaps',
@@ -53,16 +61,15 @@ export const LogoCarousel: React.FC<LogoCarouselProps> = ({
 
   const [emblaRef, emblaApi] = useEmblaCarousel(options, [
     AutoScroll({
-      speed, // controla la velocidad del desplazamiento continuo
+      speed,
       startDelay: 0,
-      // pausa automát. (puedes desactivar si no te late)
       stopOnInteraction: pauseOnHover,
       stopOnMouseEnter: pauseOnHover,
       stopOnFocusIn: pauseOnHover,
     }),
   ]);
 
-  // opcional: control manual de pausa en hover/touch
+  // Pausa manual
   const [isPaused, setIsPaused] = useState(false);
   const handlePause = (p: boolean): void => {
     if (!emblaApi) return;
@@ -80,16 +87,24 @@ export const LogoCarousel: React.FC<LogoCarouselProps> = ({
       'linear-gradient(to right, transparent, black 8%, black 92%, transparent)',
   };
 
-  const cellMinWidth = Math.max(height * 2, 140); // ancho mínimo por logo
+  const cellMinWidth = Math.max(height * 2, 140);
+
+  // 🔑 Lógica del título (TIP-SAFE)
+  const computedTitle =
+    title === null
+      ? null // ocultar título
+      : title !== undefined
+        ? t(title, { defaultValue: title }) // title es string aquí (no null)
+        : t(titleKey);
 
   return (
     <section
       className={`w-full py-12 bg-gray-900 text-white ${className}`}
-      aria-label="Carrusel de logotipos de clientes"
+      aria-label={t('logos.aria.section')}
     >
-      {title && (
+      {computedTitle && (
         <h3 className="text-center text-white/90 text-xl sm:text-2xl font-semibold mb-6">
-          {title}
+          {computedTitle}
         </h3>
       )}
 
@@ -113,7 +128,7 @@ export const LogoCarousel: React.FC<LogoCarouselProps> = ({
             pauseOnHover ? (): void => handlePause(false) : undefined
           }
           aria-roledescription="carousel"
-          aria-label="Clientes que confían en nosotros"
+          aria-label={t('logos.aria.viewport')}
         >
           <div className="embla__container flex" style={{ gap }} role="list">
             {logos.map((src, i) => (
@@ -125,7 +140,7 @@ export const LogoCarousel: React.FC<LogoCarouselProps> = ({
               >
                 <img
                   src={src}
-                  alt={`Logo cliente ${i + 1}`}
+                  alt={`Logo ${i + 1}`}
                   height={height}
                   loading="lazy"
                   className={`object-contain transition duration-200 ${
@@ -148,22 +163,9 @@ export const LogoCarousel: React.FC<LogoCarouselProps> = ({
             ))}
           </div>
         </div>
-
-        {/* Botón de Play/Pause accesible (opcional) */}
-        {/* <div className="mt-4 flex justify-center gap-3">
-          <button
-            onClick={() => handlePause(!isPaused)}
-            className="text-sm px-3 py-1 rounded-xl bg-white/10 hover:bg-white/15 active:bg-white/20"
-            aria-pressed={isPaused}
-          >
-            {isPaused ? 'Reanudar' : 'Pausar'}
-          </button>
-        </div> */}
       </div>
 
-      <div className="sr-only">
-        Carrusel con desplazamiento automático continuo y loop infinito.
-      </div>
+      <div className="sr-only">{t('logos.aria.srNote')}</div>
     </section>
   );
 };

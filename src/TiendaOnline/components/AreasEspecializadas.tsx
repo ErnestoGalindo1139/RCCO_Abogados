@@ -3,10 +3,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { HexTile } from './HexTile';
 import { DetallePanel } from './DetallePanel';
 import { DetalleInlineMobile } from './DetalleInlineMobile';
-import { Sector } from '../types/Types';
+import type { Sector } from '../types/types';
 import { SECTORES } from '../data/sectores';
+import { useTranslation } from 'react-i18next';
 
 export const AreasEspecializadas: React.FC = () => {
+  const { t } = useTranslation('home');
   const [seleccion, setSeleccion] = useState<Sector | null>(null);
 
   // Desktop: tamaño y posiciones del anillo
@@ -46,10 +48,14 @@ export const AreasEspecializadas: React.FC = () => {
           >
             <div>
               <p className="text-sm tracking-[0.2em] uppercase opacity-80">
-                RCCO
+                {t('areas.center.brand')}
               </p>
-              <h2 className="text-2xl font-extrabold tracking-tight">ÁREAS</h2>
-              <p className="text-sm -mt-0.5 opacity-90">Especializadas</p>
+              <h2 className="text-2xl font-extrabold tracking-tight">
+                {t('areas.center.title1')}
+              </h2>
+              <p className="text-sm -mt-0.5 opacity-90">
+                {t('areas.center.title2')}
+              </p>
             </div>
           </div>
 
@@ -71,11 +77,9 @@ export const AreasEspecializadas: React.FC = () => {
 
         {/* Panel de detalle (solo desktop) */}
         <div className="lg:pl-2 hidden lg:block">
-          {/* Contenedor con tamaño fijo y stacking interno */}
           <div className="relative lg:w-[28rem] xl:w-[32rem] min-h-[22rem]">
             <AnimatePresence mode="wait" initial={false}>
               {seleccion ? (
-                // PANEL ACTIVO
                 <motion.div
                   key="panel"
                   className="absolute inset-0"
@@ -95,7 +99,6 @@ export const AreasEspecializadas: React.FC = () => {
                   />
                 </motion.div>
               ) : (
-                // PLACEHOLDER
                 <motion.div
                   key="placeholder"
                   className="absolute inset-0 text-white/80 max-w-lg"
@@ -110,13 +113,9 @@ export const AreasEspecializadas: React.FC = () => {
                   }}
                 >
                   <h3 className="text-2xl font-bold mb-2">
-                    Explora nuestras áreas
+                    {t('areas.placeholder.title')}
                   </h3>
-                  <p>
-                    Pasa el cursor sobre cada hexágono para un efecto
-                    interactivo y haz clic para ver información detallada del
-                    sector. Diseño optimizado para escritorio y móvil.
-                  </p>
+                  <p>{t('areas.placeholder.text')}</p>
                 </motion.div>
               )}
             </AnimatePresence>
@@ -148,7 +147,9 @@ export const AreasEspecializadas: React.FC = () => {
                 >
                   <Icon size={20} />
                 </div>
-                <span className="font-medium">{s.titulo}</span>
+                <span className="font-medium">
+                  {t(`areas.items.${s.id}.title`)}
+                </span>
                 <motion.span
                   className="ml-auto text-white/70"
                   initial={false}
@@ -164,7 +165,7 @@ export const AreasEspecializadas: React.FC = () => {
                   <div id={`detalle-${s.id}`} className="px-4 pb-3">
                     <DetalleInlineMobile
                       sector={s}
-                      onClose={() => setSeleccion(null)} // cierra el acordeón
+                      onClose={() => setSeleccion(null)}
                     />
                   </div>
                 )}
@@ -176,5 +177,3 @@ export const AreasEspecializadas: React.FC = () => {
     </section>
   );
 };
-
-export default AreasEspecializadas;

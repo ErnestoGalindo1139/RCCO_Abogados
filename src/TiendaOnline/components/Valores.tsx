@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import {
   Handshake,
   ShieldCheck,
@@ -6,76 +6,75 @@ import {
   UserCheck,
   HelpingHand,
 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 type Valor = {
-  id: string;
+  id: 'confianza' | 'lealtad' | 'honestidad' | 'responsabilidad';
   titulo: string;
   descripcion: string;
   Icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
 };
 
-const VALORES: Valor[] = [
-  {
-    id: 'confianza',
-    titulo: 'CONFIANZA',
-    descripcion:
-      'Generamos seguridad y certeza jurídica en cada interacción, comunicando con claridad y cumpliendo lo prometido.',
-    Icon: ShieldCheck,
-  },
-  {
-    id: 'lealtad',
-    titulo: 'LEALTAD',
-    descripcion:
-      'Actuamos con compromiso genuino hacia nuestros clientes y sus objetivos, protegiendo siempre sus intereses.',
-    Icon: Heart,
-  },
-  {
-    id: 'honestidad',
-    titulo: 'HONESTIDAD',
-    descripcion:
-      'Somos transparentes y frontales. Decimos lo que es viable y lo que no, con fundamentos y ética profesional.',
-    Icon: UserCheck,
-  },
-  {
-    id: 'responsabilidad',
-    titulo: 'RESPONSABILIDAD',
-    descripcion:
-      'Asumimos cada asunto con disciplina, seguimiento puntual y rendición de cuentas en todo momento.',
-    Icon: HelpingHand,
-  },
-];
-
-const TEXTO_GENERAL =
-  'Destacamos nuestro compromiso con la integridad, profesionalismo, responsabilidad y ética en cada servicio legal ofrecido.';
+const ICONS: Record<Valor['id'], Valor['Icon']> = {
+  confianza: ShieldCheck,
+  lealtad: Heart,
+  honestidad: UserCheck,
+  responsabilidad: HelpingHand,
+};
 
 export const Valores: React.FC = () => {
-  const [activo, setActivo] = useState<string | null>(null);
+  const { t } = useTranslation('home');
+  const [activo, setActivo] = useState<Valor['id'] | null>(null);
+
+  // Construimos los valores desde i18n para no hardcodear textos
+  const valores: Valor[] = useMemo(
+    () =>
+      (
+        [
+          'confianza',
+          'lealtad',
+          'honestidad',
+          'responsabilidad',
+        ] as Valor['id'][]
+      ).map((id) => ({
+        id,
+        titulo: t(`valores.items.${id}.title`),
+        descripcion: t(`valores.items.${id}.desc`),
+        Icon: ICONS[id],
+      })),
+    [t]
+  );
+
+  const textoGeneral = t('valores.general');
   const descripcionActual =
-    VALORES.find((v) => v.id === activo)?.descripcion ?? TEXTO_GENERAL;
+    (activo ? valores.find((v) => v.id === activo)?.descripcion : undefined) ??
+    textoGeneral;
 
   return (
-    <section className="mx-auto max-w-5xl px-4 py-10 mb-[6rem] mt-[1rem]">
+    <section
+      id="valores"
+      className="mx-auto max-w-5xl px-4 py-10 mb-[6rem] mt-[1rem]"
+    >
       {/* Encabezado */}
       <header className="text-center mb-8">
         <h2 className="text-2xl md:text-3xl font-extrabold tracking-wide text-[#123E7A]">
-          NUESTROS VALORES
+          {t('valores.title')}
         </h2>
         <p className="mt-4 text-sm md:text-base text-neutral-700 max-w-3xl mx-auto min-h-[3rem]">
           {descripcionActual}
         </p>
       </header>
 
-      {/* ==== Layout escritorio con grid 3x3 ==== */}
+      {/* ==== Layout escritorio con grid ==== */}
       <div className="hidden md:grid gap-6 place-items-center">
-        {/* Esquina superior izquierda */}
+        {/* fila 1 */}
         <div className="flex justify-around items-center w-full">
           <ValorCard
-            valor={VALORES[0]}
-            seleccionado={activo === VALORES[0].id}
-            onClick={() => setActivo(VALORES[0].id)}
+            valor={valores[0]}
+            seleccionado={activo === valores[0].id}
+            onClick={() => setActivo(valores[0].id)}
           />
 
-          {/* <BotonCentro onReset={() => setActivo(null)} /> */}
           <CentroConLineasFuera
             diameter={100}
             gap={10}
@@ -83,29 +82,31 @@ export const Valores: React.FC = () => {
             lineExtend={90}
             lineColor="rgba(0,0,0,.22)"
             sides={['left', 'right', 'bottom']}
-            setActivo={setActivo}
+            setActivo={
+              setActivo as React.Dispatch<React.SetStateAction<string | null>>
+            }
+            ariaLabel={t('valores.centerAria')}
           />
 
-          {/* Esquina superior derecha */}
           <ValorCard
-            valor={VALORES[1]}
-            seleccionado={activo === VALORES[1].id}
-            onClick={() => setActivo(VALORES[1].id)}
+            valor={valores[1]}
+            seleccionado={activo === valores[1].id}
+            onClick={() => setActivo(valores[1].id)}
           />
         </div>
 
+        {/* fila 2 */}
         <div className="flex justify-evenly w-full">
           <ValorCard
-            valor={VALORES[2]}
-            seleccionado={activo === VALORES[2].id}
-            onClick={() => setActivo(VALORES[2].id)}
+            valor={valores[2]}
+            seleccionado={activo === valores[2].id}
+            onClick={() => setActivo(valores[2].id)}
           />
 
-          {/* Esquina inferior derecha */}
           <ValorCard
-            valor={VALORES[3]}
-            seleccionado={activo === VALORES[3].id}
-            onClick={() => setActivo(VALORES[3].id)}
+            valor={valores[3]}
+            seleccionado={activo === valores[3].id}
+            onClick={() => setActivo(valores[3].id)}
           />
         </div>
       </div>
@@ -113,7 +114,7 @@ export const Valores: React.FC = () => {
       {/* ==== Layout móvil ==== */}
       <div className="md:hidden space-y-4">
         <div className="flex gap-3 flex-wrap justify-center">
-          {VALORES.map((v) => (
+          {valores.map((v) => (
             <ValorCard
               key={v.id}
               valor={v}
@@ -135,47 +136,11 @@ const BotonCentro: React.FC<{ onReset: () => void }> = ({ onReset }) => (
     type="button"
     onClick={onReset}
     className="flex h-20 w-20 md:h-24 md:w-24 items-center justify-center rounded-full bg-[#123E7A] text-white shadow-md transition-transform hover:scale-105"
+    aria-label="reset valores"
   >
     <Handshake className="h-8 w-8 md:h-10 md:w-10" />
   </button>
 );
-
-// const ValorCard: React.FC<{
-//   valor: Valor;
-//   seleccionado: boolean;
-//   onClick: () => void;
-// }> = ({ valor, seleccionado, onClick }) => {
-//   const { Icon } = valor;
-//   return (
-//     <button
-//       type="button"
-//       onClick={onClick}
-//       className={`group relative w-[200px] rounded-xl border bg-white p-3 text-left shadow-sm
-//                   transition-all hover:shadow-lg hover:-translate-y-0.5
-//                   ${seleccionado ? 'border-[#123E7A] ring-1 ring-[#123E7A]/40' : 'border-neutral-200'}`}
-//     >
-//       <div className={`flex items-center gap-2`}>
-//         <div
-//           className={`flex h-10 w-10 items-center justify-center rounded-lg
-//                       transition-transform group-hover:scale-110
-//                       ${seleccionado ? 'bg-[#123E7A] text-white' : 'bg-neutral-100 text-neutral-800'}`}
-//         >
-//           <Icon className="h-6 w-6" />
-//         </div>
-//         <div className="flex flex-col overflow-hidden">
-//           <span
-//             className={`font-semibold text-sm ${seleccionado ? 'text-[#123E7A]' : 'text-neutral-900'}`}
-//           >
-//             {valor.titulo}
-//           </span>
-//           {/* <span className="text-xs text-neutral-500 truncate">
-//             {seleccionado ? 'Seleccionado' : 'Haz clic para ver más'}
-//           </span> */}
-//         </div>
-//       </div>
-//     </button>
-//   );
-// };
 
 const ValorCard: React.FC<{
   valor: Valor;
@@ -191,12 +156,13 @@ const ValorCard: React.FC<{
       onClick={onClick}
       className={`
         group relative w-[210px] ${heightClass}
-        flex items-center               /* centra vertical y evita stretch */
-        rounded-xl border bg-white px-4 /* usamos padding horizontal */
+        flex items-center
+        rounded-xl border bg-white px-4
         text-left shadow-sm transition-all
         hover:shadow-lg hover:-translate-y-0.5
         ${seleccionado ? 'border-[#123E7A] ring-1 ring-[#123E7A]/40' : 'border-neutral-200'}
       `}
+      aria-pressed={seleccionado}
     >
       <div className="flex items-center gap-2 w-full">
         <div
@@ -215,8 +181,6 @@ const ValorCard: React.FC<{
           >
             {valor.titulo}
           </span>
-          {/* Si quieres subtítulo, mantén truncate para que no rompa la altura */}
-          {/* <span className="text-xs text-neutral-500 truncate">Haz clic para ver más</span> */}
         </div>
       </div>
     </button>
@@ -225,18 +189,19 @@ const ValorCard: React.FC<{
 
 type Side = 'top' | 'right' | 'bottom' | 'left';
 
-type Props = {
-  diameter?: number; // px
-  gap?: number; // separación entre círculo y líneas
-  lineWidth?: number; // grosor de línea
-  lineExtend?: number; // cuánto salen hacia afuera
+type CentroProps = {
+  diameter?: number;
+  gap?: number;
+  lineWidth?: number;
+  lineExtend?: number;
   lineColor?: string;
-  sides?: Side[]; // cuáles lados dibujar (default: todas)
+  sides?: Side[];
   className?: string;
   setActivo?: React.Dispatch<React.SetStateAction<string | null>>;
+  ariaLabel?: string;
 };
 
-export const CentroConLineasFuera: React.FC<Props> = ({
+export const CentroConLineasFuera: React.FC<CentroProps> = ({
   diameter = 112,
   gap = 8,
   lineWidth = 2,
@@ -245,8 +210,8 @@ export const CentroConLineasFuera: React.FC<Props> = ({
   sides = ['top', 'right', 'bottom', 'left'],
   className = '',
   setActivo,
+  ariaLabel = 'Centro valores',
 }) => {
-  // flags para CSS (0/1)
   const showTop = Number(sides.includes('top'));
   const showRight = Number(sides.includes('right'));
   const showBottom = Number(sides.includes('bottom'));
@@ -269,17 +234,18 @@ export const CentroConLineasFuera: React.FC<Props> = ({
       className={`cv-wrap relative inline-flex items-center justify-center ${className}`}
       style={styleVars}
     >
-      {/* círculo (único nodo en el DOM) */}
+      {/* círculo */}
       <div
         className="relative z-10 flex items-center justify-center rounded-full bg-[#123E7A] text-white shadow-md"
         style={{ width: 'var(--d)', height: 'var(--d)' }}
         aria-label="Centro valores"
       >
-        {/* <Handshake style={{ width: "calc(var(--d)*0.42)", height: "calc(var(--d)*0.42)" }} /> */}
-        <BotonCentro onReset={() => setActivo && setActivo(null)} />
+        {' '}
+        {/* <Handshake style={{ width: "calc(var(--d)*0.42)", height: "calc(var(--d)*0.42)" }} /> */}{' '}
+        <BotonCentro onReset={() => setActivo && setActivo(null)} />{' '}
       </div>
 
-      {/* estilo del pseudo-elemento que dibuja las líneas */}
+      {/* líneas (pseudo-elemento) */}
       <style>{`
         .cv-wrap::before{
           content:"";
@@ -290,21 +256,13 @@ export const CentroConLineasFuera: React.FC<Props> = ({
           bottom:calc(var(--extend) * -1);
           pointer-events:none;
 
-          /* 4 capas: top, right, bottom, left */
           background:
-            /* TOP (vertical arriba) */
-            linear-gradient(var(--line), var(--line)) center top / 
+            linear-gradient(var(--line), var(--line)) center top /
               var(--w) calc(var(--show-top) * (50% - (var(--d)/2 + var(--gap)))) no-repeat,
-
-            /* RIGHT (horizontal derecha) */
             linear-gradient(var(--line), var(--line)) right center /
               calc(var(--show-right) * (50% - (var(--d)/2 + var(--gap)))) var(--w) no-repeat,
-
-            /* BOTTOM (vertical abajo) */
             linear-gradient(var(--line), var(--line)) center bottom /
               var(--w) calc(var(--show-bottom) * (50% - (var(--d)/2 + var(--gap)))) no-repeat,
-
-            /* LEFT (horizontal izquierda) */
             linear-gradient(var(--line), var(--line)) left center /
               calc(var(--show-left) * (50% - (var(--d)/2 + var(--gap)))) var(--w) no-repeat;
         }
