@@ -155,7 +155,7 @@ const ValorCard: React.FC<{
       type="button"
       onClick={onClick}
       className={`
-        group relative w-[210px] ${heightClass}
+        group relative w-[230px] ${heightClass}
         flex items-center
         rounded-xl border bg-white px-4
         text-left shadow-sm transition-all

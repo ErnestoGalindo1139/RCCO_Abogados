@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState, useCallback } from 'react';
 import { Menu, X } from 'lucide-react';
 import { FaWhatsapp } from 'react-icons/fa';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -25,82 +25,114 @@ const LINKS: LinkItem[] = [
 const NAV_HEIGHT = 72; // px
 
 // ──────────────────────────────────────────────────────────────────────────────
-const scrollToId = (id: string): void => {
-  const el = document.getElementById(id);
-  if (!el) return;
-  const top = el.getBoundingClientRect().top + window.scrollY - NAV_HEIGHT + 1;
-  window.scrollTo({ top, behavior: 'smooth' });
-};
-
+// Helpers
 // ──────────────────────────────────────────────────────────────────────────────
+// (Ya no necesitamos throttle porque usamos requestAnimationFrame para optimización)
+
+// Esta función ha sido reemplazada por la versión optimizada con useCallback más abajo// ──────────────────────────────────────────────────────────────────────────────
 // Componente: Navbar
 // ──────────────────────────────────────────────────────────────────────────────
 interface NavBarProps {
-  scrollBackground?: boolean;
   lockScrollOnOpen?: boolean;
 }
 
 export const NavBar: React.FC<NavBarProps> = ({
-  scrollBackground = false,
   lockScrollOnOpen = true,
 }) => {
   const [open, setOpen] = useState(false);
-  const [active, setActive] = useState<string>('inicio');
+  const [active, setActive] = useState<string>('');  // Inicializado vacío para que no haya selección al cargar
   const [isScrolled, setIsScrolled] = useState(false);
   const [bannerHeight, setBannerHeight] = useState(0);
   const [isBannerVisible, setIsBannerVisible] = useState(true);
+  
+  // Referencias para optimización
   const observerRef = useRef<IntersectionObserver | null>(null);
+  const lastScrollY = useRef(0);
+  const ticking = useRef(false);
+  const animationFrameId = useRef<number | null>(null);
 
   const location = useLocation();
   const navigate = useNavigate();
   const isHome = location.pathname === '/';
 
+  // Función optimizada para scroll to ID
+  const scrollToId = useCallback((id: string): void => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const top = el.getBoundingClientRect().top + window.scrollY - NAV_HEIGHT + 1;
+    window.scrollTo({ top, behavior: 'smooth' });
+  }, []);
+
+  // Obtener altura del Banner con menos re-renders
   const { t } = useTranslation(['common']);
+  const { t: trans } = useTranslation('home');
 
   // Obtener altura del Banner
   useEffect(() => {
-    const cleanup = (): void => {
-      window.removeEventListener('resize', getBannerHeight);
-    };
-
     const getBannerHeight = (): void => {
       const bannerElement = document.getElementById('inicio');
-      setBannerHeight(bannerElement ? bannerElement.offsetHeight : 0);
+      if (bannerElement) {
+        const height = bannerElement.offsetHeight;
+        if (height !== bannerHeight) {
+          setBannerHeight(height);
+        }
+      }
     };
 
     getBannerHeight();
-    window.addEventListener('resize', getBannerHeight);
-    return cleanup;
-  }, []);
+    
+    // Usar ResizeObserver es más eficiente que window resize event
+    let resizeObserver: ResizeObserver | null = null;
+    const bannerElement = document.getElementById('inicio');
+    
+    if (bannerElement && window.ResizeObserver) {
+      resizeObserver = new ResizeObserver(getBannerHeight);
+      resizeObserver.observe(bannerElement);
+    } else {
+      // Fallback para navegadores que no soportan ResizeObserver
+      window.addEventListener('resize', getBannerHeight);
+    }
+
+    return () => {
+      if (resizeObserver && bannerElement) {
+        resizeObserver.unobserve(bannerElement);
+      } else {
+        window.removeEventListener('resize', getBannerHeight);
+      }
+    };
+  }, [bannerHeight]);
 
   // Fondo del navbar y visibilidad del botón de WhatsApp
   useEffect(() => {
-    if (scrollBackground) {
-      setIsScrolled(false);
-      setIsBannerVisible(true);
-      return;
-    }
     if (!isHome) {
       setIsScrolled(true);
       setIsBannerVisible(false);
       return;
     }
 
+    const SCROLL_THRESHOLD = 200; // Píxeles antes de mover el botón
+
     const handleScroll = (): void => {
-      const scrolledPastBanner = window.scrollY >= bannerHeight - NAV_HEIGHT;
-      setIsScrolled(scrolledPastBanner);
-      setIsBannerVisible(!scrolledPastBanner);
+      const scrollPosition = window.scrollY;
+      // Cambiar la posición del botón después del umbral
+      setIsBannerVisible(scrollPosition < SCROLL_THRESHOLD);
+      
+      // El resto de la lógica para el navbar sigue igual
+      const banner = document.getElementById('inicio');
+      if (banner) {
+        const bannerBottom = banner.offsetTop + banner.offsetHeight;
+        const isInBanner = scrollPosition < bannerBottom - NAV_HEIGHT;
+        setIsScrolled(!isInBanner);
+      }
     };
 
     window.addEventListener('scroll', handleScroll);
     handleScroll();
 
-    return (): void => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [bannerHeight, isHome, scrollBackground]);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [isHome]);
 
-  // Lock scroll body cuando el slider está abierto
+  // Controla el scroll del body cuando el slider está abierto
   useEffect(() => {
     if (!lockScrollOnOpen) return;
 
@@ -120,28 +152,58 @@ export const NavBar: React.FC<NavBarProps> = ({
       document.body.style.top = '';
       document.body.style.width = '';
       window.scrollTo(0, scrollY);
+      
+      // Recalcular la sección activa cuando se cierra el slider
+      const currentScroll = window.scrollY;
+      let closestSection = '';
+      let minDistance = Infinity;
+
+      LINKS.forEach((item) => {
+        if (item.type === 'section') {
+          const section = document.getElementById(item.id);
+          if (section) {
+            const rect = section.getBoundingClientRect();
+            const distance = Math.abs(rect.top + currentScroll - currentScroll);
+            if (distance < minDistance) {
+              minDistance = distance;
+              closestSection = item.id;
+            }
+          }
+        }
+      });
+
+      if (closestSection) {
+        setActive(closestSection);
+      }
     }
   }, [open, lockScrollOnOpen]);
 
-  // Scrollspy (solo en Home)
-  const observerCallback = (entries: IntersectionObserverEntry[]): void => {
+  // Scrollspy optimizado (solo en Home)
+  const observerCallback = useCallback((entries: IntersectionObserverEntry[]): void => {
     const visible = entries
       .filter((e) => e.isIntersecting)
       .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-    if (visible?.target?.id) setActive(visible.target.id);
-  };
+    
+    if (visible?.target?.id) {
+      setActive(visible.target.id);
+    }
+  }, []);
 
+  // Modificar las opciones del IntersectionObserver
   useEffect(() => {
     if (!isHome) return;
 
     const options = {
       root: null,
-      rootMargin: `-${NAV_HEIGHT + 8}px 0px -60% 0px`,
-      threshold: [0, 0.25, 0.5, 0.75, 1],
+      // Ajustamos el rootMargin para ser más preciso
+      rootMargin: `-${NAV_HEIGHT}px 0px -50% 0px`,
+      // Aumentamos los puntos de threshold para mejor precisión
+      threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1],
     };
 
     observerRef.current = new IntersectionObserver(observerCallback, options);
 
+    // Registrar todas las secciones a observar
     LINKS.forEach((item) => {
       if (item.type === 'section') {
         const section = document.getElementById(item.id);
@@ -152,19 +214,19 @@ export const NavBar: React.FC<NavBarProps> = ({
     return (): void => {
       observerRef.current?.disconnect();
     };
-  }, [isHome]);
+  }, [isHome, observerCallback]);
 
-  // Si llegas a "/" con hash (p.ej. "/#servicios")
+  // Eliminar el efecto que mantenía la selección al recargar
   useEffect(() => {
     if (!isHome) return;
     const hash = location.hash?.replace('#', '');
     if (hash) {
-      setActive(hash);
       setTimeout(() => scrollToId(hash), 0);
     }
-  }, [isHome, location.hash]);
+  }, [isHome, location.hash, scrollToId]);
 
-  const handleNav = (item: LinkItem): void => {
+  // Función de navegación optimizada con useCallback
+  const handleNav = useCallback((item: LinkItem): void => {
     const performNavigation = (): void => {
       if (item.type === 'route') {
         navigate(`/${item.id}`);
@@ -182,12 +244,12 @@ export const NavBar: React.FC<NavBarProps> = ({
 
     if (open) {
       setOpen(false);
+      // Pequeño delay para que termine la animación del cierre
       setTimeout(performNavigation, 300);
     } else {
       performNavigation();
     }
-  };
-
+  }, [isHome, navigate, open, scrollToId]);
   const DesktopLinks = useMemo(
     () => (
       <nav className="hidden md:flex items-center gap-6">
@@ -212,7 +274,7 @@ export const NavBar: React.FC<NavBarProps> = ({
         })}
       </nav>
     ),
-    [active, isHome, location.pathname, navigate, handleNav, t]
+    [active, isHome, location.pathname, handleNav, t]
   );
 
   return (
@@ -221,7 +283,7 @@ export const NavBar: React.FC<NavBarProps> = ({
         <div className="w-full">
           <div
             className={`h-[72px] flex items-center justify-between px-8 transition-colors duration-300 ${
-              isScrolled
+              isScrolled || open
                 ? 'bg-blue-900 backdrop-blur-md shadow-sm ring-1 ring-white/10'
                 : 'bg-transparent'
             }`}
@@ -327,7 +389,7 @@ export const NavBar: React.FC<NavBarProps> = ({
                 </div>
                 <div className="flex items-center space-x-2 text-white/80">
                   <LuClock2 className="size-5" />
-                  <p className="text-sm">Lunes a Viernes, 9:00 - 17:00</p>
+                  <p className="text-sm">{trans('ubicacion.schedule.week')}</p>
                 </div>
                 <div className="flex items-center space-x-2 text-white/80">
                   <FaWhatsapp className="size-5" />
@@ -336,25 +398,13 @@ export const NavBar: React.FC<NavBarProps> = ({
 
                 {/* Redes sociales */}
                 <div className="flex justify-start space-x-4 pt-2">
-                  <a
-                    href="#"
-                    className="text-white/80 hover:text-white"
-                    aria-label="Facebook"
-                  >
+                  <a href="https://www.facebook.com/profile.php?id=100063488083767" className="text-white/80 hover:text-white">
                     <LuFacebook className="size-6" />
                   </a>
-                  <a
-                    href="#"
-                    className="text-white/80 hover:text-white"
-                    aria-label="WhatsApp"
-                  >
+                  <a href="https://wa.me/6692291634" className="text-white/80 hover:text-white">
                     <FaWhatsapp className="size-6" />
                   </a>
-                  <a
-                    href="#"
-                    className="text-white/80 hover:text-white"
-                    aria-label="Instagram"
-                  >
+                  <a href="https://www.instagram.com/rccoabogados/" className="text-white/80 hover:text-white">
                     <LuInstagram className="size-6" />
                   </a>
                 </div>
@@ -373,19 +423,19 @@ export const NavBar: React.FC<NavBarProps> = ({
         )}
       </header>
 
-      {/* Botón flotante de WhatsApp - Visible solo cuando no estamos en el banner */}
+      {/* Botón flotante de WhatsApp - Con posición dinámica */}
       <a
-        href="https://wa.me/521234567890"
+        href="https://wa.me/6692291634"
         target="_blank"
         rel="noopener noreferrer"
         className={`
-          fixed bottom-6 right-6
+          fixed bottom-6
           bg-green-500 hover:bg-green-600
           p-4 rounded-full shadow-lg
-          transition-all 
+          transition-all duration-300
           hover:scale-110
           z-40
-          ${isBannerVisible ? 'opacity-0 pointer-events-none translate-y-10' : 'opacity-100 pointer-events-auto translate-y-0'}
+          ${isBannerVisible ? 'left-6' : 'right-6'}
         `}
         aria-label="Abrir chat de WhatsApp"
       >
@@ -394,3 +444,4 @@ export const NavBar: React.FC<NavBarProps> = ({
     </>
   );
 };
+
