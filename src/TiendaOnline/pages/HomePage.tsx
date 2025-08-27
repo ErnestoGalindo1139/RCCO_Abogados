@@ -3,7 +3,7 @@ import { LogoCarousel } from '../components/LogoCarousel';
 import { Nosotros } from '../components/Nosotros';
 import { NuestroEquipo } from '../components/NuestroEquipo';
 import { Servicios } from '../components/Servicios';
-import { Slogan } from '../components/Slogan';
+// import { Slogan } from '../components/Slogan';
 import { Valores } from '../components/Valores';
 import { UbicacionComponent } from '../components/Ubicacion';
 import React from 'react';
@@ -17,7 +17,7 @@ export const HomePage = (): React.JSX.Element => {
       <Valores />
       <Servicios />
       <AreasEspecializadas />
-      <Slogan />
+      {/* <Slogan /> */}
       <NuestroEquipo />
       <LogoCarousel
         height={128}
