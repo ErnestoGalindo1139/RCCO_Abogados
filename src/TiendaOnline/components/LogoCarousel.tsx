@@ -33,16 +33,12 @@ export const LogoCarousel: React.FC<LogoCarouselProps> = ({
   titleKey = 'home:logos.title',
   className = '',
   logos = [
-    'https://digito-r.com/wp-content/uploads/2020/07/grupo-modelo.png',
-    'https://digito-r.com/wp-content/uploads/2020/07/pisa.png',
-    'https://digito-r.com/wp-content/uploads/2020/07/redbull.png',
-    'https://digito-r.com/wp-content/uploads/2020/07/shell.png',
-    'https://digito-r.com/wp-content/uploads/2020/07/mapfre.png',
-    'https://digito-r.com/wp-content/uploads/2020/07/electrolit.png',
-    'https://digito-r.com/wp-content/uploads/2020/07/canadevi.png',
-    'https://digito-r.com/wp-content/uploads/2025/06/logo-universa-blanco-768x768.png',
-    'https://digito-r.com/wp-content/uploads/2023/06/korber500.png',
-    'https://digito-r.com/wp-content/uploads/2020/07/affipay.png',
+    'img/cliente1.png',
+    'img/cliente2.png',
+    'img/cliente3.png',
+    'img/cliente4.png',
+    'img/cliente5.png',
+    'img/cliente6.png',
   ],
 }) => {
   const { t } = useTranslation('home');

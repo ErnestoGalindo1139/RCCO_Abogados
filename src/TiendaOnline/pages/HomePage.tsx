@@ -20,14 +20,13 @@ export const HomePage = (): React.JSX.Element => {
       {/* <Slogan /> */}
       <NuestroEquipo />
       <LogoCarousel
-        height={128}
+        height={160}
         gap={1}
-        speed={1.8}
+        speed={2}
         direction="left"
-        pauseOnHover
-        grayscaleOnIdle
         title="logos.trustHeadline"
       />
+
       <UbicacionComponent
         title="ubicacion.title"
         address="Av. del Mar 123, Mazatlán, Sinaloa, México"
