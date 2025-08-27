@@ -11,69 +11,79 @@ export const Banner: React.FC = () => {
   const { t } = useTranslation('home');
 
   return (
-    <section id="inicio" className="h-screen">
-      <div className="relative w-full h-full">
+    <section id="inicio" className="h-[100vh] w-full min-w-full overflow-hidden">
+      <div className="relative w-full h-[100dvh] min-w-full">
         {/* Imagen de fondo */}
         <img
           src="/img/BannerDemo.jpg"
           alt={t('banner.bgAlt')}
-          className="object-cover w-full h-full"
+          className="absolute inset-0 object-cover w-full h-full"
         />
 
         {/* Capa de superposición azul */}
         <div className="absolute inset-0 bg-blue-900 opacity-85" />
 
-        {/* Contenido */}
-        <div className="absolute inset-0 flex flex-col items-center md:items-start justify-center px-6 md:px-20">
-          <div className="text-center md:text-left w-full sm:px-6 md:px-8 lg:px-10 xl:px-16">
-            <h3 className="text-white text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-tight">
-              {t('banner.headline1')}
-            </h3>
-            <h3 className="text-white text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-tight">
-              {t('banner.headline2')}
-            </h3>
-            <button className='
-              bg-white text-blue-900 
-              text-base sm:text-lg md:text-xl lg:text-2xl xl:text-4xl 
-              py-2 sm:py-2.5 md:py-3 lg:py-4 
-              px-4 sm:px-4 md:px-6 lg:px-8 
-              rounded-xl
-              mt-5 sm:mt-6 md:mt-8 lg:mt-10 
-              font-bold 
-              transition-all 
-              hover:bg-blue-50
-            '>
-              {t('banner.cta')}
-            </button>
+        {/* Contenido principal - Centrado verticalmente */}
+        <div className="absolute inset-0 flex flex-col justify-between py-[12vh]">
+          {/* Sección superior */}
+          <div className="flex-1 flex items-center">
+            <div className="flex flex-col items-center md:items-start px-6 md:px-20 w-full">
+              <div className="text-center md:text-left w-full sm:px-6 md:px-8 lg:px-10 xl:px-16">
+                <h3 className="text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-[1.1]">
+                  {t('banner.headline1')}
+                </h3>
+                <h3 className="text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-[1.1] md:mt-2">
+                  {t('banner.headline2')}
+                </h3>
+                <button className='
+                  bg-white text-blue-900 
+                  text-lg sm:text-base md:text-lg lg:text-xl xl:text-2xl
+                  py-2 sm:py-2 md:py-2.5 lg:py-3 
+                  px-5 sm:px-4 md:px-5 lg:px-6 
+                  rounded-xl
+                  mt-4 sm:mt-4 md:mt-6 lg:mt-8
+                  font-bold 
+                  transition-all 
+                  hover:bg-blue-50
+                ' onClick={() => window.open('https://wa.me/6692291634', '_blank')}>
+                  {t('banner.cta')}
+                </button>
+              </div>
+            </div>
           </div>
-        </div>
 
-        {/* Slogan y firma cerca del fondo */}
-        <div className="absolute bottom-32 inset-x-0 px-6 md:px-20">
-          <div className="w-full sm:px-6 md:px-8 lg:px-10 xl:px-16">
-            <h5 className="text-white text-xl sm:text-2xl md:text-2xl lg:text-4xl xl:text-5xl italic text-center  mb-4 ">
-              "{t('banner.slogan')}"
-            </h5>
-            <h5 className='text-end italic text-white text-md sm:text-lg md:text-xl lg:text-2xl xl:text-3xl pr-8 sm:pr-12 md:pr-20 lg:pr-28 xl:pr-32'>
-              --RCCO
-            </h5>
+          {/* Contenedor inferior con slogan, firma e iconos */}
+          <div className="flex flex-col gap-4">
+            {/* Slogan y firma */}
+            <div className="w-full px-4 sm:px-6 md:px-20">
+              <div className="w-full sm:px-6 md:px-8 lg:px-10 xl:px-16">
+                <h5 className="text-white text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl italic text-center mb-2">
+                  "{t('banner.slogan')}"
+                </h5>
+                <h5 className='text-end italic text-white text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl pr-6 sm:pr-12 md:pr-20 lg:pr-28 xl:pr-32'>
+                  --RCCO
+                </h5>
+              </div>
+            </div>
+
+            {/* Social Icons en el flujo del contenido */}
+            <div className="flex justify-end px-4 sm:px-16 md:px-20">
+              <div className="flex items-center gap-3 sm:gap-3 md:gap-4">
+                {SOCIALS.map(({ href, label, Icon }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    aria-label={label}
+                    className="p-2.5 sm:p-2 rounded-full ring-1 ring-white/15 hover:ring-white/40 transition-all hover:scale-[1.03] bg-blue-900/50"
+                  >
+                    <Icon className="size-8 sm:size-7 md:size-9 text-white" />
+                  </a>
+                ))}
+              </div>
+            </div>
           </div>
-        </div>
-
-        {/* Social Icons - Sin cambios */}
-        <div className="absolute bottom-4 md:bottom-8 lg:bottom-10 right-16 md:right-20 flex items-center gap-2 md:gap-4">
-          {SOCIALS.map(({ href, label, Icon }) => (
-            <a
-              key={label}
-              href={href}
-              target="_blank"
-              rel="noreferrer noopener"
-              aria-label={label}
-              className="p-1 md:p-2 rounded-full ring-1 ring-white/15 hover:ring-white/40 transition-all hover:scale-[1.03] bg-blue-900/50"
-            >
-              <Icon className="size-7 md:size-9 text-white" />
-            </a>
-          ))}
         </div>
       </div>
     </section>
