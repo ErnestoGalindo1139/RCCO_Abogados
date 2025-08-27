@@ -110,18 +110,14 @@ export const NavBar: React.FC<NavBarProps> = ({
       return;
     }
 
-    const SCROLL_THRESHOLD = 200; // Píxeles antes de mover el botón
-
     const handleScroll = (): void => {
-      const scrollPosition = window.scrollY;
-      // Cambiar la posición del botón después del umbral
-      setIsBannerVisible(scrollPosition < SCROLL_THRESHOLD);
-      
-      // El resto de la lógica para el navbar sigue igual
-      const banner = document.getElementById('inicio');
-      if (banner) {
-        const bannerBottom = banner.offsetTop + banner.offsetHeight;
-        const isInBanner = scrollPosition < bannerBottom - NAV_HEIGHT;
+      const bannerElement = document.getElementById('inicio');
+      if (bannerElement) {
+        const rect = bannerElement.getBoundingClientRect();
+        // El botón aparece cuando el banner ya no es visible
+        const isInBanner = rect.bottom > 0;
+        
+        setIsBannerVisible(isInBanner);
         setIsScrolled(!isInBanner);
       }
     };
@@ -280,20 +276,20 @@ export const NavBar: React.FC<NavBarProps> = ({
   return (
     <>
       <header className="fixed top-0 inset-x-0 z-50">
-        <div className="w-full">
-          <div
-            className={`h-[72px] flex items-center justify-between px-8 transition-colors duration-300 ${
-              isScrolled || open
-                ? 'bg-blue-900 backdrop-blur-md shadow-sm ring-1 ring-white/10'
-                : 'bg-transparent'
-            }`}
-          >
+        <div
+          className={`h-[72px] w-full flex items-center justify-between transition-colors duration-300 ${
+            isScrolled || open
+              ? 'bg-blue-900 backdrop-blur-md shadow-sm ring-1 ring-white/10'
+              : 'bg-transparent'
+          }`}
+        >
+          <div className="w-full flex items-center justify-between px-4 sm:px-6 lg:px-8">
             {/* Logo */}
             <button
               onClick={() =>
                 handleNav({ id: 'inicio', label: 'nav.home', type: 'section' })
               }
-              className="flex items-center gap-3 w-40 md:w-48 p-4"
+              className="flex items-center w-32 sm:w-36 md:w-40 lg:w-44"
               aria-label={t('nav.logoAlt')}
               title={t('nav.logoAlt')}
             >
@@ -304,21 +300,20 @@ export const NavBar: React.FC<NavBarProps> = ({
               />
             </button>
 
-            {/* Links escritorio */}
-            <div className="flex items-center justify-end gap-6">
+            {/* Links escritorio y Language Switch */}
+            <div className="flex items-center gap-4 sm:gap-6 lg:gap-8">
               {DesktopLinks}
               <LanguageFlagSwitch />
-              {/* {SocialButtons} */}
-            </div>
 
-            {/* Botón menú móvil */}
-            <button
-              className="md:hidden p-2 text-white"
-              onClick={() => setOpen((v) => !v)}
-              aria-label={open ? t('actions.close') : t('nav.menu')}
-            >
-              {open ? <X className="size-6" /> : <Menu className="size-6" />}
-            </button>
+              {/* Botón menú móvil */}
+              <button
+                className="md:hidden p-2 text-white"
+                onClick={() => setOpen((v) => !v)}
+                aria-label={open ? t('actions.close') : t('nav.menu')}
+              >
+                {open ? <X className="size-6" /> : <Menu className="size-6" />}
+              </button>
+            </div>
           </div>
         </div>
 
@@ -423,19 +418,21 @@ export const NavBar: React.FC<NavBarProps> = ({
         )}
       </header>
 
-      {/* Botón flotante de WhatsApp - Con posición dinámica */}
+      {/* Botón flotante de WhatsApp - Solo visible después del banner */}
       <a
         href="https://wa.me/6692291634"
         target="_blank"
         rel="noopener noreferrer"
         className={`
-          fixed bottom-6
+          fixed bottom-6 right-6
           bg-green-500 hover:bg-green-600
           p-4 rounded-full shadow-lg
-          transition-all duration-300
+          transition-all duration-500
           hover:scale-110
           z-40
-          ${isBannerVisible ? 'left-6' : 'right-6'}
+          ${isBannerVisible 
+            ? 'opacity-0 pointer-events-none translate-y-10' 
+            : 'opacity-100 pointer-events-auto translate-y-0'}
         `}
         aria-label="Abrir chat de WhatsApp"
       >
