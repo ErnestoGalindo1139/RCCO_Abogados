@@ -33,18 +33,18 @@ type Servicio = {
 };
 
 const ICONS: Record<string, React.ReactNode> = {
-  laboral: <Scale className="w-7 h-7" />, // Balanza: justicia laboral
-  mercantil: <BriefcaseBusiness className="w-7 h-7" />, // Maletín: negocios
-  societario: <Building2 className="w-7 h-7" />, // Edificio: corporaciones
-  inmobiliario: <Home className="w-7 h-7" />, // Casa: bienes raíces
-  planeacion: <ClipboardCheck className="w-7 h-7" />, // Lista: planeación patrimonial
-  propiedad_industrial: <Copyright className="w-7 h-7" />, // Símbolo de copyright
-  fideicomisos: <TrendingUp className="w-7 h-7" />, // Crecimiento: fideicomisos / inversión
-  pld: <ShieldCheck className="w-7 h-7" />, // Escudo: compliance / prevención
-  due_diligence: <FileSearch className="w-7 h-7" />, // Lupa: revisión legal
-  sociedades_financieras: <Landmark className="w-7 h-7" />, // Columna: instituciones financieras
-  contratos_financieros: <FileSignature className="w-7 h-7" />, // Documento firmado
-  cumplimiento_regulatorio: <ClipboardCheck className="w-7 h-7" />, // Lista: compliance regulatorio
+  laboral: <Scale className="w-7 h-7" />,
+  mercantil: <BriefcaseBusiness className="w-7 h-7" />,
+  societario: <Building2 className="w-7 h-7" />,
+  inmobiliario: <Home className="w-7 h-7" />,
+  planeacion: <ClipboardCheck className="w-7 h-7" />,
+  propiedad_industrial: <Copyright className="w-7 h-7" />,
+  fideicomisos: <TrendingUp className="w-7 h-7" />,
+  pld: <ShieldCheck className="w-7 h-7" />,
+  due_diligence: <FileSearch className="w-7 h-7" />,
+  sociedades_financieras: <Landmark className="w-7 h-7" />,
+  contratos_financieros: <FileSignature className="w-7 h-7" />,
+  cumplimiento_regulatorio: <ClipboardCheck className="w-7 h-7" />,
 };
 
 const IDS: string[] = [
@@ -69,18 +69,13 @@ const buildServicios = (t: TFunction<'home'>): Servicio[] =>
       titulo: t(`servicios.items.${id}.title`),
       icon: ICONS[id],
       resumen: t(`servicios.items.${id}.summary`),
-      bullets: t(`servicios.items.${id}.bullets`, {
-        returnObjects: true,
-      }) as string[],
+      bullets: t(`servicios.items.${id}.bullets`, { returnObjects: true }) as string[],
     })
   );
 
 // Duplicamos para el carrusel
 const chunkArray = <T,>(arr: T[], size: number): T[][] =>
-  arr.reduce<T[][]>(
-    (acc, _, i) => (i % size ? acc : [...acc, arr.slice(i, i + size)]),
-    []
-  );
+  arr.reduce<T[][]>((acc, _, i) => (i % size ? acc : [...acc, arr.slice(i, i + size)]), []);
 
 /** Hook: 6 (>=1024px) → 4 (>=640px) → 2 (<640px)  */
 const useResponsiveChunk = (): number => {
@@ -105,15 +100,12 @@ export const Servicios: React.FC = () => {
   const servicios = useMemo(() => [...DATA, ...DATA], [DATA]); // duplicado para loop
 
   const chunkSize = useResponsiveChunk();
-  const slides = useMemo(
-    () => chunkArray(servicios, chunkSize),
-    [servicios, chunkSize]
-  );
+  const slides = useMemo(() => chunkArray(servicios, chunkSize), [servicios, chunkSize]);
 
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
   const [selectedIndex, setSelectedIndex] = useState(0);
 
-  // 🔑 Guardamos solo el id del activo y derivamos el objeto desde DATA
+  // Activo
   const [activoId, setActivoId] = useState<string | null>(null);
   const activo = useMemo(
     () => (activoId ? (DATA.find((d) => d.id === activoId) ?? null) : null),
@@ -139,8 +131,7 @@ export const Servicios: React.FC = () => {
 
   // Cerrar con ESC
   useEffect(() => {
-    const onKey = (e: KeyboardEvent): boolean | void =>
-      e.key === 'Escape' && setActivoId(null);
+    const onKey = (e: KeyboardEvent): boolean | void => e.key === 'Escape' && setActivoId(null);
     window.addEventListener('keydown', onKey);
     return (): void => window.removeEventListener('keydown', onKey);
   }, []);
@@ -162,14 +153,14 @@ export const Servicios: React.FC = () => {
       }}
     >
       <div className="max-w-[80%] mx-auto">
-        <h2 className="text-center text-white text-3xl md:text-5xl font-bold mb-[6rem]">
+        <h2 className="text-center text-white text-3xl md:text-5xl font-bold mb-[6rem] lg:mb-8">
           {t('servicios.title')}
         </h2>
 
         {/* Layout 2 columnas */}
-        <div className="mt-12 grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] gap-[6rem] items-start">
+        <div className="mt-12 grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] gap-[6rem] lg:gap-6 items-start">
           {/* Columna izquierda: Panel */}
-          <div className="relative min-h-[320px] hidden lg:block">
+          <div className="relative min-h-[320px] lg:min-h-[180px] hidden lg:block">
             <AnimatePresence mode="wait">
               {activo ? (
                 <motion.aside
@@ -178,30 +169,28 @@ export const Servicios: React.FC = () => {
                   animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
                   exit={{ opacity: 0, x: -24, filter: 'blur(4px)' }}
                   transition={{ type: 'spring', stiffness: 220, damping: 26 }}
-                  className="rounded-3xl bg-white/10 text-white/90 ring-1 ring-white/15 shadow-2xl p-6 md:p-8"
+                  className="rounded-3xl bg-white/10 text-white/90 ring-1 ring-white/15 shadow-2xl p-6 lg:p-4"
                 >
-                  <div className="flex items-start gap-4">
-                    <div className="bg-white/10 p-3 rounded-2xl ring-1 ring-white/20">
+                  <div className="flex items-start gap-4 lg:gap-3">
+                    <div className="bg-white/10 p-3 lg:p-2 rounded-2xl ring-1 ring-white/20">
                       <div className="text-[#8BC6FF]">{activo.icon}</div>
                     </div>
                     <div className="flex-1">
-                      <h3 className="text-2xl font-semibold">
-                        {activo.titulo}
-                      </h3>
-                      <p className="mt-2 text-white/80 leading-relaxed">
+                      <h3 className="text-2xl lg:text-xl font-semibold">{activo.titulo}</h3>
+                      <p className="mt-2 text-white/80 leading-relaxed text-base lg:text-sm">
                         {activo.resumen}
                       </p>
                     </div>
                     <button
                       onClick={() => setActivoId(null)}
-                      className="shrink-0 rounded-full p-2 hover:bg白/10 transition"
+                      className="shrink-0 rounded-full p-2 hover:bg-white/10 transition"
                       aria-label={t('servicios.aria.close')}
                       title={t('servicios.aria.close') as string}
                     >
                       <X className="w-5 h-5" />
                     </button>
                   </div>
-                  <ul className="mt-6 space-y-2 text-white/90">
+                  <ul className="mt-6 lg:mt-4 space-y-2 lg:space-y-1.5 text-white/90 text-base lg:text-sm">
                     {activo.bullets.map((b, i) => (
                       <li key={i} className="flex gap-2">
                         <span className="mt-2 h-1.5 w-1.5 rounded-full bg-white/70" />
@@ -215,9 +204,9 @@ export const Servicios: React.FC = () => {
                   key={`placeholder-${i18n.language}`}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  className="rounded-3xl bg-white/5 ring-1 ring-white/10 p-8 text-white/70"
+                  className="rounded-3xl bg-white/5 ring-1 ring-white/10 p-8 lg:p-5 text-white/70"
                 >
-                  <p className="text-lg">{t('servicios.placeholder')}</p>
+                  <p className="text-lg lg:text-base">{t('servicios.placeholder')}</p>
                 </motion.div>
               )}
             </AnimatePresence>
@@ -229,14 +218,25 @@ export const Servicios: React.FC = () => {
               <div className="flex">
                 {slides.map((grupo, idx) => (
                   <div key={idx} className="flex-[0_0_100%] px-2">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 items-stretch gap-x-[2rem] gap-y-10 py-2">
+                    {/* En lg forzamos filas de altura exacta y que cada card llene la fila */}
+                    <div
+                      className="
+                        grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 items-stretch
+                        gap-x-[2rem] gap-y-10
+                        lg:gap-x-6 lg:gap-y-6
+                        py-2
+                        lg:auto-rows-[150px]   /* SOLO laptop: filas de 150px */
+                      "
+                    >
                       {grupo.map((s, i) => (
                         <button
                           key={`${s.id}-${idx}-${i}`}
                           onClick={() => setActivoId(s.id)}
                           className="
-                            h-full md:aspect-[4/4] 2xl:aspect-[5/4]
-                            group rounded-2xl px-6 py-10 text-white
+                            h-full md:aspect-[4/4]
+                            lg:aspect-auto lg:h-auto  /* en laptop dejamos que llene la fila */
+                            xl:aspect-[4/4] 2xl:aspect-[5/4]
+                            group rounded-2xl px-6 py-10 lg:px-4 lg:py-6 text-white
                             bg-[#0b3ea6] hover:bg-[#0840b0]
                             ring-1 ring-white/10
                             drop-shadow-lg hover:drop-shadow-2xl
@@ -248,17 +248,17 @@ export const Servicios: React.FC = () => {
                             flex flex-col justify-center
                           "
                         >
-                          <div className="flex flex-col items-center gap-4">
+                          <div className="flex flex-col items-center gap-4 lg:gap-3">
                             <div
                               className="
-                                bg-white/10 p-4 rounded-xl backdrop-blur-sm
+                                bg-white/10 p-4 lg:p-3 rounded-xl backdrop-blur-sm
                                 ring-1 ring-white/10 group-hover:ring-white/20
                                 transition-transform group-hover:scale-110
                               "
                             >
                               <div className="text-[#8BC6FF]">{s.icon}</div>
                             </div>
-                            <span className="text-lg md:text-xl font-semibold text-center line-clamp-2">
+                            <span className="text-lg md:text-xl lg:text-base font-semibold text-center line-clamp-2">
                               {s.titulo}
                             </span>
                           </div>
@@ -271,7 +271,7 @@ export const Servicios: React.FC = () => {
             </div>
 
             {/* Controles */}
-            <div className="mt-8 flex items-center justify-center gap-8">
+            <div className="mt-8 lg:mt-6 flex items-center justify-center gap-8 lg:gap-6">
               <button
                 onClick={prev}
                 className="rounded-full p-2 hover:bg-white/10 text-white/90 disabled:opacity-40 transition"
@@ -281,18 +281,14 @@ export const Servicios: React.FC = () => {
                 <ChevronLeft className="w-6 h-6" />
               </button>
 
-              <div className="flex gap-3">
+              <div className="flex gap-3 lg:gap-2.5">
                 {slides.map((_, i) => (
                   <button
                     key={i}
                     onClick={() => scrollTo(i)}
-                    aria-label={
-                      t('servicios.aria.goto', { n: i + 1 }) as string
-                    }
+                    aria-label={t('servicios.aria.goto', { n: i + 1 }) as string}
                     className={`h-2.5 w-2.5 rounded-full transition-all ${
-                      i === selectedIndex
-                        ? 'bg-white'
-                        : 'bg-white/40 hover:bg-white/70'
+                      i === selectedIndex ? 'bg-white' : 'bg-white/40 hover:bg-white/70'
                     }`}
                   />
                 ))}
@@ -321,10 +317,7 @@ export const Servicios: React.FC = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-            <div
-              className="absolute inset-0 bg-black/50"
-              onClick={() => setActivoId(null)}
-            />
+            <div className="absolute inset-0 bg-black/50" onClick={() => setActivoId(null)} />
             <motion.div
               role="dialog"
               aria-modal="true"
@@ -340,9 +333,7 @@ export const Servicios: React.FC = () => {
                 </div>
                 <div className="flex-1">
                   <h3 className="text-xl font-semibold">{activo.titulo}</h3>
-                  <p className="mt-2 text-white/80 leading-relaxed">
-                    {activo.resumen}
-                  </p>
+                  <p className="mt-2 text-white/80 leading-relaxed">{activo.resumen}</p>
                 </div>
                 <button
                   onClick={() => setActivoId(null)}
