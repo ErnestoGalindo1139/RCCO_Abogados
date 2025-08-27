@@ -23,10 +23,10 @@ export const Banner: React.FC = () => {
         {/* Capa de superposición azul */}
         <div className="absolute inset-0 bg-blue-900 opacity-85" />
 
-        {/* Contenido principal - Centrado verticalmente */}
-        <div className="absolute inset-0 flex flex-col justify-between py-[12vh]">
-          {/* Sección superior */}
-          <div className="flex-1 flex items-center">
+        {/* Contenido principal */}
+        <div className="absolute inset-0 flex flex-col justify-between py-[12vh] pb-24">
+          {/* Contenido superior */}
+          <div className="flex-1 flex items-center"> {/* Cambiado de items-end a items-center y removido mb-12 */}
             <div className="flex flex-col items-center md:items-start px-6 md:px-20 w-full">
               <div className="text-center md:text-left w-full sm:px-6 md:px-8 lg:px-10 xl:px-16">
                 <h3 className="text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-[1.1]">
@@ -52,38 +52,33 @@ export const Banner: React.FC = () => {
             </div>
           </div>
 
-          {/* Contenedor inferior con slogan, firma e iconos */}
-          <div className="flex flex-col gap-4">
-            {/* Slogan y firma */}
-            <div className="w-full px-4 sm:px-6 md:px-20">
-              <div className="w-full sm:px-6 md:px-8 lg:px-10 xl:px-16">
-                <h5 className="text-white text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl italic text-center mb-2">
-                  "{t('banner.slogan')}"
-                </h5>
-                <h5 className='text-end italic text-white text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl pr-6 sm:pr-12 md:pr-20 lg:pr-28 xl:pr-32'>
-                  --RCCO
-                </h5>
-              </div>
-            </div>
-
-            {/* Social Icons en el flujo del contenido */}
-            <div className="flex justify-end px-4 sm:px-16 md:px-20">
-              <div className="flex items-center gap-3 sm:gap-3 md:gap-4">
-                {SOCIALS.map(({ href, label, Icon }) => (
-                  <a
-                    key={label}
-                    href={href}
-                    target="_blank"
-                    rel="noreferrer noopener"
-                    aria-label={label}
-                    className="p-2.5 sm:p-2 rounded-full ring-1 ring-white/15 hover:ring-white/40 transition-all hover:scale-[1.03] bg-blue-900/50"
-                  >
-                    <Icon className="size-8 sm:size-7 md:size-9 text-white" />
-                  </a>
-                ))}
-              </div>
+          {/* Slogan y firma */}
+          <div className="w-full px-4 sm:px-6 md:px-20 mb-4">
+            <div className="w-full sm:px-6 md:px-8 lg:px-10 xl:px-16">
+              <h5 className="text-white text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl italic text-center mb-2">
+                "{t('banner.slogan')}"
+              </h5>
+              <h5 className='text-end italic text-white text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl pr-6 sm:pr-32 md:pr-32 lg:pr-32 xl:pr-32'>
+                --RCCO
+              </h5>
             </div>
           </div>
+        </div>
+
+        {/* Social Icons - Posición absoluta con espacio reservado */}
+        <div className="absolute bottom-4 right-4 sm:right-16 md:right-20 flex items-center gap-3 sm:gap-3 md:gap-4">
+          {SOCIALS.map(({ href, label, Icon }) => (
+            <a
+              key={label}
+              href={href}
+              target="_blank"
+              rel="noreferrer noopener"
+              aria-label={label}
+              className="p-2.5 sm:p-2 rounded-full ring-1 ring-white/15 hover:ring-white/40 transition-all hover:scale-[1.03] bg-blue-900/50"
+            >
+              <Icon className="size-8 sm:size-7 md:size-9 text-white" />
+            </a>
+          ))}
         </div>
       </div>
     </section>
