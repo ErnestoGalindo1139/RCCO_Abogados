@@ -27,5 +27,8 @@
     "poweredBy": "Powered by",
     "poweredByAria": "Open {{brand}}",
     "privacy": "Privacy Policy"
+  },
+  "waitScreen": {
+    "text": "changing language..."
   }
 }
