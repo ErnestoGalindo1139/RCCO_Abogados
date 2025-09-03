@@ -28,7 +28,7 @@ export const HomePage = (): React.JSX.Element => {
         />
         <UbicacionComponent
           title="ubicacion.title"
-          address="Av. del Mar 123, Mazatlán, Sinaloa, México"
+          address="C. Guelatao 909, María Fernanda, 82147 Mazatlán, Sin."
           lat={23.2377259}
           lng={-106.4303041}
           zoom={16}

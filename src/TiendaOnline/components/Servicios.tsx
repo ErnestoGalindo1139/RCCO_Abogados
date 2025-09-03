@@ -73,7 +73,7 @@ const buildServicios = (t: TFunction<'home'>): Servicio[] =>
     })
   );
 
-// Duplicamos para el carrusel
+// Helper: partir en grupos (slides)
 const chunkArray = <T,>(arr: T[], size: number): T[][] =>
   arr.reduce<T[][]>((acc, _, i) => (i % size ? acc : [...acc, arr.slice(i, i + size)]), []);
 
@@ -96,8 +96,11 @@ const useResponsiveChunk = (): number => {
 export const Servicios: React.FC = () => {
   const { t, i18n } = useTranslation('home');
 
+  // Construye los 12 servicios desde i18n
   const DATA = useMemo(() => buildServicios(t), [t]);
-  const servicios = useMemo(() => [...DATA, ...DATA], [DATA]); // duplicado para loop
+
+  // ❗️No dupliques: Embla con loop:true hará sus clones internos.
+  const servicios = useMemo(() => DATA, [DATA]);
 
   const chunkSize = useResponsiveChunk();
   const slides = useMemo(() => chunkArray(servicios, chunkSize), [servicios, chunkSize]);
@@ -205,6 +208,7 @@ export const Servicios: React.FC = () => {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   className="rounded-3xl bg-white/5 ring-1 ring-white/10 p-8 lg:p-5 text-white/70"
+
                 >
                   <p className="text-lg lg:text-base">{t('servicios.placeholder')}</p>
                 </motion.div>
@@ -225,7 +229,7 @@ export const Servicios: React.FC = () => {
                         gap-x-[2rem] gap-y-10
                         lg:gap-x-6 lg:gap-y-6
                         py-2
-                        lg:auto-rows-[150px]   /* SOLO laptop: filas de 150px */
+                        lg:auto-rows-[150px]
                       "
                     >
                       {grupo.map((s, i) => (
@@ -234,7 +238,7 @@ export const Servicios: React.FC = () => {
                           onClick={() => setActivoId(s.id)}
                           className="
                             h-full md:aspect-[4/4]
-                            lg:aspect-auto lg:h-auto  /* en laptop dejamos que llene la fila */
+                            lg:aspect-auto lg:h-auto
                             xl:aspect-[4/4] 2xl:aspect-[5/4]
                             group rounded-2xl px-6 py-10 lg:px-4 lg:py-6 text-white
                             bg-[#0b3ea6] hover:bg-[#0840b0]

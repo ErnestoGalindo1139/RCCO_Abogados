@@ -7,6 +7,7 @@ import {
   Navigation,
   ExternalLink,
   Copy,
+  Mail,
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
@@ -78,100 +79,119 @@ export const UbicacionComponent: React.FC<Props> = ({
         <div className="grid gap-6 lg:grid-cols-[420px,1fr]">
           {/* Tarjeta */}
           <article>
-            <div className="rounded-2xl border border-neutral-200 bg-white p-6 sm:p-7 shadow-sm">
-              <div className="space-y-6">
-                {/* Teléfono */}
-                {phone && (
-                  <div className="flex items-start gap-3">
-                    <div className="grid size-10 place-items-center rounded-full border border-neutral-200">
-                      <Phone className="size-5" />
-                    </div>
-                    <div>
-                      <h3 className="font-medium text-neutral-900">
-                        {t('ubicacion.phone')}
-                      </h3>
-                      <a
-                        href={`tel:${phone.replace(/\s+/g, '')}`}
-                        className="text-sm text-neutral-600 hover:underline underline-offset-4"
-                      >
-                        {phone}
-                      </a>
-                    </div>
-                  </div>
-                )}
+          <div className="rounded-2xl border border-neutral-200 bg-white p-6 sm:p-7 shadow-sm">
+        <div className="space-y-6">
 
-                {/* Dirección */}
-                <div className="flex items-start gap-3">
-                  <div className="grid size-10 place-items-center rounded-full border border-neutral-200">
-                    <MapPin className="size-5" />
-                  </div>
-                  <div>
-                    <h3 className="font-medium text-neutral-900">
-                      {t('ubicacion.address')}
-                    </h3>
-                    <p className="text-sm text-neutral-600">{address}</p>
-                    <div className="mt-2 flex flex-wrap gap-2">
-                      <a
-                        className="inline-flex items-center gap-1 text-sm text-blue-700 hover:underline underline-offset-4"
-                        href={mapsPlaceUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        {t('ubicacion.actions.viewOnMaps')}{' '}
-                        <ExternalLink className="size-3.5" />
-                      </a>
-                      <button
-                        onClick={copyAddress}
-                        className="inline-flex items-center gap-1 rounded-md border border-neutral-200 px-2 py-1 text-xs hover:bg-neutral-50"
-                        aria-label={t('ubicacion.aria.copyAddress')}
-                      >
-                        <Copy className="size-3.5" />{' '}
-                        {t('ubicacion.actions.copy')}
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Horario */}
-                {hours && (
-                  <div className="flex items-start gap-3">
-                    <div className="grid size-10 place-items-center rounded-full border border-neutral-200">
-                      <Clock className="size-5" />
-                    </div>
-                    <div>
-                      <h3 className="font-medium text-neutral-900">
-                        {t('ubicacion.hours')}
-                      </h3>
-                      <p className="text-sm text-neutral-600">
-                        {t(hours, { defaultValue: hours })}{' '}
-                        {/* 🔑 ahora traduce si es clave */}
-                      </p>
-                    </div>
-                  </div>
-                )}
+          {/* Horario */}
+          {hours && (
+            <div className="flex items-start gap-3">
+              <div className="grid size-10 place-items-center rounded-full border border-neutral-200">
+                <Clock className="size-5" />
               </div>
+              <div>
+                <h3 className="font-medium text-neutral-900">
+                  {t('ubicacion.hours')}
+                </h3>
+                <p className="text-sm text-neutral-600">
+                  {t(hours, { defaultValue: hours })}{' '}
+                </p>
+              </div>
+            </div>
+          )}
 
-              {/* Acciones */}
-              <div className="mt-7 flex flex-wrap gap-3">
+          {/* Teléfono */}
+          {phone && (
+            <div className="flex items-start gap-3">
+              <div className="grid size-10 place-items-center rounded-full border border-neutral-200">
+                <Phone className="size-5" />
+              </div>
+              <div>
+                <h3 className="font-medium text-neutral-900">
+                  {t('ubicacion.phone')}
+                </h3>
                 <a
-                  href={directionsUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center gap-2 rounded-lg border border-blue-600/20 bg-blue-600/10 px-4 py-2 text-sm font-medium hover:bg-blue-600/15"
+                  href={`tel:${phone.replace(/\s+/g, '')}`}
+                  className="text-sm text-neutral-600 hover:underline underline-offset-4"
                 >
-                  <Navigation className="size-4" />
-                  {t('ubicacion.actions.directions')}
-                </a>
-                <a
-                  href={mapsPlaceUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center gap-2 rounded-lg border border-neutral-200 bg-white px-4 py-2 text-sm hover:bg-neutral-50"
-                >
-                  {t('ubicacion.actions.openMaps')}
+                  {phone}
                 </a>
               </div>
             </div>
+          )}
+
+          {/* Correo */}
+          <div className="flex items-start gap-3">
+            <div className="grid size-10 place-items-center rounded-full border border-neutral-200">
+              <Mail className="size-5" />
+            </div>
+            <div>
+              <h3 className="font-medium text-neutral-900">
+                Email
+              </h3>
+              <a
+                href="mailto:contacto@rccoabogados.com.mx"
+                className="text-sm text-neutral-600 hover:underline underline-offset-4"
+              >
+                contacto@rccoabogados.com.mx
+              </a>
+            </div>
+          </div>
+
+          {/* Dirección */}
+          <div className="flex items-start gap-3">
+            <div className="grid size-10 place-items-center rounded-full border border-neutral-200">
+              <MapPin className="size-5" />
+            </div>
+            <div>
+              <h3 className="font-medium text-neutral-900">
+                {t('ubicacion.address')}
+              </h3>
+              <p className="text-sm text-neutral-600">{address}</p>
+              <div className="mt-2 flex flex-wrap gap-2">
+                <a
+                  className="inline-flex items-center gap-1 text-sm text-blue-700 hover:underline underline-offset-4"
+                  href={mapsPlaceUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {t('ubicacion.actions.viewOnMaps')}{' '}
+                  <ExternalLink className="size-3.5" />
+                </a>
+                <button
+                  onClick={copyAddress}
+                  className="inline-flex items-center gap-1 rounded-md border border-neutral-200 px-2 py-1 text-xs hover:bg-neutral-50"
+                  aria-label={t('ubicacion.aria.copyAddress')}
+                >
+                  <Copy className="size-3.5" />{' '}
+                  {t('ubicacion.actions.copy')}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Acciones */}
+        <div className="mt-7 flex flex-wrap gap-3">
+          <a
+            href={directionsUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-2 rounded-lg border border-blue-600/20 bg-blue-600/10 px-4 py-2 text-sm font-medium hover:bg-blue-600/15"
+          >
+            <Navigation className="size-4" />
+            {t('ubicacion.actions.directions')}
+          </a>
+          <a
+            href={mapsPlaceUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-2 rounded-lg border border-neutral-200 bg-white px-4 py-2 text-sm hover:bg-neutral-50"
+          >
+            {t('ubicacion.actions.openMaps')}
+          </a>
+        </div>
+      </div>
+
           </article>
 
           {/* Mapa */}
