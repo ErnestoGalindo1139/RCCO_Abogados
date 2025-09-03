@@ -101,6 +101,7 @@ const useResponsiveChunk = (): number => {
 export const Servicios: React.FC = () => {
   const { t, i18n } = useTranslation('home');
 
+  // Construye los 12 servicios desde i18n
   const DATA = useMemo(() => buildServicios(t), [t]);
   // ✅ Usar solo los 12 (sin duplicar)
   const servicios = useMemo(() => DATA, [DATA]);
@@ -220,6 +221,7 @@ export const Servicios: React.FC = () => {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   className="rounded-3xl bg-white/5 ring-1 ring-white/10 p-8 lg:p-5 text-white/70"
+
                 >
                   <p className="text-lg lg:text-base">
                     {t('servicios.placeholder')}
