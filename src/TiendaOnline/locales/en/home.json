@@ -49,6 +49,9 @@
   "equipo": {
     "title": "Our team",
     "miembros": {
+      "dionisio": {
+        "cargo": "General Director"
+      },
       "jose": {
         "cargo": "Partner Lawyer"
       },
@@ -63,9 +66,6 @@
       },
       "liz": {
         "cargo": "Lawyer"
-      },
-      "dionisio": {
-        "cargo": "General Director"
       }
     }
   },

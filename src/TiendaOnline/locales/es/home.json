@@ -49,6 +49,9 @@
   "equipo": {
     "title": "Nuestro equipo",
     "miembros": {
+      "dionisio": {
+        "cargo": "Director General"
+      },
       "jose": {
         "cargo": "Socio Abogado"
       },
@@ -63,9 +66,6 @@
       },
       "liz": {
         "cargo": "Abogada"
-      },
-      "dionisio": {
-        "cargo": "Director General"
       }
     }
   },
