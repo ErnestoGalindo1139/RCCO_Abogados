@@ -49,15 +49,14 @@
   "equipo": {
     "title": "Nuestro equipo",
     "miembros": {
-      "dionisio": {
-        "cargo": "Director General de RCCO"
-      },
       "jose": {
-        "cargo": "Presidente del Consejo de",
-        "subcargo": "Administración"
+        "cargo": "Socio Abogado"
       },
       "felipe": {
-        "cargo": "Socio Abogado de la firma"
+        "cargo": "Socio Abogado"
+      },
+      "alfredo": {
+        "cargo": "Socio Abogado"
       },
       "aurora": {
         "cargo": "Abogada Jr."
@@ -65,8 +64,8 @@
       "liz": {
         "cargo": "Abogada"
       },
-      "alfredo": {
-        "cargo": "Abogado Sr."
+      "dionisio": {
+        "cargo": "Director General"
       }
     }
   },
@@ -80,67 +79,68 @@
       "goto": "Ir a la página {{n}}"
     },
     "items": {
-      "laboral": {
-        "title": "Derecho Laboral",
-        "summary": "Asesoría integral para relaciones laborales individuales y colectivas.",
-        "bullets": ["Contratos y cumplimiento", "Litigio y conciliación", "Auditorías laborales"]
+      "societario": {
+        "title": "Derecho Societario",
+        "summary": "Diseñamos y optimizamos la estructura legal de tu empresa para proteger a los socios, asegurar el control corporativo y facilitar el crecimiento.",
+        "bullets": ["Estructuración corporativa", "Gobierno y control", "Crecimiento empresarial"]
       },
       "mercantil": {
         "title": "Derecho Mercantil",
-        "summary": "Operaciones comerciales, contratos y resolución de controversias.",
-        "bullets": ["Contratos mercantiles", "Cobranza judicial", "Arbitraje"]
+        "summary": "Asesoramos en operaciones comerciales, litigios y contratos, cuidando que tus transacciones se respalden con certeza jurídica.",
+        "bullets": ["Operaciones comerciales", "Litigios mercantiles", "Contratos especializados"]
       },
-      "societario": {
-        "title": "Derecho Societario",
-        "summary": "Gobierno corporativo y cumplimiento regulatorio.",
-        "bullets": ["Constitución y fusiones", "Actas y libros", "Secretaría corporativa"]
-      },
-      "inmobiliario": {
-        "title": "Derecho Inmobiliario",
-        "summary": "Transacciones y regularización de inmuebles.",
-        "bullets": ["Compraventas y arrendamientos", "Debida diligencia", "Fideicomisos inmobiliarios"]
+      "civil": {
+        "title": "Derecho Civil",
+        "summary": "Solucionamos conflictos relacionados con bienes, obligaciones y contratos privados que impactan directamente en tu negocio.",
+        "bullets": ["Bienes y propiedad", "Obligaciones y contratos", "Solución de controversias civiles"]
       },
       "planeacion": {
-        "title": "Planeación Patrimonial",
-        "summary": "Protección y transmisión ordenada del patrimonio.",
-        "bullets": ["Testamentos", "Protocolos familiares", "Fideicomisos patrimoniales"]
+        "title": "Planeación Jurídica Patrimonial",
+        "summary": "Protegemos tu patrimonio empresarial y familiar mediante estrategias legales que aseguren su conservación y transmisión ordenada.",
+        "bullets": ["Protección patrimonial", "Estrategias sucesorias", "Transmisión ordenada de bienes"]
+      },
+      "laboral": {
+        "title": "Derecho Laboral para Empresas",
+        "summary": "Diseñamos esquemas laborales sólidos que previenen conflictos con empleados y cumplen con la normativa vigente.",
+        "bullets": ["Contratación y cumplimiento", "Prevención de conflictos", "Normativa laboral"]
       },
       "propiedad_industrial": {
         "title": "Propiedad Industrial",
-        "summary": "Protección de marcas, patentes y secretos industriales.",
-        "bullets": ["Registro de marcas", "Defensa de patentes", "Licencias y franquicias"]
+        "summary": "Registramos y defendemos marcas, patentes y derechos de autor, resguardando los activos intangibles más valiosos de tu empresa.",
+        "bullets": ["Registro de marcas y patentes", "Defensa de derechos", "Protección de intangibles"]
       },
       "fideicomisos": {
         "title": "Fideicomisos",
-        "summary": "Estructuración y administración de vehículos fiduciarios.",
-        "bullets": ["Fideicomisos de garantía", "Fideicomisos patrimoniales", "Fideicomisos inmobiliarios"]
+        "summary": "Creamos estructuras fiduciarias a la medida para administrar y proteger bienes con seguridad y flexibilidad jurídica.",
+        "bullets": ["Fideicomisos patrimoniales", "Fideicomisos inmobiliarios", "Fideicomisos de garantía"]
       },
       "pld": {
-        "title": "Prevención de Lavado de Dinero (PLD)",
-        "summary": "Cumplimiento normativo en materia antilavado.",
-        "bullets": ["Identificación de clientes", "Avisos a autoridades", "Políticas de compliance"]
+        "title": "Materia en PLD",
+        "summary": "Implementamos políticas y controles legales para cumplir con las disposiciones en prevención de lavado de dinero.",
+        "bullets": ["Políticas y controles", "Cumplimiento normativo", "Prevención de riesgos"]
       },
       "due_diligence": {
         "title": "Due Diligence Corporativo",
-        "summary": "Análisis legal y operativo de empresas y operaciones.",
-        "bullets": ["Revisión contractual", "Cumplimiento normativo", "Evaluación de riesgos"]
+        "summary": "Analizamos la situación legal de empresas y proyectos para reducir riesgos antes de invertir, adquirir o asociarte.",
+        "bullets": ["Análisis legal integral", "Evaluación de riesgos", "Prevención de contingencias"]
       },
       "sociedades_financieras": {
         "title": "Creación de Sociedades Financieras",
-        "summary": "Constitución y autorización de entidades del sistema financiero.",
-        "bullets": ["Asesoría ante CNBV", "Estructuración legal", "Obtención de permisos"]
+        "summary": "Constituimos y regulamos entidades financieras con el marco legal adecuado para operar en el sector.",
+        "bullets": ["Constitución de entidades", "Regulación financiera", "Autorizaciones legales"]
       },
       "contratos_financieros": {
         "title": "Contratos Financieros",
-        "summary": "Diseño y revisión de instrumentos financieros.",
-        "bullets": ["Créditos y garantías", "Derivados", "Contratos bancarios"]
+        "summary": "Redactamos y revisamos contratos de crédito, inversión y garantías para blindar tus operaciones financieras.",
+        "bullets": ["Contratos de crédito", "Inversión y garantías", "Blindaje legal de operaciones"]
       },
       "cumplimiento_regulatorio": {
         "title": "Cumplimiento Regulatorio",
-        "summary": "Implementación de programas de cumplimiento para empresas.",
-        "bullets": ["Mapeo normativo", "Políticas internas", "Reportes regulatorios"]
+        "summary": "Aseguramos que tu empresa opere conforme a la normatividad sectorial y evite sanciones o contingencias legales.",
+        "bullets": ["Normatividad sectorial", "Programas de cumplimiento", "Prevención de sanciones"]
       }
     }
+
 
   },
   "areas": {
@@ -157,45 +157,77 @@
       "close": "Cerrar"
     },
     "items": {
-      "financiero": {
-        "title": "Sector Financiero",
-        "desc": "Asesoría regulatoria, cumplimiento, prevención de lavado, fusiones y adquisiciones, litigio financiero y estructuración de productos.",
-        "bullets": ["Cumplimiento y CNBV", "Fintech / SOFOM / Sociedades de inversión", "Contratos y garantías"]
-      },
-      "minera": {
-        "title": "Industria Minera",
-        "desc": "Títulos de concesión, consulta previa, gestión ambiental y defensa administrativa en todas las etapas del proyecto.",
-        "bullets": ["Concesiones y servidumbres", "Impacto ambiental", "Contratación y compliance"]
-      },
-      "hidrocarburos": {
-        "title": "Hotelería y Turismo",
-        "desc": "Midstream, downstream, permisos CRE/ASEA, contratos de transporte, almacenamiento y comercialización.",
-        "bullets": ["Permisos y regulatorio", "Contratos y logística", "Litigio y defensa"]
-      },
-      "construccion": {
-        "title": "Sector Construcción",
-        "desc": "Contratos EPC, obra pública y privada, fianzas, reclamaciones, arbitraje y gestión de riesgos.",
-        "bullets": ["Contratos y garantías", "Obra pública", "Arbitraje y reclamos"]
-      },
-      "alimentaria": {
-        "title": "Industria Alimentaria",
-        "desc": "Cumplimiento sanitario, etiquetado, NOMs, trazabilidad, importación/exportación y publicidad.",
-        "bullets": ["COFEPRIS y NOMs", "Etiquetado y claims", "Comercio exterior"]
-      },
-      "inmobiliario": {
-        "title": "Sector Inmobiliario",
-        "desc": "Adquisición, due diligence, fideicomisos, desarrollo, arrendamiento y regularización de inmuebles.",
-        "bullets": ["Fideicomisos y vehículos", "Due diligence", "Contratos y arrendamiento"]
+      "entretenimiento": {
+        "title": "Industria de Entretenimiento",
+        "desc": "Contratos de talento, producción, distribución y patrocinios. Licencias y protección de derechos de autor/marca (INDAUTOR/IMPI). Negociación con plataformas y cumplimiento publicitario para eventos y contenidos.",
+        "bullets": [
+          "Contratos de talento y producción",
+          "Licencias y derechos de autor/marca",
+          "Negociación con plataformas y cumplimiento publicitario"
+        ]
       },
       "agricola": {
         "title": "Sector Agrícola",
-        "desc": "Tenencia de la tierra, certificaciones, contratación laboral y comercialización nacional e internacional.",
-        "bullets": ["Tierra y ejidos", "Certificaciones", "Exportación"]
+        "desc": "Regularización de tierras (privada/ejidal), agua y usos de suelo. Contratos de suministro y exportación con verificación fitosanitaria. Cumplimiento laboral estacional y certificaciones.",
+        "bullets": [
+          "Regularización de tierras y agua",
+          "Contratos de suministro y exportación",
+          "Cumplimiento laboral estacional y certificaciones"
+        ]
       },
-      "discografica": {
-        "title": "Industria de Entretenimiento",
-        "desc": "Propiedad intelectual, licencias, management, regalías, sincronizaciones y resolución de controversias.",
-        "bullets": ["Marcas y derechos", "Contratos de artista", "Regalías y sync"]
+      "construccion": {
+        "title": "Sector Construcción",
+        "desc": "Contratos de obra (EPC, precios unitarios), subcontratos y fianzas. Permisos, licencias y licitaciones públicas/privadas. Prevención y gestión de reclamaciones y riesgos laborales.",
+        "bullets": [
+          "Contratos de obra y subcontratos",
+          "Permisos, licencias y licitaciones",
+          "Prevención de reclamaciones y riesgos laborales"
+        ]
+      },
+      "inmobiliario": {
+        "title": "Sector Inmobiliario",
+        "desc": "Due diligence de inmuebles y desarrollos; compra-venta y arrendamiento. Fideicomisos, régimen condominal y preventa (PROFECO). Tramitología urbana y estructuración fiscal del proyecto.",
+        "bullets": [
+          "Due diligence y compra-venta",
+          "Fideicomisos y régimen condominal",
+          "Preventa y tramitología urbana"
+        ]
+      },
+      "financiero": {
+        "title": "Sector Financiero",
+        "desc": "Constitución y regulación de SOFOM, SOFIPO y fintech; relación con CNBV/Banxico. Contratos de crédito, garantías y estructuración de deuda. PLD/FT, gobierno corporativo y datos personales.",
+        "bullets": [
+          "Constitución y regulación de entidades financieras",
+          "Contratos de crédito y garantías",
+          "PLD/FT, gobierno corporativo y datos personales"
+        ]
+      },
+      "alimentario": {
+        "title": "Industria Alimentaria",
+        "desc": "Registros, avisos y cumplimiento ante COFEPRIS; etiquetado NOM-051. Contratos con proveedores, maquila, distribución y retail. Gestión sanitaria, trazabilidad y planes de recall.",
+        "bullets": [
+          "COFEPRIS y etiquetado NOM-051",
+          "Contratos con proveedores y distribución",
+          "Gestión sanitaria y trazabilidad"
+        ]
+      },
+      "minero": {
+        "title": "Industria Minera",
+        "desc": "Concesiones, cesiones y servidumbres; acuerdos con comunidades. Permisos ambientales (SEMARNAT), impacto y seguridad industrial. Contratos de exploración, offtake y financiamiento.",
+        "bullets": [
+          "Concesiones y acuerdos con comunidades",
+          "Permisos ambientales e impacto",
+          "Contratos de exploración y financiamiento"
+        ]
+      },
+      "turismo": {
+        "title": "Hotelería y Turismo",
+        "desc": "Contratos de operación, franquicia y management hotelero. Licencias (alcohol, zona federal marítimo-terrestre), tiempos compartidos y PROFECO. Contratos con OTAs, protección al consumidor y cumplimiento laboral 24/7.",
+        "bullets": [
+          "Contratos de operación y franquicia",
+          "Licencias y tiempos compartidos",
+          "Contratos con OTAs y cumplimiento laboral"
+        ]
       }
     }
   },
@@ -229,6 +261,31 @@
       "copyAddress": "Copiar dirección",
       "mapTitle": "Mapa de ubicación",
       "mapLabel": "Mapa de Google con la ubicación del negocio"
+    }
+  },
+  "metodologia360": {
+    "logoAlt": "Construcción Jurídica 360",
+    "heading": "Construcción Jurídica 360°",
+    "subheading": "Una metodología integral para blindar el crecimiento de tu empresa.",
+    "intro": "Analizamos la empresa para identificar fortalezas, oportunidades, debilidades y amenazas bajo el marco legal aplicable. Con base en ese diagnóstico, cuantificamos riesgos y diseñamos una estructura legal estratégica con instrumentos adecuados que brinden certeza jurídica, prevengan y subsanen contingencias y potencien el crecimiento del negocio.",
+    "cta": "Conoce cómo aplicamos la Metodología 360 a tu empresa",
+    "pillars": {
+      "analisis": {
+        "title": "Análisis Organizacional",
+        "description": "Estudiamos la estructura de la empresa o grupo para comprender cómo está organizada y cómo opera."
+      },
+      "riesgos": {
+        "title": "Identificación de Riesgos",
+        "description": "Determinamos amenazas y cuantificamos el costo potencial del problema para el crecimiento futuro."
+      },
+      "estrategia": {
+        "title": "Planeación Legal Estratégica",
+        "description": "Diseñamos soluciones integrales y específicas con instrumentos adecuados al marco legal aplicable."
+      },
+      "resultados": {
+        "title": "Prevención y Fortalecimiento",
+        "description": "Brindamos certeza jurídica, prevenimos y subsanamos contingencias y potencializamos fortalezas."
+      }
     }
   }
 }

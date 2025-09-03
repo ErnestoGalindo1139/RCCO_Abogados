@@ -36,7 +36,7 @@ const ICONS: Record<string, React.ReactNode> = {
   laboral: <Scale className="w-7 h-7" />,
   mercantil: <BriefcaseBusiness className="w-7 h-7" />,
   societario: <Building2 className="w-7 h-7" />,
-  inmobiliario: <Home className="w-7 h-7" />,
+  civil: <Home className="w-7 h-7" />, // ← icono para 'civil'
   planeacion: <ClipboardCheck className="w-7 h-7" />,
   propiedad_industrial: <Copyright className="w-7 h-7" />,
   fideicomisos: <TrendingUp className="w-7 h-7" />,
@@ -48,11 +48,11 @@ const ICONS: Record<string, React.ReactNode> = {
 };
 
 const IDS: string[] = [
-  'laboral',
-  'mercantil',
   'societario',
-  'inmobiliario',
+  'mercantil',
+  'civil',
   'planeacion',
+  'laboral',
   'propiedad_industrial',
   'fideicomisos',
   'pld',
@@ -69,13 +69,18 @@ const buildServicios = (t: TFunction<'home'>): Servicio[] =>
       titulo: t(`servicios.items.${id}.title`),
       icon: ICONS[id],
       resumen: t(`servicios.items.${id}.summary`),
-      bullets: t(`servicios.items.${id}.bullets`, { returnObjects: true }) as string[],
+      bullets: t(`servicios.items.${id}.bullets`, {
+        returnObjects: true,
+      }) as string[],
     })
   );
 
-// Duplicamos para el carrusel
+// Duplicamos en slides (no en data)
 const chunkArray = <T,>(arr: T[], size: number): T[][] =>
-  arr.reduce<T[][]>((acc, _, i) => (i % size ? acc : [...acc, arr.slice(i, i + size)]), []);
+  arr.reduce<T[][]>(
+    (acc, _, i) => (i % size ? acc : [...acc, arr.slice(i, i + size)]),
+    []
+  );
 
 /** Hook: 6 (>=1024px) → 4 (>=640px) → 2 (<640px)  */
 const useResponsiveChunk = (): number => {
@@ -97,12 +102,19 @@ export const Servicios: React.FC = () => {
   const { t, i18n } = useTranslation('home');
 
   const DATA = useMemo(() => buildServicios(t), [t]);
-  const servicios = useMemo(() => [...DATA, ...DATA], [DATA]); // duplicado para loop
+  // ✅ Usar solo los 12 (sin duplicar)
+  const servicios = useMemo(() => DATA, [DATA]);
 
   const chunkSize = useResponsiveChunk();
-  const slides = useMemo(() => chunkArray(servicios, chunkSize), [servicios, chunkSize]);
+  const slides = useMemo(
+    () => chunkArray(servicios, chunkSize),
+    [servicios, chunkSize]
+  );
 
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
+  // ✅ Loop solo si hay más que el tamaño de un slide
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    loop: servicios.length > chunkSize,
+  });
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   // Activo
@@ -131,7 +143,8 @@ export const Servicios: React.FC = () => {
 
   // Cerrar con ESC
   useEffect(() => {
-    const onKey = (e: KeyboardEvent): boolean | void => e.key === 'Escape' && setActivoId(null);
+    const onKey = (e: KeyboardEvent): boolean | void =>
+      e.key === 'Escape' && setActivoId(null);
     window.addEventListener('keydown', onKey);
     return (): void => window.removeEventListener('keydown', onKey);
   }, []);
@@ -176,7 +189,9 @@ export const Servicios: React.FC = () => {
                       <div className="text-[#8BC6FF]">{activo.icon}</div>
                     </div>
                     <div className="flex-1">
-                      <h3 className="text-2xl lg:text-xl font-semibold">{activo.titulo}</h3>
+                      <h3 className="text-2xl lg:text-xl font-semibold">
+                        {activo.titulo}
+                      </h3>
                       <p className="mt-2 text-white/80 leading-relaxed text-base lg:text-sm">
                         {activo.resumen}
                       </p>
@@ -206,7 +221,9 @@ export const Servicios: React.FC = () => {
                   animate={{ opacity: 1 }}
                   className="rounded-3xl bg-white/5 ring-1 ring-white/10 p-8 lg:p-5 text-white/70"
                 >
-                  <p className="text-lg lg:text-base">{t('servicios.placeholder')}</p>
+                  <p className="text-lg lg:text-base">
+                    {t('servicios.placeholder')}
+                  </p>
                 </motion.div>
               )}
             </AnimatePresence>
@@ -225,7 +242,7 @@ export const Servicios: React.FC = () => {
                         gap-x-[2rem] gap-y-10
                         lg:gap-x-6 lg:gap-y-6
                         py-2
-                        lg:auto-rows-[150px]   /* SOLO laptop: filas de 150px */
+                        lg:auto-rows-[150px]
                       "
                     >
                       {grupo.map((s, i) => (
@@ -234,7 +251,7 @@ export const Servicios: React.FC = () => {
                           onClick={() => setActivoId(s.id)}
                           className="
                             h-full md:aspect-[4/4]
-                            lg:aspect-auto lg:h-auto  /* en laptop dejamos que llene la fila */
+                            lg:aspect-auto lg:h-auto
                             xl:aspect-[4/4] 2xl:aspect-[5/4]
                             group rounded-2xl px-6 py-10 lg:px-4 lg:py-6 text-white
                             bg-[#0b3ea6] hover:bg-[#0840b0]
@@ -286,9 +303,13 @@ export const Servicios: React.FC = () => {
                   <button
                     key={i}
                     onClick={() => scrollTo(i)}
-                    aria-label={t('servicios.aria.goto', { n: i + 1 }) as string}
+                    aria-label={
+                      t('servicios.aria.goto', { n: i + 1 }) as string
+                    }
                     className={`h-2.5 w-2.5 rounded-full transition-all ${
-                      i === selectedIndex ? 'bg-white' : 'bg-white/40 hover:bg-white/70'
+                      i === selectedIndex
+                        ? 'bg-white'
+                        : 'bg-white/40 hover:bg-white/70'
                     }`}
                   />
                 ))}
@@ -317,7 +338,10 @@ export const Servicios: React.FC = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-            <div className="absolute inset-0 bg-black/50" onClick={() => setActivoId(null)} />
+            <div
+              className="absolute inset-0 bg-black/50"
+              onClick={() => setActivoId(null)}
+            />
             <motion.div
               role="dialog"
               aria-modal="true"
@@ -333,7 +357,9 @@ export const Servicios: React.FC = () => {
                 </div>
                 <div className="flex-1">
                   <h3 className="text-xl font-semibold">{activo.titulo}</h3>
-                  <p className="mt-2 text-white/80 leading-relaxed">{activo.resumen}</p>
+                  <p className="mt-2 text-white/80 leading-relaxed">
+                    {activo.resumen}
+                  </p>
                 </div>
                 <button
                   onClick={() => setActivoId(null)}
