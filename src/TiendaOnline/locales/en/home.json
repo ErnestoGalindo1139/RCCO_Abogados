@@ -49,15 +49,14 @@
   "equipo": {
     "title": "Our team",
     "miembros": {
-      "dionisio": {
-        "cargo": "General Director of RCCO"
-      },
       "jose": {
-        "cargo": "Chairman of the Board of",
-        "subcargo": "Directors"
+        "cargo": "Partner Lawyer"
       },
       "felipe": {
-        "cargo": "Partner Lawyer of the firm"
+        "cargo": "Partner Lawyer"
+      },
+      "alfredo": {
+        "cargo": "Partner Lawyer"
       },
       "aurora": {
         "cargo": "Junior Lawyer"
@@ -65,8 +64,8 @@
       "liz": {
         "cargo": "Lawyer"
       },
-      "alfredo": {
-        "cargo": "Senior Lawyer"
+      "dionisio": {
+        "cargo": "General Director"
       }
     }
   },
@@ -80,67 +79,68 @@
       "goto": "Go to page {{n}}"
     },
     "items": {
-      "laboral": {
-        "title": "Labor Law",
-        "summary": "Comprehensive advisory services for individual and collective labor relations.",
-        "bullets": ["Contracts and compliance", "Litigation and conciliation", "Labor audits"]
+      "societario": {
+        "title": "Corporate Law",
+        "summary": "We design and optimize your company’s legal structure to protect shareholders, ensure corporate control, and facilitate growth.",
+        "bullets": ["Corporate structuring", "Governance and control", "Business growth"]
       },
       "mercantil": {
         "title": "Commercial Law",
-        "summary": "Business operations, contracts, and dispute resolution.",
-        "bullets": ["Commercial contracts", "Judicial collection", "Arbitration"]
+        "summary": "We advise on business transactions, litigation, and contracts, ensuring that your operations are backed by legal certainty.",
+        "bullets": ["Commercial transactions", "Business litigation", "Specialized contracts"]
       },
-      "societario": {
-        "title": "Corporate Law",
-        "summary": "Corporate governance and regulatory compliance.",
-        "bullets": ["Incorporations and mergers", "Minutes and corporate books", "Corporate secretariat"]
-      },
-      "inmobiliario": {
-        "title": "Real Estate Law",
-        "summary": "Real estate transactions and property regularization.",
-        "bullets": ["Purchase and lease agreements", "Due diligence", "Real estate trusts"]
+      "civil": {
+        "title": "Civil Law",
+        "summary": "We resolve disputes related to property, obligations, and private contracts that directly impact your business.",
+        "bullets": ["Property and assets", "Obligations and contracts", "Civil dispute resolution"]
       },
       "planeacion": {
-        "title": "Estate Planning",
-        "summary": "Protection and orderly transfer of wealth.",
-        "bullets": ["Wills", "Family protocols", "Estate trusts"]
+        "title": "Legal and Estate Planning",
+        "summary": "We protect your corporate and family assets through legal strategies that guarantee their preservation and orderly transfer.",
+        "bullets": ["Asset protection", "Succession strategies", "Orderly transfer of assets"]
+      },
+      "laboral": {
+        "title": "Employment Law for Companies",
+        "summary": "We design solid labor frameworks that prevent employee disputes and comply with labor regulations.",
+        "bullets": ["Hiring and compliance", "Conflict prevention", "Labor law compliance"]
       },
       "propiedad_industrial": {
         "title": "Intellectual Property",
-        "summary": "Protection of trademarks, patents, and trade secrets.",
-        "bullets": ["Trademark registration", "Patent defense", "Licensing and franchising"]
+        "summary": "We register and defend trademarks, patents, and copyrights, safeguarding your company’s most valuable intangible assets.",
+        "bullets": ["Trademark and patent registration", "Rights defense", "Intangible asset protection"]
       },
       "fideicomisos": {
         "title": "Trusts",
-        "summary": "Structuring and administration of fiduciary vehicles.",
-        "bullets": ["Guarantee trusts", "Estate trusts", "Real estate trusts"]
+        "summary": "We create tailored trust structures to manage and protect assets with legal security and flexibility.",
+        "bullets": ["Estate trusts", "Real estate trusts", "Guarantee trusts"]
       },
       "pld": {
-        "title": "Anti-Money Laundering (AML)",
-        "summary": "Regulatory compliance in anti-money laundering matters.",
-        "bullets": ["Client identification", "Reports to authorities", "Compliance policies"]
+        "title": "AML Compliance",
+        "summary": "We implement policies and legal controls to comply with anti-money laundering regulations.",
+        "bullets": ["Policies and controls", "Regulatory compliance", "Risk prevention"]
       },
       "due_diligence": {
         "title": "Corporate Due Diligence",
-        "summary": "Legal and operational analysis of companies and transactions.",
-        "bullets": ["Contract review", "Regulatory compliance", "Risk assessment"]
+        "summary": "We analyze the legal situation of companies and projects to minimize risks before investing, acquiring, or partnering.",
+        "bullets": ["Comprehensive legal review", "Risk assessment", "Contingency prevention"]
       },
       "sociedades_financieras": {
         "title": "Creation of Financial Entities",
-        "summary": "Incorporation and authorization of financial system entities.",
-        "bullets": ["Advisory before CNBV", "Legal structuring", "Permit acquisition"]
+        "summary": "We establish and regulate financial entities within the appropriate legal framework to operate in the sector.",
+        "bullets": ["Entity incorporation", "Financial regulation", "Legal authorizations"]
       },
       "contratos_financieros": {
         "title": "Financial Contracts",
-        "summary": "Drafting and review of financial instruments.",
-        "bullets": ["Loans and guarantees", "Derivatives", "Banking contracts"]
+        "summary": "We draft and review credit, investment, and guarantee contracts to safeguard your financial operations.",
+        "bullets": ["Credit agreements", "Investment and guarantees", "Legal protection of transactions"]
       },
       "cumplimiento_regulatorio": {
         "title": "Regulatory Compliance",
-        "summary": "Implementation of compliance programs for companies.",
-        "bullets": ["Regulatory mapping", "Internal policies", "Regulatory reporting"]
+        "summary": "We ensure your company operates under sector-specific regulations to avoid sanctions and legal contingencies.",
+        "bullets": ["Sector regulations", "Compliance programs", "Sanction prevention"]
       }
     }
+
 
   },
   "areas": {
@@ -157,47 +157,80 @@
       "close": "Close"
     },
     "items": {
-      "financiero": {
-        "title": "Financial Sector",
-        "desc": "Regulatory advice, compliance, anti-money laundering, M&A, financial litigation, and product structuring.",
-        "bullets": ["Compliance & CNBV", "Fintech / SOFOM / Investment companies", "Contracts & guarantees"]
-      },
-      "minera": {
-        "title": "Mining Industry",
-        "desc": "Concession titles, prior consultation, environmental management, and administrative defense across all project stages.",
-        "bullets": ["Concessions & easements", "Environmental impact", "Contracts & compliance"]
-      },
-      "hidrocarburos": {
-        "title": "Hospitality & Tourism",
-        "desc": "Midstream, downstream, CRE/ASEA permits, transport, storage, and commercialization contracts.",
-        "bullets": ["Permits & regulation", "Contracts & logistics", "Litigation & defense"]
-      },
-      "construccion": {
-        "title": "Construction Sector",
-        "desc": "EPC contracts, public and private works, bonds, claims, arbitration, and risk management.",
-        "bullets": ["Contracts & guarantees", "Public works", "Arbitration & claims"]
-      },
-      "alimentaria": {
-        "title": "Food Industry",
-        "desc": "Sanitary compliance, labeling, standards, traceability, import/export, and advertising.",
-        "bullets": ["COFEPRIS & NOMs", "Labeling & claims", "Foreign trade"]
-      },
-      "inmobiliario": {
-        "title": "Real Estate Sector",
-        "desc": "Acquisition, due diligence, trusts, development, leasing, and property regularization.",
-        "bullets": ["Trusts & vehicles", "Due diligence", "Contracts & leasing"]
+      "entretenimiento": {
+        "title": "Entertainment Industry",
+        "desc": "Talent, production, distribution, and sponsorship agreements. Licensing and protection of copyrights/trademarks (INDAUTOR/IMPI). Negotiations with platforms and advertising compliance for events and content.",
+        "bullets": [
+          "Talent and production contracts",
+          "Licensing and copyright/trademark protection",
+          "Negotiations with platforms and advertising compliance"
+        ]
       },
       "agricola": {
         "title": "Agricultural Sector",
-        "desc": "Land tenure, certifications, labor hiring, and national/international commercialization.",
-        "bullets": ["Land & ejidos", "Certifications", "Export"]
+        "desc": "Regularization of land (private/ejido), water, and land use. Supply and export contracts with phytosanitary verification. Seasonal labor compliance and certifications.",
+        "bullets": [
+          "Land and water regularization",
+          "Supply and export contracts",
+          "Seasonal labor compliance and certifications"
+        ]
       },
-      "discografica": {
-        "title": "Entertainment Industry",
-        "desc": "Intellectual property, licensing, management, royalties, syncs, and dispute resolution.",
-        "bullets": ["Trademarks & rights", "Artist contracts", "Royalties & sync"]
+      "construccion": {
+        "title": "Construction Sector",
+        "desc": "Construction contracts (EPC, unit prices), subcontracts, and bonds. Permits, licenses, and public/private bids. Prevention and management of claims and occupational risks.",
+        "bullets": [
+          "Construction and subcontracting contracts",
+          "Permits, licenses, and bids",
+          "Prevention of claims and occupational risks"
+        ]
+      },
+      "inmobiliario": {
+        "title": "Real Estate Sector",
+        "desc": "Real estate and development due diligence; purchase-sale and leasing. Trusts, condominium regime, and pre-sale (PROFECO). Urban permits and project tax structuring.",
+        "bullets": [
+          "Due diligence and purchase-sale",
+          "Trusts and condominium regime",
+          "Pre-sale and urban permits"
+        ]
+      },
+      "financiero": {
+        "title": "Financial Sector",
+        "desc": "Incorporation and regulation of SOFOM, SOFIPO, and fintech; relations with CNBV/Banxico. Credit contracts, guarantees, and debt structuring. AML/CFT, corporate governance, and data protection.",
+        "bullets": [
+          "Incorporation and regulation of financial entities",
+          "Credit and guarantee contracts",
+          "AML/CFT, corporate governance, and data protection"
+        ]
+      },
+      "alimentario": {
+        "title": "Food Industry",
+        "desc": "Registrations, filings, and compliance with COFEPRIS; NOM-051 labeling. Contracts with suppliers, maquila, distribution, and retail. Sanitary management, traceability, and recall plans.",
+        "bullets": [
+          "COFEPRIS compliance and NOM-051 labeling",
+          "Supplier and distribution contracts",
+          "Sanitary management and traceability"
+        ]
+      },
+      "minero": {
+        "title": "Mining Industry",
+        "desc": "Concessions, transfers, and easements; agreements with communities. Environmental permits (SEMARNAT), impact, and industrial safety. Exploration, offtake, and financing contracts.",
+        "bullets": [
+          "Concessions and community agreements",
+          "Environmental permits and impact",
+          "Exploration and financing contracts"
+        ]
+      },
+      "turismo": {
+        "title": "Hospitality and Tourism",
+        "desc": "Hotel operation, franchise, and management contracts. Licenses (alcohol, federal maritime land zone), timeshares, and PROFECO compliance. OTA contracts, consumer protection, and 24/7 labor compliance.",
+        "bullets": [
+          "Operation and franchise contracts",
+          "Licenses and timeshares",
+          "OTA contracts and labor compliance"
+        ]
       }
     }
+
   },
   "logos": {
     "trustHeadline": "Our clients trust us",
@@ -229,6 +262,31 @@
       "copyAddress": "Copy address",
       "mapTitle": "Location map",
       "mapLabel": "Google Map with the business location"
+    }
+  },
+  "metodologia360": {
+    "logoAlt": "Construcción Jurídica 360",
+    "heading": "Construcción Jurídica 360°",
+    "subheading": "A comprehensive methodology to safeguard your company’s growth.",
+    "intro": "We analyze your organization to identify strengths, opportunities, weaknesses, and threats within the applicable legal framework. Based on this diagnosis, we quantify risks and design a strategic legal structure with the right instruments to provide legal certainty, prevent and remedy contingencies, and accelerate business growth.",
+    "cta": "See how we apply the 360 Methodology to your company",
+    "pillars": {
+      "analisis": {
+        "title": "Organizational Analysis",
+        "description": "We study your company’s structure to understand how it is organized and operates."
+      },
+      "riesgos": {
+        "title": "Risk Identification",
+        "description": "We determine threats and quantify potential costs that may affect future growth."
+      },
+      "estrategia": {
+        "title": "Strategic Legal Planning",
+        "description": "We design integrated and specific solutions aligned with the applicable legal framework."
+      },
+      "resultados": {
+        "title": "Prevention & Strengthening",
+        "description": "We provide legal certainty, prevent and remedy contingencies, and enhance organizational strengths."
+      }
     }
   }
 }

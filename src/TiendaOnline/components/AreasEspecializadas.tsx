@@ -32,6 +32,37 @@ export const AreasEspecializadas: React.FC = () => {
 
   return (
     <section className="min-h-[90vh] w-full grid place-items-center bg-gradient-to-b from-[#0B2A6F] via-[#0D2F7F] to-[#0B2A6F] text-white py-10 px-4">
+      {/* ===== Encabezado profesional mejorado ===== */}
+      <motion.header
+        className="w-full max-w-7xl mb-4 sm:mb-6 px-1 lg:px-0 lg:pl-2"
+        initial={{ opacity: 0, y: 10 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.6 }}
+        transition={{ duration: 0.45, ease: 'easeOut' }}
+      >
+        <div className="text-center lg:text-left">
+          <p className="mb-1.5 text-[11px] font-semibold tracking-[0.22em] uppercase text-white/60">
+            Servicios
+          </p>
+
+          <h2 className="mb-[1rem] leading-[1.08] font-bold tracking-[-0.01em] text-[1.7rem] sm:text-[2rem] md:text-[2.2rem] text-white">
+            <span className="block">Áreas especializadas</span>
+            <span className="relative inline-block mt-1">
+              <span className="bg-gradient-to-r from-sky-200 to-cyan-200 bg-clip-text text-transparent">
+                para giros empresariales
+              </span>
+              <span
+                aria-hidden
+                className="absolute left-0 -bottom-[6px] h-[2px] w-[98%] rounded-full
+                           bg-gradient-to-r from-sky-400 via-sky-300 to-cyan-300
+                           blur-[0.2px]"
+              />
+            </span>
+          </h2>
+        </div>
+      </motion.header>
+      {/* ===== /Encabezado profesional mejorado ===== */}
+
       <div className="w-full max-w-7xl grid gap-10 lg:grid-cols-[1fr,420px] xl:grid-cols-[1fr,520px] items-center">
         {/* Anillo con hexágonos (solo desktop) */}
         <div
@@ -47,10 +78,6 @@ export const AreasEspecializadas: React.FC = () => {
             }}
           >
             <div>
-              {/* <img src="/img/logoSinFondo.jpeg" className="w-[90%] m-auto" /> */}
-              {/* <p className="text-sm tracking-[0.2em] uppercase opacity-80">
-                {t('areas.center.brand')}
-              </p> */}
               <h2 className="text-2xl font-extrabold tracking-tight">
                 {t('areas.center.title1')}
               </h2>
