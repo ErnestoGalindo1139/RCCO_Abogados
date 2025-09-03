@@ -10,25 +10,25 @@ type Miembro = {
 };
 
 const miembros: Miembro[] = [
-  {
-    id: 'dionisio',
-    nombre: 'DIONISIO PAZ DÍAZ',
-    src: '/img/colaborador1.jpeg',
-    destacado: true,
-  },
   { id: 'jose', nombre: 'JOSÉ VALDEZ ZATARAIN', src: '/img/colaborador3.jpeg' },
   {
     id: 'felipe',
     nombre: 'FELIPE HERNÁNDEZ GARCÍA',
     src: '/img/colaborador5.jpeg',
   },
+  { id: 'alfredo', nombre: 'ALFREDO SOTO VELA', src: '/img/colaborador4.jpeg' },
   {
     id: 'aurora',
     nombre: 'AURORA LIZÁRRAGA FERNÁNDEZ',
     src: '/img/colaborador2.jpeg',
   },
   { id: 'liz', nombre: 'LIZ LASCÁREZ CALDERÓN', src: '/img/colaborador6.jpeg' },
-  { id: 'alfredo', nombre: 'ALFREDO SOTO VELA', src: '/img/colaborador4.jpeg' },
+  {
+    id: 'dionisio',
+    nombre: 'DIONISIO PAZ DÍAZ',
+    src: '/img/colaborador1.jpeg',
+    destacado: true,
+  },
 ];
 
 export const NuestroEquipo: React.FC = () => {

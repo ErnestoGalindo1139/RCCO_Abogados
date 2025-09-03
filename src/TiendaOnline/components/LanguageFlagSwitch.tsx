@@ -1,6 +1,7 @@
 /* eslint-disable no-empty */
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { WaitScreen } from './WaitScreen';
 
 /* === Banderas SVG (inline, livianas) === */
 const FlagUS: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
@@ -43,6 +44,8 @@ export const LanguageFlagSwitch: React.FC<{
   className?: string;
 }> = ({ size = 22, className = '' }) => {
   const { i18n } = useTranslation();
+  const [loading, setLoading] = useState(false);
+
   const lang = (i18n.resolvedLanguage || i18n.language || 'es').toLowerCase();
   const isEs = lang.startsWith('es');
   const next = isEs ? 'en' : 'es';
@@ -50,24 +53,33 @@ export const LanguageFlagSwitch: React.FC<{
   const Flag = next === 'en' ? FlagUS : FlagMX;
   const label = next === 'en' ? 'Switch to English' : 'Cambiar a español';
 
-  const handleClick = (): void => {
-    i18n.changeLanguage(next);
-    // opcional: persistir y actualizar <html lang="...">
+  const handleClick = async (): Promise<void> => {
+    setLoading(true);
+    await i18n.changeLanguage(next);
+
     try {
       localStorage.setItem('lng', next);
     } catch {}
+
     if (typeof document !== 'undefined') document.documentElement.lang = next;
+
+    setTimeout(() => setLoading(false), 700); // simulamos transición
   };
 
   return (
-    <button
-      type="button"
-      onClick={handleClick}
-      title={label}
-      aria-label={label}
-      className={`inline-flex items-center justify-center rounded-full ring-1 ring-white/20 hover:ring-white/50 bg-white/10 hover:bg-white/20 p-1 transition ${className}`}
-    >
-      <Flag width={size} height={size} />
-    </button>
+    <>
+      <button
+        type="button"
+        onClick={handleClick}
+        title={label}
+        aria-label={label}
+        className={`inline-flex items-center justify-center rounded-full ring-1 ring-white/20 hover:ring-white/50 bg-white/10 hover:bg-white/20 p-1 transition ${className}`}
+      >
+        <Flag width={size} height={size} />
+      </button>
+
+      {/* ahora SI cubre toda la pantalla */}
+      <WaitScreen show={loading} />
+    </>
   );
 };

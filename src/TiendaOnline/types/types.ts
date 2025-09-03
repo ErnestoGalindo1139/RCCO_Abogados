@@ -3,15 +3,15 @@ import React from 'react';
 
 export type Sector = {
   id:
-    | 'financiero'
-    | 'minera'
-    | 'hidrocarburos'
-    | 'construccion'
-    | 'alimentaria'
-    | 'inmobiliario'
+    | 'entretenimiento'
     | 'agricola'
-    | 'discografica';
-  icon: React.ComponentType<LucideProps>; // <- aquí el cambio
+    | 'construccion'
+    | 'inmobiliario'
+    | 'financiero'
+    | 'alimentario'
+    | 'minero'
+    | 'turismo';
+  icon: React.ComponentType<LucideProps>;
   colorA: string;
   colorB: string;
 };
