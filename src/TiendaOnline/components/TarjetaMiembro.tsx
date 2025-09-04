@@ -8,12 +8,22 @@ type Miembro = {
   src: string;
 };
 
-export const TarjetaMiembro: React.FC<{ m: Miembro }> = ({ m }) => {
+type Props = {
+  m: Miembro;
+  onClick?: () => void;
+};
+
+export const TarjetaMiembro: React.FC<Props> = ({ m, onClick }) => {
   return (
     <article
+      onClick={onClick}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && onClick?.()}
+      aria-label={`Ver experiencia de ${m.nombre}`}
       className="
-        group w-full max-w-[16rem] mx-auto
-        flex flex-col items-center
+        group w-full max-w-[16rem] mx-auto flex flex-col items-center
+        cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#d91c1c]
       "
     >
       {/* Foto */}

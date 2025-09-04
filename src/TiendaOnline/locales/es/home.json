@@ -50,22 +50,40 @@
     "title": "Nuestro equipo",
     "miembros": {
       "dionisio": {
-        "cargo": "Director General"
+        "cargo": "Director General",
+        "experiencia": [
+          "Director General de RCCO Abogados, es Licenciado en Derecho por el Instituto Tecnológico Superior de Sinaloa y tiene un posgrado en Derecho de las Obligaciones y Contratos por la Universidad Panamericana Campus Guadalajara. Su experiencia abarca diversas áreas como el derecho mercantil, corporativo, civil, laboral y societario. Su liderazgo en la firma le permite ofrecer soluciones integrales a clientes en diversos sectores empresariales."
+        ]
       },
       "jose": {
-        "cargo": "Socio Abogado"
+        "cargo": "Socio Abogado",
+        "experiencia": [
+          "Licenciado en Derecho egresado de la Universidad Autónoma de Sinaloa, con más de 10 años de experiencia en propiedad industrial e intelectual. Ha colaborado en diversos sectores como el inmobiliario, la construcción, la restauración y los servicios. Además de ser socio de la firma, actualmente ocupa el cargo de Presidente del Consejo de Administración, lo que le permite aplicar su visión estratégica en el ámbito legal y empresarial."
+        ]
       },
       "felipe": {
-        "cargo": "Socio Abogado"
+        "cargo": "Socio Abogado",
+        "experiencia": [
+          "Egresado de la Universidad Autónoma de Sinaloa en Derecho, con más de 12 años de experiencia en el ámbito corporativo. Especialista en la elaboración y revisión de contratos de sociedades mercantiles, así como en la recomendación de estrategias jurídicas. Actualmente, es Socio Abogado de la firma, donde contribuye con su vasta experiencia en la toma de decisiones legales de alto impacto para clientes corporativos."
+        ]
       },
       "alfredo": {
-        "cargo": "Socio Abogado"
+        "cargo": "Socio Abogado",
+        "experiencia": [
+          "Licenciado en Derecho por la Universidad Autónoma de Sinaloa, con un posgrado en Derecho de las Obligaciones y Contratos por la Universidad Panamericana. Con 10 años de experiencia asesorando empresas, principalmente en los sectores de comunicaciones, servicios, hotelería, construcción y finanzas. En su rol como Abogado Senior, se especializa en derecho corporativo, contractual y en el cumplimiento de normativas contra el lavado de dinero."
+        ]
       },
       "aurora": {
-        "cargo": "Abogada Jr."
+        "cargo": "Abogada Jr.",
+        "experiencia": [
+          "Licenciada en Derecho por la Universidad Autónoma de Sinaloa, actualmente cursando una maestría en Derecho de las Empresas en la Universidad Anáhuac. Como Abogada Jr., ha trabajado en distintas áreas del derecho, incluyendo el civil, mercantil, societario, la prevención de lavado de dinero y la propiedad industrial. Su enfoque multidisciplinario le permite adaptarse a las necesidades legales de diversos sectores."
+        ]
       },
       "liz": {
-        "cargo": "Abogada"
+        "cargo": "Abogada",
+        "experiencia": [
+          "Licenciada en Derecho por la Universidad Autónoma de Sinaloa, con un posgrado en Mediación y Medios Alternativos de Solución de Conflictos por la UNAM. Cuenta con más de 10 años de experiencia, especialmente en asuntos de violencia de género, derecho sanitario, ambiental y procedimientos de conciliación. Como Abogada en la firma, se especializa en derecho societario, laboral y civil, brindando apoyo a clientes en situaciones complejas."
+        ]
       }
     }
   },
