@@ -50,22 +50,40 @@
     "title": "Our team",
     "miembros": {
       "dionisio": {
-        "cargo": "General Director"
+        "cargo": "General Director",
+        "experiencia": [
+          "General Director of RCCO Abogados, he holds a Law degree from the Instituto Tecnológico Superior de Sinaloa and a postgraduate degree in Law of Obligations and Contracts from Universidad Panamericana, Guadalajara Campus. His experience spans various areas such as commercial, corporate, civil, labor, and corporate law. His leadership within the firm enables him to provide comprehensive solutions to clients across diverse business sectors."
+        ]
       },
       "jose": {
-        "cargo": "Partner Lawyer"
+        "cargo": "Partner Lawyer",
+        "experiencia": [
+          "Law graduate from the Universidad Autónoma de Sinaloa, with more than 10 years of experience in industrial and intellectual property. He has collaborated across various sectors such as real estate, construction, hospitality, and services. In addition to being a partner at the firm, he currently serves as Chairman of the Board of Directors, a role that allows him to apply his strategic vision in both the legal and business spheres."
+        ]
       },
       "felipe": {
-        "cargo": "Partner Lawyer"
+        "cargo": "Partner Lawyer",
+        "experiencia": [
+          "Law graduate from the Universidad Autónoma de Sinaloa, with more than 12 years of experience in the corporate field. He specializes in drafting and reviewing commercial company contracts, as well as advising on legal strategies. He is currently a Partner Attorney at the firm, where he contributes his extensive experience to high-impact legal decision-making for corporate clients."
+        ]
       },
       "alfredo": {
-        "cargo": "Partner Lawyer"
+        "cargo": "Partner Lawyer",
+        "experiencia": [
+          "Law graduate from the Universidad Autónoma de Sinaloa, with a postgraduate degree in Law of Obligations and Contracts from Universidad Panamericana. He has 10 years of experience advising companies, primarily in the communications, services, hospitality, construction, and finance sectors. In his role as Senior Attorney, he specializes in corporate and contract law, as well as compliance with anti-money laundering regulations."
+        ]
       },
       "aurora": {
-        "cargo": "Junior Lawyer"
+        "cargo": "Junior Lawyer",
+        "experiencia": [
+          "Law graduate from the Universidad Autónoma de Sinaloa, currently pursuing a Master’s degree in Business Law at Universidad Anáhuac. As a Junior Attorney, she has worked in various areas of law, including civil, commercial, corporate, anti-money laundering compliance, and industrial property. Her multidisciplinary approach allows her to adapt to the legal needs of diverse sectors."
+        ]
       },
       "liz": {
-        "cargo": "Lawyer"
+        "cargo": "Lawyer",
+        "experiencia": [
+          "Law graduate from the Universidad Autónoma de Sinaloa, with a postgraduate degree in Mediation and Alternative Dispute Resolution from UNAM. She has over 10 years of experience, particularly in matters related to gender-based violence, health law, environmental law, and conciliation procedures. As an Attorney at the firm, she specializes in corporate, labor, and civil law, providing support to clients in complex situations."
+        ]
       }
     }
   },
