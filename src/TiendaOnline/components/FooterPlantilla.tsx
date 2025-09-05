@@ -52,7 +52,7 @@ export const Footer: React.FC<FooterProps> = ({
             <LuInstagram />
           </a>
           <a
-            href="https://www.linkedin.com/company/rcco-abogados/"
+            href="https://www.linkedin.com/in/rcco-abogados-a4a222348/"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-blue-300"
@@ -61,7 +61,7 @@ export const Footer: React.FC<FooterProps> = ({
             <LuLinkedin />
           </a>
           <a
-            href="https://www.youtube.com/"
+            href="https://youtube.com/@rccoabogados?si=qr4pvkcewB0tLcZc"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-blue-300"
@@ -70,7 +70,7 @@ export const Footer: React.FC<FooterProps> = ({
             <LuYoutube />
           </a>
           <a
-            href="https://www.tiktok.com/"
+            href="https://www.tiktok.com/@rccoabogados?is_from_webapp=1&sender_device=pc"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-blue-300"
