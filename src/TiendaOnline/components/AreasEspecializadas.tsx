@@ -42,14 +42,14 @@ export const AreasEspecializadas: React.FC = () => {
       >
         <div className="text-center lg:text-left">
           <p className="mb-1.5 text-[11px] font-semibold tracking-[0.22em] uppercase text-white/60">
-            Servicios
+            {t('areas.mainTitle')}
           </p>
 
           <h2 className="mb-[1rem] leading-[1.08] font-bold tracking-[-0.01em] text-[1.7rem] sm:text-[2rem] md:text-[2.2rem] text-white">
-            <span className="block">Áreas especializadas</span>
+            <span className="block">{t('areas.title')}</span>
             <span className="relative inline-block mt-1">
               <span className="bg-gradient-to-r from-sky-200 to-cyan-200 bg-clip-text text-transparent">
-                para giros empresariales
+                {t('areas.subtitle')}
               </span>
               <span
                 aria-hidden
@@ -110,7 +110,7 @@ export const AreasEspecializadas: React.FC = () => {
               {seleccion ? (
                 <motion.div
                   key="panel"
-                  className="absolute inset-0"
+                  className="h-full"
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 8 }}
