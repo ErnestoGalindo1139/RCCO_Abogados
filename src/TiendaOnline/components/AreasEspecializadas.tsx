@@ -31,7 +31,7 @@ export const AreasEspecializadas: React.FC = () => {
   }, [radiusRem]);
 
   return (
-    <section className="min-h-[90vh] w-full grid place-items-center bg-gradient-to-b from-[#0B2A6F] via-[#0D2F7F] to-[#0B2A6F] text-white py-10 px-4">
+    <section className="min-h-[40vh] w-full grid place-items-center bg-gradient-to-b from-[#0B2A6F] via-[#0D2F7F] to-[#0B2A6F] text-white py-10 px-4">
       {/* ===== Encabezado profesional mejorado ===== */}
       <motion.header
         className="w-full max-w-7xl mb-4 sm:mb-6 px-1 lg:px-0 lg:pl-2"
@@ -63,7 +63,7 @@ export const AreasEspecializadas: React.FC = () => {
       </motion.header>
       {/* ===== /Encabezado profesional mejorado ===== */}
 
-      <div className="w-full max-w-7xl grid gap-10 lg:grid-cols-[1fr,420px] xl:grid-cols-[1fr,520px] items-center">
+      <div className="hidden w-full max-w-7xl lg:grid gap-10 lg:grid-cols-[1fr,420px] xl:grid-cols-[1fr,520px] items-center">
         {/* Anillo con hexágonos (solo desktop) */}
         <div
           className="relative mx-auto hidden lg:block"

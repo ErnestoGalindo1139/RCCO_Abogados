@@ -6,3 +6,40 @@
 .prose :where(img):not(:where(.not-prose *)) {
   border-radius: 0.75rem;
 }
+
+/* Área con scroll bonito */
+.scroll-area {
+  /* Firefox */
+  scrollbar-width: thin;
+  /* scrollbar-color: #3B82F6 #1E293B; */
+  scrollbar-color: #60A5FA #0f172a2f;
+  /* scrollbar-color: #38BDF8 #082F49; */
+
+  /* Opcional: mantiene el layout al aparecer la barra */
+  scrollbar-gutter: stable both-edges;
+}
+
+/* Chrome / Edge / Safari */
+.scroll-area::-webkit-scrollbar {
+  width: 10px;                /* grosor */
+}
+
+.scroll-area::-webkit-scrollbar-track {
+  background: rgba(255,255,255,0.08);
+  border-radius: 9999px;
+}
+
+.scroll-area::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #93c5fd, #3b82f6); /* azul suave */
+  border-radius: 9999px;
+  border: 2px solid rgba(7, 11, 22, 0.6); /* borde para “pill” */
+}
+
+.scroll-area::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #bfdbfe, #60a5fa);
+}
+
+/* Opcional: estado activo/clic */
+.scroll-area::-webkit-scrollbar-thumb:active {
+  background: linear-gradient(180deg, #a5b4fc, #6366f1);
+}
