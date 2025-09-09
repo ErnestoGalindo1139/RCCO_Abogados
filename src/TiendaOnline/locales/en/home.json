@@ -99,7 +99,7 @@
   "items": {
     "societario": {
       "title": "Corporate Law",
-      "summary": "We design and optimize your company’s legal structure to protect shareholders, ensure corporate control, and facilitate growth.",
+      "summary": "We design and optimize your company’s legal structure to protect shareholders, ensure corporate efficiency, and facilitate growth. Our services include advising on incorporation, spin-offs, mergers, transformations, dissolutions, and liquidations of companies. We also draft ordinary and extraordinary shareholders’ meeting minutes, stock certificates, and corporate books.",
       "bullets": [
         "Incorporation, merger, spin-off, and transformation of companies",
         "Ordinary and extraordinary shareholders’ meetings",
@@ -108,7 +108,7 @@
     },
     "mercantil": {
       "title": "Commercial Law",
-      "summary": "We advise on commercial operations, litigation, and contracts, ensuring your transactions are legally secure.",
+      "summary": "We provide advice on business operations, litigation, and contracts, ensuring your transactions are backed by legal certainty. Our services in Commercial Law include: commercial litigation, unfair competition, antitrust practices, and the drafting of commercial contracts.",
       "bullets": [
         "Commercial and business litigation",
         "Unfair competition and antitrust matters",
@@ -117,7 +117,7 @@
     },
     "civil": {
       "title": "Civil Law",
-      "summary": "We resolve disputes related to property, obligations, and private contracts that directly affect your business.",
+      "summary": "Our Civil Law services cover a wide range of areas, including drafting, reviewing, and litigating contracts (lease, purchase-sale, service agreements, etc.); advising on the acquisition, disposal, and defense of movable and immovable property; debt management and payment claims; representation in tort and damages cases (civil liability); and guidance on wills, probate proceedings, and the division of estates (successions and inheritances).",
       "bullets": [
         "Civil contracts (lease, purchase-sale, service agreements)",
         "Movable and real estate property matters",
@@ -126,7 +126,7 @@
     },
     "planeacion": {
       "title": "Estate & Wealth Planning",
-      "summary": "We protect your business and family assets through legal strategies that ensure their preservation and orderly transfer.",
+      "summary": "We design legal strategies for the preservation and orderly transfer of assets, whether corporate or family-owned, ensuring their protection and continuity.",
       "bullets": [
         "Business and family wealth protection",
         "Succession and perpetuity strategies",
@@ -135,7 +135,7 @@
     },
     "laboral": {
       "title": "Employment Law for Businesses",
-      "summary": "We design solid employment structures that prevent disputes with employees and ensure compliance with labor regulations.",
+      "summary": "We design solid labor schemes that prevent employee conflicts and comply with current regulations. We advise on the drafting of employment contracts, internal regulations, and corporate policies; represent clients in labor conciliations and litigation; conduct audits to ensure regulatory compliance; and provide advice on termination processes, severance settlements, and training on new labor law provisions.",
       "bullets": [
         "Employment contracts, internal policies, and bylaws",
         "Conciliation and labor litigation",
@@ -144,7 +144,7 @@
     },
     "propiedad_industrial": {
       "title": "Industrial & Intellectual Property",
-      "summary": "We register and protect trademarks, patents, and copyrights, safeguarding your company’s most valuable intangible assets.",
+      "summary": "We register and defend trademarks, patents, and copyrights, safeguarding your company’s most valuable intangible assets.",
       "bullets": [
         "Trademark, patent, and copyright registration",
         "Defense of intangible assets",
@@ -153,7 +153,7 @@
     },
     "fideicomisos": {
       "title": "Trusts",
-      "summary": "We create tailored trust structures to manage and protect assets with legal security and flexibility.",
+      "summary": "We advise on the creation of trusts. We help entrepreneurs define trust terms, identify the parties (settlor, trustee, beneficiary), determine the assets or rights to be contributed, and ensure compliance with all applicable legal requirements. We also design tailored fiduciary structures to manage and protect assets with legal security and flexibility.",
       "bullets": [
         "Asset protection and investment trusts",
         "Definition of trust terms and parties",
@@ -162,7 +162,7 @@
     },
     "pld": {
       "title": "Anti-Money Laundering (AML)",
-      "summary": "We implement legal policies and controls to comply with anti-money laundering regulations.",
+      "summary": "We implement legal policies and controls to comply with anti-money laundering regulations. Our services include drafting and implementing AML manuals and policies, staff training, advisory on reporting obligations, internal and external audits, client identification and verification processes, transactional monitoring systems, and guidance in responding to regulatory authorities.",
       "bullets": [
         "AML manuals and corporate policies",
         "Training programs and internal/external audits",
@@ -171,7 +171,7 @@
     },
     "due_diligence": {
       "title": "Corporate Due Diligence",
-      "summary": "We analyze the legal standing of companies and projects to minimize risks before investing, acquiring, or partnering.",
+      "summary": "Due Diligence is crucial as it provides a comprehensive view of a company’s or project’s legal, financial, and operational situation before making strategic decisions such as investments, acquisitions, mergers, or partnerships. It helps identify and quantify risks, contingencies, and hidden liabilities, enabling informed negotiations and structuring transactions to protect client interests. Without proper Due Diligence, one risks acquiring unforeseen problems that may lead to significant losses or legal disputes. It is an essential tool for strategic decision-making, minimizing risks, and ensuring the viability and success of operations.",
       "bullets": [
         "Comprehensive legal, financial, and operational analysis",
         "Risk and hidden liability identification",
@@ -180,7 +180,7 @@
     },
     "sociedades_financieras": {
       "title": "Creation of Financial Entities",
-      "summary": "We incorporate and regulate financial entities under the appropriate legal framework to operate in the sector.",
+      "summary": "We advise on the incorporation of financial companies (choosing the appropriate corporate type and fulfilling requirements), drafting bylaws, and managing filings with financial authorities such as the CNBV, Banco de México, and CONDUSEF to obtain permits. We also design corporate governance and internal control structures, ensure compliance with AML and counter-terrorism financing regulations, and assist in obtaining licenses to operate specific financial products. Additionally, we provide planning support and draft internal operation, credit, and risk manuals and policies.",
       "bullets": [
         "Incorporation of SOFOM, SOFIPO, and fintech companies",
         "Procedures before CNBV, Banxico, and CONDUSEF",
@@ -189,7 +189,7 @@
     },
     "contratos_financieros": {
       "title": "Financial Contracts",
-      "summary": "We draft and review credit, investment, and guarantee contracts to safeguard your financial operations.",
+      "summary": "Beyond drafting and reviewing credit, investment, and guarantee agreements, we also advise on negotiating contract terms, structuring complex financial operations, representing clients in disputes related to financial contracts, and training on the legal implications and risks of such agreements.",
       "bullets": [
         "Credit, investment, and guarantee agreements",
         "Negotiation and structuring of complex transactions",
@@ -198,7 +198,7 @@
     },
     "cumplimiento_regulatorio": {
       "title": "Regulatory Compliance",
-      "summary": "We ensure your company operates in accordance with industry regulations and avoids sanctions or legal contingencies.",
+      "summary": "We provide regulatory compliance services for companies, including risk-identification audits, design and implementation of programs with sector-specific manuals and policies, advisory on compliance with institutions such as PROFECO, IMSS, INFONAVIT, STPS, municipal authorities, and others; representation before authorities; staff training on obligations; continuous monitoring of legislative changes; and drafting of required reports and documentation.",
       "bullets": [
         "Regulatory compliance audits",
         "Sector-specific compliance programs and manuals",
