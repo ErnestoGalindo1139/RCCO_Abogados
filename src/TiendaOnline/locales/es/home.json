@@ -99,16 +99,16 @@
   "items": {
     "societario": {
       "title": "Derecho Societario",
-      "summary": "Diseñamos y optimizamos la estructura legal de tu empresa para proteger a los socios, asegurar el control corporativo y facilitar el crecimiento.",
+      "summary": "Diseñamos y optimizamos la estructura legal de tu empresa para proteger a los socios, asegurar la eficacia corporativa y facilitar el crecimiento. Ofrecemos servicios de asesoría en constitución, escisión, fusión, transformación, disolución y liquidación de sociedades. También la elaboración de actas de asamblea ordinarias y extraordinarias, títulos de acciones y libros corporativos.",
       "bullets": [
-        "Constitución, fusión, escisión y transformación de sociedades",
-        "Actas de asamblea ordinarias y extraordinarias",
-        "Elaboración de títulos de acciones y libros corporativos"
+        "Constitución, escisión, fusión, transformación, disolución y liquidación de sociedades",
+        "Elabaorción de actas de asamblea ordinarias y extraordinarias",
+        "Títulos de acciones y libros corporativos"
       ]
     },
     "mercantil": {
       "title": "Derecho Mercantil",
-      "summary": "Asesoramos en operaciones comerciales, litigios y contratos, cuidando que tus transacciones se respalden con certeza jurídica.",
+      "summary": "Asesoramos en operaciones comerciales, litigios y contratos, cuidando que tus transacciones se respalden con certeza jurídica. Entre nuestros servicios en Derecho Mercantil se incluyen: litigios comerciales, competencia desleal, prácticas monopólicas y elaboración de contratos mercantiles.",
       "bullets": [
         "Litigios comerciales y mercantiles",
         "Competencia desleal y prácticas monopólicas",
@@ -117,7 +117,7 @@
     },
     "civil": {
       "title": "Derecho Civil",
-      "summary": "Solucionamos conflictos relacionados con bienes, obligaciones y contratos privados que impactan directamente en tu negocio.",
+      "summary": "Los servicios de Derecho Civil cubren una amplia gama de áreas, incluyendo la elaboración, revisión y litigio de contratos (arrendamiento, compraventa, prestación de servicios, etc.), la asesoría en la adquisición, disposición y defensa de la propiedad mueble e inmueble, la gestión de deudas y reclamaciones de pago, la representación en casos de daños y perjuicios (responsabilidad civil), y la orientación en testamentos, juicios sucesorios y partición de bienes (sucesiones y herencias).",
       "bullets": [
         "Contratos civiles (arrendamiento, compraventa, servicios)",
         "Bienes y propiedad mueble e inmueble",
@@ -126,7 +126,7 @@
     },
     "planeacion": {
       "title": "Planeación Jurídica Patrimonial",
-      "summary": "Protegemos tu patrimonio empresarial y familiar mediante estrategias legales que aseguren su conservación y transmisión ordenada.",
+      "summary": "Nuestro servicio incluye el diseño de estrategias legales para la conservación y transmisión ordenada de bienes, ya sean empresariales o familiares, buscando su protección y perpetuidad.",
       "bullets": [
         "Protección patrimonial empresarial y familiar",
         "Estrategias sucesorias y de perpetuidad",
@@ -135,7 +135,7 @@
     },
     "laboral": {
       "title": "Derecho Laboral para Empresas",
-      "summary": "Diseñamos esquemas laborales sólidos que previenen conflictos con empleados y cumplen con la normativa vigente.",
+      "summary": "Diseñamos esquemas laborales sólidos que previenen conflictos con empleados y cumplen con la normativa vigente. Brindamos asesoría en la elaboración de contratos laborales, reglamentos internos y políticas empresariales, representamos en conciliaciones y litigios laborales, realizamos auditorías para asegurar el cumplimiento normativo, y ofrecemos asesoría en procesos de terminación de relaciones laborales y finiquitos, así como capacitación sobre nuevas disposiciones legales en la materia.",
       "bullets": [
         "Contratos laborales, reglamentos y políticas internas",
         "Conciliaciones y litigios laborales",
@@ -153,7 +153,7 @@
     },
     "fideicomisos": {
       "title": "Fideicomisos",
-      "summary": "Creamos estructuras fiduciarias a la medida para administrar y proteger bienes con seguridad y flexibilidad jurídica.",
+      "summary": "Brindamos asesoría en constitución de fideicomisos. Ayudamos al empresario a definir los términos del fideicomiso, identificar a las partes (fideicomitente, fiduciario, fideicomisario), determinar los bienes o derechos que se aportarán al mismo, y aseguramos que la constitución cumpla con todas las normativas legales aplicables para que la administración y protección de los bienes se realice de manera segura y flexible. También creamos estructuras fiduciarias a la medida para administrar y proteger bienes con seguridad y flexibilidad jurídica.",
       "bullets": [
         "Fideicomisos patrimoniales y de inversión",
         "Definición de términos y partes del fideicomiso",
@@ -162,7 +162,7 @@
     },
     "pld": {
       "title": "Materia en PLD",
-      "summary": "Implementamos políticas y controles legales para cumplir con las disposiciones en prevención de lavado de dinero.",
+      "summary": "Nuestro servicio se encarga de implementar políticas y controles legales para cumplir con las disposiciones en prevención de lavado de dinero, incluyendo el diseño e implementación de manuales y políticas de PLD, capacitación al personal, asesoría en la elaboración de reportes, auditorías internas y externas, asesoría en la identificación y verificación de clientes, implementación de sistemas de monitoreo transaccional, y asesoría en la atención a requerimientos de autoridad.",
       "bullets": [
         "Manual y políticas de PLD",
         "Capacitación y auditorías internas/externas",
@@ -171,7 +171,7 @@
     },
     "due_diligence": {
       "title": "Due Diligence Corporativo",
-      "summary": "Analizamos la situación legal de empresas y proyectos para reducir riesgos antes de invertir, adquirir o asociarte.",
+      "summary": "El Due Diligence es crucial porque ofrece una visión exhaustiva de la situación legal, financiera y operativa de una empresa o proyecto antes de tomar decisiones estratégicas como inversiones, adquisiciones, fusiones o asociaciones. Permite identificar y cuantificar riesgos, contingencias y pasivos ocultos, facilitando una negociación informada y estructurando la transacción para proteger los intereses del cliente. Sin un Due Diligence adecuado, se corre el riesgo de adquirir problemas no anticipados que pueden generar pérdidas significativas o disputas legales. Es una herramienta esencial para la toma de decisiones estratégicas, minimizando riesgos y asegurando la viabilidad y el éxito de las operaciones.",
       "bullets": [
         "Análisis legal, financiero y operativo integral",
         "Identificación de riesgos y pasivos ocultos",
@@ -180,7 +180,7 @@
     },
     "sociedades_financieras": {
       "title": "Creación de Sociedades Financieras",
-      "summary": "Constituimos y regulamos entidades financieras con el marco legal adecuado para operar en el sector.",
+      "summary": "Asesoramos para la constitución (eligiendo el tipo de sociedad y cumpliendo requisitos), en la elaboración de estatutos sociales para regir el funcionamiento de Sociedad Financieras, asimismo realizamos trámites ante autoridades financieras como la CNBV, Banco de México y CONDUSEF para la obtención de permisos. Además, se brinda diseño de la estructura corporativa (gobernanza y control interno), cumplimiento normativo en prevención de lavado de dinero y financiamiento al terrorismo, y obtención de licencias para operar productos financieros específicos. Finalmente, se ofrece asesoría para la planificación de la entidad y apoyo en la elaboración de manuales y políticas internas de operación, crédito y riesgos.",
       "bullets": [
         "Constitución de SOFOM, SOFIPO y fintech",
         "Trámites ante CNBV, Banxico y CONDUSEF",
@@ -189,7 +189,7 @@
     },
     "contratos_financieros": {
       "title": "Contratos Financieros",
-      "summary": "Redactamos y revisamos contratos de crédito, inversión y garantías para blindar tus operaciones financieras.",
+      "summary": "Además de la redacción y revisión de contratos de crédito, inversión y garantías, también ofrecemos asesoría en la negociación de los términos contractuales, la estructuración legal de operaciones financieras complejas, la representación en disputas relacionadas con contratos financieros, y la capacitación sobre las implicaciones legales y riesgos de estos acuerdos.",
       "bullets": [
         "Contratos de crédito, inversión y garantías",
         "Negociación y estructuración de operaciones complejas",
@@ -198,7 +198,7 @@
     },
     "cumplimiento_regulatorio": {
       "title": "Cumplimiento Regulatorio",
-      "summary": "Aseguramos que tu empresa opere conforme a la normatividad sectorial y evite sanciones o contingencias legales.",
+      "summary": "Ofrecemos servicios de cumplimiento regulatorio para empresas, incluyendo auditorías para identificar riesgos, diseño e implementación de programas con manuales y políticas adaptadas al sector, asesoría en normativas específicas (ayudando a nuestros clientes a cumplir con la PROFECO, IMSS, INFONAVIT, STPS, Ayuntamientos, y otras instituciones), representación ante autoridades, capacitación al personal sobre obligaciones, monitoreo continuo de cambios legislativos y elaboración de reportes y documentación requerida.",
       "bullets": [
         "Auditorías de cumplimiento normativo",
         "Programas y manuales sectoriales",

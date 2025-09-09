@@ -29,7 +29,6 @@ type Servicio = {
   titulo: string;
   icon: React.ReactNode;
   resumen: string;
-  bullets: string[];
 };
 
 const ICONS: Record<string, React.ReactNode> = {
@@ -69,9 +68,9 @@ const buildServicios = (t: TFunction<'home'>): Servicio[] =>
       titulo: t(`servicios.items.${id}.title`),
       icon: ICONS[id],
       resumen: t(`servicios.items.${id}.summary`),
-      bullets: t(`servicios.items.${id}.bullets`, {
-        returnObjects: true,
-      }) as string[],
+      // bullets: t(`servicios.items.${id}.bullets`, {
+      //   returnObjects: true,
+      // }) as string[],
     })
   );
 
@@ -193,7 +192,7 @@ export const Servicios: React.FC = () => {
                       <h3 className="text-2xl lg:text-xl font-semibold">
                         {activo.titulo}
                       </h3>
-                      <p className="mt-2 text-white/80 leading-relaxed text-base lg:text-sm">
+                      <p className="mt-2 text-white/80 leading-relaxed text-base lg:text-sm text-justify">
                         {activo.resumen}
                       </p>
                     </div>
@@ -206,14 +205,14 @@ export const Servicios: React.FC = () => {
                       <X className="w-5 h-5" />
                     </button>
                   </div>
-                  <ul className="mt-6 lg:mt-4 space-y-2 lg:space-y-1.5 text-white/90 text-base lg:text-sm">
+                  {/* <ul className="mt-6 lg:mt-4 space-y-2 lg:space-y-1.5 text-white/90 text-base lg:text-sm">
                     {activo.bullets.map((b, i) => (
                       <li key={i} className="flex gap-2">
                         <span className="mt-2 h-1.5 w-1.5 rounded-full bg-white/70" />
                         <span>{b}</span>
                       </li>
                     ))}
-                  </ul>
+                  </ul> */}
                 </motion.aside>
               ) : (
                 <motion.div
@@ -359,7 +358,7 @@ export const Servicios: React.FC = () => {
                 </div>
                 <div className="flex-1">
                   <h3 className="text-xl font-semibold">{activo.titulo}</h3>
-                  <p className="mt-2 text-white/80 leading-relaxed">
+                  <p className="mt-2 text-white/80 leading-relaxed text-justify">
                     {activo.resumen}
                   </p>
                 </div>
@@ -371,14 +370,14 @@ export const Servicios: React.FC = () => {
                   <X className="w-5 h-5" />
                 </button>
               </div>
-              <ul className="mt-5 space-y-2">
+              {/* <ul className="mt-5 space-y-2">
                 {activo.bullets.map((b, i) => (
                   <li key={i} className="flex gap-2">
                     <span className="mt-2 h-1.5 w-1.5 rounded-full bg-white/70" />
                     <span>{b}</span>
                   </li>
                 ))}
-              </ul>
+              </ul> */}
             </motion.div>
           </motion.div>
         )}
