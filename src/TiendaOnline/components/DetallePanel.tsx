@@ -18,7 +18,15 @@ export const DetallePanel: React.FC<{
           animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
           exit={{ opacity: 0, y: 6, filter: 'blur(8px)' }}
           transition={{ duration: 0.15, ease: [0.22, 0.61, 0.36, 1] }}
-          className="w-full lg:w-[28rem] xl:w-[32rem] bg-white/5 backdrop-blur border border-white/10 rounded-3xl p-6 lg:p-8 shadow-2xl"
+          className="
+            w-full lg:w-[28rem] xl:w-[32rem]
+            max-h-[60vh]
+            overflow-y-auto
+            bg-white/5 backdrop-blur
+            border border-white/10 rounded-3xl
+            p-6 lg:p-8 shadow-2xl
+            scroll-area
+          "
         >
           <div className="flex items-center gap-4">
             <div className="p-3 rounded-2xl bg-white/10">

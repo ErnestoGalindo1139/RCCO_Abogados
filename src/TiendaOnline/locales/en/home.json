@@ -88,88 +88,137 @@
     }
   },
   "servicios": {
-    "title": "Legal Services",
-    "placeholder": "Select a service on the right to view details here.",
-    "aria": {
-      "close": "Close",
-      "prev": "Previous page",
-      "next": "Next page",
-      "goto": "Go to page {{n}}"
+  "title": "Legal Services",
+  "placeholder": "Select a service on the right to see the details here.",
+  "aria": {
+    "close": "Close",
+    "prev": "Previous page",
+    "next": "Next page",
+    "goto": "Go to page {{n}}"
+  },
+  "items": {
+    "societario": {
+      "title": "Corporate Law",
+      "summary": "We design and optimize your company’s legal structure to protect shareholders, ensure corporate efficiency, and facilitate growth. Our services include advising on incorporation, spin-offs, mergers, transformations, dissolutions, and liquidations of companies. We also draft ordinary and extraordinary shareholders’ meeting minutes, stock certificates, and corporate books.",
+      "bullets": [
+        "Incorporation, merger, spin-off, and transformation of companies",
+        "Ordinary and extraordinary shareholders’ meetings",
+        "Issuance of share certificates and corporate books"
+      ]
     },
-    "items": {
-      "societario": {
-        "title": "Corporate Law",
-        "summary": "We design and optimize your company’s legal structure to protect shareholders, ensure corporate control, and facilitate growth.",
-        "bullets": ["Corporate structuring", "Governance and control", "Business growth"]
-      },
-      "mercantil": {
-        "title": "Commercial Law",
-        "summary": "We advise on business transactions, litigation, and contracts, ensuring that your operations are backed by legal certainty.",
-        "bullets": ["Commercial transactions", "Business litigation", "Specialized contracts"]
-      },
-      "civil": {
-        "title": "Civil Law",
-        "summary": "We resolve disputes related to property, obligations, and private contracts that directly impact your business.",
-        "bullets": ["Property and assets", "Obligations and contracts", "Civil dispute resolution"]
-      },
-      "planeacion": {
-        "title": "Legal and Estate Planning",
-        "summary": "We protect your corporate and family assets through legal strategies that guarantee their preservation and orderly transfer.",
-        "bullets": ["Asset protection", "Succession strategies", "Orderly transfer of assets"]
-      },
-      "laboral": {
-        "title": "Employment Law for Companies",
-        "summary": "We design solid labor frameworks that prevent employee disputes and comply with labor regulations.",
-        "bullets": ["Hiring and compliance", "Conflict prevention", "Labor law compliance"]
-      },
-      "propiedad_industrial": {
-        "title": "Intellectual Property",
-        "summary": "We register and defend trademarks, patents, and copyrights, safeguarding your company’s most valuable intangible assets.",
-        "bullets": ["Trademark and patent registration", "Rights defense", "Intangible asset protection"]
-      },
-      "fideicomisos": {
-        "title": "Trusts",
-        "summary": "We create tailored trust structures to manage and protect assets with legal security and flexibility.",
-        "bullets": ["Estate trusts", "Real estate trusts", "Guarantee trusts"]
-      },
-      "pld": {
-        "title": "AML Compliance",
-        "summary": "We implement policies and legal controls to comply with anti-money laundering regulations.",
-        "bullets": ["Policies and controls", "Regulatory compliance", "Risk prevention"]
-      },
-      "due_diligence": {
-        "title": "Corporate Due Diligence",
-        "summary": "We analyze the legal situation of companies and projects to minimize risks before investing, acquiring, or partnering.",
-        "bullets": ["Comprehensive legal review", "Risk assessment", "Contingency prevention"]
-      },
-      "sociedades_financieras": {
-        "title": "Creation of Financial Entities",
-        "summary": "We establish and regulate financial entities within the appropriate legal framework to operate in the sector.",
-        "bullets": ["Entity incorporation", "Financial regulation", "Legal authorizations"]
-      },
-      "contratos_financieros": {
-        "title": "Financial Contracts",
-        "summary": "We draft and review credit, investment, and guarantee contracts to safeguard your financial operations.",
-        "bullets": ["Credit agreements", "Investment and guarantees", "Legal protection of transactions"]
-      },
-      "cumplimiento_regulatorio": {
-        "title": "Regulatory Compliance",
-        "summary": "We ensure your company operates under sector-specific regulations to avoid sanctions and legal contingencies.",
-        "bullets": ["Sector regulations", "Compliance programs", "Sanction prevention"]
-      }
+    "mercantil": {
+      "title": "Commercial Law",
+      "summary": "We provide advice on business operations, litigation, and contracts, ensuring your transactions are backed by legal certainty. Our services in Commercial Law include: commercial litigation, unfair competition, antitrust practices, and the drafting of commercial contracts.",
+      "bullets": [
+        "Commercial and business litigation",
+        "Unfair competition and antitrust matters",
+        "Specialized commercial contracts"
+      ]
+    },
+    "civil": {
+      "title": "Civil Law",
+      "summary": "Our Civil Law services cover a wide range of areas, including drafting, reviewing, and litigating contracts (lease, purchase-sale, service agreements, etc.); advising on the acquisition, disposal, and defense of movable and immovable property; debt management and payment claims; representation in tort and damages cases (civil liability); and guidance on wills, probate proceedings, and the division of estates (successions and inheritances).",
+      "bullets": [
+        "Civil contracts (lease, purchase-sale, service agreements)",
+        "Movable and real estate property matters",
+        "Civil liability, inheritances, and successions"
+      ]
+    },
+    "planeacion": {
+      "title": "Estate & Wealth Planning",
+      "summary": "We design legal strategies for the preservation and orderly transfer of assets, whether corporate or family-owned, ensuring their protection and continuity.",
+      "bullets": [
+        "Business and family wealth protection",
+        "Succession and perpetuity strategies",
+        "Orderly transfer of assets"
+      ]
+    },
+    "laboral": {
+      "title": "Employment Law for Businesses",
+      "summary": "We design solid labor schemes that prevent employee conflicts and comply with current regulations. We advise on the drafting of employment contracts, internal regulations, and corporate policies; represent clients in labor conciliations and litigation; conduct audits to ensure regulatory compliance; and provide advice on termination processes, severance settlements, and training on new labor law provisions.",
+      "bullets": [
+        "Employment contracts, internal policies, and bylaws",
+        "Conciliation and labor litigation",
+        "Regulatory compliance audits"
+      ]
+    },
+    "propiedad_industrial": {
+      "title": "Industrial & Intellectual Property",
+      "summary": "We register and defend trademarks, patents, and copyrights, safeguarding your company’s most valuable intangible assets.",
+      "bullets": [
+        "Trademark, patent, and copyright registration",
+        "Defense of intangible assets",
+        "Protection of innovations and creative works"
+      ]
+    },
+    "fideicomisos": {
+      "title": "Trusts",
+      "summary": "We advise on the creation of trusts. We help entrepreneurs define trust terms, identify the parties (settlor, trustee, beneficiary), determine the assets or rights to be contributed, and ensure compliance with all applicable legal requirements. We also design tailored fiduciary structures to manage and protect assets with legal security and flexibility.",
+      "bullets": [
+        "Asset protection and investment trusts",
+        "Definition of trust terms and parties",
+        "Regulatory compliance and legal security"
+      ]
+    },
+    "pld": {
+      "title": "Anti-Money Laundering (AML)",
+      "summary": "We implement legal policies and controls to comply with anti-money laundering regulations. Our services include drafting and implementing AML manuals and policies, staff training, advisory on reporting obligations, internal and external audits, client identification and verification processes, transactional monitoring systems, and guidance in responding to regulatory authorities.",
+      "bullets": [
+        "AML manuals and corporate policies",
+        "Training programs and internal/external audits",
+        "Transaction monitoring and regulatory reporting"
+      ]
+    },
+    "due_diligence": {
+      "title": "Corporate Due Diligence",
+      "summary": "Due Diligence is crucial as it provides a comprehensive view of a company’s or project’s legal, financial, and operational situation before making strategic decisions such as investments, acquisitions, mergers, or partnerships. It helps identify and quantify risks, contingencies, and hidden liabilities, enabling informed negotiations and structuring transactions to protect client interests. Without proper Due Diligence, one risks acquiring unforeseen problems that may lead to significant losses or legal disputes. It is an essential tool for strategic decision-making, minimizing risks, and ensuring the viability and success of operations.",
+      "bullets": [
+        "Comprehensive legal, financial, and operational analysis",
+        "Risk and hidden liability identification",
+        "Support in mergers, acquisitions, and partnerships"
+      ]
+    },
+    "sociedades_financieras": {
+      "title": "Creation of Financial Entities",
+      "summary": "We advise on the incorporation of financial companies (choosing the appropriate corporate type and fulfilling requirements), drafting bylaws, and managing filings with financial authorities such as the CNBV, Banco de México, and CONDUSEF to obtain permits. We also design corporate governance and internal control structures, ensure compliance with AML and counter-terrorism financing regulations, and assist in obtaining licenses to operate specific financial products. Additionally, we provide planning support and draft internal operation, credit, and risk manuals and policies.",
+      "bullets": [
+        "Incorporation of SOFOM, SOFIPO, and fintech companies",
+        "Procedures before CNBV, Banxico, and CONDUSEF",
+        "Governance, internal control, and operational licenses"
+      ]
+    },
+    "contratos_financieros": {
+      "title": "Financial Contracts",
+      "summary": "Beyond drafting and reviewing credit, investment, and guarantee agreements, we also advise on negotiating contract terms, structuring complex financial operations, representing clients in disputes related to financial contracts, and training on the legal implications and risks of such agreements.",
+      "bullets": [
+        "Credit, investment, and guarantee agreements",
+        "Negotiation and structuring of complex transactions",
+        "Representation in contractual disputes"
+      ]
+    },
+    "cumplimiento_regulatorio": {
+      "title": "Regulatory Compliance",
+      "summary": "We provide regulatory compliance services for companies, including risk-identification audits, design and implementation of programs with sector-specific manuals and policies, advisory on compliance with institutions such as PROFECO, IMSS, INFONAVIT, STPS, municipal authorities, and others; representation before authorities; staff training on obligations; continuous monitoring of legislative changes; and drafting of required reports and documentation.",
+      "bullets": [
+        "Regulatory compliance audits",
+        "Sector-specific compliance programs and manuals",
+        "Representation before authorities and legislative monitoring"
+      ]
     }
-
-
+  }
   },
   "areas": {
+    "mainTitle": "Services",
+    "title": "Specialized Areas",
+    "subtitle": "for business sectors",
     "center": {
       "brand": "RCCO",
       "title1": "AREAS",
       "title2": "Specialized"
     },
     "placeholder": {
-      "title": "Explore our areas",
-      "text": "Hover over each hexagon for an interactive effect and click to view detailed information. Design optimized for desktop and mobile."
+      "title": "Explore our sectors",
+      "text": "Hover over each hexagon for an interactive effect and click to view detailed sector information. Optimized design for desktop and mobile."
     },
     "aria": {
       "close": "Close"
@@ -177,78 +226,124 @@
     "items": {
       "entretenimiento": {
         "title": "Entertainment Industry",
-        "desc": "Talent, production, distribution, and sponsorship agreements. Licensing and protection of copyrights/trademarks (INDAUTOR/IMPI). Negotiations with platforms and advertising compliance for events and content.",
+        "desc": "Specialized legal advice to protect and maximize the value of your creative and intellectual assets.",
         "bullets": [
-          "Talent and production contracts",
-          "Licensing and copyright/trademark protection",
-          "Negotiations with platforms and advertising compliance"
+          "Talent, representation, production, distribution, and sponsorship contracts",
+          "Contracts for directing artistic works and/or content creation",
+          "Licensing and protection of copyrights/trademarks (INDAUTOR/IMPI)",
+          "Registration of characters, stage names, and artistic works (INDAUTOR/IMPI)",
+          "Negotiation with platforms and advertising compliance for events and content"
         ]
       },
       "agricola": {
         "title": "Agricultural Sector",
-        "desc": "Regularization of land (private/ejido), water, and land use. Supply and export contracts with phytosanitary verification. Seasonal labor compliance and certifications.",
+        "desc": "Specialized legal services for the business agricultural sector.",
         "bullets": [
-          "Land and water regularization",
-          "Supply and export contracts",
-          "Seasonal labor compliance and certifications"
+          "Regularization of land (private/ejido)",
+          "Regularization of water and land use",
+          "Regularization of residency or ejidatario status",
+          "Acquisition of rights over ejido land",
+          "Analysis of Property Titles",
+          "Supply and export contracts with phytosanitary verification",
+          "Seasonal labor compliance and certifications",
+          "Agricultural loan (Avío) contracts",
+          "Commercial contracts for sales of future goods or expectations",
+          "Production contracts",
+          "Land lease contracts",
+          "Advisory for Rural Production Societies",
+          "Agricultural financing advisory"
         ]
       },
       "construccion": {
         "title": "Construction Sector",
-        "desc": "Construction contracts (EPC, unit prices), subcontracts, and bonds. Permits, licenses, and public/private bids. Prevention and management of claims and occupational risks.",
+        "desc": "Comprehensive legal advice on construction projects and operations.",
         "bullets": [
-          "Construction and subcontracting contracts",
-          "Permits, licenses, and bids",
-          "Prevention of claims and occupational risks"
+          "Construction contracts (EPC, unit prices), subcontracts, and bonds",
+          "Permits, licenses, and public/private bids",
+          "Prevention and management of claims and labor risks",
+          "Construction litigation and arbitration",
+          "Legal advice on real estate law applied to construction",
+          "Regulatory compliance (Compliance)",
+          "Financing advisory for construction projects",
+          "Advisory on infrastructure projects and public-private partnerships (PPP)"
         ]
       },
       "inmobiliario": {
         "title": "Real Estate Sector",
-        "desc": "Real estate and development due diligence; purchase-sale and leasing. Trusts, condominium regime, and pre-sale (PROFECO). Urban permits and project tax structuring.",
+        "desc": "Specialized legal services for real estate projects and transactions.",
         "bullets": [
-          "Due diligence and purchase-sale",
-          "Trusts and condominium regime",
-          "Pre-sale and urban permits"
+          "Advisory and drafting of purchase-sale and lease agreements",
+          "Real estate due diligence",
+          "Real estate trusts",
+          "Advisory on condominium ownership regimes",
+          "Pre-sales and consumer protection (PROFECO)",
+          "Real estate litigation",
+          "Financing advisory for real estate",
+          "Regularization of properties"
         ]
       },
       "financiero": {
         "title": "Financial Sector",
-        "desc": "Incorporation and regulation of SOFOM, SOFIPO, and fintech; relations with CNBV/Banxico. Credit contracts, guarantees, and debt structuring. AML/CFT, corporate governance, and data protection.",
+        "desc": "Legal services for the incorporation, regulation, and operation of financial entities.",
         "bullets": [
-          "Incorporation and regulation of financial entities",
-          "Credit and guarantee contracts",
-          "AML/CFT, corporate governance, and data protection"
+          "Advisory on incorporation and regulation of SOFOM, SOFIPO, and fintech; liaison with CNBV/Banxico",
+          "Credit, guarantee, and debt structuring contracts",
+          "AML/CFT, corporate governance, and personal data",
+          "Mergers and acquisitions",
+          "Litigation and dispute resolution advisory",
+          "Regulatory and compliance law",
+          "Consumer protection for financial services"
         ]
       },
       "alimentario": {
         "title": "Food Industry",
-        "desc": "Registrations, filings, and compliance with COFEPRIS; NOM-051 labeling. Contracts with suppliers, maquila, distribution, and retail. Sanitary management, traceability, and recall plans.",
+        "desc": "Comprehensive legal services for companies in the food industry.",
         "bullets": [
-          "COFEPRIS compliance and NOM-051 labeling",
-          "Supplier and distribution contracts",
-          "Sanitary management and traceability"
+          "Registrations, notices, and compliance with COFEPRIS and COEPRIS",
+          "Advisory on compliance with labeling standards such as NOM-051",
+          "Drafting and reviewing contracts with suppliers, maquila, distribution, and retailers",
+          "Intellectual property advisory for brands and recipes",
+          "Advisory on labor matters specific to the food sector",
+          "Compliance with food safety regulations",
+          "Disposal of damaged or spoiled goods",
+          "Advisory on foreign trade for importing and exporting food products",
+          "Negotiation and drafting of confidentiality agreements for formulas and processes",
+          "Financing advisory for food industry projects",
+          "Compliance audits throughout the supply chain",
+          "Advisory on consumer personal data protection",
+          "Representation before PROFECO in complaints and disputes with consumers"
         ]
       },
       "minero": {
         "title": "Mining Industry",
-        "desc": "Concessions, transfers, and easements; agreements with communities. Environmental permits (SEMARNAT), impact, and industrial safety. Exploration, offtake, and financing contracts.",
+        "desc": "Legal advice on concessions, contracts, and environmental compliance in the mining sector.",
         "bullets": [
-          "Concessions and community agreements",
-          "Environmental permits and impact",
-          "Exploration and financing contracts"
+          "Concessions, transfers, and easements; agreements with communities",
+          "Environmental permits (SEMARNAT), impact, and industrial safety",
+          "Exploration, offtake, and financing contracts"
         ]
       },
       "turismo": {
         "title": "Hospitality and Tourism",
-        "desc": "Hotel operation, franchise, and management contracts. Licenses (alcohol, federal maritime land zone), timeshares, and PROFECO compliance. OTA contracts, consumer protection, and 24/7 labor compliance.",
+        "desc": "Legal services for the hotel and tourism sector in operations, contracts, and regulatory compliance.",
         "bullets": [
-          "Operation and franchise contracts",
-          "Licenses and timeshares",
-          "OTA contracts and labor compliance"
+          "Hotel operation, franchise, and management contracts",
+          "Licenses (alcohol, federal maritime-terrestrial zone)",
+          "Legal advisory on timeshare contracts and services",
+          "Advisory and representation before PROFECO (Federal Consumer Protection Agency)",
+          "Contracts with OTAs (Online Travel Agencies)",
+          "Consumer protection",
+          "24/7 labor compliance",
+          "Litigation and dispute resolution",
+          "Advisory on hiring foreign staff",
+          "Employee immigration regularization",
+          "Advisory on foreign investment in the hotel sector",
+          "Hotel regulatory compliance",
+          "Personal data protection",
+          "Legal audits"
         ]
       }
     }
-
   },
   "logos": {
     "trustHeadline": "Our clients trust us",
