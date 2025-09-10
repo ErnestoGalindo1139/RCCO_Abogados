@@ -10,6 +10,7 @@ type MemberForModal = {
   cargo?: string;
   subcargo?: string;
   src: string;
+  srcImgColor: string;
   experiencia?: string[];
 };
 
@@ -105,7 +106,7 @@ export const ModalInfoMiembro: React.FC<Props> = ({ open, onClose, member }) => 
                 <div className="rounded-xl overflow-hidden border bg-neutral-50">
                   <div className="aspect-[4/5] md:aspect-auto">
                     <img
-                      src={member.src}
+                      src={member.srcImgColor}
                       alt={member.nombre}
                       className="w-full h-full object-cover"
                       loading="lazy"

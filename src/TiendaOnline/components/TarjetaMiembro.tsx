@@ -6,6 +6,8 @@ type Miembro = {
   cargo: string;
   subcargo?: string;
   src: string;
+  srcImgColor: string;
+  destacado?: boolean;
 };
 
 type Props = {
@@ -29,17 +31,33 @@ export const TarjetaMiembro: React.FC<Props> = ({ m, onClick }) => {
       {/* Foto */}
       <div
         className="
-          w-full aspect-[1/1] overflow-hidden rounded-2xl
+          w-full aspect-[1/1] overflow-hidden rounded-2xl relative
           ring-1 ring-black/5 bg-neutral-200 drop-shadow-md
         "
       >
+        {/* Imagen base (gris) */}
         <img
           src={m.src}
           alt={m.nombre}
           className="
             h-full w-full object-cover
-            grayscale transition duration-300 ease-out
-            group-hover:grayscale-0 group-hover:scale-[1.02]
+            absolute inset-0
+            grayscale
+            transition-opacity duration-300
+            opacity-100 group-hover:opacity-0
+          "
+          loading="lazy"
+        />
+
+        {/* Imagen al pasar el mouse (a color) */}
+        <img
+          src={m.srcImgColor}
+          alt={`${m.nombre} en color`}
+          className="
+            h-full w-full object-cover
+            absolute inset-0
+            transition-opacity duration-300
+            opacity-0 group-hover:opacity-100
           "
           loading="lazy"
         />
