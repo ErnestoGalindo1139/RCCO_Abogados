@@ -13,7 +13,7 @@ type Miembro = {
 };
 
 const miembros: Miembro[] = [
-  { id: 'dionisio', nombre: 'DIONISIO PAZ DÍAZ', src: '/img/colaborador1.jpeg', destacado: true, srcImgColor: '/img/colaborador1-2.jpg' },
+  { id: 'dionisio', nombre: 'DIONISIO PAZ DÍAZ', src: '/img/colaborador1.jpg', destacado: true, srcImgColor: '/img/colaborador1-2.jpg' },
   { id: 'jose', nombre: 'JOSÉ VALDEZ ZATARAIN', src: '/img/colaborador3.jpeg', srcImgColor: '/img/colaborador3-2.jpg' },
   { id: 'felipe', nombre: 'FELIPE HERNÁNDEZ GARCÍA', src: '/img/colaborador5.jpeg', srcImgColor: '/img/colaborador5-2.jpg' },
   { id: 'alfredo', nombre: 'ALFREDO SOTO VELA', src: '/img/colaborador4.jpeg', srcImgColor: '/img/colaborador4-2.jpg' },
