@@ -69,14 +69,14 @@ export const BlogPage: React.FC = () => {
         className="relative mx-auto max-w-6xl px-4 pb-16 pt-[4.5rem] -mt-8
         [background-image:radial-gradient(24rem_24rem_at_20%_10%,_rgba(13,71,161,0.06),_transparent),radial-gradient(20rem_20rem_at_80%_0%,_rgba(17,56,115,0.05),_transparent)]"
       >
-        <FeaturedPost
+        {/* <FeaturedPost
           title={POSTS[0].title}
           excerpt={POSTS[0].excerpt}
           image={POSTS[0].cover}
           href={`/blog/${POSTS[0].slug}`}
           tag={POSTS[0].tag}
           readTime={POSTS[0].readTime}
-        />
+        /> */}
 
         <div className="mt-4 text-sm text-slate-600">
           {filtered.length} resultado{filtered.length !== 1 ? 's' : ''} •{' '}
