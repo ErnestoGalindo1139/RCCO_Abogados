@@ -26,7 +26,8 @@
     "copyright": "Todos los derechos reservados.",
     "poweredBy": "Desarrollado por",
     "poweredByAria": "Abrir {{brand}}",
-    "privacy": "Política de Privacidad"
+    "privacy": "Política de Privacidad",
+    "terminosYCondiciones": "Términos y Condiciones"
   },
   "waitScreen": {
     "text": "Cambiando idioma..."

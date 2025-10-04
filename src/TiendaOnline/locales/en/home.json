@@ -1,4 +1,37 @@
 {
+  "meta": {
+    "lastUpdateLabel": "Last update:",
+    "lastUpdate": "October 3, 2025",
+    "jurisdiction": "Jurisdiction: Mexico"
+  },
+
+  "banner": {
+    "headline1": "Committed to",
+    "headline2": "your legal peace of mind",
+    "slogan": "Legal Engineering for your business",
+    "cta": "Schedule an appointment",
+    "bgAlt": "Banner image"
+  },
+
+  "hero": {
+    "title": "Legal Notice, Terms of Use and Privacy Notice",
+    "intro": "This document regulates the use of the {{brand}} website and describes how we handle your personal data in accordance with Mexican legislation."
+  },
+
+  "nav": {
+    "legal": {
+      "title": "Legal Notice and Terms of Use",
+      "desc": "Responsible entity, website use, limitations, and jurisdiction."
+    },
+    "whatsapp": {
+      "title": "WhatsApp and Scheduling",
+      "desc": "Communication, consent, and limitation of liability."
+    },
+    "privacy": {
+      "title": "Privacy Notice",
+      "desc": "Data collected, purposes, and ARCO rights."
+    }
+  },
   "banner": {
     "headline1": "Committed to",
     "headline2": "your legal peace of mind",
@@ -401,5 +434,190 @@
         "description": "We provide legal certainty, prevent and remedy contingencies, and enhance organizational strengths."
       }
     }
+  },
+
+  "legal": {
+  "title": "Legal Notice and Terms of Use",
+  "subtitle": "Website:",
+  "site": "www.rccoabogados.com.mx",
+  "responsable": "Responsible entity: CUIDAMOS TU EMPRESA, S.C., trading as RCCO ABOGADOS®, with tax domicile at Calle Guelatao 909, Fracc. María Fernanda, C.P. 82147, Mazatlán, Sinaloa, Mexico. This document governs users’ access to, browsing, and use of the website.",
+  "objeto": {
+    "title": "Purpose",
+    "text": "To regulate access, browsing, and use of the website (hereinafter, the \"WEBSITE\") by users (\"USERS\"), as well as the legal relationship arising from the services and information contained on the WEBSITE."
+  },
+  "uso": {
+    "title": "Use of the Website",
+    "items": [
+      "Use the WEBSITE in accordance with applicable law, good faith, public order, and this Legal Notice.",
+      "Use for unlawful purposes or contrary to these Terms is prohibited.",
+      "Reproduction, distribution, transmission, or modification of content without express authorization is prohibited.",
+      "Do not introduce viruses, malicious code, or elements that may interrupt or damage the WEBSITE."
+    ]
+  },
+  "servicios": {
+    "title": "Services and Information",
+    "items": [
+      "The content is for informational purposes: it does not constitute a binding offer or personalized legal advice.",
+      "Use of the information does not replace consultation with a qualified attorney.",
+      "RCCO ABOGADOS may modify, suspend, or withdraw content without prior notice."
+    ]
+  },
+  "responsabilidad": {
+    "title": "Liability",
+    "items": [
+      "We are not responsible for damages arising from access to, use of, or inability to use the WEBSITE.",
+      "We do not guarantee the absence of errors or omissions, nor of harmful elements introduced by third parties.",
+      "Links to external sites are the sole responsibility of the USER."
+    ]
+  },
+  "whatsapp": {
+    "title": "Communication via WhatsApp and Scheduling",
+    "items": [
+      "Responsibility for information sent: the USER is responsible for the accuracy and content.",
+      "Contact authorization: by sending a message or scheduling, you authorize contact through such means.",
+      "Limitation of liability: we are not responsible for risks arising from the use of external platforms."
+    ]
+  },
+  "pi": {
+    "title": "Intellectual and Industrial Property",
+    "text": "All rights to content, designs, trademarks, logos, software, images, and texts belong to RCCO ABOGADOS or are used with authorization. Total or partial reproduction is prohibited without express written authorization."
+  },
+  "registro": {
+    "title": "User Registration and Data",
+    "items": [
+      "The USER must provide truthful and updated information when a service requires registration.",
+      "Improper use of accounts or passwords will be the sole responsibility of the USER."
+    ]
+  },
+  "jurisdiccion": {
+    "title": "Jurisdiction and Applicable Law",
+    "text": "This document is governed by the laws of the United Mexican States. Any dispute will be submitted to the competent courts of Mazatlán, Sinaloa, with the parties expressly waiving any other jurisdiction."
+  },
+  "modificaciones": {
+    "title": "Modifications",
+    "text": "RCCO ABOGADOS may modify, update, or delete this Legal Notice at any time. We suggest reviewing this page periodically."
   }
+},
+
+"privacy": {
+  "title": "Privacy Notice",
+  "subtitle": "Based on the Federal Law on Protection of Personal Data Held by Private Parties",
+  "intro": "Pursuant to Articles 15 and 16 of the Federal Law on Protection of Personal Data Held by Private Parties, we inform you that the company CUIDAMOS TU EMPRESA, S.C., makes this Privacy Notice available under the following terms:",
+  "responsable": "CUIDAMOS TU EMPRESA, S.C. is a legal entity incorporated under Mexican law, responsible for processing, collecting, protecting, and preserving personal data, including sensitive, asset-related, and financial data. Its main purpose is consulting, advisory, planning, and administration in legal, accounting, tax, corporate, and real-estate areas for all types of companies and individuals, public, national, or foreign. Address for service of notifications: Calle Tacuba 302, Interior 2, Col. Playas del Sol, C.P. 82148, Mazatlán, Sinaloa.",
+  "i": {
+    "title": "I. Data that may be collected",
+    "ident": {
+      "text": "Identification and contact data of the data subject, including but not limited to:",
+      "items": [
+        "Full name, company or legal name, nationality, CURP, RFC, age, gender, date and place of birth.",
+        "Address, phone numbers, email, handwritten signature, photograph, fingerprint, marital status, and occupation."
+      ]
+    },
+    "finanzas": {
+      "text": "Asset and/or financial data, such as:",
+      "items": [
+        "Credit/debit card number, bank accounts, assets.",
+        "Account statements, payroll receipts, mortgage credit information (if applicable)."
+      ]
+    }
+  },
+  "consentCallout": "In accordance with applicable law, for asset or financial data we require your express consent.",
+  "consent": {
+    "tacit": "In accordance with applicable legislation, we will deem your consent tacitly granted for processing the personal data listed above. You may object at any time through the procedure described in section V (ARCO Rights).",
+    "expressFinancial": "For financial or asset-related data, your express consent is mandatory. When such data are collected by electronic means to acquire a product or service, the mere act of making the purchase will be understood as your consent to the terms of this Privacy Notice."
+  },
+  "ii": {
+    "title": "II. Ways of obtaining the data",
+    "items": [
+      "In writing.",
+      "Verbally.",
+      "Through internet or electronic forms.",
+      "Via telephone services.",
+      "Any other means permitted by law."
+    ],
+    "origen": "Information may be collected directly from the data subject or through third parties to offer, provide, and/or improve the products or services."
+  },
+  "iii": {
+    "title": "III. Use of personal data",
+    "principalesLabel": "Primary purposes:",
+    "principales": [
+      "To confirm identity, comply with legal requirements, and verify the information provided.",
+      "Billing management (including sending invoices) and collection follow-up; where applicable, integration into legal documents and transfer to authorities.",
+      "Any other purpose compatible or analogous to the above."
+    ],
+    "secundariasLabel": "Secondary purposes (optional):",
+    "secundarias": [
+      "Newsletters.",
+      "Quality assessments of the products or services contracted.",
+      "Sending commercial information, services, or promotions.",
+      "Invitations to events."
+    ],
+    "optoutNote": "Refusal to use your data for secondary purposes will not be a reason to deny the products or services requested."
+  },
+  "iv": {
+    "title": "IV. Limitations on use or disclosure",
+    "text": "We implement administrative, legal, and technological measures to protect your information. You may limit advertising by registering with PROFECO’s Public Registry to Avoid Advertising.",
+    "profecoUrl": "https://repep.profeco.gob.mx/"
+  },
+  "v": {
+    "title": "V. Means to exercise ARCO Rights",
+    "revocationNote": "You may revoke your consent; however, in some cases we may not be able to address the request immediately due to legal obligations, and revocation could prevent us from providing the requested service or delivering the requested product.",
+    "text": {
+      "beforeEmail": "You may exercise Access, Rectification, Cancellation, or Opposition rights by sending a request to ",
+      "afterEmail": ", addressed to CUIDAMOS TU EMPRESA, S.C. Include your name, address, and contact method; identification or representation documents; a description of the data; and, for rectification, supporting documents. Response time: up to 20 business days (extendable once for an equal period if circumstances justify it)."
+    },
+    "email": "contacto@rccoabogados.com.mx",
+    "requirements": {
+      "intro": "Your written request must include:",
+      "items": [
+        "Name of the data subject, address, and an alternative means to communicate the response.",
+        "Documents proving the identity of the data subject or, where applicable, legal representation if a third party acts on their behalf.",
+        "A clear and precise description of the personal data regarding which ARCO rights are to be exercised.",
+        "Any other element or document that facilitates locating your Personal Data.",
+        "For rectification requests, indicate the modifications to be made and provide supporting documentation.",
+        "In case of reasonable doubts regarding authenticity or representation (documents with strikethroughs/alterations), originals or certified copies may be required at the controller’s office."
+      ],
+      "cureOmissions": "If information is missing, you will be asked to remedy the omission.",
+      "timeline": "A response will be issued within a maximum of 20 business days from receipt or from the date omissions are remedied; this period may be extended once for an equal period when circumstances justify it."
+    }
+  },
+  "vi": {
+    "title": "VI. Data transfers",
+    "text": "Data are processed internally to create files and, where applicable, to draft contracts. Transfers may be carried out without consent as established by Article 37 of the Law:",
+    "bases": [
+      "When the transfer is provided for by a law.",
+      "When necessary for medical prevention or diagnosis, the provision of healthcare, medical treatment, or the management of health services.",
+      "When carried out to controlling companies, subsidiaries, or affiliates under common control of the controller, or to a parent company or any company in the same group that operates under the same internal processes and policies.",
+      "When necessary by virtue of a contract concluded or to be concluded in the interest of the data subject between the controller and a third party.",
+      "When necessary or legally required to safeguard a public interest, or for the procurement or administration of justice.",
+      "When necessary for the recognition, exercise, or defense of a right in judicial proceedings.",
+      "When necessary for the maintenance or fulfillment of a legal relationship between the controller and the data subject."
+    ]
+  },
+  "vii": {
+    "title": "VII. Changes to the Privacy Notice",
+    "text": "We will publish modifications on this WEBSITE, and a physical copy may also be consulted at our offices: Calle Guelatao 909, Col. María Fernanda, C.P. 82147, Mazatlán, Sinaloa."
+  },
+  "viii": {
+    "title": "VIII. Contact",
+    "cards": {
+      "email": { "title": "Email", "value": "auroralizarraga@rccoabogados.com.mx" },
+      "phone": { "title": "Phone", "value": "(669) 229 1634" },
+      "addresses": {
+        "title": "Addresses",
+        "items": [
+          "For notifications: Calle Tacuba 302, Interior 2, Col. Playas del Sol, C.P. 82148, Mazatlán, Sinaloa.",
+          "Offices and publications (physical copy available): Calle Guelatao 909, Col. María Fernanda, C.P. 82147, Mazatlán, Sinaloa."
+        ]
+      }
+    }
+  },
+  "acceptCallout": "By using the WEBSITE, you confirm that you have read and accept the Legal Notice, the Terms of Use, and the Privacy Notice."
+},
+
+
+  "footer": {
+    "allRights": "All rights reserved."
+  }
+
 }

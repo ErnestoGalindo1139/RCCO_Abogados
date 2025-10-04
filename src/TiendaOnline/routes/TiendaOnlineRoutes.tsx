@@ -5,6 +5,8 @@ import { BlogPage } from '../pages/BlogPage';
 import { BlogPostPage } from '../pages/BlogPostPage';
 import { Footer } from '../components/FooterPlantilla';
 import { NavBar } from '../components/NavBar';
+import { PoliticaDePrivacidadPage } from '../pages/PoliticaDePrivacidad';
+import { TerminosYCondicionesPage } from '../pages/TerminosYCondicionesPage';
 
 export const TiendaOnlineRoutes = () => {
   return (
@@ -14,6 +16,8 @@ export const TiendaOnlineRoutes = () => {
 
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/PoliticaDePrivacidad" element={<PoliticaDePrivacidadPage />} />
+        <Route path="/TerminosYCondiciones" element={<TerminosYCondicionesPage />} />
         <Route path="/blog" element={<BlogPage />} />
         <Route path="/blog/:slug" element={<BlogPostPage />} />{' '}
         {/* ← detalle */}

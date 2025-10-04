@@ -10,6 +10,7 @@ import {
   Phone,
   Mail,
 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export const Footer = () => {
   return (
@@ -190,12 +191,11 @@ export const Footer = () => {
               reservados.
             </p>
             <div className="flex space-x-6">
-              <a
-                href="#"
+              <Link to={"/AvisoLegal"}
                 className="text-gray-500 hover:text-white text-sm transition-colors"
               >
                 Política de privacidad
-              </a>
+              </Link>
               <a
                 href="#"
                 className="text-gray-500 hover:text-white text-sm transition-colors"

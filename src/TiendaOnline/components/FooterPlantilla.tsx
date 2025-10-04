@@ -2,6 +2,7 @@ import React from 'react';
 import { LuFacebook, LuInstagram, LuLinkedin, LuYoutube } from 'react-icons/lu';
 import { BsTiktok } from 'react-icons/bs';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 type FooterProps = {
   company?: string;
@@ -14,7 +15,8 @@ export const Footer: React.FC<FooterProps> = ({
   company = 'RCCO Abogados',
   brandHref = 'https://grstechs.com',
   brandLabel = 'grstechs.com',
-  privacyHref = '/privacy-policy',
+  privacyHref = '/PoliticaDePrivacidad',
+  terminosYCondicionesHref = '/TerminosYCondiciones',
 }) => {
   const { t } = useTranslation('common');
 
@@ -102,9 +104,13 @@ export const Footer: React.FC<FooterProps> = ({
             </a>
           </p>
           <span className="hidden md:inline">•</span>
-          <a href={privacyHref} className="hover:text-blue-300 font-medium">
+          <Link to={privacyHref} className="hover:text-blue-300 font-medium">
             {t('footer.privacy')}
-          </a>
+          </Link>
+          <span className="hidden md:inline">•</span>
+          <Link to={terminosYCondicionesHref} className="hover:text-blue-300 font-medium">
+            {t('footer.terminosYCondiciones')}
+          </Link>
         </div>
       </div>
     </footer>

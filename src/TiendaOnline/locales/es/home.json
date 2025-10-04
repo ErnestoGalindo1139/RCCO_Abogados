@@ -1,4 +1,10 @@
 {
+  "meta": {
+    "lastUpdateLabel": "Última actualización:",
+    "lastUpdate": "03 de octubre de 2025",
+    "jurisdiction": "Jurisdicción: México"
+  },
+
   "banner": {
     "headline1": "Comprometidos con",
     "headline2": "tu tranquilidad legal",
@@ -6,6 +12,27 @@
     "cta": "Agenda una cita",
     "bgAlt": "Imagen de banner"
   },
+
+  "hero": {
+    "title": "Aviso Legal, Términos de Uso y Aviso de Privacidad",
+    "intro": "Este documento regula el uso del sitio web de {{brand}} y describe cómo tratamos tus datos personales conforme a la legislación mexicana."
+  },
+
+  "nav": {
+    "legal": {
+      "title": "Aviso Legal y Términos de Uso",
+      "desc": "Identidad del responsable, uso del sitio, límites y jurisdicción."
+    },
+    "whatsapp": {
+      "title": "WhatsApp y Agenda",
+      "desc": "Comunicación, consentimiento y limitación de responsabilidad."
+    },
+    "privacy": {
+      "title": "Aviso de Privacidad",
+      "desc": "Datos recabados, finalidades y derechos ARCO."
+    }
+  },
+
   "nosotros": {
     "title": "¿Quiénes somos?",
     "p1": "Somos una firma de abogados especializada en derecho empresarial, enfocada en la innovación y consolidación de empresas y negocios. Brindamos servicios legales para impulsar y potenciar las ideas de nuestros clientes, alineándonos con su modelo de negocio.",
@@ -19,6 +46,7 @@
       "text": "Ser un referente en la prestación de servicios legales corporativos, reconocidos por nuestra capacidad para consolidar y fortalecer empresas y negocios. A través de la investigación, la innovación, la resolución de problemas y la adaptabilidad al entorno empresarial, aspiramos a contribuir al desarrollo económico y social de nuestro país."
     }
   },
+
   "valores": {
     "title": "NUESTROS VALORES",
     "general": "Destacamos nuestro compromiso con la integridad, profesionalismo, responsabilidad y ética en cada servicio legal ofrecido.",
@@ -42,10 +70,12 @@
     },
     "centerAria": "Centro valores"
   },
+
   "slogan": {
     "text": "Ingeniería Jurídica para tu empresa",
     "author": "— RCCO"
   },
+
   "equipo": {
     "title": "Nuestro equipo",
     "miembros": {
@@ -87,126 +117,128 @@
       }
     }
   },
+
   "servicios": {
-  "title": "Servicios Legales",
-  "placeholder": "Selecciona un servicio a la derecha para ver los detalles aquí.",
-  "aria": {
-    "close": "Cerrar",
-    "prev": "Página anterior",
-    "next": "Página siguiente",
-    "goto": "Ir a la página {{n}}"
-  },
-  "items": {
-    "societario": {
-      "title": "Derecho Societario",
-      "summary": "Diseñamos y optimizamos la estructura legal de tu empresa para proteger a los socios, asegurar la eficacia corporativa y facilitar el crecimiento. Ofrecemos servicios de asesoría en constitución, escisión, fusión, transformación, disolución y liquidación de sociedades. También la elaboración de actas de asamblea ordinarias y extraordinarias, títulos de acciones y libros corporativos.",
-      "bullets": [
-        "Constitución, escisión, fusión, transformación, disolución y liquidación de sociedades",
-        "Elabaorción de actas de asamblea ordinarias y extraordinarias",
-        "Títulos de acciones y libros corporativos"
-      ]
+    "title": "Servicios Legales",
+    "placeholder": "Selecciona un servicio a la derecha para ver los detalles aquí.",
+    "aria": {
+      "close": "Cerrar",
+      "prev": "Página anterior",
+      "next": "Página siguiente",
+      "goto": "Ir a la página {{n}}"
     },
-    "mercantil": {
-      "title": "Derecho Mercantil",
-      "summary": "Asesoramos en operaciones comerciales, litigios y contratos, cuidando que tus transacciones se respalden con certeza jurídica. Entre nuestros servicios en Derecho Mercantil se incluyen: litigios comerciales, competencia desleal, prácticas monopólicas y elaboración de contratos mercantiles.",
-      "bullets": [
-        "Litigios comerciales y mercantiles",
-        "Competencia desleal y prácticas monopólicas",
-        "Contratos mercantiles especializados"
-      ]
-    },
-    "civil": {
-      "title": "Derecho Civil",
-      "summary": "Los servicios de Derecho Civil cubren una amplia gama de áreas, incluyendo la elaboración, revisión y litigio de contratos (arrendamiento, compraventa, prestación de servicios, etc.), la asesoría en la adquisición, disposición y defensa de la propiedad mueble e inmueble, la gestión de deudas y reclamaciones de pago, la representación en casos de daños y perjuicios (responsabilidad civil), y la orientación en testamentos, juicios sucesorios y partición de bienes (sucesiones y herencias).",
-      "bullets": [
-        "Contratos civiles (arrendamiento, compraventa, servicios)",
-        "Bienes y propiedad mueble e inmueble",
-        "Responsabilidad civil, sucesiones y herencias"
-      ]
-    },
-    "planeacion": {
-      "title": "Planeación Jurídica Patrimonial",
-      "summary": "Nuestro servicio incluye el diseño de estrategias legales para la conservación y transmisión ordenada de bienes, ya sean empresariales o familiares, buscando su protección y perpetuidad.",
-      "bullets": [
-        "Protección patrimonial empresarial y familiar",
-        "Estrategias sucesorias y de perpetuidad",
-        "Transmisión ordenada de bienes"
-      ]
-    },
-    "laboral": {
-      "title": "Derecho Laboral para Empresas",
-      "summary": "Diseñamos esquemas laborales sólidos que previenen conflictos con empleados y cumplen con la normativa vigente. Brindamos asesoría en la elaboración de contratos laborales, reglamentos internos y políticas empresariales, representamos en conciliaciones y litigios laborales, realizamos auditorías para asegurar el cumplimiento normativo, y ofrecemos asesoría en procesos de terminación de relaciones laborales y finiquitos, así como capacitación sobre nuevas disposiciones legales en la materia.",
-      "bullets": [
-        "Contratos laborales, reglamentos y políticas internas",
-        "Conciliaciones y litigios laborales",
-        "Auditorías de cumplimiento normativo"
-      ]
-    },
-    "propiedad_industrial": {
-      "title": "Propiedad Industrial e Intelectual",
-      "summary": "Registramos y defendemos marcas, patentes y derechos de autor, resguardando los activos intangibles más valiosos de tu empresa.",
-      "bullets": [
-        "Registro de marcas, patentes y derechos de autor",
-        "Defensa de activos intangibles",
-        "Protección de innovaciones y creaciones"
-      ]
-    },
-    "fideicomisos": {
-      "title": "Fideicomisos",
-      "summary": "Brindamos asesoría en constitución de fideicomisos. Ayudamos al empresario a definir los términos del fideicomiso, identificar a las partes (fideicomitente, fiduciario, fideicomisario), determinar los bienes o derechos que se aportarán al mismo, y aseguramos que la constitución cumpla con todas las normativas legales aplicables para que la administración y protección de los bienes se realice de manera segura y flexible. También creamos estructuras fiduciarias a la medida para administrar y proteger bienes con seguridad y flexibilidad jurídica.",
-      "bullets": [
-        "Fideicomisos patrimoniales y de inversión",
-        "Definición de términos y partes del fideicomiso",
-        "Cumplimiento normativo y seguridad jurídica"
-      ]
-    },
-    "pld": {
-      "title": "Materia en PLD",
-      "summary": "Nuestro servicio se encarga de implementar políticas y controles legales para cumplir con las disposiciones en prevención de lavado de dinero, incluyendo el diseño e implementación de manuales y políticas de PLD, capacitación al personal, asesoría en la elaboración de reportes, auditorías internas y externas, asesoría en la identificación y verificación de clientes, implementación de sistemas de monitoreo transaccional, y asesoría en la atención a requerimientos de autoridad.",
-      "bullets": [
-        "Manual y políticas de PLD",
-        "Capacitación y auditorías internas/externas",
-        "Sistemas de monitoreo y reportes a autoridades"
-      ]
-    },
-    "due_diligence": {
-      "title": "Due Diligence Corporativo",
-      "summary": "El Due Diligence es crucial porque ofrece una visión exhaustiva de la situación legal, financiera y operativa de una empresa o proyecto antes de tomar decisiones estratégicas como inversiones, adquisiciones, fusiones o asociaciones. Permite identificar y cuantificar riesgos, contingencias y pasivos ocultos, facilitando una negociación informada y estructurando la transacción para proteger los intereses del cliente. Sin un Due Diligence adecuado, se corre el riesgo de adquirir problemas no anticipados que pueden generar pérdidas significativas o disputas legales. Es una herramienta esencial para la toma de decisiones estratégicas, minimizando riesgos y asegurando la viabilidad y el éxito de las operaciones.",
-      "bullets": [
-        "Análisis legal, financiero y operativo integral",
-        "Identificación de riesgos y pasivos ocultos",
-        "Soporte en fusiones, adquisiciones y asociaciones"
-      ]
-    },
-    "sociedades_financieras": {
-      "title": "Creación de Sociedades Financieras",
-      "summary": "Asesoramos para la constitución (eligiendo el tipo de sociedad y cumpliendo requisitos), en la elaboración de estatutos sociales para regir el funcionamiento de Sociedad Financieras, asimismo realizamos trámites ante autoridades financieras como la CNBV, Banco de México y CONDUSEF para la obtención de permisos. Además, se brinda diseño de la estructura corporativa (gobernanza y control interno), cumplimiento normativo en prevención de lavado de dinero y financiamiento al terrorismo, y obtención de licencias para operar productos financieros específicos. Finalmente, se ofrece asesoría para la planificación de la entidad y apoyo en la elaboración de manuales y políticas internas de operación, crédito y riesgos.",
-      "bullets": [
-        "Constitución de SOFOM, SOFIPO y fintech",
-        "Trámites ante CNBV, Banxico y CONDUSEF",
-        "Gobernanza, control interno y licencias operativas"
-      ]
-    },
-    "contratos_financieros": {
-      "title": "Contratos Financieros",
-      "summary": "Además de la redacción y revisión de contratos de crédito, inversión y garantías, también ofrecemos asesoría en la negociación de los términos contractuales, la estructuración legal de operaciones financieras complejas, la representación en disputas relacionadas con contratos financieros, y la capacitación sobre las implicaciones legales y riesgos de estos acuerdos.",
-      "bullets": [
-        "Contratos de crédito, inversión y garantías",
-        "Negociación y estructuración de operaciones complejas",
-        "Representación en disputas contractuales"
-      ]
-    },
-    "cumplimiento_regulatorio": {
-      "title": "Cumplimiento Regulatorio",
-      "summary": "Ofrecemos servicios de cumplimiento regulatorio para empresas, incluyendo auditorías para identificar riesgos, diseño e implementación de programas con manuales y políticas adaptadas al sector, asesoría en normativas específicas (ayudando a nuestros clientes a cumplir con la PROFECO, IMSS, INFONAVIT, STPS, Ayuntamientos, y otras instituciones), representación ante autoridades, capacitación al personal sobre obligaciones, monitoreo continuo de cambios legislativos y elaboración de reportes y documentación requerida.",
-      "bullets": [
-        "Auditorías de cumplimiento normativo",
-        "Programas y manuales sectoriales",
-        "Representación ante autoridades y monitoreo legislativo"
-      ]
+    "items": {
+      "societario": {
+        "title": "Derecho Societario",
+        "summary": "Diseñamos y optimizamos la estructura legal de tu empresa para proteger a los socios, asegurar la eficacia corporativa y facilitar el crecimiento. Ofrecemos servicios de asesoría en constitución, escisión, fusión, transformación, disolución y liquidación de sociedades. También la elaboración de actas de asamblea ordinarias y extraordinarias, títulos de acciones y libros corporativos.",
+        "bullets": [
+          "Constitución, escisión, fusión, transformación, disolución y liquidación de sociedades",
+          "Elabaorción de actas de asamblea ordinarias y extraordinarias",
+          "Títulos de acciones y libros corporativos"
+        ]
+      },
+      "mercantil": {
+        "title": "Derecho Mercantil",
+        "summary": "Asesoramos en operaciones comerciales, litigios y contratos, cuidando que tus transacciones se respalden con certeza jurídica. Entre nuestros servicios en Derecho Mercantil se incluyen: litigios comerciales, competencia desleal, prácticas monopólicas y elaboración de contratos mercantiles.",
+        "bullets": [
+          "Litigios comerciales y mercantiles",
+          "Competencia desleal y prácticas monopólicas",
+          "Contratos mercantiles especializados"
+        ]
+      },
+      "civil": {
+        "title": "Derecho Civil",
+        "summary": "Los servicios de Derecho Civil cubren una amplia gama de áreas, incluyendo la elaboración, revisión y litigio de contratos (arrendamiento, compraventa, prestación de servicios, etc.), la asesoría en la adquisición, disposición y defensa de la propiedad mueble e inmueble, la gestión de deudas y reclamaciones de pago, la representación en casos de daños y perjuicios (responsabilidad civil), y la orientación en testamentos, juicios sucesorios y partición de bienes (sucesiones y herencias).",
+        "bullets": [
+          "Contratos civiles (arrendamiento, compraventa, servicios)",
+          "Bienes y propiedad mueble e inmueble",
+          "Responsabilidad civil, sucesiones y herencias"
+        ]
+      },
+      "planeacion": {
+        "title": "Planeación Jurídica Patrimonial",
+        "summary": "Nuestro servicio incluye el diseño de estrategias legales para la conservación y transmisión ordenada de bienes, ya sean empresariales o familiares, buscando su protección y perpetuidad.",
+        "bullets": [
+          "Protección patrimonial empresarial y familiar",
+          "Estrategias sucesorias y de perpetuidad",
+          "Transmisión ordenada de bienes"
+        ]
+      },
+      "laboral": {
+        "title": "Derecho Laboral para Empresas",
+        "summary": "Diseñamos esquemas laborales sólidos que previenen conflictos con empleados y cumplen con la normativa vigente. Brindamos asesoría en la elaboración de contratos laborales, reglamentos internos y políticas empresariales, representamos en conciliaciones y litigios laborales, realizamos auditorías para asegurar el cumplimiento normativo, y ofrecemos asesoría en procesos de terminación de relaciones laborales y finiquitos, así como capacitación sobre nuevas disposiciones legales en la materia.",
+        "bullets": [
+          "Contratos laborales, reglamentos y políticas internas",
+          "Conciliaciones y litigios laborales",
+          "Auditorías de cumplimiento normativo"
+        ]
+      },
+      "propiedad_industrial": {
+        "title": "Propiedad Industrial e Intelectual",
+        "summary": "Registramos y defendemos marcas, patentes y derechos de autor, resguardando los activos intangibles más valiosos de tu empresa.",
+        "bullets": [
+          "Registro de marcas, patentes y derechos de autor",
+          "Defensa de activos intangibles",
+          "Protección de innovaciones y creaciones"
+        ]
+      },
+      "fideicomisos": {
+        "title": "Fideicomisos",
+        "summary": "Brindamos asesoría en constitución de fideicomisos. Ayudamos al empresario a definir los términos del fideicomiso, identificar a las partes (fideicomitente, fiduciario, fideicomisario), determinar los bienes o derechos que se aportarán al mismo, y aseguramos que la constitución cumpla con todas las normativas legales aplicables para que la administración y protección de los bienes se realice de manera segura y flexible. También creamos estructuras fiduciarias a la medida para administrar y proteger bienes con seguridad y flexibilidad jurídica.",
+        "bullets": [
+          "Fideicomisos patrimoniales y de inversión",
+          "Definición de términos y partes del fideicomiso",
+          "Cumplimiento normativo y seguridad jurídica"
+        ]
+      },
+      "pld": {
+        "title": "Materia en PLD",
+        "summary": "Nuestro servicio se encarga de implementar políticas y controles legales para cumplir con las disposiciones en prevención de lavado de dinero, incluyendo el diseño e implementación de manuales y políticas de PLD, capacitación al personal, asesoría en la elaboración de reportes, auditorías internas y externas, asesoría en la identificación y verificación de clientes, implementación de sistemas de monitoreo transaccional, y asesoría en la atención a requerimientos de autoridad.",
+        "bullets": [
+          "Manual y políticas de PLD",
+          "Capacitación y auditorías internas/externas",
+          "Sistemas de monitoreo y reportes a autoridades"
+        ]
+      },
+      "due_diligence": {
+        "title": "Due Diligence Corporativo",
+        "summary": "El Due Diligence es crucial porque ofrece una visión exhaustiva de la situación legal, financiera y operativa de una empresa o proyecto antes de tomar decisiones estratégicas como inversiones, adquisiciones, fusiones o asociaciones. Permite identificar y cuantificar riesgos, contingencias y pasivos ocultos, facilitando una negociación informada y estructurando la transacción para proteger los intereses del cliente. Sin un Due Diligence adecuado, se corre el riesgo de adquirir problemas no anticipados que pueden generar pérdidas significativas o disputas legales. Es una herramienta esencial para la toma de decisiones estratégicas, minimizando riesgos y asegurando la viabilidad y el éxito de las operaciones.",
+        "bullets": [
+          "Análisis legal, financiero y operativo integral",
+          "Identificación de riesgos y pasivos ocultos",
+          "Soporte en fusiones, adquisiciones y asociaciones"
+        ]
+      },
+      "sociedades_financieras": {
+        "title": "Creación de Sociedades Financieras",
+        "summary": "Asesoramos para la constitución (eligiendo el tipo de sociedad y cumpliendo requisitos), en la elaboración de estatutos sociales para regir el funcionamiento de Sociedad Financieras, asimismo realizamos trámites ante autoridades financieras como la CNBV, Banco de México y CONDUSEF para la obtención de permisos. Además, se brinda diseño de la estructura corporativa (gobernanza y control interno), cumplimiento normativo en prevención de lavado de dinero y financiamiento al terrorismo, y obtención de licencias para operar productos financieros específicos. Finalmente, se ofrece asesoría para la planificación de la entidad y apoyo en la elaboración de manuales y políticas internas de operación, crédito y riesgos.",
+        "bullets": [
+          "Constitución de SOFOM, SOFIPO y fintech",
+          "Trámites ante CNBV, Banxico y CONDUSEF",
+          "Gobernanza, control interno y licencias operativas"
+        ]
+      },
+      "contratos_financieros": {
+        "title": "Contratos Financieros",
+        "summary": "Además de la redacción y revisión de contratos de crédito, inversión y garantías, también ofrecemos asesoría en la negociación de los términos contractuales, la estructuración legal de operaciones financieras complejas, la representación en disputas relacionadas con contratos financieros, y la capacitación sobre las implicaciones legales y riesgos de estos acuerdos.",
+        "bullets": [
+          "Contratos de crédito, inversión y garantías",
+          "Negociación y estructuración de operaciones complejas",
+          "Representación en disputas contractuales"
+        ]
+      },
+      "cumplimiento_regulatorio": {
+        "title": "Cumplimiento Regulatorio",
+        "summary": "Ofrecemos servicios de cumplimiento regulatorio para empresas, incluyendo auditorías para identificar riesgos, diseño e implementación de programas con manuales y políticas adaptadas al sector, asesoría en normativas específicas (ayudando a nuestros clientes a cumplir con la PROFECO, IMSS, INFONAVIT, STPS, Ayuntamientos, y otras instituciones), representación ante autoridades, capacitación al personal sobre obligaciones, monitoreo continuo de cambios legislativos y elaboración de reportes y documentación requerida.",
+        "bullets": [
+          "Auditorías de cumplimiento normativo",
+          "Programas y manuales sectoriales",
+          "Representación ante autoridades y monitoreo legislativo"
+        ]
+      }
     }
-  }
   },
+
   "areas": {
     "mainTitle": "Servicios",
     "title": "Áreas especializadas",
@@ -345,6 +377,7 @@
       }
     }
   },
+
   "logos": {
     "trustHeadline": "Nuestros Clientes confían en nosotros",
     "aria": {
@@ -353,6 +386,7 @@
       "srNote": "Carrusel con desplazamiento automático continuo y loop infinito."
     }
   },
+
   "ubicacion": {
     "title": "Información de Contacto",
     "subtitle": "Encuéntranos fácilmente y obtén indicaciones en un click.",
@@ -377,6 +411,7 @@
       "mapLabel": "Mapa de Google con la ubicación del negocio"
     }
   },
+
   "metodologia360": {
     "logoAlt": "Construcción Jurídica 360",
     "heading": "Construcción Jurídica 360°",
@@ -401,6 +436,188 @@
         "description": "Brindamos certeza jurídica, prevenimos y subsanamos contingencias y potencializamos fortalezas."
       }
     }
+  },
+
+  "legal": {
+  "title": "Aviso Legal y Términos de Uso",
+  "subtitle": "Sitio web:",
+  "site": "www.rccoabogados.com.mx",
+  "responsable": "Responsable: CUIDAMOS TU EMPRESA, S.C., con nombre comercial RCCO ABOGADOS®, con domicilio fiscal en Calle Guelatao 909, Fracc. María Fernanda, C.P. 82147, Mazatlán, Sinaloa, México. Documento que regula el acceso, navegación y uso del sitio web por parte de los usuarios.",
+  "objeto": {
+    "title": "Objeto",
+    "text": "Regular el acceso, navegación y uso del sitio web (en adelante, el \"SITIO WEB\") por parte de los usuarios (\"USUARIOS\"), así como la relación jurídica derivada de los servicios e información contenidos en el SITIO WEB."
+  },
+  "uso": {
+    "title": "Uso del Sitio Web",
+    "items": [
+      "Usar el SITIO WEB conforme a la legislación aplicable, la buena fe, el orden público y este Aviso Legal.",
+      "Queda prohibido el uso con fines ilícitos o contrarios a estos Términos.",
+      "Prohibida la reproducción, distribución, transmisión o modificación del contenido sin autorización expresa.",
+      "No introducir virus, código malicioso o elementos que interrumpan o dañen el SITIO WEB."
+    ]
+  },
+  "servicios": {
+    "title": "Servicios e Información",
+    "items": [
+      "El contenido es informativo: no constituye oferta vinculante ni asesoría legal personalizada.",
+      "El uso de la información no sustituye la consulta con un abogado calificado.",
+      "RCCO ABOGADOS puede modificar, suspender o retirar contenidos sin previo aviso."
+    ]
+  },
+  "responsabilidad": {
+    "title": "Responsabilidad",
+    "items": [
+      "No nos hacemos responsables por daños derivados del acceso, uso o imposibilidad de uso del SITIO WEB.",
+      "No garantizamos la ausencia de errores u omisiones ni de elementos dañinos introducidos por terceros.",
+      "Los enlaces a sitios externos son responsabilidad exclusiva del USUARIO."
+    ]
+  },
+  "whatsapp": {
+    "title": "Comunicación mediante WhatsApp y Agenda",
+    "items": [
+      "Responsabilidad de la información enviada: el USUARIO es responsable por la veracidad y contenido.",
+      "Autorización de contacto: al enviar mensaje o agendar, autoriza el contacto por dichos medios.",
+      "Limitación de responsabilidad: no somos responsables por riesgos del uso de plataformas externas."
+    ]
+  },
+  "pi": {
+    "title": "Propiedad Intelectual e Industrial",
+    "text": "Todos los derechos sobre contenidos, diseños, marcas, logotipos, software, imágenes y textos pertenecen a RCCO ABOGADOS o cuentan con autorización. Prohibida su reproducción total o parcial sin autorización expresa y por escrito."
+  },
+  "registro": {
+    "title": "Registro y Datos del Usuario",
+    "items": [
+      "El USUARIO debe proporcionar información veraz y actualizada cuando un servicio requiera registro.",
+      "El uso indebido de cuentas o contraseñas será responsabilidad exclusiva del USUARIO."
+    ]
+  },
+  "jurisdiccion": {
+    "title": "Jurisdicción y Legislación Aplicable",
+    "text": "El presente documento se rige por las leyes de los Estados Unidos Mexicanos. Cualquier controversia será sometida a los tribunales competentes de Mazatlán, Sinaloa, renunciando las partes a cualquier otro fuero."
+  },
+  "modificaciones": {
+    "title": "Modificaciones",
+    "text": "RCCO ABOGADOS puede modificar, actualizar o suprimir el presente Aviso Legal en cualquier momento. Te sugerimos revisar periódicamente esta página."
+  }
+},
+
+"privacy": {
+  "title": "Aviso de Privacidad",
+  "subtitle": "Con fundamento en la Ley Federal de Protección de Datos Personales en Posesión de los Particulares",
+  "intro": "Con fundamento en los artículos 15 y 16 de la Ley Federal de Protección de Datos Personales en Posesión de los Particulares, hacemos de su conocimiento que la sociedad CUIDAMOS TU EMPRESA, S.C., pone a su disposición el Aviso de Privacidad de conformidad con lo siguiente:",
+  "responsable": "CUIDAMOS TU EMPRESA, S.C., es una persona jurídica constituida de conformidad con la legislación mexicana, responsable de dar tratamiento, recabar, proteger y preservar los datos personales, incluyendo sensibles, patrimoniales y financieros. Su objeto principal es la consultoría, asesoría, planeación y administración en áreas legales, contables, fiscales, corporativas e inmobiliarias, a todo tipo de empresas, personas físicas, morales, públicas, nacionales o extranjeras. Domicilio para oír y recibir notificaciones: Calle Tacuba 302, Interior 2, Col. Playas del Sol, C.P. 82148, Mazatlán, Sinaloa.",
+  "i": {
+    "title": "I. Datos que pueden recabarse",
+    "ident": {
+      "text": "Datos de identificación y contacto del titular, incluyendo de manera enunciativa:",
+      "items": [
+        "Nombre completo, denominación o razón social, nacionalidad, CURP, RFC, edad, sexo, fecha y lugar de nacimiento.",
+        "Domicilio, teléfonos, correo electrónico, firma autógrafa, fotografía, huella dactilar, estado civil y ocupación."
+      ]
+    },
+    "finanzas": {
+      "text": "Datos patrimoniales y/o financieros, como:",
+      "items": [
+        "Número de tarjeta de crédito/débito, cuentas bancarias, bienes patrimoniales.",
+        "Estados de cuenta, recibos de nómina, información de crédito hipotecario (en su caso)."
+      ]
+    }
+  },
+  "consentCallout": "De acuerdo con la legislación aplicable, para datos patrimoniales o financieros requerimos tu consentimiento expreso.",
+  "consent": {
+    "tacit": "De conformidad con la legislación en la materia, entenderemos otorgado su consentimiento de manera tácita para el tratamiento de los datos personales listados anteriormente. Usted podrá oponerse en cualquier momento mediante el procedimiento descrito en el punto V (Derechos ARCO).",
+    "expressFinancial": "Para los datos financieros o patrimoniales es obligatorio su consentimiento expreso. Cuando estos datos se recaben por medios electrónicos para adquirir un producto o servicio, el solo hecho de realizar la compra se entenderá como su consentimiento a los términos de este Aviso de Privacidad."
+  },
+  "ii": {
+    "title": "II. Formas de obtener los datos",
+    "items": [
+      "Por escrito.",
+      "En forma verbal.",
+      "A través de formularios en internet o electrónicos.",
+      "Mediante servicios telefónicos.",
+      "Cualquier otra forma permitida por la ley."
+    ],
+    "origen": "La información puede recabarse directamente del titular o a través de terceros para ofrecer, prestar y/o mejorar los productos o servicios."
+  },
+  "iii": {
+    "title": "III. Uso de los datos personales",
+    "principalesLabel": "Finalidades principales:",
+    "principales": [
+      "Confirmar identidad, cumplir requerimientos legales y verificar la información proporcionada.",
+      "Gestión de facturación (incluido el envío de facturas) y seguimiento al proceso de cobranza; en su caso, integración a documentos legales y transferencia a autoridades.",
+      "Cualquier otra finalidad compatible o análoga a las anteriores."
+    ],
+    "secundariasLabel": "Finalidades secundarias (opcionales):",
+    "secundarias": [
+      "Circulares informativas.",
+      "Evaluaciones de calidad de los productos o servicios contratados.",
+      "Envío de información comercial, servicios o promociones.",
+      "Invitaciones a eventos."
+    ],
+    "optoutNote": "La negativa al uso de sus datos para finalidades secundarias no será un motivo para negar los productos o servicios solicitados."
+  },
+  "iv": {
+    "title": "IV. Limitaciones en el uso o divulgación",
+    "text": "Implementamos medidas administrativas, legales y tecnológicas para proteger su información. Usted puede limitar la publicidad registrándose en el Registro Público para Evitar Publicidad de PROFECO.",
+    "profecoUrl": "https://repep.profeco.gob.mx/"
+  },
+  "v": {
+    "title": "V. Medios para ejercer Derechos ARCO",
+    "revocationNote": "Usted puede revocar su consentimiento; sin embargo, en algunos casos no podremos atender la solicitud de forma inmediata por obligaciones legales, y la revocación podría impedir la prestación del servicio o entrega del producto solicitado.",
+    "text": {
+      "beforeEmail": "Puede ejercer Acceso, Rectificación, Cancelación u Oposición enviando solicitud a ",
+      "afterEmail": ", dirigida a CUIDAMOS TU EMPRESA, S.C. Incluya nombre, domicilio y medio de contacto; documentos de identidad o representación; descripción de los datos; y, para rectificación, documentación soporte. Plazo de respuesta: hasta 20 días hábiles (ampliable una vez por otro periodo igual si las circunstancias lo justifican)."
+    },
+    "email": "contacto@rccoabogados.com.mx",
+    "requirements": {
+      "intro": "Su solicitud por escrito debe incluir:",
+      "items": [
+        "Nombre del titular de los datos personales, domicilio y un medio alterno para comunicar la respuesta.",
+        "Documentos que acrediten la identidad del titular o, en su caso, la representación legal si actúa un tercero.",
+        "Descripción clara y precisa de los datos personales respecto de los que se busca ejercer derechos ARCO.",
+        "Cualquier otro elemento o documento que facilite la localización de sus Datos Personales.",
+        "Para solicitudes de rectificación, indicar las modificaciones a realizar y aportar documentación soporte.",
+        "En caso de dudas razonables sobre autenticidad o representación (documentos con tachaduras/alteraciones), se podrá requerir la presentación de originales o copias certificadas en la oficina del responsable."
+      ],
+      "cureOmissions": "Si faltara información, se le solicitará subsanar la omisión.",
+      "timeline": "La respuesta se emitirá en un plazo máximo de 20 días hábiles desde la recepción o desde que se subsanen omisiones; dicho plazo podrá ampliarse una sola vez por un periodo igual cuando así lo justifiquen las circunstancias."
+    }
+  },
+  "vi": {
+    "title": "VI. Transferencias de datos",
+    "text": "Los datos se tratan internamente para integrar expedientes y, en su caso, elaborar contratos. Las transferencias podrán realizarse sin consentimiento cuando lo establece el artículo 37 de la Ley:",
+    "bases": [
+      "Cuando la transferencia esté prevista en una Ley.",
+      "Cuando sea necesaria para la prevención o diagnóstico médico, la prestación de asistencia sanitaria, tratamiento médico o la gestión de servicios sanitarios.",
+      "Cuando sea efectuada a sociedades controladoras, subsidiarias o afiliadas bajo el control común del responsable, o a una sociedad matriz o del mismo grupo que opere bajo los mismos procesos y políticas internas.",
+      "Cuando sea necesaria por virtud de un contrato celebrado o por celebrarse en interés del titular, entre el responsable y un tercero.",
+      "Cuando sea necesaria o legalmente exigida para salvaguardar un interés público, o para la procuración o administración de justicia.",
+      "Cuando sea precisa para el reconocimiento, ejercicio o defensa de un derecho en un proceso judicial.",
+      "Cuando sea precisa para el mantenimiento o cumplimiento de una relación jurídica entre el responsable y el titular."
+    ]
+  },
+  "vii": {
+    "title": "VII. Cambios al Aviso de Privacidad",
+    "text": "Publicaremos modificaciones en este SITIO WEB y podrá consultarse también una copia física en nuestras oficinas: Calle Guelatao 909, Col. María Fernanda, C.P. 82147, Mazatlán, Sinaloa."
+  },
+  "viii": {
+    "title": "VIII. Contacto",
+    "cards": {
+      "email": { "title": "Correo", "value": "auroralizarraga@rccoabogados.com.mx" },
+      "phone": { "title": "Teléfono", "value": "(669) 229 1634" },
+      "addresses": {
+        "title": "Domicilios",
+        "items": [
+          "Para notificaciones: Calle Tacuba 302, Interior 2, Col. Playas del Sol, C.P. 82148, Mazatlán, Sinaloa.",
+          "Oficinas y publicaciones (copia física disponible): Calle Guelatao 909, Col. María Fernanda, C.P. 82147, Mazatlán, Sinaloa."
+        ]
+      }
+    }
+  },
+  "acceptCallout": "Al utilizar el SITIO WEB, confirmas que leíste y aceptas el Aviso Legal, los Términos de Uso y el Aviso de Privacidad."
+},
+
+  "footer": {
+    "allRights": "Todos los derechos reservados."
   }
 }
-

@@ -26,7 +26,8 @@
     "copyright": "All rights reserved.",
     "poweredBy": "Powered by",
     "poweredByAria": "Open {{brand}}",
-    "privacy": "Privacy Policy"
+    "privacy": "Privacy Policy",
+    "terminosYCondiciones": "Terms and Conditions"
   },
   "waitScreen": {
     "text": "changing language..."
