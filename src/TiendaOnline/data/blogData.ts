@@ -25,6 +25,10 @@ export const POSTS: Post[] = [
     readTime: '10 min',
     // tag: 'Propiedad Industrial',
     content: `
+
+Autoría: Liz Lascarez Calderón.  
+Abogada Corporativa en RCCO Abogados.
+
 En un contexto global caracterizado por una creciente competencia económica y una demanda cada vez mayor por productos con valor agregado, la trazabilidad del origen y la sostenibilidad en los procesos productivos se han convertido en factores estratégicos clave para el posicionamiento comercial. En este escenario, el relanzamiento de la marca "Hecho en México" y su versión internacional "Made in Mexico" —regulada por el Acuerdo publicado en el Diario Oficial de la Federación el 17 de febrero de 2025— representa un esfuerzo institucional por fortalecer la competitividad de los productos mexicanos en los mercados nacionales e internacionales.
 
 No obstante, más allá de su dimensión comercial o promocional, esta certificación implica una serie de obligaciones jurídicas que deben ser entendidas y cumplidas por los actores económicos que pretendan utilizarla. Este artículo tiene como propósito analizar el marco legal que regula el uso de la marca "Hecho en México", destacar sus principales implicaciones jurídicas, y explicar por qué constituye no solo un distintivo de calidad, sino un instrumento normativo con efectos legales, comerciales y reputacionales de gran relevancia para las empresas mexicanas.
@@ -74,7 +78,7 @@ En RCCO Abogados asesoramos a empresas de distintos sectores en el proceso de ob
     excerpt:
       'Reflexión jurídica y humana sobre la importancia de organizar la herencia y los instrumentos legales para lograr una sucesión efectiva.',
     cover:
-      'https://canonasociados.com/wp-content/uploads/2023/04/Mesa-de-trabajo-29.png',
+      'img/blogPlaneacion.jpg',
     date: '2025-09-15',
     readTime: '12 min',
     // tag: 'Planeación Patrimonial',
@@ -164,8 +168,11 @@ En esta Semana de la Planeación Patrimonial para la Sucesión Efectiva, le invi
     readTime: '14 min',
     // tag: 'Empresas Familiares',
     content: `
-Autores: Joel Gibrán Osuna Laveaga y Lizbeth Monserrat Lascarez Calderon.  
-Abogado Corporativo en RCCO Abogados.
+Autoría: 
+
+Joel Gibrán Osuna Laveaga y Liz Lascarez Calderón.
+
+Abogados Corporativos en RCCO Abogados.
 
 En toda empresa familiar, eventualmente llega el momento de enfrentar la sucesión del liderazgo. El socio fundador, quien durante años ha sido el principal motor del negocio, debe ceder el mando a la siguiente generación. Esta etapa representa un punto de inflexión en la vida corporativa de la organización, implicando no solo una reestructura interna, sino también un rediseño estratégico que marcará el futuro de la empresa. Sin embargo, este proceso no puede improvisarse ni dejarse al azar. Como principio básico, debe tenerse claro que no se puede ceder lo que no está en orden.
 
@@ -205,6 +212,10 @@ En conclusión, la sucesión empresarial en la empresa familiar requiere una vis
     readTime: '13 min',
     // tag: 'Sucesión Empresarial',
     content: `
+Joel Gibrán Osuna Laveaga y Liz Lascarez Calderón.
+
+Abogados Corporativos en RCCO Abogados.
+
 El factor decisivo entre una sucesión patrimonial exitosa en la empresa familiar y una fallida es el orden, acompañado de la anticipación necesaria para diseñar la mejor ruta hacia la continuidad operativa del negocio. En este sentido, se identificaron diversos elementos que deben integrarse en el diseño de un plan ejecutivo de transición, entre ellos: la mentoría efectiva, la capacitación, el desarrollo de habilidades socioemocionales, la comunicación del cambio y, de manera especial, la selección de instrumentos legales adecuados.
 
 Cada instrumento jurídico cumple una función específica. El fideicomiso de control accionario sobre voto, por ejemplo, permite determinar quiénes serán los beneficiarios de los derechos económicos de las acciones, tanto en vida como después del fallecimiento del accionista fideicomitente. Además, posibilita separar los derechos económicos de los corporativos, destinando solo estos últimos (como el derecho de voto) al fideicomiso.
