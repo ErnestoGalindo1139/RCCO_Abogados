@@ -130,7 +130,7 @@ export const ModalInfoMiembro: React.FC<Props> = ({ open, onClose, member }) => 
                   {member.experiencia?.length ? (
                     <ul className="list-disc pl-5 space-y-2 text-neutral-800 leading-relaxed">
                       {member.experiencia.map((item, idx) => (
-                        <li key={idx}>{item}</li>
+                        <li key={idx} dangerouslySetInnerHTML={{ __html: item }} />
                       ))}
                     </ul>
                   ) : (
