@@ -44,6 +44,7 @@ export const LogoCarousel: React.FC<LogoCarouselProps> = ({
     'img/cliente9.png',
     'img/cliente10.png',
     'img/cliente11.png',
+    'img/cliente12.png',
   ],
 }) => {
   const { t } = useTranslation('home');
