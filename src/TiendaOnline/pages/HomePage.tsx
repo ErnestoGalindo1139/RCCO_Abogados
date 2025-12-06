@@ -8,13 +8,20 @@ import { UbicacionComponent } from '../components/Ubicacion';
 import React from 'react';
 import { AreasEspecializadas } from '../components/AreasEspecializadas';
 import { ConstruccionJuridica } from '../components/ConstruccionJuridica';
+import { EventoPopup } from '../components/EventoPopUp';
+import { EventoEnero } from '../components/EventoEnero';
 
 export const HomePage = (): React.JSX.Element => {
   return (
     <div className="w-full min-w-full overflow-x-hidden">
+
+      {/* Popup del evento */}
+      <EventoPopup />
+
       <Banner />
 
       <Nosotros />
+      <EventoEnero />
       <ConstruccionJuridica />
       <Valores />
       <Servicios />

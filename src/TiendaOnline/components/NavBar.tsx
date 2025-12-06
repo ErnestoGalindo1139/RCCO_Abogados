@@ -19,17 +19,14 @@ const LINKS: LinkItem[] = [
   { id: 'servicios', label: 'nav.services', type: 'section' },
   { id: 'ubicacion', label: 'nav.contact', type: 'section' },
   { id: 'blog', label: 'nav.blog', type: 'route' },
+  // 👉 Nuevo item Login
+  { id: 'login', label: 'nav.login', type: 'route' },
 ];
 
 // Ajusta el alto si cambias el tamaño del navbar
 const NAV_HEIGHT = 72; // px
 
 // ──────────────────────────────────────────────────────────────────────────────
-// Helpers
-// ──────────────────────────────────────────────────────────────────────────────
-// (Ya no necesitamos throttle porque usamos requestAnimationFrame para optimización)
-
-// Esta función ha sido reemplazada por la versión optimizada con useCallback más abajo// ──────────────────────────────────────────────────────────────────────────────
 // Componente: Navbar
 // ──────────────────────────────────────────────────────────────────────────────
 interface NavBarProps {
@@ -55,6 +52,9 @@ export const NavBar: React.FC<NavBarProps> = ({
   const navigate = useNavigate();
   const isHome = location.pathname === '/';
 
+  const { t } = useTranslation(['common']);
+  const { t: trans } = useTranslation('home');
+
   // Función optimizada para scroll to ID
   const scrollToId = useCallback((id: string): void => {
     const el = document.getElementById(id);
@@ -62,10 +62,6 @@ export const NavBar: React.FC<NavBarProps> = ({
     const top = el.getBoundingClientRect().top + window.scrollY - NAV_HEIGHT + 1;
     window.scrollTo({ top, behavior: 'smooth' });
   }, []);
-
-  // Obtener altura del Banner con menos re-renders
-  const { t } = useTranslation(['common']);
-  const { t: trans } = useTranslation('home');
 
   // Obtener altura del Banner
   useEffect(() => {
@@ -81,7 +77,6 @@ export const NavBar: React.FC<NavBarProps> = ({
 
     getBannerHeight();
     
-    // Usar ResizeObserver es más eficiente que window resize event
     let resizeObserver: ResizeObserver | null = null;
     const bannerElement = document.getElementById('inicio');
     
@@ -89,7 +84,6 @@ export const NavBar: React.FC<NavBarProps> = ({
       resizeObserver = new ResizeObserver(getBannerHeight);
       resizeObserver.observe(bannerElement);
     } else {
-      // Fallback para navegadores que no soportan ResizeObserver
       window.addEventListener('resize', getBannerHeight);
     }
 
@@ -114,7 +108,6 @@ export const NavBar: React.FC<NavBarProps> = ({
       const bannerElement = document.getElementById('inicio');
       if (bannerElement) {
         const rect = bannerElement.getBoundingClientRect();
-        // El botón aparece cuando el banner ya no es visible
         const isInBanner = rect.bottom > 0;
         
         setIsBannerVisible(isInBanner);
@@ -185,21 +178,17 @@ export const NavBar: React.FC<NavBarProps> = ({
     }
   }, []);
 
-  // Modificar las opciones del IntersectionObserver
   useEffect(() => {
     if (!isHome) return;
 
     const options = {
       root: null,
-      // Ajustamos el rootMargin para ser más preciso
       rootMargin: `-${NAV_HEIGHT}px 0px -50% 0px`,
-      // Aumentamos los puntos de threshold para mejor precisión
       threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1],
     };
 
     observerRef.current = new IntersectionObserver(observerCallback, options);
 
-    // Registrar todas las secciones a observar
     LINKS.forEach((item) => {
       if (item.type === 'section') {
         const section = document.getElementById(item.id);
@@ -212,7 +201,7 @@ export const NavBar: React.FC<NavBarProps> = ({
     };
   }, [isHome, observerCallback]);
 
-  // Eliminar el efecto que mantenía la selección al recargar
+  // Mantener comportamiento hash (/#inicio, etc.)
   useEffect(() => {
     if (!isHome) return;
     const hash = location.hash?.replace('#', '');
@@ -220,6 +209,18 @@ export const NavBar: React.FC<NavBarProps> = ({
       setTimeout(() => scrollToId(hash), 0);
     }
   }, [isHome, location.hash, scrollToId]);
+
+  // 👉 Comportamiento especial: si estoy en /login y doy atrás, me regresa al inicio
+  useEffect(() => {
+    if (location.pathname !== '/login') return;
+
+    const handlePopState = () => {
+      navigate('/#inicio', { replace: true });
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, [location.pathname, navigate]);
 
   // Función de navegación optimizada con useCallback
   const handleNav = useCallback((item: LinkItem): void => {
@@ -240,12 +241,12 @@ export const NavBar: React.FC<NavBarProps> = ({
 
     if (open) {
       setOpen(false);
-      // Pequeño delay para que termine la animación del cierre
       setTimeout(performNavigation, 300);
     } else {
       performNavigation();
     }
   }, [isHome, navigate, open, scrollToId]);
+
   const DesktopLinks = useMemo(
     () => (
       <nav className="hidden md:flex items-center gap-6">
@@ -441,4 +442,3 @@ export const NavBar: React.FC<NavBarProps> = ({
     </>
   );
 };
-
