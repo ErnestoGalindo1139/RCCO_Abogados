@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
-import { useNavigate } from "react-router-dom";
-import { CheckCircle, XCircle } from "lucide-react";
+import { useNavigate } from 'react-router-dom';
+import { CheckCircle, XCircle } from 'lucide-react';
 
 // Tipo ya normalizado
 type UsuarioEvento = {
@@ -26,14 +26,15 @@ export default function RegistradosPage() {
   const navigate = useNavigate();
 
   const [query, setQuery] = useState('');
-  const [filtroPago, setFiltroPago] =
-    useState<'todos' | 'pagados' | 'nopagados'>('todos');
+  const [filtroPago, setFiltroPago] = useState<
+    'todos' | 'pagados' | 'nopagados'
+  >('todos');
   const [page, setPage] = useState(1);
   const pageSize = 12;
 
   const [usuarios, setUsuarios] = useState<UsuarioEvento[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
 
   // Modal confirmación actualización
   const [confirmModal, setConfirmModal] = useState(false);
@@ -46,23 +47,26 @@ export default function RegistradosPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch("https://api-rcco-abogados.grstechs.com/usuariosEvento");
+        const res = await fetch(
+          'https://api-rcco-abogados.grstechs.com/usuariosEvento'
+        );
         const data = await res.json();
 
         if (!data.success || !Array.isArray(data.body)) {
-          throw new Error("El endpoint no regresó un arreglo válido.");
+          throw new Error('El endpoint no regresó un arreglo válido.');
         }
 
         const mapped = data.body.map((u: any) => ({
           id_UsuarioEvento: u.id_UsuarioEvento,
-          NombreCompleto: `${u.nb_Nombre} ${u.nb_ApellidoPaterno} ${u.nb_ApellidoMaterno ?? ''}`.trim(),
+          NombreCompleto:
+            `${u.nb_Nombre} ${u.nb_ApellidoPaterno} ${u.nb_ApellidoMaterno ?? ''}`.trim(),
           Celular: u.de_Celular,
           Correo: u.de_Correo,
           Empresa: u.nb_Empresa,
           Comentarios: u.de_Comentarios,
           FechaRegistro: u.fh_Registro,
-          FechaPago: u.sn_Pagado ? "PAGADO" : null,
-          sn_Pagado: u.sn_Pagado
+          FechaPago: u.sn_Pagado ? 'PAGADO' : null,
+          sn_Pagado: u.sn_Pagado,
         }));
 
         setUsuarios(mapped);
@@ -92,37 +96,39 @@ export default function RegistradosPage() {
     if (!selectedUser) return;
 
     try {
-      const res = await fetch("https://api-rcco-abogados.grstechs.com/updatePagoUsuariosEvento", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          id_UsuarioEvento: selectedUser.id_UsuarioEvento,
-          sn_Pagado: nuevoValorPago
-        }),
-      });
+      const res = await fetch(
+        'https://api-rcco-abogados.grstechs.com/updatePagoUsuariosEvento',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            id_UsuarioEvento: selectedUser.id_UsuarioEvento,
+            sn_Pagado: nuevoValorPago,
+          }),
+        }
+      );
 
       const data = await res.json();
 
       if (!data.success) {
-        alert("No se pudo actualizar el pago.");
+        alert('No se pudo actualizar el pago.');
         return;
       }
 
       // Refrescar UI sin recargar
-      setUsuarios(prev =>
-        prev.map(u =>
+      setUsuarios((prev) =>
+        prev.map((u) =>
           u.id_UsuarioEvento === selectedUser.id_UsuarioEvento
             ? {
                 ...u,
                 sn_Pagado: nuevoValorPago,
-                FechaPago: nuevoValorPago ? "PAGADO" : null
+                FechaPago: nuevoValorPago ? 'PAGADO' : null,
               }
             : u
         )
       );
-
     } catch (err) {
-      alert("Error al actualizar el pago.");
+      alert('Error al actualizar el pago.');
     }
 
     setConfirmModal(false);
@@ -139,7 +145,8 @@ export default function RegistradosPage() {
         norm(u.NombreCompleto).includes(q) ||
         norm(u.Correo).includes(q) ||
         norm(u.Celular).includes(q) ||
-        norm(u.Empresa || '').includes(q);
+        norm(u.Empresa || '').includes(q) ||
+        norm(u.Comentarios || '').includes(q);
 
       if (!match) return false;
 
@@ -159,9 +166,9 @@ export default function RegistradosPage() {
   // 🔹 Logout
   // =====================================================
   const logout = () => {
-    localStorage.removeItem("rcco_user_logged");
-    localStorage.removeItem("rcco_role");
-    navigate("/login");
+    localStorage.removeItem('rcco_user_logged');
+    localStorage.removeItem('rcco_role');
+    navigate('/login');
   };
 
   // =====================================================
@@ -186,7 +193,6 @@ export default function RegistradosPage() {
   // =====================================================
   return (
     <main className="min-h-screen bg-slate-100">
-
       {/* LOGOUT ARRIBA */}
       <div className="w-full bg-slate-900 text-right px-6 py-3">
         <button
@@ -206,12 +212,10 @@ export default function RegistradosPage() {
       </div>
 
       {/* CONTENIDO */}
-      <section className="max-w-6xl mx-auto px-6 py-10 -mt-4">
-
+      <section className="max-w-7xl mx-auto px-6 py-10 -mt-4">
         {/* Filtros */}
         <div className="bg-white shadow-lg rounded-2xl p-6 ring-1 ring-black/5 mb-8">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-
             <input
               type="text"
               placeholder="Buscar por nombre, correo, teléfono, empresa..."
@@ -229,7 +233,6 @@ export default function RegistradosPage() {
               <option value="pagados">Pagados</option>
               <option value="nopagados">No Pagados</option>
             </select>
-
           </div>
         </div>
 
@@ -243,6 +246,7 @@ export default function RegistradosPage() {
                   <th className="px-4 py-3 text-left">Celular</th>
                   <th className="px-4 py-3 text-left">Correo</th>
                   <th className="px-4 py-3 text-left">Empresa</th>
+                  <th className="px-4 py-3 text-left">Comentarios</th>
                   <th className="px-4 py-3 text-left">Fecha Registro</th>
                   <th className="px-4 py-3 text-left">Pago</th>
                 </tr>
@@ -250,18 +254,23 @@ export default function RegistradosPage() {
 
               <tbody>
                 {items.map((u) => (
-                  <tr key={u.id_UsuarioEvento} className="odd:bg-white even:bg-slate-50">
-                    <td className="px-4 py-3 font-medium">{u.NombreCompleto}</td>
+                  <tr
+                    key={u.id_UsuarioEvento}
+                    className="odd:bg-white even:bg-slate-50"
+                  >
+                    <td className="px-4 py-3 font-medium">
+                      {u.NombreCompleto}
+                    </td>
                     <td className="px-4 py-3">{u.Celular}</td>
                     <td className="px-4 py-3">{u.Correo}</td>
                     <td className="px-4 py-3">{u.Empresa || '-'}</td>
+                    <td className="px-4 py-3">{u.Comentarios || '-'}</td>
                     <td className="px-4 py-3">
                       {new Date(u.FechaRegistro).toLocaleString('es-MX')}
                     </td>
 
                     {/* Botón pago */}
                     <td className="px-4 py-3 flex items-center gap-2">
-
                       {u.sn_Pagado ? (
                         <span className="px-3 py-1 rounded-xl bg-green-600 text-white text-xs font-semibold">
                           Pagado
@@ -282,7 +291,6 @@ export default function RegistradosPage() {
                           <CheckCircle className="text-green-600 w-6 h-6" />
                         )}
                       </button>
-
                     </td>
                   </tr>
                 ))}
@@ -319,21 +327,21 @@ export default function RegistradosPage() {
             Siguiente
           </button>
         </div>
-
       </section>
 
       {/* MODAL CONFIRMACIÓN */}
       {confirmModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
           <div className="bg-white rounded-2xl p-8 shadow-xl max-w-sm w-full text-center">
-            <h2 className="text-xl font-bold mb-4">
-              ¿Confirmar acción?
-            </h2>
+            <h2 className="text-xl font-bold mb-4">¿Confirmar acción?</h2>
 
             <p className="text-slate-700 mb-6">
-              ¿Deseas marcar como <b>{nuevoValorPago ? "PAGADO" : "NO PAGADO"}</b> al usuario?
+              ¿Deseas marcar como{' '}
+              <b>{nuevoValorPago ? 'PAGADO' : 'NO PAGADO'}</b> al usuario?
               <br />
-              <span className="font-semibold">{selectedUser?.NombreCompleto}</span>
+              <span className="font-semibold">
+                {selectedUser?.NombreCompleto}
+              </span>
             </p>
 
             <div className="flex justify-between gap-4">
@@ -351,11 +359,9 @@ export default function RegistradosPage() {
                 Confirmar
               </button>
             </div>
-
           </div>
         </div>
       )}
-
     </main>
   );
 }
