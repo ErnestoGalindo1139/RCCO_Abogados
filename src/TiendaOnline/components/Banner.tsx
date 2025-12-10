@@ -8,6 +8,7 @@ import { Autoplay, EffectFade, Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/effect-fade';
 import 'swiper/css/navigation';
+import { VerArchivo } from './VerArchivo';
 
 const SOCIALS = [
   {
@@ -35,13 +36,14 @@ export const Banner: React.FC = () => {
   const { t } = useTranslation('home');
   const [activeIndex, setActiveIndex] = useState(0);
 
+  const [verArchivoAbierto, setVerArchivoAbierto] = useState(false);
+
   return (
     <section
       id="inicio"
       className="h-[100vh] w-full min-w-full overflow-hidden"
     >
       <div className="relative w-full h-[100dvh] min-w-full">
-
         {/* CARRUSEL */}
         <Swiper
           modules={[Autoplay, EffectFade, Navigation]}
@@ -105,7 +107,9 @@ export const Banner: React.FC = () => {
           <button
             onClick={(e) => {
               e.stopPropagation();
-              document.getElementById('evento-enero')?.scrollIntoView({ behavior: 'smooth' });
+              document
+                .getElementById('evento-enero')
+                ?.scrollIntoView({ behavior: 'smooth' });
             }}
             className="
               bg-[#D4AF37] text-[#0A1A3B] font-bold
@@ -125,7 +129,8 @@ export const Banner: React.FC = () => {
           <button
             onClick={(e) => {
               e.stopPropagation();
-              window.open('https://wa.me/6692291634', '_blank');
+              // window.open('https://wa.me/6692291634', '_blank');
+              setVerArchivoAbierto(true);
             }}
             className="
               bg-[#2D6CDF] text-white font-bold
@@ -157,8 +162,16 @@ export const Banner: React.FC = () => {
             </a>
           ))}
         </div>
-
       </div>
+      {/* 🪟 Modal de vista previa */}
+      <VerArchivo
+        modo="modal"
+        isOpen={verArchivoAbierto}
+        onClose={() => setVerArchivoAbierto(false)}
+        url={'/brochure_simposio_V4.pdf'}
+        nombre={'brochure_simposio_V4.pdf'}
+        tipo={'pdf'}
+      />
     </section>
   );
 };
