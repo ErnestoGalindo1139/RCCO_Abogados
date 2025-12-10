@@ -36,9 +36,9 @@ export const HomePage = (): React.JSX.Element => {
       />
       <UbicacionComponent
         title="ubicacion.title"
-        address="Av. del Mar 123, Mazatlán, Sinaloa, México"
-        lat={23.2377259}
-        lng={-106.4303041}
+        address="Sierra India No. 217, Fraccionamiento Lomas de Mazatlán, C.P. 82110"
+        lat={23.2473422}
+        lng={-106.4498946}
         zoom={16}
         phone="+52 669 229 1634"
         hours="ubicacion.schedule.week"

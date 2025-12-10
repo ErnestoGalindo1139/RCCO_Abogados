@@ -22,9 +22,8 @@ const SOCIALS = [
   },
 ];
 
-// 🔥 Se deja solo un slide con imágenes responsive
+// 🔥 Slide responsive
 const SLIDES = [
-  // { type: 'code' },
   {
     type: 'responsiveImage',
     desktop: '/img/simposio_banner_web.jpg',
@@ -42,6 +41,7 @@ export const Banner: React.FC = () => {
       className="h-[100vh] w-full min-w-full overflow-hidden"
     >
       <div className="relative w-full h-[100dvh] min-w-full">
+
         {/* CARRUSEL */}
         <Swiper
           modules={[Autoplay, EffectFade, Navigation]}
@@ -57,43 +57,32 @@ export const Banner: React.FC = () => {
         >
           {SLIDES.map((slide, i) => (
             <SwiperSlide key={i}>
-              {slide.type === 'code' ? (
-                <>
-                  <img
-                    src="/img/BannerDemo.jpg"
-                    className="absolute inset-0 object-center w-full h-full"
-                    alt=""
-                  />
-                  <div className="absolute inset-0 bg-blue-900 opacity-85"></div>
-                </>
-              ) : (
-                <div
-                  className="absolute inset-0 w-full h-full cursor-pointer"
-                  onClick={() => {
-                    const el = document.getElementById('evento-enero');
-                    if (el) el.scrollIntoView({ behavior: 'smooth' });
-                  }}
-                >
-                  {/* Imagen MOBILE */}
-                  <img
-                    src={slide.mobile}
-                    className="absolute inset-0 object-cover w-full h-full block lg:hidden"
-                    alt="banner mobile"
-                  />
+              <div
+                className="absolute inset-0 w-full h-full cursor-pointer"
+                onClick={() => {
+                  const el = document.getElementById('evento-enero');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
+                {/* Imagen MOBILE */}
+                <img
+                  src={slide.mobile}
+                  className="absolute inset-0 object-cover w-full h-full block lg:hidden"
+                  alt="banner mobile"
+                />
 
-                  {/* Imagen DESKTOP / TABLET */}
-                  <img
-                    src={slide.desktop}
-                    className="absolute inset-0 object-cover w-full h-full hidden lg:block"
-                    alt="banner desktop"
-                  />
-                </div>
-              )}
+                {/* Imagen DESKTOP */}
+                <img
+                  src={slide.desktop}
+                  className="absolute inset-0 object-cover w-full h-full hidden lg:block"
+                  alt="banner desktop"
+                />
+              </div>
             </SwiperSlide>
           ))}
         </Swiper>
 
-        {/* FLECHAS DE NAVEGACIÓN */}
+        {/* FLECHAS */}
         <button className="banner-prev absolute left-4 top-1/2 -translate-y-1/2 z-30 text-white text-4xl opacity-70 hover:opacity-100 select-none">
           ‹
         </button>
@@ -102,53 +91,56 @@ export const Banner: React.FC = () => {
           ›
         </button>
 
-        {/* CONTENIDO PRINCIPAL SOLO EN SLIDE 0 */}
-        {/* {activeIndex === 0 && (
-          <div className="absolute inset-0 flex flex-col justify-between py-[12vh] pb-24 z-20">
-            <div className="flex-1 flex items-center">
-              <div className="flex flex-col items-center md:items-start px-6 md:px-20 w-full">
-                <div className="text-center md:text-left w-full sm:px-6 md:px-8 lg:px-10 xl:px-16">
-                  <h3 className="text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-[1.1]">
-                    {t('banner.headline1')}
-                  </h3>
-                  <h3 className="text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-[1.1] md:mt-2">
-                    {t('banner.headline2')}
-                  </h3>
+        {/* 🌟 BOTONES – DIFERENTES COLORES + RESPONSIVE */}
+        <div
+          className="
+            absolute 
+            bottom-24     /* 👉 Móvil: botones más arriba */
+            md:bottom-10  /* 👉 Desktop: posición original */
+            w-full flex justify-center gap-8
+            z-20 px-4
+          "
+        >
+          {/* === BOTÓN REGISTRO — AMARILLO DORADO RCCO === */}
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              document.getElementById('evento-enero')?.scrollIntoView({ behavior: 'smooth' });
+            }}
+            className="
+              bg-[#D4AF37] text-[#0A1A3B] font-bold
+              text-base sm:text-lg md:text-xl
+              py-3 px-7 sm:px-10
+              rounded-xl shadow-lg
+              transition-all duration-200
+              hover:brightness-110 hover:scale-105
+              hover:shadow-[0_0_20px_rgba(212,175,55,0.8)]
+              active:scale-95
+            "
+          >
+            Registrate Aquí
+          </button>
 
-                  <button
-                    className="
-                      bg-white text-blue-900 
-                      text-lg sm:text-base md:text-lg lg:text-xl xl:text-2xl
-                      py-2 sm:py-2 md:py-2.5 lg:py-3 
-                      px-5 sm:px-4 md:px-5 lg:px-6 
-                      rounded-xl
-                      mt-4 sm:mt-4 md:mt-6 lg:mt-8
-                      font-bold 
-                      transition-all 
-                      hover:bg-blue-50
-                    "
-                    onClick={() =>
-                      window.open('https://wa.me/6692291634', '_blank')
-                    }
-                  >
-                    {t('banner.cta')}
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div className="w-full px-4 sm:px-6 md:px-20 mb-4">
-              <div className="w-full sm:px-6 md:px-8 lg:px-10 xl:px-16">
-                <h5 className="text-white text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl italic text-center mb-2">
-                  "{t('banner.slogan')}‌"
-                </h5>
-                <h5 className="text-end italic text-white text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl pr-6 sm:pr-32 md:pr-32 lg:pr-32 xl:pr-32">
-                  --RCCO
-                </h5>
-              </div>
-            </div>
-          </div>
-        )} */}
+          {/* === BOTÓN INFORMES — AZUL CLARO CORPORATIVO === */}
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              window.open('https://wa.me/6692291634', '_blank');
+            }}
+            className="
+              bg-[#2D6CDF] text-white font-bold
+              text-base sm:text-lg md:text-xl
+              py-3 px-7 sm:px-10
+              rounded-xl shadow-lg
+              transition-all duration-200
+              hover:brightness-110 hover:scale-105
+              hover:shadow-[0_0_20px_rgba(45,108,223,0.7)]
+              active:scale-95
+            "
+          >
+            Informes Aquí
+          </button>
+        </div>
 
         {/* ICONOS SOCIALES */}
         <div className="absolute bottom-4 right-4 sm:right-16 md:right-20 flex items-center gap-3 sm:gap-3 md:gap-4 z-20">
@@ -165,6 +157,7 @@ export const Banner: React.FC = () => {
             </a>
           ))}
         </div>
+
       </div>
     </section>
   );
