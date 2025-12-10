@@ -60,11 +60,12 @@ export const Banner: React.FC = () => {
           {SLIDES.map((slide, i) => (
             <SwiperSlide key={i}>
               <div
-                className="absolute inset-0 w-full h-full cursor-pointer"
-                onClick={() => {
-                  const el = document.getElementById('evento-enero');
-                  if (el) el.scrollIntoView({ behavior: 'smooth' });
-                }}
+                // className="absolute inset-0 w-full h-full cursor-pointer"
+                className="absolute inset-0 w-full h-full"
+                // onClick={() => {
+                //   const el = document.getElementById('evento-enero');
+                //   if (el) el.scrollIntoView({ behavior: 'smooth' });
+                // }}
               >
                 {/* Imagen MOBILE */}
                 <img
