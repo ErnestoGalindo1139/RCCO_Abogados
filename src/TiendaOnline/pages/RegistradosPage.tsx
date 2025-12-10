@@ -13,6 +13,7 @@ type UsuarioEvento = {
   FechaRegistro: string;
   FechaPago: string | null;
   sn_Pagado: boolean;
+  nu_Folio: string;
 };
 
 // Normalizar texto
@@ -30,16 +31,17 @@ export default function RegistradosPage() {
     'todos' | 'pagados' | 'nopagados'
   >('todos');
   const [page, setPage] = useState(1);
-  const pageSize = 12;
+  const pageSize = 6; // Menor para que se note más el paginado en móvil
 
   const [usuarios, setUsuarios] = useState<UsuarioEvento[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  // Modal confirmación actualización
   const [confirmModal, setConfirmModal] = useState(false);
   const [selectedUser, setSelectedUser] = useState<UsuarioEvento | null>(null);
   const [nuevoValorPago, setNuevoValorPago] = useState<boolean>(false);
+
+  const isMobile = window.innerWidth < 768;
 
   // =====================================================
   // 🔹 Fetch desde backend
@@ -65,8 +67,9 @@ export default function RegistradosPage() {
           Empresa: u.nb_Empresa,
           Comentarios: u.de_Comentarios,
           FechaRegistro: u.fh_Registro,
-          FechaPago: u.sn_Pagado ? 'PAGADO' : null,
+          FechaPago: u.sn_Pagado ? "PAGADO" : null,
           sn_Pagado: u.sn_Pagado,
+          nu_Folio: u.nu_Folio,
         }));
 
         setUsuarios(mapped);
@@ -81,16 +84,12 @@ export default function RegistradosPage() {
   }, []);
 
   // =====================================================
-  // 🔹 Abrir modal
-  // =====================================================
   const abrirModalPago = (user: UsuarioEvento) => {
     setSelectedUser(user);
     setNuevoValorPago(!user.sn_Pagado);
     setConfirmModal(true);
   };
 
-  // =====================================================
-  // 🔹 Confirmar actualización de pago
   // =====================================================
   const confirmarPago = async () => {
     if (!selectedUser) return;
@@ -119,23 +118,30 @@ export default function RegistradosPage() {
       setUsuarios((prev) =>
         prev.map((u) =>
           u.id_UsuarioEvento === selectedUser.id_UsuarioEvento
-            ? {
-                ...u,
-                sn_Pagado: nuevoValorPago,
-                FechaPago: nuevoValorPago ? 'PAGADO' : null,
-              }
+            ? { ...u, sn_Pagado: nuevoValorPago }
             : u
         )
       );
+
+      if (nuevoValorPago) {
+        await fetch("https://api-rcco-abogados.grstechs.com/enviarCorreoPagoEvento", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            correo: selectedUser.Correo,
+            nombre: selectedUser.NombreCompleto,
+            folio: selectedUser.nu_Folio
+          })
+        });
+      }
+
     } catch (err) {
-      alert('Error al actualizar el pago.');
+      alert("Error al actualizar pago.");
     }
 
     setConfirmModal(false);
   };
 
-  // =====================================================
-  // 🔹 Filtrado
   // =====================================================
   const filtrados = useMemo(() => {
     const q = norm(query);
@@ -146,6 +152,7 @@ export default function RegistradosPage() {
         norm(u.Correo).includes(q) ||
         norm(u.Celular).includes(q) ||
         norm(u.Empresa || '').includes(q) ||
+        norm(u.nu_Folio || '').includes(q) ||
         norm(u.Comentarios || '').includes(q);
 
       if (!match) return false;
@@ -163,16 +170,12 @@ export default function RegistradosPage() {
   useEffect(() => setPage(1), [query, filtroPago]);
 
   // =====================================================
-  // 🔹 Logout
-  // =====================================================
   const logout = () => {
     localStorage.removeItem('rcco_user_logged');
     localStorage.removeItem('rcco_role');
     navigate('/login');
   };
 
-  // =====================================================
-  // 🔹 Loading & Error
   // =====================================================
   if (loading)
     return (
@@ -189,11 +192,10 @@ export default function RegistradosPage() {
     );
 
   // =====================================================
-  // 🔹 Render principal
-  // =====================================================
   return (
     <main className="min-h-screen bg-slate-100">
-      {/* LOGOUT ARRIBA */}
+
+      {/* LOGOUT */}
       <div className="w-full bg-slate-900 text-right px-6 py-3">
         <button
           onClick={logout}
@@ -203,7 +205,7 @@ export default function RegistradosPage() {
         </button>
       </div>
 
-      {/* HERO HEADER (REDUCIDO) */}
+      {/* HERO */}
       <div className="bg-gradient-to-r from-[#113873] via-[#164b98] to-[#0D47A1] py-6 px-6 text-white">
         <h1 className="text-3xl font-bold">Registros del Evento</h1>
         <p className="text-white/80 mt-1">
@@ -212,13 +214,14 @@ export default function RegistradosPage() {
       </div>
 
       {/* CONTENIDO */}
-      <section className="max-w-7xl mx-auto px-6 py-10 -mt-4">
-        {/* Filtros */}
+      <section className="max-w-6xl mx-auto px-4 py-10 -mt-4">
+
+        {/* FILTROS */}
         <div className="bg-white shadow-lg rounded-2xl p-6 ring-1 ring-black/5 mb-8">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <input
               type="text"
-              placeholder="Buscar por nombre, correo, teléfono, empresa..."
+              placeholder="Buscar por nombre, correo, teléfono, empresa, folio..."
               className="w-full md:w-1/2 px-4 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 outline-none"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
@@ -236,8 +239,42 @@ export default function RegistradosPage() {
           </div>
         </div>
 
-        {/* Tabla */}
-        {items.length ? (
+        {/* MÓVIL: CARDS */}
+        {isMobile ? (
+          <div className="flex flex-col gap-4">
+            {items.map((u) => (
+              <div
+                key={u.id_UsuarioEvento}
+                className="bg-white rounded-xl shadow p-4 border border-slate-200"
+              >
+                <div className="font-bold text-lg text-slate-800">{u.NombreCompleto}</div>
+
+                <div className="text-sm mt-1 text-slate-700"><b>Correo:</b> {u.Correo}</div>
+                <div className="text-sm text-slate-700"><b>Tel:</b> {u.Celular}</div>
+                <div className="text-sm text-slate-700"><b>Empresa:</b> {u.Empresa || "-"}</div>
+                <div className="text-sm text-slate-700"><b>Folio:</b> <span className="text-blue-700 font-semibold">{u.nu_Folio}</span></div>
+                <div className="text-sm text-slate-700"><b>Fecha:</b> {new Date(u.FechaRegistro).toLocaleString("es-MX")}</div>
+
+                <div className="flex items-center justify-between mt-3">
+                  {u.sn_Pagado ? (
+                    <span className="px-3 py-1 rounded-xl bg-green-600 text-white text-xs font-semibold">Pagado</span>
+                  ) : (
+                    <span className="px-3 py-1 rounded-xl bg-red-600 text-white text-xs font-semibold">No pagado</span>
+                  )}
+
+                  <button onClick={() => abrirModalPago(u)}>
+                    {u.sn_Pagado ? (
+                      <XCircle className="text-red-600 w-7 h-7" />
+                    ) : (
+                      <CheckCircle className="text-green-600 w-7 h-7" />
+                    )}
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          /* DESKTOP: TABLA */
           <div className="overflow-x-auto rounded-2xl shadow ring-1 ring-black/5 bg-white">
             <table className="min-w-full text-sm">
               <thead className="bg-slate-200/60 text-slate-700">
@@ -247,29 +284,26 @@ export default function RegistradosPage() {
                   <th className="px-4 py-3 text-left">Correo</th>
                   <th className="px-4 py-3 text-left">Empresa</th>
                   <th className="px-4 py-3 text-left">Comentarios</th>
-                  <th className="px-4 py-3 text-left">Fecha Registro</th>
+                  <th className="px-4 py-3 text-left">Folio</th>
+                  <th className="px-4 py-3 text-left w-[20%] min-w-[230px]">Fecha Registro</th>
                   <th className="px-4 py-3 text-left">Pago</th>
                 </tr>
               </thead>
 
               <tbody>
                 {items.map((u) => (
-                  <tr
-                    key={u.id_UsuarioEvento}
-                    className="odd:bg-white even:bg-slate-50"
-                  >
-                    <td className="px-4 py-3 font-medium">
-                      {u.NombreCompleto}
-                    </td>
+                  <tr key={u.id_UsuarioEvento} className="odd:bg-white even:bg-slate-50">
+
+                    <td className="px-4 py-3 font-medium">{u.NombreCompleto}</td>
                     <td className="px-4 py-3">{u.Celular}</td>
                     <td className="px-4 py-3">{u.Correo}</td>
                     <td className="px-4 py-3">{u.Empresa || '-'}</td>
                     <td className="px-4 py-3">{u.Comentarios || '-'}</td>
-                    <td className="px-4 py-3">
+                    <td className="px-4 py-3 text-blue-700 font-semibold">{u.nu_Folio}</td>
+                    <td className="px-4 py-3 w-[20%] min-w-[230px]">
                       {new Date(u.FechaRegistro).toLocaleString('es-MX')}
                     </td>
 
-                    {/* Botón pago */}
                     <td className="px-4 py-3 flex items-center gap-2">
                       {u.sn_Pagado ? (
                         <span className="px-3 py-1 rounded-xl bg-green-600 text-white text-xs font-semibold">
@@ -292,42 +326,38 @@ export default function RegistradosPage() {
                         )}
                       </button>
                     </td>
+
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-        ) : (
-          <div className="rounded-2xl bg-white p-10 text-center ring-1 ring-black/5 mt-10">
-            <p className="text-slate-700 font-medium">
-              No se encontraron registros con esos criterios.
-            </p>
-          </div>
         )}
 
-        {/* Paginación */}
-        <div className="flex items-center justify-center mt-10 gap-3">
-          <button
-            disabled={page === 1}
-            onClick={() => setPage(page - 1)}
-            className="px-4 py-2 bg-blue-700 text-white rounded-lg disabled:opacity-40"
-          >
-            Anterior
-          </button>
-
-          <span className="text-slate-700 font-medium">
-            Página {page} de {pages}
-          </span>
-
-          <button
-            disabled={page === pages}
-            onClick={() => setPage(page + 1)}
-            className="px-4 py-2 bg-blue-700 text-white rounded-lg disabled:opacity-40"
-          >
-            Siguiente
-          </button>
-        </div>
       </section>
+
+      {/* PAGINACIÓN (SIEMPRE VISIBLE) */}
+      <div className="flex items-center justify-center mt-6 mb-10 gap-3">
+        <button
+          disabled={page === 1}
+          onClick={() => setPage(page - 1)}
+          className="px-4 py-2 bg-blue-700 text-white rounded-lg disabled:opacity-40"
+        >
+          Anterior
+        </button>
+
+        <span className="text-slate-700 font-medium">
+          Página {page} de {pages}
+        </span>
+
+        <button
+          disabled={page === pages}
+          onClick={() => setPage(page + 1)}
+          className="px-4 py-2 bg-blue-700 text-white rounded-lg disabled:opacity-40"
+        >
+          Siguiente
+        </button>
+      </div>
 
       {/* MODAL CONFIRMACIÓN */}
       {confirmModal && (
