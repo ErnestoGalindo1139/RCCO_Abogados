@@ -24,7 +24,7 @@ const SOCIALS = [
 
 // 🔥 Se deja solo un slide con imágenes responsive
 const SLIDES = [
-  { type: 'code' },
+  // { type: 'code' },
   {
     type: 'responsiveImage',
     desktop: '/img/simposio_banner_web.jpg',
@@ -103,9 +103,8 @@ export const Banner: React.FC = () => {
         </button>
 
         {/* CONTENIDO PRINCIPAL SOLO EN SLIDE 0 */}
-        {activeIndex === 0 && (
+        {/* {activeIndex === 0 && (
           <div className="absolute inset-0 flex flex-col justify-between py-[12vh] pb-24 z-20">
-            {/* Contenido superior */}
             <div className="flex-1 flex items-center">
               <div className="flex flex-col items-center md:items-start px-6 md:px-20 w-full">
                 <div className="text-center md:text-left w-full sm:px-6 md:px-8 lg:px-10 xl:px-16">
@@ -138,7 +137,6 @@ export const Banner: React.FC = () => {
               </div>
             </div>
 
-            {/* Slogan y firma */}
             <div className="w-full px-4 sm:px-6 md:px-20 mb-4">
               <div className="w-full sm:px-6 md:px-8 lg:px-10 xl:px-16">
                 <h5 className="text-white text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl italic text-center mb-2">
@@ -150,7 +148,7 @@ export const Banner: React.FC = () => {
               </div>
             </div>
           </div>
-        )}
+        )} */}
 
         {/* ICONOS SOCIALES */}
         <div className="absolute bottom-4 right-4 sm:right-16 md:right-20 flex items-center gap-3 sm:gap-3 md:gap-4 z-20">
