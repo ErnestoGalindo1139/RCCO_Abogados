@@ -5,16 +5,35 @@ import { NuestroEquipo } from '../components/NuestroEquipo';
 import { Servicios } from '../components/Servicios';
 import { Valores } from '../components/Valores';
 import { UbicacionComponent } from '../components/Ubicacion';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { AreasEspecializadas } from '../components/AreasEspecializadas';
 import { ConstruccionJuridica } from '../components/ConstruccionJuridica';
 import { EventoPopup } from '../components/EventoPopUp';
 import { EventoEnero } from '../components/EventoEnero';
 
 export const HomePage = (): React.JSX.Element => {
+
+  const location = useLocation();
+
+  useEffect(() => {
+    // Tomar la sección desde la URL: /#/?section=evento-enero
+    const params = new URLSearchParams(location.search);
+    const section = params.get("section");
+
+    if (section) {
+      // Esperar un momento a que cargue el DOM
+      setTimeout(() => {
+        const element = document.getElementById(section);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }, 350);
+    }
+  }, [location]);
+
   return (
     <div className="w-full min-w-full overflow-x-hidden">
-
       {/* Popup del evento */}
       <EventoPopup />
 
@@ -27,6 +46,7 @@ export const HomePage = (): React.JSX.Element => {
       <Servicios />
       <AreasEspecializadas />
       <NuestroEquipo />
+
       <LogoCarousel
         height={160}
         gap={1}
@@ -34,9 +54,10 @@ export const HomePage = (): React.JSX.Element => {
         direction="left"
         title="logos.trustHeadline"
       />
+
       <UbicacionComponent
         title="ubicacion.title"
-        address="Sierra India No. 217, Fraccionamiento Lomas de Mazatlán, C.P. 82110"
+        address="Sierra India No. 217, Fraccionamiento Lomas de Mazatlán, C.P. 82110"
         lat={23.2473422}
         lng={-106.4498946}
         zoom={16}
