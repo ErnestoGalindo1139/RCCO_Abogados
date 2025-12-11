@@ -13,20 +13,19 @@ import { EventoPopup } from '../components/EventoPopUp';
 import { EventoEnero } from '../components/EventoEnero';
 
 export const HomePage = (): React.JSX.Element => {
-
   const location = useLocation();
 
   useEffect(() => {
     // Tomar la sección desde la URL: /#/?section=evento-enero
     const params = new URLSearchParams(location.search);
-    const section = params.get("section");
+    const section = params.get('section');
 
     if (section) {
       // Esperar un momento a que cargue el DOM
       setTimeout(() => {
         const element = document.getElementById(section);
         if (element) {
-          element.scrollIntoView({ behavior: "smooth", block: "start" });
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       }, 350);
     }
@@ -35,12 +34,10 @@ export const HomePage = (): React.JSX.Element => {
   return (
     <div className="w-full min-w-full overflow-x-hidden">
       {/* Popup del evento */}
-      <EventoPopup />
-
+      {/* <EventoPopup /> */}
       <Banner />
 
       <Nosotros />
-      <EventoEnero />
       <ConstruccionJuridica />
       <Valores />
       <Servicios />

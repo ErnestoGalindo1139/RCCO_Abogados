@@ -141,7 +141,7 @@ export const EventoEnero: React.FC = () => {
   return (
     <section
       id="evento-enero"
-      className="relative w-full py-[7rem] px-6 overflow-hidden"
+      className="relative w-full py-[7rem] px-6 overflow-hidden bg-gradient-to-b from-[#0A1A3B] to-[#07152E]"
     >
       {/* FONDO */}
       <div className="absolute inset-0 -z-20 bg-gradient-to-br from-[#031a43] via-[#062b63] to-[#0a387c]" />

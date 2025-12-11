@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import { VerArchivo } from '../components/VerArchivo';
-import { FileText, FileImage, FileDown, Download } from 'lucide-react';
+import { Download, NotebookText, ClipboardList, Building } from 'lucide-react';
+import { LogoCarousel } from '../components/LogoCarousel';
+import { Banner } from '../components/Banner';
+import { EventoEnero } from '../components/EventoEnero';
 
-export const SimposioPage = () => {
+export const SimposioPage = (): React.JSX.Element => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [archivoSeleccionado, setArchivoSeleccionado] = useState<any>(null);
 
   const archivos = [
@@ -11,27 +15,53 @@ export const SimposioPage = () => {
       tipo: 'pdf',
       url: '/BROCHURE_SIMPOSIO.pdf',
       descripcion: 'Documento oficial con toda la información del evento.',
-      icon: FileText,
+      icon: NotebookText,
+      boton: 'Ver documento',
+      whatsapp: false,
     },
     {
       nombre: 'Proceso de Registro',
       tipo: 'image',
       url: '/PROCESO_DE_REGISTRO.jpeg.jpg',
       descripcion: 'Guía visual para completar tu registro.',
-      icon: FileImage,
+      icon: ClipboardList,
+      boton: 'Ver proceso',
+      whatsapp: false,
     },
     {
-      nombre: 'Precio del Pase',
+      nombre: 'Soy una organización',
       tipo: 'pdf',
       url: '/PRECIO_PASE.pdf',
-      descripcion: 'Costo oficial y beneficios del pase del evento.',
-      icon: FileDown,
+      descripcion:
+        'Información especial para organizaciones, instituciones o grupos.',
+      icon: Building,
+      boton: 'Solicitar información',
+      whatsapp: true,
     },
   ];
 
   return (
     <div className="w-full min-h-screen mt-[3rem] bg-[#07152E] text-white">
-      
+      <LogoCarousel
+        title="logos.tituloPatrocinadores"
+        logos={[
+          'img/patrocinadores/ANMX.png',
+          'img/patrocinadores/DIAZ SALAZAR Y ASOCIADOS.png',
+          'img/patrocinadores/LF DESPACHO.png',
+          'img/patrocinadores/P&C.png',
+          'img/patrocinadores/RCCO NEGOCIOS.png',
+          'img/patrocinadores/SOMOFA.png',
+          // Segunda vuelta
+          'img/patrocinadores/ANMX.png',
+          'img/patrocinadores/DIAZ SALAZAR Y ASOCIADOS.png',
+          'img/patrocinadores/LF DESPACHO.png',
+          'img/patrocinadores/P&C.png',
+          'img/patrocinadores/RCCO NEGOCIOS.png',
+          'img/patrocinadores/SOMOFA.png',
+          // '',
+        ]}
+      />
+      <Banner quitarboton />
       {/* HERO */}
       <section className="w-full py-24 text-center bg-gradient-to-b from-[#0A1A3B] to-[#07152E]">
         <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight">
@@ -65,12 +95,31 @@ export const SimposioPage = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-bold leading-tight">{a.nombre}</h3>
+                  <h3 className="text-lg font-bold leading-tight">
+                    {a.nombre}
+                  </h3>
                   <p className="text-sm text-blue-200 mt-2">{a.descripcion}</p>
                 </div>
               </div>
 
               <button
+                onClick={(e) => {
+                  e.stopPropagation();
+
+                  if (a.whatsapp) {
+                    const mensaje = encodeURIComponent(
+                      'Hola, estoy interesado en obtener información para registrar a mi organización en el 1er Simposio Anual Corporativo sobre Prevención de Lavado de Dinero.'
+                    );
+                    window.open(
+                      `https://wa.me/6692291634?text=${mensaje}`,
+                      '_blank'
+                    );
+                    return;
+                  }
+
+                  // Para las demás cards, abrir modal
+                  setArchivoSeleccionado(a);
+                }}
                 className="
                   mt-8 w-full py-2.5 rounded-lg bg-[#D4AF37]
                   text-[#0A1A3B] text-base font-extrabold tracking-wide
@@ -78,19 +127,20 @@ export const SimposioPage = () => {
                   transition-all active:scale-95
                 "
               >
-                Ver documento
+                {a.boton}
               </button>
             </div>
           );
         })}
       </div>
 
+      <EventoEnero />
+
       {/* MODAL */}
       {archivoSeleccionado && (
         <div className="relative">
-
           {/* BOTÓN DE DESCARGA SOLO PARA IMÁGENES — A NIVEL SIMPOSIOPAGE */}
-          {archivoSeleccionado.tipo === "image" && (
+          {archivoSeleccionado.tipo === 'image' && (
             <div className="absolute right-10 top-10 z-[9999]">
               <a
                 href={archivoSeleccionado.url}
