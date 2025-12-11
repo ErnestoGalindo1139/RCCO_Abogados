@@ -1,11 +1,30 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { VerArchivo } from '../components/VerArchivo';
 import { Download, NotebookText, ClipboardList, Building } from 'lucide-react';
 import { LogoCarousel } from '../components/LogoCarousel';
 import { Banner } from '../components/Banner';
 import { EventoEnero } from '../components/EventoEnero';
+import { useLocation } from 'react-router-dom';
 
 export const SimposioPage = (): React.JSX.Element => {
+  const location = useLocation();
+
+  useEffect(() => {
+    // Tomar la sección desde la URL: /#/?section=evento-enero
+    const params = new URLSearchParams(location.search);
+    const section = params.get('section');
+
+    if (section) {
+      // Esperar un momento a que cargue el DOM
+      setTimeout(() => {
+        const element = document.getElementById(section);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 350);
+    }
+  }, [location]);
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [archivoSeleccionado, setArchivoSeleccionado] = useState<any>(null);
 
