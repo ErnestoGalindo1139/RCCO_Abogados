@@ -11,6 +11,7 @@ import RegistradosPage from '../pages/RegistradosPage';
 import { LoginPage } from '../pages/LoginPage';
 import { ProtectedRoute } from '../components/ProtectedRoute';
 import { MaterialesPage } from '../pages/MaterialesPage';
+import { SimposioPage } from '../pages/SimposioPage';
 
 export const TiendaOnlineRoutes = () => {
 
@@ -58,6 +59,7 @@ export const TiendaOnlineRoutes = () => {
         <Route path="/TerminosYCondiciones" element={<TerminosYCondicionesPage />} />
         <Route path="/blog" element={<BlogPage />} />
         <Route path="/blog/:slug" element={<BlogPostPage />} />
+        <Route path="/simposio" element={<SimposioPage />} />
       </Routes>
 
       {!hideLayout && <Footer />}

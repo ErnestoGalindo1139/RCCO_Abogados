@@ -123,7 +123,7 @@ export const Banner: React.FC = () => {
               active:scale-95
             "
           >
-            Registrate Aquí
+            Registro
           </button>
 
           {/* === BOTÓN INFORMES — AZUL CLARO CORPORATIVO === */}
@@ -144,7 +144,7 @@ export const Banner: React.FC = () => {
               active:scale-95
             "
           >
-            Informes Aquí
+            Más sobre nuestro simposio
           </button>
         </div>
 

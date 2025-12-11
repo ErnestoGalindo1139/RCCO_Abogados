@@ -18,9 +18,9 @@ const LINKS: LinkItem[] = [
   { id: 'nosotros', label: 'nav.about', type: 'section' },
   { id: 'servicios', label: 'nav.services', type: 'section' },
   { id: 'ubicacion', label: 'nav.contact', type: 'section' },
+  { id: 'simposio', label: 'nav.simposio', type: 'route' },
   { id: 'blog', label: 'nav.blog', type: 'route' },
   // 👉 Nuevo item Login
-  { id: 'login', label: 'nav.login', type: 'route' },
 ];
 
 // Ajusta el alto si cambias el tamaño del navbar
