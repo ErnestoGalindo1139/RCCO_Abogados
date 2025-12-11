@@ -1,24 +1,25 @@
 import React, { useState } from 'react';
 import { VerArchivo } from '../components/VerArchivo';
-import { Download, NotebookText, ClipboardList, Building } from 'lucide-react';
+import { Download, ClipboardList, Building } from 'lucide-react';
 import { LogoCarousel } from '../components/LogoCarousel';
 import { Banner } from '../components/Banner';
 import { EventoEnero } from '../components/EventoEnero';
 
 export const SimposioPage = (): React.JSX.Element => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [archivoSeleccionado, setArchivoSeleccionado] = useState<any>(null);
 
+  // Brochure con preview
+  const brochure = {
+    nombre: 'Brochure Oficial del Simposio',
+    tipo: 'pdf',
+    url: '/BROCHURE_SIMPOSIO.pdf',
+    preview: '/img/brochure.png',
+    descripcion: 'Documento oficial con toda la información del evento.',
+    boton: 'Ver documento',
+  };
+
+  // Otras cards
   const archivos = [
-    {
-      nombre: 'Brochure Oficial del Simposio',
-      tipo: 'pdf',
-      url: '/BROCHURE_SIMPOSIO.pdf',
-      descripcion: 'Documento oficial con toda la información del evento.',
-      icon: NotebookText,
-      boton: 'Ver documento',
-      whatsapp: false,
-    },
     {
       nombre: 'Proceso de Registro',
       tipo: 'image',
@@ -51,17 +52,17 @@ export const SimposioPage = (): React.JSX.Element => {
           'img/patrocinadores/P&C.png',
           'img/patrocinadores/RCCO NEGOCIOS.png',
           'img/patrocinadores/SOMOFA.png',
-          // Segunda vuelta
           'img/patrocinadores/ANMX.png',
           'img/patrocinadores/DIAZ SALAZAR Y ASOCIADOS.png',
           'img/patrocinadores/LF DESPACHO.png',
           'img/patrocinadores/P&C.png',
           'img/patrocinadores/RCCO NEGOCIOS.png',
           'img/patrocinadores/SOMOFA.png',
-          // '',
         ]}
       />
+
       <Banner quitarboton />
+
       {/* HERO */}
       <section className="w-full py-24 text-center bg-gradient-to-b from-[#0A1A3B] to-[#07152E]">
         <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight">
@@ -73,8 +74,48 @@ export const SimposioPage = (): React.JSX.Element => {
         </p>
       </section>
 
-      {/* GRID */}
-      <div className="max-w-6xl mx-auto px-6 pb-24 grid grid-cols-1 md:grid-cols-3 gap-10 -mt-4">
+      {/* CARD ESPECIAL — BROCHURE */}
+      <div className="max-w-6xl mx-auto px-6 pb-12">
+        <div
+          onClick={() => setArchivoSeleccionado(brochure)}
+          className="
+            bg-[#0D2044] rounded-2xl border border-white/10 shadow-xl
+            transition-all cursor-pointer flex flex-col
+            hover:-translate-y-1 hover:shadow-blue-600/40
+            hover:border-[#0a387c] overflow-hidden
+          "
+        >
+          <img
+            src={brochure.preview}
+            alt="Preview Brochure"
+            className="w-full h-[200px] md:h-[450px] object-cover"
+          />
+
+          <div className="px-7 py-6">
+            <h2 className="text-xl font-extrabold">{brochure.nombre}</h2>
+            <p className="text-sm text-blue-200 mt-2">{brochure.descripcion}</p>
+
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setArchivoSeleccionado(brochure);
+              }}
+              className="
+                mt-6 w-full py-3 rounded-xl
+                bg-[#0a387c] hover:bg-[#114b9c]
+                text-white text-base font-extrabold tracking-wide
+                shadow-lg hover:shadow-blue-600/40
+                transition-all active:scale-95
+              "
+            >
+              {brochure.boton}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* GRID — OTRAS 2 CARDS */}
+      <div className="max-w-6xl mx-auto px-6 pb-24 grid grid-cols-1 md:grid-cols-2 gap-10">
         {archivos.map((a, i) => {
           const Icon = a.icon;
 
@@ -85,12 +126,13 @@ export const SimposioPage = (): React.JSX.Element => {
               className="
                 bg-[#0D2044] rounded-2xl px-7 py-8 border border-white/10 shadow-xl
                 transition-all cursor-pointer flex flex-col justify-between
-                hover:-translate-y-1 hover:shadow-[0_0_22px_rgba(212,175,55,0.32)]
-                hover:border-[#D4AF37]/50 min-h-[260px]
+                hover:-translate-y-1 hover:shadow-blue-600/40
+                hover:border-[#0a387c] space-y-6
               "
             >
               <div className="flex items-start gap-4">
                 <div className="p-3 rounded-xl bg-[#143065] shadow-md">
+                  {/* ICONOS SE QUEDAN DORADOS */}
                   <Icon className="text-[#D4AF37] w-9 h-9" />
                 </div>
 
@@ -117,13 +159,13 @@ export const SimposioPage = (): React.JSX.Element => {
                     return;
                   }
 
-                  // Para las demás cards, abrir modal
                   setArchivoSeleccionado(a);
                 }}
                 className="
-                  mt-8 w-full py-2.5 rounded-lg bg-[#D4AF37]
-                  text-[#0A1A3B] text-base font-extrabold tracking-wide
-                  hover:brightness-110 hover:shadow-[0_0_15px_rgba(212,175,55,0.55)]
+                  mt-6 w-full py-3 rounded-xl
+                  bg-[#0a387c] hover:bg-[#114b9c]
+                  text-white text-base font-extrabold tracking-wide
+                  shadow-lg hover:shadow-blue-600/40
                   transition-all active:scale-95
                 "
               >
@@ -138,39 +180,14 @@ export const SimposioPage = (): React.JSX.Element => {
 
       {/* MODAL */}
       {archivoSeleccionado && (
-        <div className="relative">
-          {/* BOTÓN DE DESCARGA SOLO PARA IMÁGENES — A NIVEL SIMPOSIOPAGE */}
-          {archivoSeleccionado.tipo === 'image' && (
-            <div className="absolute right-10 top-10 z-[9999]">
-              <a
-                href={archivoSeleccionado.url}
-                download={archivoSeleccionado.nombre}
-                className="
-                  flex items-center gap-2 
-                  px-4 py-2 rounded-lg 
-                  border border-[#D4AF37]
-                  text-[#D4AF37] font-semibold text-sm
-                  hover:bg-[#D4AF37]/20
-                  transition-all duration-200
-                  shadow-[0_0_12px_rgba(212,175,55,0.35)]
-                  active:scale-95
-                "
-              >
-                <Download size={16} />
-                Descargar imagen
-              </a>
-            </div>
-          )}
-
-          <VerArchivo
-            modo="modal"
-            url={archivoSeleccionado.url}
-            nombre={archivoSeleccionado.nombre}
-            tipo={archivoSeleccionado.tipo}
-            isOpen={true}
-            onClose={() => setArchivoSeleccionado(null)}
-          />
-        </div>
+        <VerArchivo
+          modo="modal"
+          url={archivoSeleccionado.url}
+          nombre={archivoSeleccionado.nombre}
+          tipo={archivoSeleccionado.tipo}
+          isOpen={true}
+          onClose={() => setArchivoSeleccionado(null)}
+        />
       )}
     </div>
   );
