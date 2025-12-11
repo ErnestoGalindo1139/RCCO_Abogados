@@ -132,7 +132,15 @@ export const LogoCarousel: React.FC<LogoCarouselProps> = ({
           aria-roledescription="carousel"
           aria-label={t('logos.aria.viewport')}
         >
-          <div className="embla__container flex" style={{ gap }} role="list">
+          <div
+            className="embla__container flex"
+            style={{
+              gap,
+              paddingLeft: gap, // 👈 separa el primer logo
+              paddingRight: gap, // 👈 separa el último logo
+            }}
+            role="list"
+          >
             {logos.map((src, i) => (
               <div
                 role="listitem"

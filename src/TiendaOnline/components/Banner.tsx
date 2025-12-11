@@ -9,6 +9,7 @@ import 'swiper/css';
 import 'swiper/css/effect-fade';
 import 'swiper/css/navigation';
 import { VerArchivo } from './VerArchivo';
+import { useNavigate } from 'react-router-dom';
 
 const SOCIALS = [
   {
@@ -32,11 +33,14 @@ const SLIDES = [
   },
 ];
 
-export const Banner: React.FC = () => {
+export const Banner: React.FC<{ quitarboton?: boolean }> = ({
+  quitarboton,
+}) => {
   const { t } = useTranslation('home');
   const [activeIndex, setActiveIndex] = useState(0);
 
   const [verArchivoAbierto, setVerArchivoAbierto] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <section
@@ -95,17 +99,18 @@ export const Banner: React.FC = () => {
         </button>
 
         {/* 🌟 BOTONES – DIFERENTES COLORES + RESPONSIVE */}
-        <div
-          className="
+        {!quitarboton && (
+          <div
+            className="
             absolute 
             bottom-24     /* 👉 Móvil: botones más arriba */
             md:bottom-10  /* 👉 Desktop: posición original */
             w-full flex justify-center gap-8
             z-20 px-4
           "
-        >
-          {/* === BOTÓN REGISTRO — AMARILLO DORADO RCCO === */}
-          <button
+          >
+            {/* === BOTÓN REGISTRO — AMARILLO DORADO RCCO === */}
+            {/* <button
             onClick={(e) => {
               e.stopPropagation();
               document
@@ -124,16 +129,17 @@ export const Banner: React.FC = () => {
             "
           >
             Registro
-          </button>
+          </button> */}
 
-          {/* === BOTÓN INFORMES — AZUL CLARO CORPORATIVO === */}
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              // window.open('https://wa.me/6692291634', '_blank');
-              setVerArchivoAbierto(true);
-            }}
-            className="
+            {/* === BOTÓN INFORMES — AZUL CLARO CORPORATIVO === */}
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                navigate('/simposio'); // ⬅️ Aquí navegamos
+                // window.open('https://wa.me/6692291634', '_blank');
+                // setVerArchivoAbierto(true);
+              }}
+              className="
               bg-[#2D6CDF] text-white font-bold
               text-base sm:text-lg md:text-xl
               py-3 px-7 sm:px-10
@@ -143,10 +149,11 @@ export const Banner: React.FC = () => {
               hover:shadow-[0_0_20px_rgba(45,108,223,0.7)]
               active:scale-95
             "
-          >
-            Más sobre nuestro simposio
-          </button>
-        </div>
+            >
+              Más sobre nuestro simposio
+            </button>
+          </div>
+        )}
 
         {/* ICONOS SOCIALES */}
         <div className="absolute bottom-4 right-4 sm:right-16 md:right-20 flex items-center gap-3 sm:gap-3 md:gap-4 z-20">
