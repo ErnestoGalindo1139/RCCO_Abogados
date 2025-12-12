@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { VerArchivo } from '../components/VerArchivo';
-import { Download, ClipboardList, Building } from 'lucide-react';
+import { ClipboardList, Building, Ticket } from 'lucide-react';
 import { LogoCarousel } from '../components/LogoCarousel';
 import { Banner } from '../components/Banner';
 import { EventoEnero } from '../components/EventoEnero';
@@ -10,12 +10,10 @@ export const SimposioPage = (): React.JSX.Element => {
   const location = useLocation();
 
   useEffect(() => {
-    // Tomar la sección desde la URL: /#/?section=evento-enero
     const params = new URLSearchParams(location.search);
     const section = params.get('section');
 
     if (section) {
-      // Esperar un momento a que cargue el DOM
       setTimeout(() => {
         const element = document.getElementById(section);
         if (element) {
@@ -28,33 +26,49 @@ export const SimposioPage = (): React.JSX.Element => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [archivoSeleccionado, setArchivoSeleccionado] = useState<any>(null);
 
-  // Brochure con preview
+  // Card especial Brochure
   const brochure = {
     nombre: 'Brochure Oficial del Simposio',
     tipo: 'pdf',
     url: '/BROCHURE_SIMPOSIO.pdf',
     preview: '/img/brochure.png',
-    descripcion: 'Documento oficial con toda la información del evento.',
+    descripcion:
+      'Obtén más detalles del simposio y accede a toda la información del evento.',
     boton: 'Ver documento',
   };
 
-  // Otras cards
+  // Resto de cards
   const archivos = [
     {
       nombre: 'Proceso de Registro',
       tipo: 'image',
       url: '/PROCESO_DE_REGISTRO.jpeg.jpg',
-      descripcion: 'Guía visual para completar tu registro.',
+      preview: '/PROCESO_DE_REGISTRO.jpeg.jpg',
+      descripcion: 'Es muy simple registrarte, da click y sigue los pasos.',
       icon: ClipboardList,
       boton: 'Ver proceso',
       whatsapp: false,
     },
+
+    {
+      nombre: 'Inversión y Beneficios de Acceso',
+      tipo: 'pdf',
+      url: '/PRECIO_PASE.pdf',
+      preview: '/PRECIO_PASE.png',
+      descripcion:
+        'Consulta aquí los costos y beneficios del Pase Oficial al Simposio.',
+      icon: Ticket,
+      boton: 'Consultar Precio',
+      whatsapp: false,
+    },
+
     {
       nombre: 'Soy una organización',
       tipo: 'pdf',
       url: '/PRECIO_PASE.pdf',
+      preview: '/organizacion.png',
       descripcion:
-        'Información especial para organizaciones, instituciones o grupos.',
+        'Contamos con precios preferenciales para tus miembros. Consulta con un asesor.',
       icon: Building,
       boton: 'Solicitar información',
       whatsapp: true,
@@ -83,37 +97,30 @@ export const SimposioPage = (): React.JSX.Element => {
 
       <Banner quitarboton />
 
-      {/* HERO */}
-      <section className="w-full py-24 text-center bg-gradient-to-b from-[#0A1A3B] to-[#07152E]">
-        <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight">
-          Documentos Oficiales del Simposio
-        </h1>
-        <p className="mt-4 text-lg max-w-2xl mx-auto text-blue-200">
-          Consulta y descarga los documentos oficiales del 1er Simposio Anual
-          Corporativo sobre Prevención de Lavado de Dinero en Sinaloa.
-        </p>
-      </section>
-
       {/* CARD ESPECIAL — BROCHURE */}
-      <div className="max-w-6xl mx-auto px-6 pb-12">
+      <div className="max-w-7xl mx-auto px-6 pt-24 pb-12">
         <div
           onClick={() => setArchivoSeleccionado(brochure)}
           className="
-            bg-[#0D2044] rounded-2xl border border-white/10 shadow-xl
+            bg-[#F8FAFC] rounded-2xl border border-[#E2E8F0] shadow-lg
             transition-all cursor-pointer flex flex-col
-            hover:-translate-y-1 hover:shadow-blue-600/40
+            hover:-translate-y-1 hover:shadow-blue-300/40
             hover:border-[#0a387c] overflow-hidden
           "
         >
           <img
             src={brochure.preview}
             alt="Preview Brochure"
-            className="w-full h-[200px] md:h-[450px] object-cover"
+            className="w-full h-[full] md:h-[450px] object-center"
           />
 
           <div className="px-7 py-6">
-            <h2 className="text-xl font-extrabold">{brochure.nombre}</h2>
-            <p className="text-sm text-blue-200 mt-2">{brochure.descripcion}</p>
+            <h2 className="text-xl font-extrabold text-[#04163B]">
+              {brochure.nombre}
+            </h2>
+            <p className="text-sm text-[#475569] mt-2">
+              {brochure.descripcion}
+            </p>
 
             <button
               onClick={(e) => {
@@ -135,62 +142,72 @@ export const SimposioPage = (): React.JSX.Element => {
       </div>
 
       {/* GRID — OTRAS 2 CARDS */}
-      <div className="max-w-6xl mx-auto px-6 pb-24 grid grid-cols-1 md:grid-cols-2 gap-10">
+      <div className="max-w-7xl mx-auto px-6 pb-24 grid grid-cols-1 md:grid-cols-3 gap-10">
         {archivos.map((a, i) => {
-          const Icon = a.icon;
+          // Para WhatsApp
+          const abrirWhatsApp = () => {
+            const mensaje = encodeURIComponent(
+              'Hola, estoy interesado en obtener información para registrar a mi organización en el 1er Simposio Anual Corporativo sobre Prevención de Lavado de Dinero.'
+            );
+            window.open(`https://wa.me/6692291634?text=${mensaje}`, '_blank');
+          };
 
           return (
             <div
               key={i}
-              onClick={() => setArchivoSeleccionado(a)}
+              onClick={() => {
+                if (a.whatsapp) {
+                  abrirWhatsApp();
+                  return;
+                }
+                setArchivoSeleccionado(a);
+              }}
               className="
-                bg-[#0D2044] rounded-2xl px-7 py-8 border border-white/10 shadow-xl
-                transition-all cursor-pointer flex flex-col justify-between
-                hover:-translate-y-1 hover:shadow-blue-600/40
-                hover:border-[#0a387c] space-y-6
-              "
+        bg-[#F8FAFC] rounded-2xl border border-[#E2E8F0] shadow-lg
+        transition-all cursor-pointer flex flex-col
+        hover:-translate-y-1 hover:shadow-blue-300/40
+        hover:border-[#0a387c] overflow-hidden
+      "
             >
-              <div className="flex items-start gap-4">
-                <div className="p-3 rounded-xl bg-[#143065] shadow-md">
-                  {/* ICONOS SE QUEDAN DORADOS */}
-                  <Icon className="text-[#D4AF37] w-9 h-9" />
-                </div>
+              {/* PREVIEW IGUAL QUE BROCHURE */}
+              <img
+                src={a.preview}
+                alt={a.nombre}
+                className="w-full h-[full] md:h-[250px] object-center"
+              />
 
-                <div>
-                  <h3 className="text-lg font-bold leading-tight">
-                    {a.nombre}
-                  </h3>
-                  <p className="text-sm text-blue-200 mt-2">{a.descripcion}</p>
+              {/* CONTENIDO */}
+              <div className="px-7 py-6 flex flex-col h-full">
+                <h3 className="text-xl font-extrabold text-[#04163B]">
+                  {a.nombre}
+                </h3>
+
+                <p className="text-sm text-[#475569] mt-2 mb-6">
+                  {a.descripcion}
+                </p>
+
+                <div className="mt-auto">
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      if (a.whatsapp) {
+                        abrirWhatsApp();
+                        return;
+                      }
+                      setArchivoSeleccionado(a);
+                    }}
+                    className="
+                        w-full py-3 rounded-xl
+                        bg-[#0a387c] hover:bg-[#114b9c]
+                        text-white text-base font-extrabold tracking-wide
+                        shadow-lg hover:shadow-blue-600/40
+                        transition-all active:scale-95
+                      "
+                  >
+                    {a.boton}
+                  </button>
                 </div>
               </div>
-
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-
-                  if (a.whatsapp) {
-                    const mensaje = encodeURIComponent(
-                      'Hola, estoy interesado en obtener información para registrar a mi organización en el 1er Simposio Anual Corporativo sobre Prevención de Lavado de Dinero.'
-                    );
-                    window.open(
-                      `https://wa.me/6692291634?text=${mensaje}`,
-                      '_blank'
-                    );
-                    return;
-                  }
-
-                  setArchivoSeleccionado(a);
-                }}
-                className="
-                  mt-6 w-full py-3 rounded-xl
-                  bg-[#0a387c] hover:bg-[#114b9c]
-                  text-white text-base font-extrabold tracking-wide
-                  shadow-lg hover:shadow-blue-600/40
-                  transition-all active:scale-95
-                "
-              >
-                {a.boton}
-              </button>
             </div>
           );
         })}
@@ -203,7 +220,7 @@ export const SimposioPage = (): React.JSX.Element => {
         <VerArchivo
           modo="modal"
           url={archivoSeleccionado.url}
-          nombre={archivoSeleccionado.nombre}
+          // nombre={archivoSeleccionado.nombre}
           tipo={archivoSeleccionado.tipo}
           isOpen={true}
           onClose={() => setArchivoSeleccionado(null)}
