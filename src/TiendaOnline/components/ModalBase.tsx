@@ -7,7 +7,7 @@ interface ModalBaseProps {
   onClose: () => void;
   title?: string;
   children: React.ReactNode;
-  maxWidth?: 'sm' | 'md' | 'lg' | 'xl' | 'full';
+  maxWidth?: 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | 'full';
   variant?: 'centered' | 'fullscreen';
   closeOnBackdrop?: boolean;
 }
@@ -26,6 +26,8 @@ export const ModalBase: React.FC<ModalBaseProps> = ({
     md: 'max-w-lg',
     lg: 'max-w-2xl',
     xl: 'max-w-5xl',
+    '2xl': 'max-w-6xl',
+    '3xl': 'max-w-7xl',
     full: 'max-w-full h-full rounded-none',
   };
 
@@ -77,24 +79,22 @@ export const ModalBase: React.FC<ModalBaseProps> = ({
               overflow-hidden
             `}
           >
-            {title && (
-              <div
-                className="flex items-center justify-between px-6 py-4 
+            <div
+              className="flex items-center justify-between px-6 py-4 
                     border-b border-[#1e293b] 
                     bg-[#1e3a8a]"
+            >
+              {' '}
+              {/* HEADER AZULito */}
+              <h2 className="text-lg font-semibold text-white">{title}</h2>
+              <button
+                type="button"
+                onClick={onClose}
+                className="text-gray-200 hover:text-white transition-colors"
               >
-                {' '}
-                {/* HEADER AZULito */}
-                <h2 className="text-lg font-semibold text-white">{title}</h2>
-                <button
-                  type="button"
-                  onClick={onClose}
-                  className="text-gray-200 hover:text-white transition-colors"
-                >
-                  <X size={20} />
-                </button>
-              </div>
-            )}
+                <X size={20} />
+              </button>
+            </div>
 
             {/* CONTENIDO */}
             <div className="p-6 overflow-y-auto max-h-[80vh]">{children}</div>

@@ -232,7 +232,7 @@ export const EventoEnero: React.FC = () => {
 
           {/* TITULO */}
           <h2 className="text-lg md:text-2xl font-semibold text-white/80 mb-8">
-            Reformas Estructurales a la Ley Antilavado (LFPIORPI 2024–2025)
+            Reformas Estructurales a la Ley Antilavado (LFPIORPI 2025)
           </h2>
 
           <p className="text-white/80 text-base leading-relaxed mb-10 max-w-[570px]">
