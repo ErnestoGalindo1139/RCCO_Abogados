@@ -3,7 +3,7 @@ import { FileText, Download } from 'lucide-react';
 import { ModalBase } from './ModalBase';
 
 interface VerArchivoProps {
-  url: string; // puede ser una URL local (createObjectURL) o remota
+  url: string;
   tipo?: string;
   nombre?: string;
   isOpen?: boolean;
@@ -21,17 +21,40 @@ export const VerArchivo: React.FC<VerArchivoProps> = ({
 }) => {
   const [xmlContent, setXmlContent] = useState<string | null>(null);
 
-  // Si es XML, leer su contenido como texto
+  const extension = nombre?.split('.').pop()?.toLowerCase();
+  const isPDF = tipo?.includes('pdf') || extension === 'pdf';
+  const isImage =
+    tipo?.includes('image') ||
+    ['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(extension || '');
+  const isXML = tipo?.includes('xml') || extension === 'xml';
+
+  // Detectar móvil
+  const isMobile = /Android|iPhone|iPad|iPod|Opera Mini|IEMobile/i.test(
+    navigator.userAgent
+  );
+
+  // 📌 Si es PDF y es móvil → abrir directamente y no mostrar modal
   useEffect(() => {
-    if (
-      modo === 'modal' &&
-      url &&
-      (tipo?.includes('xml') || nombre?.endsWith('.xml'))
-    ) {
+    if (isOpen && isPDF && isMobile) {
+      window.open(url, '_blank');
+
+      // Cerrar modal si existe callback
+      if (onClose) onClose();
+    }
+  }, [isOpen, isPDF, isMobile, url, onClose]);
+
+  // Render vacío si es móvil y PDF (evita mostrar modal vacío)
+  if (isPDF && isMobile) {
+    return null;
+  }
+
+  // =================== XML ===================
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  useEffect(() => {
+    if (isXML && url) {
       fetch(url)
         .then((res) => res.text())
         .then((text) => {
-          // formatear XML con indentación
           const formatted = new XMLSerializer().serializeToString(
             new DOMParser().parseFromString(text, 'application/xml')
           );
@@ -39,14 +62,9 @@ export const VerArchivo: React.FC<VerArchivoProps> = ({
         })
         .catch(() => setXmlContent('⚠️ No se pudo cargar el XML.'));
     }
-  }, [url, tipo, nombre, modo]);
+  }, [url, isXML]);
 
-  const extension = nombre?.split('.').pop()?.toLowerCase();
-  const isPDF = tipo?.includes('pdf') || extension === 'pdf';
-  const isImage =
-    tipo?.includes('image') ||
-    ['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(extension || '');
-  const isXML = tipo?.includes('xml') || extension === 'xml';
+  // =================== CONTENIDO DESKTOP ===================
 
   let content: React.ReactNode;
 
@@ -59,6 +77,7 @@ export const VerArchivo: React.FC<VerArchivoProps> = ({
       />
     );
   } else if (isPDF) {
+    // Desktop → sí mostrar iframe
     content = (
       <iframe
         src={url}
@@ -94,10 +113,10 @@ export const VerArchivo: React.FC<VerArchivoProps> = ({
   if (modo === 'modal') {
     return (
       <ModalBase
-        isOpen={isOpen || false}
-        onClose={onClose || (() => {})}
-        title={`${extension?.toUpperCase() || 'Archivo'} - ${nombre || ''}`}
-        maxWidth="xl"
+        isOpen={isOpen}
+        onClose={onClose || ((): void => {})}
+        title={''}
+        maxWidth="3xl"
       >
         {content}
       </ModalBase>

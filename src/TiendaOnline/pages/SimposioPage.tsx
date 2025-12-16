@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { VerArchivo } from '../components/VerArchivo';
-import { Download, NotebookText, ClipboardList, Building } from 'lucide-react';
+import { ClipboardList, Building, Ticket } from 'lucide-react';
 import { LogoCarousel } from '../components/LogoCarousel';
 import { Banner } from '../components/Banner';
 import { EventoEnero } from '../components/EventoEnero';
@@ -10,12 +10,10 @@ export const SimposioPage = (): React.JSX.Element => {
   const location = useLocation();
 
   useEffect(() => {
-    // Tomar la sección desde la URL: /#/?section=evento-enero
     const params = new URLSearchParams(location.search);
     const section = params.get('section');
 
     if (section) {
-      // Esperar un momento a que cargue el DOM
       setTimeout(() => {
         const element = document.getElementById(section);
         if (element) {
@@ -28,36 +26,92 @@ export const SimposioPage = (): React.JSX.Element => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [archivoSeleccionado, setArchivoSeleccionado] = useState<any>(null);
 
-  const archivos = [
-    {
-      nombre: 'Brochure Oficial del Simposio',
-      tipo: 'pdf',
-      url: '/BROCHURE_SIMPOSIO.pdf',
-      descripcion: 'Documento oficial con toda la información del evento.',
-      icon: NotebookText,
-      boton: 'Ver documento',
-      whatsapp: false,
+  // Card especial Brochure
+  const brochure = {
+    nombre: 'Brochure Oficial del Simposio',
+    tipo: 'pdf',
+    url: {
+      mobile: '/BROCHURE_SIMPOSIO.pdf',
+      desktop: '/BROCHURE_SIMPOSIO.pdf',
     },
+    preview: {
+      mobile: '/img/brochure.png',
+      desktop: '/img/brochure.png',
+    },
+    descripcion:
+      'Obtén más detalles del simposio y accede a toda la información del evento.',
+    boton: 'Ver documento',
+  };
+
+  // Resto de cards
+  const archivos = [
     {
       nombre: 'Proceso de Registro',
       tipo: 'image',
-      url: '/PROCESO_DE_REGISTRO.jpeg.jpg',
-      descripcion: 'Guía visual para completar tu registro.',
+      url: {
+        mobile: '/img/proceso_registro_mobile.jpg',
+        desktop: '/img/proceso_registro_mobile.jpg',
+      },
+      preview: {
+        mobile: '/img/proceso_registro_mobile.jpg',
+        desktop: '/img/proceso_registro_mobile.jpg',
+      },
+      descripcion: 'Es muy simple registrarte, da click y sigue los pasos.',
       icon: ClipboardList,
       boton: 'Ver proceso',
       whatsapp: false,
     },
+
+    {
+      nombre: 'Inversión y Beneficios de Acceso',
+      tipo: 'image',
+      url: {
+        mobile: '/img/precio_pase_web_mobile.jpg',
+        desktop: '/img/precio_pase_web_desktop.jpg',
+      },
+      preview: {
+        mobile: '/img/precio_pase_web_mobile.jpg',
+        desktop: '/img/precio_pase_web_desktop.jpg',
+      },
+      descripcion:
+        'Consulta aquí los costos y beneficios del Pase Oficial al Simposio.',
+      icon: Ticket,
+      boton: 'Consultar Precio',
+      whatsapp: false,
+    },
+
     {
       nombre: 'Soy una organización',
       tipo: 'pdf',
-      url: '/PRECIO_PASE.pdf',
+      url: {
+        mobile: '/PRECIO_ORGANIZACIONES_MOBILE.pdf',
+        desktop: '/PRECIO_ORGANIZACIONES_DESKTOP.pdf',
+      },
+      preview: {
+        mobile: '/img/simposio_banner_mobile.jpg',
+        desktop: '/img/simposio_banner_desktop.jpg',
+      },
       descripcion:
-        'Información especial para organizaciones, instituciones o grupos.',
+        'Contamos con precios preferenciales para tus miembros. Consulta con un asesor.',
       icon: Building,
       boton: 'Solicitar información',
       whatsapp: true,
     },
   ];
+
+  const useIsMobile = () => {
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+    useEffect(() => {
+      const onResize = () => setIsMobile(window.innerWidth < 768);
+      window.addEventListener('resize', onResize);
+      return () => window.removeEventListener('resize', onResize);
+    }, []);
+
+    return isMobile;
+  };
+
+  const isMobile = useIsMobile();
 
   return (
     <div className="w-full min-h-screen mt-[3rem] bg-[#07152E] text-white">
@@ -70,7 +124,6 @@ export const SimposioPage = (): React.JSX.Element => {
           'img/patrocinadores/P&C.png',
           'img/patrocinadores/RCCO NEGOCIOS.png',
           'img/patrocinadores/SOMOFA.png',
-          // Segunda vuelta
           'img/patrocinadores/ANMX.png',
           'img/patrocinadores/DIAZ SALAZAR Y ASOCIADOS.png',
           'img/patrocinadores/LF DESPACHO.png',
@@ -78,77 +131,136 @@ export const SimposioPage = (): React.JSX.Element => {
           'img/patrocinadores/RCCO NEGOCIOS.png',
           'img/patrocinadores/SOMOFA.png',
           'img/patrocinadores/grupoAHRE.png',
-          // '',
         ]}
       />
-      <Banner quitarboton />
-      {/* HERO */}
-      <section className="w-full py-24 text-center bg-gradient-to-b from-[#0A1A3B] to-[#07152E]">
-        <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight">
-          Documentos Oficiales del Simposio
-        </h1>
-        <p className="mt-4 text-lg max-w-2xl mx-auto text-blue-200">
-          Consulta y descarga los documentos oficiales del 1er Simposio Anual
-          Corporativo sobre Prevención de Lavado de Dinero en Sinaloa.
-        </p>
-      </section>
 
-      {/* GRID */}
-      <div className="max-w-6xl mx-auto px-6 pb-24 grid grid-cols-1 md:grid-cols-3 gap-10 -mt-4">
+      <Banner quitarboton />
+
+      {/* CARD ESPECIAL — BROCHURE */}
+      <div className="max-w-7xl mx-auto px-6 pt-24 pb-12">
+        <div
+          onClick={() =>
+            setArchivoSeleccionado({
+              ...brochure,
+              url: isMobile ? brochure.url.mobile : brochure.url.desktop,
+            })
+          }
+          className="
+            bg-[#F8FAFC] rounded-2xl border border-[#E2E8F0] shadow-lg
+            transition-all cursor-pointer flex flex-col
+            hover:-translate-y-1 hover:shadow-blue-300/40
+            hover:border-[#0a387c] overflow-hidden
+          "
+        >
+          <img
+            src={isMobile ? brochure.preview.mobile : brochure.preview.desktop}
+            alt="Preview Brochure"
+            className="w-full h-[full] md:h-[550px] object-center"
+          />
+
+          <div className="px-7 py-6">
+            <h2 className="text-xl font-extrabold text-[#04163B]">
+              {brochure.nombre}
+            </h2>
+            <p className="text-sm text-[#475569] mt-2">
+              {brochure.descripcion}
+            </p>
+
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setArchivoSeleccionado({
+                  ...brochure,
+                  url: isMobile ? brochure.url.mobile : brochure.url.desktop,
+                });
+              }}
+              className="
+                mt-6 w-full py-3 rounded-xl
+                bg-[#0a387c] hover:bg-[#114b9c]
+                text-white text-base font-extrabold tracking-wide
+                shadow-lg hover:shadow-blue-600/40
+                transition-all active:scale-95
+              "
+            >
+              {brochure.boton}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* GRID — OTRAS 2 CARDS */}
+      <div className="max-w-7xl mx-auto px-6 pb-24 grid grid-cols-1 md:grid-cols-3 gap-10 items-stretch">
         {archivos.map((a, i) => {
-          const Icon = a.icon;
+          const abrirWhatsApp = () => {
+            const mensaje = encodeURIComponent(
+              'Hola, estoy interesado en obtener información para registrar a mi organización en el 1er Simposio Anual Corporativo sobre Prevención de Lavado de Dinero.'
+            );
+            window.open(`https://wa.me/6692291634?text=${mensaje}`, '_blank');
+          };
 
           return (
             <div
               key={i}
-              onClick={() => setArchivoSeleccionado(a)}
+              onClick={() => {
+                if (a.whatsapp) {
+                  abrirWhatsApp();
+                  return;
+                }
+                setArchivoSeleccionado({
+                  ...a,
+                  url: isMobile ? a.url.mobile : a.url.desktop,
+                });
+              }}
               className="
-                bg-[#0D2044] rounded-2xl px-7 py-8 border border-white/10 shadow-xl
-                transition-all cursor-pointer flex flex-col justify-between
-                hover:-translate-y-1 hover:shadow-[0_0_22px_rgba(212,175,55,0.32)]
-                hover:border-[#D4AF37]/50 min-h-[260px]
-              "
+          bg-[#F8FAFC] rounded-2xl border border-[#E2E8F0]
+          shadow-lg transition-all cursor-pointer
+          hover:-translate-y-1 hover:shadow-blue-300/40
+          hover:border-[#0a387c]
+          flex flex-col h-full overflow-hidden
+        "
             >
-              <div className="flex items-start gap-4">
-                <div className="p-3 rounded-xl bg-[#143065] shadow-md">
-                  <Icon className="text-[#D4AF37] w-9 h-9" />
-                </div>
+              {/* IMAGEN – ALTURA FIJA */}
+              <img
+                src={isMobile ? a.preview.mobile : a.preview.desktop}
+                alt={a.nombre}
+                className="w-full h-full md:h-[220px] object-center"
+              />
 
-                <div>
-                  <h3 className="text-lg font-bold leading-tight">
-                    {a.nombre}
-                  </h3>
-                  <p className="text-sm text-blue-200 mt-2">{a.descripcion}</p>
-                </div>
+              {/* CONTENIDO */}
+              <div className="px-7 py-6 flex flex-col flex-1">
+                <h3 className="text-xl font-extrabold text-[#04163B]">
+                  {a.nombre}
+                </h3>
+
+                {/* DESCRIPCIÓN – MISMO COMPORTAMIENTO */}
+                <p className="text-sm text-[#475569] mt-2 mb-6">
+                  {a.descripcion}
+                </p>
+
+                {/* BOTÓN SIEMPRE ABAJO */}
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    if (a.whatsapp) {
+                      abrirWhatsApp();
+                      return;
+                    }
+                    setArchivoSeleccionado({
+                      ...a,
+                      url: isMobile ? a.url.mobile : a.url.desktop,
+                    });
+                  }}
+                  className="
+              mt-auto w-full py-3 rounded-xl
+              bg-[#0a387c] hover:bg-[#114b9c]
+              text-white text-base font-extrabold tracking-wide
+              shadow-lg hover:shadow-blue-600/40
+              transition-all active:scale-95
+            "
+                >
+                  {a.boton}
+                </button>
               </div>
-
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-
-                  if (a.whatsapp) {
-                    const mensaje = encodeURIComponent(
-                      'Hola, estoy interesado en obtener información para registrar a mi organización en el 1er Simposio Anual Corporativo sobre Prevención de Lavado de Dinero.'
-                    );
-                    window.open(
-                      `https://wa.me/6692291634?text=${mensaje}`,
-                      '_blank'
-                    );
-                    return;
-                  }
-
-                  // Para las demás cards, abrir modal
-                  setArchivoSeleccionado(a);
-                }}
-                className="
-                  mt-8 w-full py-2.5 rounded-lg bg-[#D4AF37]
-                  text-[#0A1A3B] text-base font-extrabold tracking-wide
-                  hover:brightness-110 hover:shadow-[0_0_15px_rgba(212,175,55,0.55)]
-                  transition-all active:scale-95
-                "
-              >
-                {a.boton}
-              </button>
             </div>
           );
         })}
@@ -158,39 +270,14 @@ export const SimposioPage = (): React.JSX.Element => {
 
       {/* MODAL */}
       {archivoSeleccionado && (
-        <div className="relative">
-          {/* BOTÓN DE DESCARGA SOLO PARA IMÁGENES — A NIVEL SIMPOSIOPAGE */}
-          {archivoSeleccionado.tipo === 'image' && (
-            <div className="absolute right-10 top-10 z-[9999]">
-              <a
-                href={archivoSeleccionado.url}
-                download={archivoSeleccionado.nombre}
-                className="
-                  flex items-center gap-2 
-                  px-4 py-2 rounded-lg 
-                  border border-[#D4AF37]
-                  text-[#D4AF37] font-semibold text-sm
-                  hover:bg-[#D4AF37]/20
-                  transition-all duration-200
-                  shadow-[0_0_12px_rgba(212,175,55,0.35)]
-                  active:scale-95
-                "
-              >
-                <Download size={16} />
-                Descargar imagen
-              </a>
-            </div>
-          )}
-
-          <VerArchivo
-            modo="modal"
-            url={archivoSeleccionado.url}
-            nombre={archivoSeleccionado.nombre}
-            tipo={archivoSeleccionado.tipo}
-            isOpen={true}
-            onClose={() => setArchivoSeleccionado(null)}
-          />
-        </div>
+        <VerArchivo
+          modo="modal"
+          url={archivoSeleccionado.url}
+          // nombre={archivoSeleccionado.nombre}
+          tipo={archivoSeleccionado.tipo}
+          isOpen={true}
+          onClose={() => setArchivoSeleccionado(null)}
+        />
       )}
     </div>
   );

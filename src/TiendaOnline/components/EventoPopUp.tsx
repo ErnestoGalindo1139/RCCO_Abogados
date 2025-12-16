@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export const EventoPopup = () => {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const timer = setTimeout(() => setOpen(true), 600);
@@ -13,9 +15,14 @@ export const EventoPopup = () => {
   return (
     <div className="evento-overlay">
       <div className="evento-card animate-popup-zoom">
-
         <div className="evento-header">
-          <div className="evento-icon"><img className="w-[2rem]" src="/img/1ER_SIMPOSIO_LOGO_ICONO_01.png" alt="" /></div>
+          <div className="evento-icon">
+            <img
+              className="w-[2rem]"
+              src="/img/1ER_SIMPOSIO_LOGO_ICONO_01.png"
+              alt=""
+            />
+          </div>
           <span>1er Simposio Anual Corporativo</span>
         </div>
 
@@ -40,18 +47,14 @@ export const EventoPopup = () => {
           <button
             className="btn-primary-strong"
             onClick={() => {
-              const el = document.getElementById("evento-enero");
-              if (el) el.scrollIntoView({ behavior: "smooth" });
+              navigate('/simposio'); // ⬅️ Aquí navegamos
               setOpen(false);
             }}
           >
             Ir al Simposio
           </button>
 
-          <button
-            className="btn-secondary-soft"
-            onClick={() => setOpen(false)}
-          >
+          <button className="btn-secondary-soft" onClick={() => setOpen(false)}>
             Cerrar
           </button>
         </div>

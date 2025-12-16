@@ -28,7 +28,7 @@ const SOCIALS = [
 const SLIDES = [
   {
     type: 'responsiveImage',
-    desktop: '/img/simposio_banner_web.jpg',
+    desktop: '/img/simposio_banner_desktop.jpg',
     mobile: '/img/simposio_banner_mobile.jpg',
   },
 ];
@@ -102,8 +102,8 @@ export const Banner: React.FC<{ quitarboton?: boolean }> = ({
         {!quitarboton && (
           <div
             className="
-            absolute 
-            bottom-24     /* 👉 Móvil: botones más arriba */
+            absolute
+            bottom-20     /* 👉 Móvil: botones más arriba */
             md:bottom-10  /* 👉 Desktop: posición original */
             w-full flex justify-center gap-8
             z-20 px-4
