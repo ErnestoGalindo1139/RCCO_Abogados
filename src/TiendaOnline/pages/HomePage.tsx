@@ -54,9 +54,9 @@ export const HomePage = (): React.JSX.Element => {
 
       <UbicacionComponent
         title="ubicacion.title"
-        address="Sierra India No. 217, Fraccionamiento Lomas de Mazatlán, C.P. 82110"
-        lat={23.2473422}
-        lng={-106.4498946}
+        address="Sierra India 217, Lomas de Mazatlán, 82110 Mazatlán, Sin."
+        lat={23.2473373}
+        lng={-106.4473197}
         zoom={16}
         phone="+52 669 229 1634"
         hours="ubicacion.schedule.week"

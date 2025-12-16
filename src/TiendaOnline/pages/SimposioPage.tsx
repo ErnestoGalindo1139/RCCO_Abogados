@@ -77,6 +77,7 @@ export const SimposioPage = (): React.JSX.Element => {
           'img/patrocinadores/P&C.png',
           'img/patrocinadores/RCCO NEGOCIOS.png',
           'img/patrocinadores/SOMOFA.png',
+          'img/patrocinadores/grupoAHRE.png',
           // '',
         ]}
       />
