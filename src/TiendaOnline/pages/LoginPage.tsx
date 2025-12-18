@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export const LoginPage: React.FC = () => {
   const navigate = useNavigate();
 
-  const [usuario, setUsuario] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [usuario, setUsuario] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
   useEffect(() => {
-    const logged = localStorage.getItem("rcco_user_logged");
-    if (logged === "true") {
-      const role = localStorage.getItem("rcco_role");
-      navigate(role === "admin" ? "/registradosEvento" : "/materiales");
+    const logged = localStorage.getItem('rcco_user_logged');
+    if (logged === 'true') {
+      const role = localStorage.getItem('rcco_role');
+      navigate(role === 'admin' ? '/registradosEvento' : '/materiales');
     }
   }, []);
 
@@ -20,23 +20,23 @@ export const LoginPage: React.FC = () => {
     e.preventDefault();
 
     // Login para admin
-    if (usuario === "admin" && password === "123") {
-      localStorage.setItem("rcco_user_logged", "true");
-      localStorage.setItem("rcco_role", "admin");
-      navigate("/registradosEvento");
+    if (usuario === 'admin' && password === 'Rcco2025!') {
+      localStorage.setItem('rcco_user_logged', 'true');
+      localStorage.setItem('rcco_role', 'admin');
+      navigate('/registradosEvento');
       return;
     }
 
     // Login para usuario normal
-    if (usuario === "prueba" && password === "123") {
-      localStorage.setItem("rcco_user_logged", "true");
-      localStorage.setItem("rcco_role", "user");
-      navigate("/materiales");
+    if (usuario === 'prueba' && password === 'Rcco2025!') {
+      localStorage.setItem('rcco_user_logged', 'true');
+      localStorage.setItem('rcco_role', 'user');
+      navigate('/materiales');
       return;
     }
 
     // Si no coincide →
-    setError("Usuario o contraseña incorrectos");
+    setError('Usuario o contraseña incorrectos');
   };
 
   return (
