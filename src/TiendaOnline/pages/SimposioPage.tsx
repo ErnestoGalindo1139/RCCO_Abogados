@@ -88,8 +88,8 @@ export const SimposioPage = (): React.JSX.Element => {
         desktop: '/PRECIO_ORGANIZACIONES_DESKTOP.pdf',
       },
       preview: {
-        mobile: '/img/simposio_banner_mobile.jpg',
-        desktop: '/img/simposio_banner_desktop.jpg',
+        mobile: '/img/PaqueteEmpresas_Mobile.jpg',
+        desktop: '/img/PaqueteEmpresas_Desktop.jpg',
       },
       descripcion:
         'Contamos con precios preferenciales para tus miembros. Consulta con un asesor.',
@@ -124,6 +124,7 @@ export const SimposioPage = (): React.JSX.Element => {
           'img/patrocinadores/P&C.png',
           'img/patrocinadores/RCCO NEGOCIOS.png',
           'img/patrocinadores/SOMOFA.png',
+          'img/patrocinadores/grupoAHRE.png',
           'img/patrocinadores/ANMX.png',
           'img/patrocinadores/DIAZ SALAZAR Y ASOCIADOS.png',
           'img/patrocinadores/LF DESPACHO.png',
@@ -220,11 +221,42 @@ export const SimposioPage = (): React.JSX.Element => {
         "
             >
               {/* IMAGEN – ALTURA FIJA */}
-              <img
-                src={isMobile ? a.preview.mobile : a.preview.desktop}
-                alt={a.nombre}
-                className="w-full h-full md:h-[220px] object-center"
-              />
+              {a.nombre === 'Proceso de Registro' && !isMobile ? (
+                /* 🔵 SOLO DESKTOP — SOLO PROCESO DE REGISTRO */
+                <div className="relative w-full md:h-[220px] overflow-hidden">
+                  {/* Fondo desenfocado */}
+                  <img
+                    src={a.preview.desktop}
+                    alt=""
+                    className="
+                      absolute inset-0
+                      w-full h-full
+                      object-cover
+                      scale-110
+                      blur-xl
+                      opacity-70
+                    "
+                  />
+
+                  {/* Imagen principal nítida */}
+                  <img
+                    src={a.preview.desktop}
+                    alt={a.nombre}
+                    className="
+                      relative z-10
+                      w-full h-full
+                      object-contain
+                    "
+                  />
+                </div>
+              ) : (
+                /* 🔹 TODAS LAS DEMÁS IMÁGENES */
+                <img
+                  src={isMobile ? a.preview.mobile : a.preview.desktop}
+                  alt={a.nombre}
+                  className="w-full h-full md:h-[220px] object-center"
+                />
+              )}
 
               {/* CONTENIDO */}
               <div className="px-7 py-6 flex flex-col flex-1">
