@@ -2,7 +2,9 @@ import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CheckCircle, XCircle } from 'lucide-react';
 
-// Tipo ya normalizado
+// ===============================
+// TIPOS (SIN CAMBIOS)
+// ===============================
 type UsuarioEvento = {
   id_UsuarioEvento: number;
   NombreCompleto: string;
@@ -16,7 +18,9 @@ type UsuarioEvento = {
   nu_Folio: string;
 };
 
-// Normalizar texto
+// ===============================
+// HELPERS (SIN CAMBIOS)
+// ===============================
 const norm = (s: string) =>
   (s || '')
     .toLowerCase()
@@ -26,12 +30,17 @@ const norm = (s: string) =>
 export default function RegistradosPage() {
   const navigate = useNavigate();
 
+  // ===============================
+  // ESTADOS (MISMA LÓGICA)
+  // ===============================
   const [query, setQuery] = useState('');
-  const [filtroPago, setFiltroPago] = useState<
-    'todos' | 'pagados' | 'nopagados'
-  >('todos');
+  const [filtroPago, setFiltroPago] =
+    useState<'todos' | 'pagados' | 'nopagados'>('todos');
+
   const [page, setPage] = useState(1);
-  const pageSize = 6; // Menor para que se note más el paginado en móvil
+
+  // 👇 ÚNICO CAMBIO DE PAGINADO
+  const [pageSize, setPageSize] = useState(50);
 
   const [usuarios, setUsuarios] = useState<UsuarioEvento[]>([]);
   const [loading, setLoading] = useState(true);
@@ -44,7 +53,7 @@ export default function RegistradosPage() {
   const isMobile = window.innerWidth < 768;
 
   // =====================================================
-  // 🔹 Fetch desde backend
+  // FETCH (SIN CAMBIOS)
   // =====================================================
   useEffect(() => {
     const fetchData = async () => {
@@ -67,7 +76,7 @@ export default function RegistradosPage() {
           Empresa: u.nb_Empresa,
           Comentarios: u.de_Comentarios,
           FechaRegistro: u.fh_Registro,
-          FechaPago: u.sn_Pagado ? "PAGADO" : null,
+          FechaPago: u.sn_Pagado ? 'PAGADO' : null,
           sn_Pagado: u.sn_Pagado,
           nu_Folio: u.nu_Folio,
         }));
@@ -84,13 +93,14 @@ export default function RegistradosPage() {
   }, []);
 
   // =====================================================
+  // PAGO (SIN CAMBIOS)
+  // =====================================================
   const abrirModalPago = (user: UsuarioEvento) => {
     setSelectedUser(user);
     setNuevoValorPago(!user.sn_Pagado);
     setConfirmModal(true);
   };
 
-  // =====================================================
   const confirmarPago = async () => {
     if (!selectedUser) return;
 
@@ -114,7 +124,6 @@ export default function RegistradosPage() {
         return;
       }
 
-      // Refrescar UI sin recargar
       setUsuarios((prev) =>
         prev.map((u) =>
           u.id_UsuarioEvento === selectedUser.id_UsuarioEvento
@@ -124,24 +133,28 @@ export default function RegistradosPage() {
       );
 
       if (nuevoValorPago) {
-        await fetch("https://api-rcco-abogados.grstechs.com/enviarCorreoPagoEvento", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            correo: selectedUser.Correo,
-            nombre: selectedUser.NombreCompleto,
-            folio: selectedUser.nu_Folio
-          })
-        });
+        await fetch(
+          'https://api-rcco-abogados.grstechs.com/enviarCorreoPagoEvento',
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              correo: selectedUser.Correo,
+              nombre: selectedUser.NombreCompleto,
+              folio: selectedUser.nu_Folio,
+            }),
+          }
+        );
       }
-
-    } catch (err) {
-      alert("Error al actualizar pago.");
+    } catch {
+      alert('Error al actualizar pago.');
     }
 
     setConfirmModal(false);
   };
 
+  // =====================================================
+  // FILTROS (SIN CAMBIOS)
   // =====================================================
   const filtrados = useMemo(() => {
     const q = norm(query);
@@ -156,7 +169,6 @@ export default function RegistradosPage() {
         norm(u.Comentarios || '').includes(q);
 
       if (!match) return false;
-
       if (filtroPago === 'pagados' && !u.sn_Pagado) return false;
       if (filtroPago === 'nopagados' && u.sn_Pagado) return false;
 
@@ -164,10 +176,13 @@ export default function RegistradosPage() {
     });
   }, [query, filtroPago, usuarios]);
 
+  // =====================================================
+  // PAGINADO (MISMA LÓGICA, pageSize dinámico)
+  // =====================================================
   const pages = Math.max(1, Math.ceil(filtrados.length / pageSize));
   const items = filtrados.slice((page - 1) * pageSize, page * pageSize);
 
-  useEffect(() => setPage(1), [query, filtroPago]);
+  useEffect(() => setPage(1), [query, filtroPago, pageSize]);
 
   // =====================================================
   const logout = () => {
@@ -194,12 +209,11 @@ export default function RegistradosPage() {
   // =====================================================
   return (
     <main className="min-h-screen bg-slate-100">
-
       {/* LOGOUT */}
       <div className="w-full bg-slate-900 text-right px-6 py-3">
         <button
           onClick={logout}
-          className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg"
+          className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-semibold"
         >
           Cerrar sesión
         </button>
@@ -214,111 +228,87 @@ export default function RegistradosPage() {
       </div>
 
       {/* CONTENIDO */}
-      <section className="max-w-6xl mx-auto px-4 py-10 -mt-4">
-
+      <section className="max-w-[98vw] mx-auto px-6 py-10 -mt-6">
         {/* FILTROS */}
-        <div className="bg-white shadow-lg rounded-2xl p-6 ring-1 ring-black/5 mb-8">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-            <input
-              type="text"
-              placeholder="Buscar por nombre, correo, teléfono, empresa, folio..."
-              className="w-full md:w-1/2 px-4 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 outline-none"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-            />
+        <div className="bg-white shadow rounded-2xl p-6 mb-4 flex justify-between gap-4">
+          <input
+            type="text"
+            placeholder="Buscar por nombre, correo, teléfono, empresa, folio..."
+            className="w-1/2 px-4 py-2 rounded-xl border"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+          />
 
-            <select
-              value={filtroPago}
-              onChange={(e) => setFiltroPago(e.target.value as any)}
-              className="px-4 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 outline-none"
-            >
-              <option value="todos">Todos</option>
-              <option value="pagados">Pagados</option>
-              <option value="nopagados">No Pagados</option>
-            </select>
-          </div>
+          <select
+            value={filtroPago}
+            onChange={(e) => setFiltroPago(e.target.value as any)}
+            className="px-4 py-2 rounded-xl border"
+          >
+            <option value="todos">Todos</option>
+            <option value="pagados">Pagados</option>
+            <option value="nopagados">No Pagados</option>
+          </select>
         </div>
 
-        {/* MÓVIL: CARDS */}
-        {isMobile ? (
-          <div className="flex flex-col gap-4">
-            {items.map((u) => (
-              <div
-                key={u.id_UsuarioEvento}
-                className="bg-white rounded-xl shadow p-4 border border-slate-200"
-              >
-                <div className="font-bold text-lg text-slate-800">{u.NombreCompleto}</div>
+        {/* PAGE SIZE */}
+        <div className="flex justify-between items-center mb-3 text-sm">
+          <span>
+            Mostrando {items.length} de {filtrados.length} registros
+          </span>
 
-                <div className="text-sm mt-1 text-slate-700"><b>Correo:</b> {u.Correo}</div>
-                <div className="text-sm text-slate-700"><b>Tel:</b> {u.Celular}</div>
-                <div className="text-sm text-slate-700"><b>Empresa:</b> {u.Empresa || "-"}</div>
-                <div className="text-sm text-slate-700"><b>Folio:</b> <span className="text-blue-700 font-semibold">{u.nu_Folio}</span></div>
-                <div className="text-sm text-slate-700"><b>Fecha:</b> {new Date(u.FechaRegistro).toLocaleString("es-MX")}</div>
+          <select
+            value={pageSize}
+            onChange={(e) => setPageSize(Number(e.target.value))}
+            className="px-3 py-2 rounded-lg border"
+          >
+            <option value={5}>5</option>
+            <option value={10}>10</option>
+            <option value={50}>50</option>
+            <option value={100}>100</option>
+            <option value={500}>500</option>
+          </select>
+        </div>
 
-                <div className="flex items-center justify-between mt-3">
-                  {u.sn_Pagado ? (
-                    <span className="px-3 py-1 rounded-xl bg-green-600 text-white text-xs font-semibold">Pagado</span>
-                  ) : (
-                    <span className="px-3 py-1 rounded-xl bg-red-600 text-white text-xs font-semibold">No pagado</span>
-                  )}
-
-                  <button onClick={() => abrirModalPago(u)}>
-                    {u.sn_Pagado ? (
-                      <XCircle className="text-red-600 w-7 h-7" />
-                    ) : (
-                      <CheckCircle className="text-green-600 w-7 h-7" />
-                    )}
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-        ) : (
-          /* DESKTOP: TABLA */
-          <div className="overflow-x-auto rounded-2xl shadow ring-1 ring-black/5 bg-white">
-            <table className="min-w-full text-sm">
-              <thead className="bg-slate-200/60 text-slate-700">
+        {/* TABLA DESKTOP */}
+        {!isMobile && (
+          <div className="overflow-x-auto bg-white rounded-2xl shadow">
+            <table className="min-w-[1600px] w-full text-sm">
+              <thead className="bg-slate-200 sticky top-0 z-10">
                 <tr>
-                  <th className="px-4 py-3 text-left">Nombre</th>
-                  <th className="px-4 py-3 text-left">Celular</th>
-                  <th className="px-4 py-3 text-left">Correo</th>
-                  <th className="px-4 py-3 text-left">Empresa</th>
-                  <th className="px-4 py-3 text-left">Comentarios</th>
-                  <th className="px-4 py-3 text-left">Folio</th>
-                  <th className="px-4 py-3 text-left w-[20%] min-w-[230px]">Fecha Registro</th>
-                  <th className="px-4 py-3 text-left">Pago</th>
+                  <th className="px-4 py-3 w-[260px] text-left">Nombre</th>
+                  <th className="px-4 py-3 w-[140px] text-left">Celular</th>
+                  <th className="px-4 py-3 w-[300px] text-left">Correo</th>
+                  <th className="px-4 py-3 w-[220px] text-left">Empresa</th>
+                  <th className="px-4 py-3 w-[220px] text-left">Comentarios</th>
+                  <th className="px-4 py-3 w-[180px] text-left">Folio</th>
+                  <th className="px-4 py-3 w-[220px] text-left">Fecha Registro</th>
+                  <th className="px-4 py-3 w-[160px] text-center">Pago</th>
                 </tr>
               </thead>
 
               <tbody>
                 {items.map((u) => (
                   <tr key={u.id_UsuarioEvento} className="odd:bg-white even:bg-slate-50">
-
                     <td className="px-4 py-3 font-medium">{u.NombreCompleto}</td>
                     <td className="px-4 py-3">{u.Celular}</td>
-                    <td className="px-4 py-3">{u.Correo}</td>
+                    <td className="px-4 py-3 truncate max-w-[300px]">{u.Correo}</td>
                     <td className="px-4 py-3">{u.Empresa || '-'}</td>
-                    <td className="px-4 py-3">{u.Comentarios || '-'}</td>
+                    <td className="px-4 py-3 truncate max-w-[220px]">
+                      {u.Comentarios || '-'}
+                    </td>
                     <td className="px-4 py-3 text-blue-700 font-semibold">{u.nu_Folio}</td>
-                    <td className="px-4 py-3 w-[20%] min-w-[230px]">
+                    <td className="px-4 py-3">
                       {new Date(u.FechaRegistro).toLocaleString('es-MX')}
                     </td>
-
-                    <td className="px-4 py-3 flex items-center gap-2">
-                      {u.sn_Pagado ? (
-                        <span className="px-3 py-1 rounded-xl bg-green-600 text-white text-xs font-semibold">
-                          Pagado
-                        </span>
-                      ) : (
-                        <span className="px-3 py-1 rounded-xl bg-red-600 text-white text-xs font-semibold">
-                          No pagado
-                        </span>
-                      )}
-
-                      <button
-                        onClick={() => abrirModalPago(u)}
-                        className="ml-2 hover:scale-110 transition"
+                    <td className="px-4 py-3 flex justify-center gap-2">
+                      <span
+                        className={`px-3 py-1 rounded-xl text-xs font-semibold text-white ${
+                          u.sn_Pagado ? 'bg-green-600' : 'bg-red-600'
+                        }`}
                       >
+                        {u.sn_Pagado ? 'Pagado' : 'No pagado'}
+                      </span>
+                      <button onClick={() => abrirModalPago(u)}>
                         {u.sn_Pagado ? (
                           <XCircle className="text-red-600 w-6 h-6" />
                         ) : (
@@ -326,18 +316,16 @@ export default function RegistradosPage() {
                         )}
                       </button>
                     </td>
-
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
         )}
-
       </section>
 
-      {/* PAGINACIÓN (SIEMPRE VISIBLE) */}
-      <div className="flex items-center justify-center mt-6 mb-10 gap-3">
+      {/* PAGINACIÓN */}
+      <div className="flex justify-center gap-4 my-8">
         <button
           disabled={page === 1}
           onClick={() => setPage(page - 1)}
@@ -346,7 +334,7 @@ export default function RegistradosPage() {
           Anterior
         </button>
 
-        <span className="text-slate-700 font-medium">
+        <span className="font-medium">
           Página {page} de {pages}
         </span>
 
@@ -359,7 +347,7 @@ export default function RegistradosPage() {
         </button>
       </div>
 
-      {/* MODAL CONFIRMACIÓN */}
+      {/* MODAL (SIN CAMBIOS) */}
       {confirmModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
           <div className="bg-white rounded-2xl p-8 shadow-xl max-w-sm w-full text-center">
