@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { CheckCircle, XCircle } from 'lucide-react';
 
 // ===============================
-// TIPOS (SIN CAMBIOS)
+// TIPOS
 // ===============================
 type UsuarioEvento = {
   id_UsuarioEvento: number;
@@ -19,7 +19,7 @@ type UsuarioEvento = {
 };
 
 // ===============================
-// HELPERS (SIN CAMBIOS)
+// HELPERS
 // ===============================
 const norm = (s: string) =>
   (s || '')
@@ -31,15 +31,13 @@ export default function RegistradosPage() {
   const navigate = useNavigate();
 
   // ===============================
-  // ESTADOS (MISMA LÓGICA)
+  // ESTADOS
   // ===============================
   const [query, setQuery] = useState('');
   const [filtroPago, setFiltroPago] =
     useState<'todos' | 'pagados' | 'nopagados'>('todos');
 
   const [page, setPage] = useState(1);
-
-  // 👇 ÚNICO CAMBIO DE PAGINADO
   const [pageSize, setPageSize] = useState(50);
 
   const [usuarios, setUsuarios] = useState<UsuarioEvento[]>([]);
@@ -50,10 +48,8 @@ export default function RegistradosPage() {
   const [selectedUser, setSelectedUser] = useState<UsuarioEvento | null>(null);
   const [nuevoValorPago, setNuevoValorPago] = useState<boolean>(false);
 
-  const isMobile = window.innerWidth < 768;
-
   // =====================================================
-  // FETCH (SIN CAMBIOS)
+  // FETCH
   // =====================================================
   useEffect(() => {
     const fetchData = async () => {
@@ -93,68 +89,7 @@ export default function RegistradosPage() {
   }, []);
 
   // =====================================================
-  // PAGO (SIN CAMBIOS)
-  // =====================================================
-  const abrirModalPago = (user: UsuarioEvento) => {
-    setSelectedUser(user);
-    setNuevoValorPago(!user.sn_Pagado);
-    setConfirmModal(true);
-  };
-
-  const confirmarPago = async () => {
-    if (!selectedUser) return;
-
-    try {
-      const res = await fetch(
-        'https://api-rcco-abogados.grstechs.com/updatePagoUsuariosEvento',
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            id_UsuarioEvento: selectedUser.id_UsuarioEvento,
-            sn_Pagado: nuevoValorPago,
-          }),
-        }
-      );
-
-      const data = await res.json();
-
-      if (!data.success) {
-        alert('No se pudo actualizar el pago.');
-        return;
-      }
-
-      setUsuarios((prev) =>
-        prev.map((u) =>
-          u.id_UsuarioEvento === selectedUser.id_UsuarioEvento
-            ? { ...u, sn_Pagado: nuevoValorPago }
-            : u
-        )
-      );
-
-      if (nuevoValorPago) {
-        await fetch(
-          'https://api-rcco-abogados.grstechs.com/enviarCorreoPagoEvento',
-          {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              correo: selectedUser.Correo,
-              nombre: selectedUser.NombreCompleto,
-              folio: selectedUser.nu_Folio,
-            }),
-          }
-        );
-      }
-    } catch {
-      alert('Error al actualizar pago.');
-    }
-
-    setConfirmModal(false);
-  };
-
-  // =====================================================
-  // FILTROS (SIN CAMBIOS)
+  // FILTROS
   // =====================================================
   const filtrados = useMemo(() => {
     const q = norm(query);
@@ -177,12 +112,14 @@ export default function RegistradosPage() {
   }, [query, filtroPago, usuarios]);
 
   // =====================================================
-  // PAGINADO (MISMA LÓGICA, pageSize dinámico)
+  // PAGINADO (ÚNICO, GLOBAL)
   // =====================================================
   const pages = Math.max(1, Math.ceil(filtrados.length / pageSize));
   const items = filtrados.slice((page - 1) * pageSize, page * pageSize);
 
-  useEffect(() => setPage(1), [query, filtroPago, pageSize]);
+  useEffect(() => {
+    setPage(1);
+  }, [query, filtroPago, pageSize]);
 
   // =====================================================
   const logout = () => {
@@ -269,59 +206,59 @@ export default function RegistradosPage() {
           </select>
         </div>
 
-        {/* TABLA DESKTOP */}
-        {!isMobile && (
-          <div className="overflow-x-auto bg-white rounded-2xl shadow">
-            <table className="min-w-[1600px] w-full text-sm">
-              <thead className="bg-slate-200 sticky top-0 z-10">
-                <tr>
-                  <th className="px-4 py-3 w-[260px] text-left">Nombre</th>
-                  <th className="px-4 py-3 w-[140px] text-left">Celular</th>
-                  <th className="px-4 py-3 w-[300px] text-left">Correo</th>
-                  <th className="px-4 py-3 w-[220px] text-left">Empresa</th>
-                  <th className="px-4 py-3 w-[220px] text-left">Comentarios</th>
-                  <th className="px-4 py-3 w-[180px] text-left">Folio</th>
-                  <th className="px-4 py-3 w-[220px] text-left">Fecha Registro</th>
-                  <th className="px-4 py-3 w-[160px] text-center">Pago</th>
-                </tr>
-              </thead>
+        {/* TABLA (TODOS LOS DISPOSITIVOS) */}
+        <div className="overflow-x-auto bg-white rounded-2xl shadow">
+          <table className="min-w-[1600px] w-full text-sm">
+            <thead className="bg-slate-200 sticky top-0 z-10">
+              <tr>
+                <th className="px-4 py-3 text-left">Nombre</th>
+                <th className="px-4 py-3 text-left">Celular</th>
+                <th className="px-4 py-3 text-left">Correo</th>
+                <th className="px-4 py-3 text-left">Empresa</th>
+                <th className="px-4 py-3 text-left">Comentarios</th>
+                <th className="px-4 py-3 text-left">Folio</th>
+                <th className="px-4 py-3 text-left">Fecha Registro</th>
+                <th className="px-4 py-3 text-center">Pago</th>
+              </tr>
+            </thead>
 
-              <tbody>
-                {items.map((u) => (
-                  <tr key={u.id_UsuarioEvento} className="odd:bg-white even:bg-slate-50">
-                    <td className="px-4 py-3 font-medium">{u.NombreCompleto}</td>
-                    <td className="px-4 py-3">{u.Celular}</td>
-                    <td className="px-4 py-3 truncate max-w-[300px]">{u.Correo}</td>
-                    <td className="px-4 py-3">{u.Empresa || '-'}</td>
-                    <td className="px-4 py-3 truncate max-w-[220px]">
-                      {u.Comentarios || '-'}
-                    </td>
-                    <td className="px-4 py-3 text-blue-700 font-semibold">{u.nu_Folio}</td>
-                    <td className="px-4 py-3">
-                      {new Date(u.FechaRegistro).toLocaleString('es-MX')}
-                    </td>
-                    <td className="px-4 py-3 flex justify-center gap-2">
-                      <span
-                        className={`px-3 py-1 rounded-xl text-xs font-semibold text-white ${
-                          u.sn_Pagado ? 'bg-green-600' : 'bg-red-600'
-                        }`}
-                      >
-                        {u.sn_Pagado ? 'Pagado' : 'No pagado'}
-                      </span>
-                      <button onClick={() => abrirModalPago(u)}>
-                        {u.sn_Pagado ? (
-                          <XCircle className="text-red-600 w-6 h-6" />
-                        ) : (
-                          <CheckCircle className="text-green-600 w-6 h-6" />
-                        )}
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
+            <tbody>
+              {items.map((u) => (
+                <tr key={u.id_UsuarioEvento} className="even:bg-slate-50">
+                  <td className="px-4 py-3 font-medium">{u.NombreCompleto}</td>
+                  <td className="px-4 py-3">{u.Celular}</td>
+                  <td className="px-4 py-3 truncate max-w-[300px]">{u.Correo}</td>
+                  <td className="px-4 py-3">{u.Empresa || '-'}</td>
+                  <td className="px-4 py-3 truncate max-w-[220px]">
+                    {u.Comentarios || '-'}
+                  </td>
+                  <td className="px-4 py-3 font-semibold text-blue-700">
+                    {u.nu_Folio}
+                  </td>
+                  <td className="px-4 py-3">
+                    {new Date(u.FechaRegistro).toLocaleString('es-MX')}
+                  </td>
+                  <td className="px-4 py-3 flex justify-center gap-2">
+                    <span
+                      className={`px-3 py-1 rounded-xl text-xs font-semibold text-white ${
+                        u.sn_Pagado ? 'bg-green-600' : 'bg-red-600'
+                      }`}
+                    >
+                      {u.sn_Pagado ? 'Pagado' : 'No pagado'}
+                    </span>
+                    <button onClick={() => abrirModalPago(u)}>
+                      {u.sn_Pagado ? (
+                        <XCircle className="text-red-600 w-6 h-6" />
+                      ) : (
+                        <CheckCircle className="text-green-600 w-6 h-6" />
+                      )}
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </section>
 
       {/* PAGINACIÓN */}
@@ -347,7 +284,7 @@ export default function RegistradosPage() {
         </button>
       </div>
 
-      {/* MODAL (SIN CAMBIOS) */}
+      {/* MODAL */}
       {confirmModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
           <div className="bg-white rounded-2xl p-8 shadow-xl max-w-sm w-full text-center">
