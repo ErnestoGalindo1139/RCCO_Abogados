@@ -89,7 +89,68 @@ export default function RegistradosPage() {
   }, []);
 
   // =====================================================
-  // FILTROS
+  // PAGO (SIN CAMBIOS)
+  // =====================================================
+  const abrirModalPago = (user: UsuarioEvento) => {
+    setSelectedUser(user);
+    setNuevoValorPago(!user.sn_Pagado);
+    setConfirmModal(true);
+  };
+
+  const confirmarPago = async () => {
+    if (!selectedUser) return;
+
+    try {
+      const res = await fetch(
+        'https://api-rcco-abogados.grstechs.com/updatePagoUsuariosEvento',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            id_UsuarioEvento: selectedUser.id_UsuarioEvento,
+            sn_Pagado: nuevoValorPago,
+          }),
+        }
+      );
+
+      const data = await res.json();
+
+      if (!data.success) {
+        alert('No se pudo actualizar el pago.');
+        return;
+      }
+
+      setUsuarios((prev) =>
+        prev.map((u) =>
+          u.id_UsuarioEvento === selectedUser.id_UsuarioEvento
+            ? { ...u, sn_Pagado: nuevoValorPago }
+            : u
+        )
+      );
+
+      if (nuevoValorPago) {
+        await fetch(
+          'https://api-rcco-abogados.grstechs.com/enviarCorreoPagoEvento',
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              correo: selectedUser.Correo,
+              nombre: selectedUser.NombreCompleto,
+              folio: selectedUser.nu_Folio,
+            }),
+          }
+        );
+      }
+    } catch {
+      alert('Error al actualizar pago.');
+    }
+
+    setConfirmModal(false);
+  };
+
+  // =====================================================
+  // FILTROS (SIN CAMBIOS)
   // =====================================================
   const filtrados = useMemo(() => {
     const q = norm(query);
