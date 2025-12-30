@@ -80,23 +80,23 @@ export const SimposioPage = (): React.JSX.Element => {
       whatsapp: false,
     },
 
-    {
-      nombre: 'Soy una organización',
-      tipo: 'pdf',
-      url: {
-        mobile: '/PRECIO_ORGANIZACIONES_MOBILE.pdf',
-        desktop: '/PRECIO_ORGANIZACIONES_DESKTOP.pdf',
-      },
-      preview: {
-        mobile: '/img/PaqueteEmpresas_Mobile.jpg',
-        desktop: '/img/PaqueteEmpresas_Desktop.jpg',
-      },
-      descripcion:
-        'Contamos con precios preferenciales para tus miembros. Consulta con un asesor.',
-      icon: Building,
-      boton: 'Solicitar información',
-      whatsapp: true,
-    },
+    // {
+    //   nombre: 'Soy una organización',
+    //   tipo: 'pdf',
+    //   url: {
+    //     mobile: '/PRECIO_ORGANIZACIONES_MOBILE.pdf',
+    //     desktop: '/PRECIO_ORGANIZACIONES_DESKTOP.pdf',
+    //   },
+    //   preview: {
+    //     mobile: '/img/PaqueteEmpresas_Mobile.jpg',
+    //     desktop: '/img/PaqueteEmpresas_Desktop.jpg',
+    //   },
+    //   descripcion:
+    //     'Contamos con precios preferenciales para tus miembros. Consulta con un asesor.',
+    //   icon: Building,
+    //   boton: 'Solicitar información',
+    //   whatsapp: true,
+    // },
   ];
 
   const useIsMobile = () => {
@@ -190,7 +190,7 @@ export const SimposioPage = (): React.JSX.Element => {
       </div>
 
       {/* GRID — OTRAS 2 CARDS */}
-      <div className="max-w-7xl mx-auto px-6 pb-24 grid grid-cols-1 md:grid-cols-3 gap-10 items-stretch">
+      <div className="max-w-4xl mx-auto px-6 pb-24 grid grid-cols-1 md:grid-cols-2 gap-10 items-stretch">
         {archivos.map((a, i) => {
           const abrirWhatsApp = () => {
             const mensaje = encodeURIComponent(
