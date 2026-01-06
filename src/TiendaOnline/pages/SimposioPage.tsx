@@ -5,6 +5,7 @@ import { LogoCarousel } from '../components/LogoCarousel';
 import { Banner } from '../components/Banner';
 import { EventoEnero } from '../components/EventoEnero';
 import { useLocation } from 'react-router-dom';
+import { CarruselExpositores } from '../components/CarruselExpositores';
 
 export const SimposioPage = (): React.JSX.Element => {
   const location = useLocation();
@@ -137,167 +138,166 @@ export const SimposioPage = (): React.JSX.Element => {
 
       <Banner quitarboton />
 
-      {/* CARD ESPECIAL — BROCHURE */}
-      <div className="max-w-7xl mx-auto px-6 pt-24 pb-12">
-        <div
-          onClick={() =>
-            setArchivoSeleccionado({
-              ...brochure,
-              url: isMobile ? brochure.url.mobile : brochure.url.desktop,
-            })
-          }
-          className="
-            bg-[#F8FAFC] rounded-2xl border border-[#E2E8F0] shadow-lg
-            transition-all cursor-pointer flex flex-col
-            hover:-translate-y-1 hover:shadow-blue-300/40
-            hover:border-[#0a387c] overflow-hidden
+      {/* GRID — BROCHURE + OTRAS CARDS */}
+      <div className="max-w-7xl mx-auto px-6 pt-32 pb-24">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 items-stretch">
+          {/* CARD — BROCHURE */}
+          <div
+            onClick={() =>
+              setArchivoSeleccionado({
+                ...brochure,
+                url: isMobile ? brochure.url.mobile : brochure.url.desktop,
+              })
+            }
+            className="
+        bg-[#F8FAFC] rounded-2xl border border-[#E2E8F0]
+        shadow-lg transition-all cursor-pointer
+        hover:-translate-y-1 hover:shadow-blue-300/40
+        hover:border-[#0a387c]
+        flex flex-col h-full overflow-hidden
+      "
+          >
+            <img
+              src={
+                isMobile ? brochure.preview.mobile : brochure.preview.desktop
+              }
+              alt={brochure.nombre}
+              className="w-full md:h-[220px] object-center"
+            />
+
+            <div className="px-7 py-6 flex flex-col flex-1">
+              <h3 className="text-xl font-extrabold text-[#04163B]">
+                {brochure.nombre}
+              </h3>
+
+              <p className="text-sm text-[#475569] mt-2 mb-6">
+                {brochure.descripcion}
+              </p>
+
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setArchivoSeleccionado({
+                    ...brochure,
+                    url: isMobile ? brochure.url.mobile : brochure.url.desktop,
+                  });
+                }}
+                className="
+            mt-auto w-full py-3 rounded-xl
+            bg-[#0a387c] hover:bg-[#114b9c]
+            text-white text-base font-extrabold tracking-wide
+            shadow-lg hover:shadow-blue-600/40
+            transition-all active:scale-95
           "
-        >
-          <img
-            src={isMobile ? brochure.preview.mobile : brochure.preview.desktop}
-            alt="Preview Brochure"
-            className="w-full h-[full] md:h-[550px] object-center"
-          />
+              >
+                {brochure.boton}
+              </button>
+            </div>
+          </div>
 
-          <div className="px-7 py-6">
-            <h2 className="text-xl font-extrabold text-[#04163B]">
-              {brochure.nombre}
-            </h2>
-            <p className="text-sm text-[#475569] mt-2">
-              {brochure.descripcion}
-            </p>
+          {/* OTRAS CARDS */}
+          {archivos.map((a, i) => {
+            const abrirWhatsApp = () => {
+              const mensaje = encodeURIComponent(
+                'Hola, estoy interesado en obtener información para registrar a mi organización en el 1er Simposio Anual Corporativo sobre Prevención de Lavado de Dinero.'
+              );
+              window.open(`https://wa.me/6692291634?text=${mensaje}`, '_blank');
+            };
 
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                setArchivoSeleccionado({
-                  ...brochure,
-                  url: isMobile ? brochure.url.mobile : brochure.url.desktop,
-                });
-              }}
-              className="
-                mt-6 w-full py-3 rounded-xl
+            return (
+              <div
+                key={i}
+                onClick={() => {
+                  if (a.whatsapp) {
+                    abrirWhatsApp();
+                    return;
+                  }
+                  setArchivoSeleccionado({
+                    ...a,
+                    url: isMobile ? a.url.mobile : a.url.desktop,
+                  });
+                }}
+                className="
+            bg-[#F8FAFC] rounded-2xl border border-[#E2E8F0]
+            shadow-lg transition-all cursor-pointer
+            hover:-translate-y-1 hover:shadow-blue-300/40
+            hover:border-[#0a387c]
+            flex flex-col h-full overflow-hidden
+          "
+              >
+                {/* IMAGEN */}
+                {a.nombre === 'Proceso de Registro' && !isMobile ? (
+                  <div className="relative w-full md:h-[220px] overflow-hidden">
+                    <img
+                      src={a.preview.desktop}
+                      alt=""
+                      className="
+                  absolute inset-0
+                  w-full h-full
+                  object-cover
+                  scale-110
+                  blur-xl
+                  opacity-70
+                "
+                    />
+                    <img
+                      src={a.preview.desktop}
+                      alt={a.nombre}
+                      className="
+                  relative z-10
+                  w-full h-full
+                  object-contain
+                "
+                    />
+                  </div>
+                ) : (
+                  <img
+                    src={isMobile ? a.preview.mobile : a.preview.desktop}
+                    alt={a.nombre}
+                    className="w-full md:h-[220px] object-center"
+                  />
+                )}
+
+                {/* CONTENIDO */}
+                <div className="px-7 py-6 flex flex-col flex-1">
+                  <h3 className="text-xl font-extrabold text-[#04163B]">
+                    {a.nombre}
+                  </h3>
+
+                  <p className="text-sm text-[#475569] mt-2 mb-6">
+                    {a.descripcion}
+                  </p>
+
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      if (a.whatsapp) {
+                        abrirWhatsApp();
+                        return;
+                      }
+                      setArchivoSeleccionado({
+                        ...a,
+                        url: isMobile ? a.url.mobile : a.url.desktop,
+                      });
+                    }}
+                    className="
+                mt-auto w-full py-3 rounded-xl
                 bg-[#0a387c] hover:bg-[#114b9c]
                 text-white text-base font-extrabold tracking-wide
                 shadow-lg hover:shadow-blue-600/40
                 transition-all active:scale-95
               "
-            >
-              {brochure.boton}
-            </button>
-          </div>
+                  >
+                    {a.boton}
+                  </button>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
 
-      {/* GRID — OTRAS 2 CARDS */}
-      <div className="max-w-4xl mx-auto px-6 pb-24 grid grid-cols-1 md:grid-cols-2 gap-10 items-stretch">
-        {archivos.map((a, i) => {
-          const abrirWhatsApp = () => {
-            const mensaje = encodeURIComponent(
-              'Hola, estoy interesado en obtener información para registrar a mi organización en el 1er Simposio Anual Corporativo sobre Prevención de Lavado de Dinero.'
-            );
-            window.open(`https://wa.me/6692291634?text=${mensaje}`, '_blank');
-          };
-
-          return (
-            <div
-              key={i}
-              onClick={() => {
-                if (a.whatsapp) {
-                  abrirWhatsApp();
-                  return;
-                }
-                setArchivoSeleccionado({
-                  ...a,
-                  url: isMobile ? a.url.mobile : a.url.desktop,
-                });
-              }}
-              className="
-          bg-[#F8FAFC] rounded-2xl border border-[#E2E8F0]
-          shadow-lg transition-all cursor-pointer
-          hover:-translate-y-1 hover:shadow-blue-300/40
-          hover:border-[#0a387c]
-          flex flex-col h-full overflow-hidden
-        "
-            >
-              {/* IMAGEN – ALTURA FIJA */}
-              {a.nombre === 'Proceso de Registro' && !isMobile ? (
-                /* 🔵 SOLO DESKTOP — SOLO PROCESO DE REGISTRO */
-                <div className="relative w-full md:h-[220px] overflow-hidden">
-                  {/* Fondo desenfocado */}
-                  <img
-                    src={a.preview.desktop}
-                    alt=""
-                    className="
-                      absolute inset-0
-                      w-full h-full
-                      object-cover
-                      scale-110
-                      blur-xl
-                      opacity-70
-                    "
-                  />
-
-                  {/* Imagen principal nítida */}
-                  <img
-                    src={a.preview.desktop}
-                    alt={a.nombre}
-                    className="
-                      relative z-10
-                      w-full h-full
-                      object-contain
-                    "
-                  />
-                </div>
-              ) : (
-                /* 🔹 TODAS LAS DEMÁS IMÁGENES */
-                <img
-                  src={isMobile ? a.preview.mobile : a.preview.desktop}
-                  alt={a.nombre}
-                  className="w-full h-full md:h-[220px] object-center"
-                />
-              )}
-
-              {/* CONTENIDO */}
-              <div className="px-7 py-6 flex flex-col flex-1">
-                <h3 className="text-xl font-extrabold text-[#04163B]">
-                  {a.nombre}
-                </h3>
-
-                {/* DESCRIPCIÓN – MISMO COMPORTAMIENTO */}
-                <p className="text-sm text-[#475569] mt-2 mb-6">
-                  {a.descripcion}
-                </p>
-
-                {/* BOTÓN SIEMPRE ABAJO */}
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    if (a.whatsapp) {
-                      abrirWhatsApp();
-                      return;
-                    }
-                    setArchivoSeleccionado({
-                      ...a,
-                      url: isMobile ? a.url.mobile : a.url.desktop,
-                    });
-                  }}
-                  className="
-              mt-auto w-full py-3 rounded-xl
-              bg-[#0a387c] hover:bg-[#114b9c]
-              text-white text-base font-extrabold tracking-wide
-              shadow-lg hover:shadow-blue-600/40
-              transition-all active:scale-95
-            "
-                >
-                  {a.boton}
-                </button>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-
+      <CarruselExpositores />
       <EventoEnero />
 
       {/* MODAL */}
