@@ -13,23 +13,43 @@ interface Expositor {
 const EXPOSITORES: Expositor[] = [
   {
     id: 1,
-    nombre: 'Lic. Lizbeth M. Lascarez Calderón',
-    imagen: '/img/expositores/expositor1.jpeg',
+    nombre: 'Oscar',
+    imagen: '/img/expositores/oscar.png',
   },
   {
     id: 2,
-    nombre: 'Lic. Alfredo Soto',
-    imagen: '/img/expositores/expositor2.jpeg',
+    nombre: 'Alfredo',
+    imagen: '/img/expositores/alfredo.png',
   },
   {
     id: 3,
-    nombre: 'Maestro Óscar Urcisichi Arellano',
-    imagen: '/img/expositores/expositor3.jpeg',
+    nombre: 'Liz',
+    imagen: '/img/expositores/liz.png',
   },
   {
     id: 4,
-    nombre: 'Lic. María G. Félix Sarabia',
-    imagen: '/img/expositores/expositor4.jpeg',
+    nombre: 'Lupita',
+    imagen: '/img/expositores/lupita.png',
+  },
+  {
+    id: 5,
+    nombre: 'Alejandra',
+    imagen: '/img/expositores/alejandra.png',
+  },
+  {
+    id: 6,
+    nombre: 'Alejandro',
+    imagen: '/img/expositores/alejandro.png',
+  },
+  {
+    id: 7,
+    nombre: 'Gibran',
+    imagen: '/img/expositores/gibran.png',
+  },
+  {
+    id: 8,
+    nombre: 'Manzanero',
+    imagen: '/img/expositores/manzanero.png',
   },
 ];
 
@@ -78,7 +98,7 @@ export const CarruselExpositores = (): React.JSX.Element => {
       {/* Botón izquierdo */}
       <button
         onClick={scrollPrev}
-        className="absolute left-0 top-1/2 z-10 -translate-y-1/2 bg-white/90 hover:bg-white shadow-lg rounded-full p-3 transition"
+        className="absolute left-0 top-[65%] md:top-[60%] z-10 -translate-y-1/2 bg-white/90 hover:bg-white shadow-lg rounded-full p-2 transition"
       >
         <ChevronLeft className="w-6 h-6 text-gray-800" />
       </button>
@@ -86,7 +106,7 @@ export const CarruselExpositores = (): React.JSX.Element => {
       {/* Botón derecho */}
       <button
         onClick={scrollNext}
-        className="absolute right-0 top-1/2 z-10 -translate-y-1/2 bg-white/90 hover:bg-white shadow-lg rounded-full p-3 transition"
+        className="absolute right-0 top-[65%] md:top-[60%] z-10 -translate-y-1/2 bg-white/90 hover:bg-white shadow-lg rounded-full p-2 transition"
       >
         <ChevronRight className="w-6 h-6 text-gray-800" />
       </button>
