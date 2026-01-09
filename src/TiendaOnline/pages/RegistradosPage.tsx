@@ -34,8 +34,9 @@ export default function RegistradosPage() {
   // ESTADOS
   // ===============================
   const [query, setQuery] = useState('');
-  const [filtroPago, setFiltroPago] =
-    useState<'todos' | 'pagados' | 'nopagados'>('todos');
+  const [filtroPago, setFiltroPago] = useState<
+    'todos' | 'pagados' | 'nopagados'
+  >('todos');
 
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(50);
@@ -273,13 +274,13 @@ export default function RegistradosPage() {
             <thead className="bg-slate-200 sticky top-0 z-10">
               <tr>
                 <th className="px-4 py-3 text-left">Nombre</th>
+                <th className="px-4 py-3 text-left">Empresa</th>
+                <th className="px-4 py-3 text-center">Pago</th>
                 <th className="px-4 py-3 text-left">Celular</th>
                 <th className="px-4 py-3 text-left">Correo</th>
-                <th className="px-4 py-3 text-left">Empresa</th>
                 <th className="px-4 py-3 text-left">Comentarios</th>
                 <th className="px-4 py-3 text-left">Folio</th>
                 <th className="px-4 py-3 text-left">Fecha Registro</th>
-                <th className="px-4 py-3 text-center">Pago</th>
               </tr>
             </thead>
 
@@ -287,18 +288,7 @@ export default function RegistradosPage() {
               {items.map((u) => (
                 <tr key={u.id_UsuarioEvento} className="even:bg-slate-50">
                   <td className="px-4 py-3 font-medium">{u.NombreCompleto}</td>
-                  <td className="px-4 py-3">{u.Celular}</td>
-                  <td className="px-4 py-3 truncate max-w-[300px]">{u.Correo}</td>
                   <td className="px-4 py-3">{u.Empresa || '-'}</td>
-                  <td className="px-4 py-3 truncate max-w-[220px]">
-                    {u.Comentarios || '-'}
-                  </td>
-                  <td className="px-4 py-3 font-semibold text-blue-700">
-                    {u.nu_Folio}
-                  </td>
-                  <td className="px-4 py-3">
-                    {new Date(u.FechaRegistro).toLocaleString('es-MX')}
-                  </td>
                   <td className="px-4 py-3 flex justify-center gap-2">
                     <span
                       className={`px-3 py-1 rounded-xl text-xs font-semibold text-white ${
@@ -314,6 +304,19 @@ export default function RegistradosPage() {
                         <CheckCircle className="text-green-600 w-6 h-6" />
                       )}
                     </button>
+                  </td>
+                  <td className="px-4 py-3">{u.Celular}</td>
+                  <td className="px-4 py-3 truncate max-w-[300px]">
+                    {u.Correo}
+                  </td>
+                  <td className="px-4 py-3 truncate max-w-[220px]">
+                    {u.Comentarios || '-'}
+                  </td>
+                  <td className="px-4 py-3 font-semibold text-blue-700">
+                    {u.nu_Folio}
+                  </td>
+                  <td className="px-4 py-3">
+                    {new Date(u.FechaRegistro).toLocaleString('es-MX')}
                   </td>
                 </tr>
               ))}

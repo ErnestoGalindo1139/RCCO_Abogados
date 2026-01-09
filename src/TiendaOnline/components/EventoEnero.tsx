@@ -177,10 +177,10 @@ export const EventoEnero: React.FC = () => {
                 <h2 className="text-xl font-bold text-green-700 mb-2">
                   Registro exitoso 🎉
                 </h2>
-                <p className="text-gray-700 mb-2">Tu folio es:</p>
+                {/* <p className="text-gray-700 mb-2">Tu folio es:</p>
                 <p className="text-lg font-extrabold text-[#0a387c]">
                   {folioGenerado}
-                </p>
+                </p> */}
                 <p className="text-gray-500 mt-3 text-sm">
                   También te hemos enviado a WhatsApp para confirmar el
                   registro.
