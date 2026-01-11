@@ -7,49 +7,61 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 interface Expositor {
   id: number;
   nombre: string;
-  imagen: string;
+  imagenMobile: string;
+  imagenDesktop: string;
 }
 
 const EXPOSITORES: Expositor[] = [
   {
     id: 1,
     nombre: 'Oscar',
-    imagen: '/img/expositores/oscar.png',
+    imagenMobile: '/img/expositores/Movil y escritorio/movil oscar.png',
+    imagenDesktop: '/img/expositores/Movil y escritorio/escritorio oscar.png',
   },
   {
     id: 2,
     nombre: 'Alfredo',
-    imagen: '/img/expositores/alfredo.png',
+    imagenMobile: '/img/expositores/Movil y escritorio/movil alfredo.png',
+    imagenDesktop: '/img/expositores/Movil y escritorio/escritorio alfredo.png',
   },
   {
     id: 3,
     nombre: 'Liz',
-    imagen: '/img/expositores/liz.png',
+    imagenMobile: '/img/expositores/Movil y escritorio/movil liz.png',
+    imagenDesktop: '/img/expositores/Movil y escritorio/escritorio liz.png',
   },
   {
     id: 4,
     nombre: 'Lupita',
-    imagen: '/img/expositores/lupita.png',
+    imagenMobile: '/img/expositores/Movil y escritorio/movil lupita.png',
+    imagenDesktop: '/img/expositores/Movil y escritorio/escritorio lupita.png',
   },
   {
     id: 5,
     nombre: 'Alejandra',
-    imagen: '/img/expositores/alejandra.png',
+    imagenMobile: '/img/expositores/Movil y escritorio/movil alejandra.png',
+    imagenDesktop:
+      '/img/expositores/Movil y escritorio/escritorio alejandra.png',
   },
   {
     id: 6,
     nombre: 'Alejandro',
-    imagen: '/img/expositores/alejandro.png',
+    imagenMobile: '/img/expositores/Movil y escritorio/movil alejandro.png',
+    imagenDesktop:
+      '/img/expositores/Movil y escritorio/escritorio alejandro.png',
   },
   {
     id: 7,
     nombre: 'Gibran',
-    imagen: '/img/expositores/gibran.png',
+    imagenMobile: '/img/expositores/Movil y escritorio/movil gibran.png',
+    imagenDesktop: '/img/expositores/Movil y escritorio/escritorio gibran.png',
   },
   {
     id: 8,
     nombre: 'Manzanero',
-    imagen: '/img/expositores/manzanero.png',
+    imagenMobile: '/img/expositores/Movil y escritorio/movil manzanero.png',
+    imagenDesktop:
+      '/img/expositores/Movil y escritorio/escritorio manzanero.png',
   },
 ];
 
@@ -62,9 +74,9 @@ export const CarruselExpositores = (): React.JSX.Element => {
     },
     [
       Autoplay({
-        delay: 6000, // 6 segundos
-        stopOnInteraction: false, // NO se detiene al usar flechas
-        stopOnMouseEnter: true, // Se pausa al pasar el mouse
+        delay: 6000,
+        stopOnInteraction: false,
+        stopOnMouseEnter: true,
       }),
     ]
   );
@@ -78,10 +90,10 @@ export const CarruselExpositores = (): React.JSX.Element => {
   }, [emblaApi]);
 
   return (
-    <section className="relative w-full max-w-[80rem] mx-auto px-4">
-      {/* TEXTO DESCRIPTIVO */}
+    <section className="relative w-full max-w-[100rem] mx-auto px-4">
+      {/* TEXTO */}
       <div className="text-center max-w-3xl mx-auto mb-6">
-        <h2 className="text-3xl md:text-4xl font-bold ">
+        <h2 className="text-3xl md:text-4xl font-bold">
           Expositores Destacados
         </h2>
         <p className="mt-3 text-base md:text-lg">
@@ -90,12 +102,11 @@ export const CarruselExpositores = (): React.JSX.Element => {
             1er Simposio Anual Corporativo sobre Prevención del Lavado de Dinero
             en Sinaloa
           </strong>
-          , líderes en cumplimiento normativo, fiscalización y prevención de
-          riesgos regulatorios.
+          .
         </p>
       </div>
 
-      {/* Botón izquierdo */}
+      {/* Flecha izquierda */}
       <button
         onClick={scrollPrev}
         className="absolute left-0 top-[65%] md:top-[60%] z-10 -translate-y-1/2 bg-white/90 hover:bg-white shadow-lg rounded-full p-2 transition"
@@ -103,7 +114,7 @@ export const CarruselExpositores = (): React.JSX.Element => {
         <ChevronLeft className="w-6 h-6 text-gray-800" />
       </button>
 
-      {/* Botón derecho */}
+      {/* Flecha derecha */}
       <button
         onClick={scrollNext}
         className="absolute right-0 top-[65%] md:top-[60%] z-10 -translate-y-1/2 bg-white/90 hover:bg-white shadow-lg rounded-full p-2 transition"
@@ -127,21 +138,34 @@ export const CarruselExpositores = (): React.JSX.Element => {
               "
             >
               <div className="bg-white rounded-2xl shadow-xl overflow-hidden h-full">
-                {/* Imagen */}
-                <div className="relative aspect-[3/4] overflow-hidden">
+                {/* CONTENEDOR QUE MANDA */}
+                <div className="relative w-full sm:h-[460px] md:h-[500px] overflow-hidden">
+                  {/* Mobile */}
                   <img
-                    src={expositor.imagen}
+                    src={expositor.imagenMobile}
                     alt={expositor.nombre}
-                    className="w-full h-full object-center"
+                    className="
+                      w-full h-full
+                      md:hidden
+                      object-cover
+                    "
+                    loading="lazy"
+                  />
+
+                  {/* Desktop */}
+                  <img
+                    src={expositor.imagenDesktop}
+                    alt={expositor.nombre}
+                    className="
+                      absolute inset-0
+                      w-full h-full
+                      object-cover
+                      object-[60%_center]
+                      hidden md:block
+                    "
+                    loading="lazy"
                   />
                 </div>
-
-                {/* Info */}
-                {/* <div className="p-4 text-center">
-                  <h3 className="text-lg font-semibold text-gray-800">
-                    {expositor.nombre}
-                  </h3>
-                </div> */}
               </div>
             </motion.div>
           ))}

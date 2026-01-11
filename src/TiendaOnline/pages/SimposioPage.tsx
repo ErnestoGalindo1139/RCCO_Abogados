@@ -126,6 +126,8 @@ export const SimposioPage = (): React.JSX.Element => {
           'img/patrocinadores/RCCO NEGOCIOS.png',
           'img/patrocinadores/SOMOFA.png',
           'img/patrocinadores/grupoAHRE.png',
+          'img/patrocinadores/ESlogo.png',
+          'img/patrocinadores/Le logo.png',
           'img/patrocinadores/ANMX.png',
           'img/patrocinadores/DIAZ SALAZAR Y ASOCIADOS.png',
           'img/patrocinadores/LF DESPACHO.png',
@@ -133,6 +135,8 @@ export const SimposioPage = (): React.JSX.Element => {
           'img/patrocinadores/RCCO NEGOCIOS.png',
           'img/patrocinadores/SOMOFA.png',
           'img/patrocinadores/grupoAHRE.png',
+          'img/patrocinadores/ESlogo.png',
+          'img/patrocinadores/Le logo.png',
         ]}
       />
 
