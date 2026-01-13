@@ -63,6 +63,12 @@ const EXPOSITORES: Expositor[] = [
     imagenDesktop:
       '/img/expositores/Movil y escritorio/escritorio manzanero.png',
   },
+  {
+    id: 9,
+    nombre: 'Miguel',
+    imagenMobile: '/img/expositores/Movil y escritorio/movil miguel .png',
+    imagenDesktop: '/img/expositores/Movil y escritorio/escritorio miguel .png',
+  },
 ];
 
 export const CarruselExpositores = (): React.JSX.Element => {
