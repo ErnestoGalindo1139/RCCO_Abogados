@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { CheckCircle, XCircle } from 'lucide-react';
+import { CheckCircle, XCircle, Pencil, Trash2, RotateCcw } from 'lucide-react';
 
 // ===============================
 // TIPOS
@@ -16,7 +16,10 @@ type UsuarioEvento = {
   FechaPago: string | null;
   sn_Pagado: boolean;
   nu_Folio: string;
+  sn_Activo: boolean;
 };
+
+type TipoAccion = 'pago' | 'activo' | 'editar';
 
 // ===============================
 // HELPERS
@@ -47,7 +50,17 @@ export default function RegistradosPage() {
 
   const [confirmModal, setConfirmModal] = useState(false);
   const [selectedUser, setSelectedUser] = useState<UsuarioEvento | null>(null);
-  const [nuevoValorPago, setNuevoValorPago] = useState<boolean>(false);
+  const [nuevoValor, setNuevoValor] = useState<boolean>(false);
+  const [tipoAccion, setTipoAccion] = useState<TipoAccion>('pago');
+
+  // ===== FORM EDITAR (TODOS LOS CAMPOS) =====
+  const [formEdit, setFormEdit] = useState({
+    NombreCompleto: '',
+    Empresa: '',
+    Celular: '',
+    Correo: '',
+    Comentarios: '',
+  });
 
   // =====================================================
   // FETCH
@@ -76,6 +89,7 @@ export default function RegistradosPage() {
           FechaPago: u.sn_Pagado ? 'PAGADO' : null,
           sn_Pagado: u.sn_Pagado,
           nu_Folio: u.nu_Folio,
+          sn_Activo: u.sn_Activo,
         }));
 
         setUsuarios(mapped);
@@ -90,68 +104,107 @@ export default function RegistradosPage() {
   }, []);
 
   // =====================================================
-  // PAGO (SIN CAMBIOS)
+  // MODALES
   // =====================================================
   const abrirModalPago = (user: UsuarioEvento) => {
     setSelectedUser(user);
-    setNuevoValorPago(!user.sn_Pagado);
+    setTipoAccion('pago');
+    setNuevoValor(!user.sn_Pagado);
     setConfirmModal(true);
   };
 
-  const confirmarPago = async () => {
+  const abrirModalActivo = (user: UsuarioEvento) => {
+    setSelectedUser(user);
+    setTipoAccion('activo');
+    setNuevoValor(!user.sn_Activo);
+    setConfirmModal(true);
+  };
+
+  const abrirModalEditar = (user: UsuarioEvento) => {
+    setSelectedUser(user);
+    setTipoAccion('editar');
+    setFormEdit({
+      NombreCompleto: user.NombreCompleto,
+      Empresa: user.Empresa || '',
+      Celular: user.Celular,
+      Correo: user.Correo,
+      Comentarios: user.Comentarios || '',
+    });
+    setConfirmModal(true);
+  };
+
+  // =====================================================
+  // CONFIRMAR PAGO / ACTIVO
+  // =====================================================
+  const confirmarAccion = async () => {
     if (!selectedUser) return;
 
-    try {
-      const res = await fetch(
-        'https://api-rcco-abogados.grstechs.com/updatePagoUsuariosEvento',
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
+    const endpoint =
+      tipoAccion === 'pago'
+        ? 'https://api-rcco-abogados.grstechs.com/updatePagoUsuariosEvento'
+        : 'https://api-rcco-abogados.grstechs.com/toggleUsuarioEvento';
+
+    const body =
+      tipoAccion === 'pago'
+        ? {
             id_UsuarioEvento: selectedUser.id_UsuarioEvento,
-            sn_Pagado: nuevoValorPago,
-          }),
-        }
-      );
-
-      const data = await res.json();
-
-      if (!data.success) {
-        alert('No se pudo actualizar el pago.');
-        return;
-      }
-
-      setUsuarios((prev) =>
-        prev.map((u) =>
-          u.id_UsuarioEvento === selectedUser.id_UsuarioEvento
-            ? { ...u, sn_Pagado: nuevoValorPago }
-            : u
-        )
-      );
-
-      if (nuevoValorPago) {
-        await fetch(
-          'https://api-rcco-abogados.grstechs.com/enviarCorreoPagoEvento',
-          {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              correo: selectedUser.Correo,
-              nombre: selectedUser.NombreCompleto,
-              folio: selectedUser.nu_Folio,
-            }),
+            sn_Pagado: nuevoValor,
           }
-        );
-      }
-    } catch {
-      alert('Error al actualizar pago.');
-    }
+        : {
+            id_UsuarioEvento: selectedUser.id_UsuarioEvento,
+            sn_Activo: nuevoValor,
+          };
+
+    await fetch(endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+
+    setUsuarios((prev) =>
+      prev.map((u) =>
+        u.id_UsuarioEvento === selectedUser.id_UsuarioEvento
+          ? {
+              ...u,
+              ...(tipoAccion === 'pago'
+                ? { sn_Pagado: nuevoValor }
+                : { sn_Activo: nuevoValor }),
+            }
+          : u
+      )
+    );
 
     setConfirmModal(false);
   };
 
   // =====================================================
-  // FILTROS (SIN CAMBIOS)
+  // GUARDAR EDICIÓN
+  // =====================================================
+  const guardarEdicion = async () => {
+    if (!selectedUser) return;
+
+    await fetch('https://api-rcco-abogados.grstechs.com/updateUsuarioEvento', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        id_UsuarioEvento: selectedUser.id_UsuarioEvento,
+        ...formEdit,
+      }),
+    });
+
+    setUsuarios((prev) =>
+      prev.map((u) =>
+        u.id_UsuarioEvento === selectedUser.id_UsuarioEvento
+          ? { ...u, ...formEdit }
+          : u
+      )
+    );
+
+    setConfirmModal(false);
+  };
+
+  // =====================================================
+  // FILTROS
   // =====================================================
   const filtrados = useMemo(() => {
     const q = norm(query);
@@ -174,7 +227,7 @@ export default function RegistradosPage() {
   }, [query, filtroPago, usuarios]);
 
   // =====================================================
-  // PAGINADO (ÚNICO, GLOBAL)
+  // PAGINADO
   // =====================================================
   const pages = Math.max(1, Math.ceil(filtrados.length / pageSize));
   const items = filtrados.slice((page - 1) * pageSize, page * pageSize);
@@ -228,47 +281,6 @@ export default function RegistradosPage() {
 
       {/* CONTENIDO */}
       <section className="max-w-[98vw] mx-auto px-6 py-10 -mt-6">
-        {/* FILTROS */}
-        <div className="bg-white shadow rounded-2xl p-6 mb-4 flex justify-between gap-4">
-          <input
-            type="text"
-            placeholder="Buscar por nombre, correo, teléfono, empresa, folio..."
-            className="w-1/2 px-4 py-2 rounded-xl border"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-          />
-
-          <select
-            value={filtroPago}
-            onChange={(e) => setFiltroPago(e.target.value as any)}
-            className="px-4 py-2 rounded-xl border"
-          >
-            <option value="todos">Todos</option>
-            <option value="pagados">Pagados</option>
-            <option value="nopagados">No Pagados</option>
-          </select>
-        </div>
-
-        {/* PAGE SIZE */}
-        <div className="flex justify-between items-center mb-3 text-sm">
-          <span>
-            Mostrando {items.length} de {filtrados.length} registros
-          </span>
-
-          <select
-            value={pageSize}
-            onChange={(e) => setPageSize(Number(e.target.value))}
-            className="px-3 py-2 rounded-lg border"
-          >
-            <option value={5}>5</option>
-            <option value={10}>10</option>
-            <option value={50}>50</option>
-            <option value={100}>100</option>
-            <option value={500}>500</option>
-          </select>
-        </div>
-
-        {/* TABLA (TODOS LOS DISPOSITIVOS) */}
         <div className="overflow-x-auto bg-white rounded-2xl shadow">
           <table className="min-w-[1600px] w-full text-sm">
             <thead className="bg-slate-200 sticky top-0 z-10">
@@ -281,6 +293,7 @@ export default function RegistradosPage() {
                 <th className="px-4 py-3 text-left">Comentarios</th>
                 <th className="px-4 py-3 text-left">Folio</th>
                 <th className="px-4 py-3 text-left">Fecha Registro</th>
+                <th className="px-4 py-3 text-center">Acciones</th>
               </tr>
             </thead>
 
@@ -318,6 +331,19 @@ export default function RegistradosPage() {
                   <td className="px-4 py-3">
                     {new Date(u.FechaRegistro).toLocaleString('es-MX')}
                   </td>
+                  <td className="px-4 py-3 flex justify-center gap-3">
+                    <button onClick={() => abrirModalEditar(u)}>
+                      <Pencil className="w-5 h-5 text-blue-600" />
+                    </button>
+
+                    <button onClick={() => abrirModalActivo(u)}>
+                      {u.sn_Activo ? (
+                        <Trash2 className="w-5 h-5 text-red-600" />
+                      ) : (
+                        <RotateCcw className="w-5 h-5 text-green-600" />
+                      )}
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -325,59 +351,132 @@ export default function RegistradosPage() {
         </div>
       </section>
 
-      {/* PAGINACIÓN */}
-      <div className="flex justify-center gap-4 my-8">
-        <button
-          disabled={page === 1}
-          onClick={() => setPage(page - 1)}
-          className="px-4 py-2 bg-blue-700 text-white rounded-lg disabled:opacity-40"
-        >
-          Anterior
-        </button>
-
-        <span className="font-medium">
-          Página {page} de {pages}
-        </span>
-
-        <button
-          disabled={page === pages}
-          onClick={() => setPage(page + 1)}
-          className="px-4 py-2 bg-blue-700 text-white rounded-lg disabled:opacity-40"
-        >
-          Siguiente
-        </button>
-      </div>
-
       {/* MODAL */}
       {confirmModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
           <div className="bg-white rounded-2xl p-8 shadow-xl max-w-sm w-full text-center">
-            <h2 className="text-xl font-bold mb-4">¿Confirmar acción?</h2>
+            <h2 className="text-xl font-bold mb-4">
+              {tipoAccion === 'editar'
+                ? 'Editar usuario'
+                : '¿Confirmar acción?'}
+            </h2>
 
-            <p className="text-slate-700 mb-6">
-              ¿Deseas marcar como{' '}
-              <b>{nuevoValorPago ? 'PAGADO' : 'NO PAGADO'}</b> al usuario?
-              <br />
-              <span className="font-semibold">
-                {selectedUser?.NombreCompleto}
-              </span>
-            </p>
+            {tipoAccion === 'editar' ? (
+              <div className="space-y-3 text-left">
+                <input
+                  className="w-full px-4 py-2 border rounded-lg"
+                  placeholder="Nombre completo"
+                  value={formEdit.NombreCompleto}
+                  onChange={(e) =>
+                    setFormEdit({
+                      ...formEdit,
+                      NombreCompleto: e.target.value,
+                    })
+                  }
+                />
 
-            <div className="flex justify-between gap-4">
-              <button
-                onClick={() => setConfirmModal(false)}
-                className="w-1/2 py-2 bg-slate-300 hover:bg-slate-400 rounded-lg font-semibold"
-              >
-                Cancelar
-              </button>
+                <input
+                  className="w-full px-4 py-2 border rounded-lg"
+                  placeholder="Empresa"
+                  value={formEdit.Empresa}
+                  onChange={(e) =>
+                    setFormEdit({
+                      ...formEdit,
+                      Empresa: e.target.value,
+                    })
+                  }
+                />
 
-              <button
-                onClick={confirmarPago}
-                className="w-1/2 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold"
-              >
-                Confirmar
-              </button>
-            </div>
+                <input
+                  className="w-full px-4 py-2 border rounded-lg"
+                  placeholder="Celular"
+                  value={formEdit.Celular}
+                  onChange={(e) =>
+                    setFormEdit({
+                      ...formEdit,
+                      Celular: e.target.value,
+                    })
+                  }
+                />
+
+                <input
+                  className="w-full px-4 py-2 border rounded-lg"
+                  placeholder="Correo"
+                  value={formEdit.Correo}
+                  onChange={(e) =>
+                    setFormEdit({
+                      ...formEdit,
+                      Correo: e.target.value,
+                    })
+                  }
+                />
+
+                <textarea
+                  className="w-full px-4 py-2 border rounded-lg"
+                  rows={3}
+                  placeholder="Comentarios"
+                  value={formEdit.Comentarios}
+                  onChange={(e) =>
+                    setFormEdit({
+                      ...formEdit,
+                      Comentarios: e.target.value,
+                    })
+                  }
+                />
+
+                <div className="flex gap-4 pt-4">
+                  <button
+                    onClick={() => setConfirmModal(false)}
+                    className="w-1/2 py-2 bg-slate-300 hover:bg-slate-400 rounded-lg font-semibold"
+                  >
+                    Cancelar
+                  </button>
+
+                  <button
+                    onClick={guardarEdicion}
+                    className="w-1/2 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold"
+                  >
+                    Guardar
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <>
+                <p className="text-slate-700 mb-6">
+                  ¿Deseas{' '}
+                  <b>
+                    {tipoAccion === 'pago'
+                      ? nuevoValor
+                        ? 'marcar como PAGADO'
+                        : 'marcar como NO PAGADO'
+                      : nuevoValor
+                        ? 'ACTIVAR'
+                        : 'DESACTIVAR'}
+                  </b>{' '}
+                  al usuario?
+                  <br />
+                  <span className="font-semibold">
+                    {selectedUser?.NombreCompleto}
+                  </span>
+                </p>
+
+                <div className="flex justify-between gap-4">
+                  <button
+                    onClick={() => setConfirmModal(false)}
+                    className="w-1/2 py-2 bg-slate-300 hover:bg-slate-400 rounded-lg font-semibold"
+                  >
+                    Cancelar
+                  </button>
+
+                  <button
+                    onClick={confirmarAccion}
+                    className="w-1/2 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold"
+                  >
+                    Confirmar
+                  </button>
+                </div>
+              </>
+            )}
           </div>
         </div>
       )}
