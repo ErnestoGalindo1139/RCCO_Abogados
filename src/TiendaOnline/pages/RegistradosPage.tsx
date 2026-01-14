@@ -46,8 +46,9 @@ export default function RegistradosPage() {
   // ESTADOS
   // ===============================
   const [query, setQuery] = useState('');
-  const [filtroPago, setFiltroPago] =
-    useState<'todos' | 'pagados' | 'nopagados'>('todos');
+  const [filtroPago, setFiltroPago] = useState<
+    'todos' | 'pagados' | 'nopagados'
+  >('todos');
 
   const [filtroEmpresa, setFiltroEmpresa] = useState<string>('todas');
 
@@ -59,9 +60,14 @@ export default function RegistradosPage() {
   const [error, setError] = useState('');
 
   const [confirmModal, setConfirmModal] = useState(false);
+  const [confirmModalPago, setConfirmModalPago] = useState(false);
   const [selectedUser, setSelectedUser] = useState<UsuarioEvento | null>(null);
+  const [nuevoValorPago, setNuevoValorPago] = useState<boolean>(false);
   const [nuevoValor, setNuevoValor] = useState(false);
   const [tipoAccion, setTipoAccion] = useState<TipoAccion>('pago');
+
+  const [successModal, setSuccessModal] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
 
   // ===== FORM EDITAR =====
   const [formEdit, setFormEdit] = useState({
@@ -175,9 +181,73 @@ export default function RegistradosPage() {
   // =====================================================
   const abrirModalPago = (u: UsuarioEvento) => {
     setSelectedUser(u);
+    setNuevoValorPago(!u.sn_Pagado);
     setTipoAccion('pago');
     setNuevoValor(!u.sn_Pagado);
-    setConfirmModal(true);
+    setConfirmModalPago(true);
+  };
+
+  const confirmarPago = async () => {
+    if (!selectedUser) return;
+
+    try {
+      const res = await fetch(
+        'https://api-rcco-abogados.grstechs.com/updatePagoUsuariosEvento',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            id_UsuarioEvento: selectedUser.id_UsuarioEvento,
+            sn_Pagado: nuevoValorPago,
+          }),
+        }
+      );
+
+      const data = await res.json();
+
+      if (!data.success) {
+        alert('No se pudo actualizar el pago.');
+        return;
+      }
+
+      setUsuarios((prev) =>
+        prev.map((u) =>
+          u.id_UsuarioEvento === selectedUser.id_UsuarioEvento
+            ? { ...u, sn_Pagado: nuevoValorPago }
+            : u
+        )
+      );
+
+      if (nuevoValorPago) {
+        await fetch(
+          'https://api-rcco-abogados.grstechs.com/enviarCorreoPagoEvento',
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              correo: selectedUser.Correo,
+              nombre: selectedUser.NombreCompleto,
+              folio: selectedUser.nu_Folio,
+            }),
+          }
+        );
+      }
+    } catch {
+      alert('Error al actualizar pago.');
+    }
+
+    mostrarExito(
+      nuevoValorPago
+        ? 'Pago confirmado y correo enviado correctamente.'
+        : 'El pago fue marcado como NO PAGADO.'
+    );
+
+    setConfirmModalPago(false);
+  };
+
+  const mostrarExito = (mensaje: string) => {
+    setSuccessMessage(mensaje);
+    setSuccessModal(true);
   };
 
   const abrirModalActivo = (u: UsuarioEvento) => {
@@ -210,7 +280,7 @@ export default function RegistradosPage() {
 
     const endpoint =
       tipoAccion === 'pago'
-        ? 'https://api-rcco-abogados.grstechs.com/updatePagoUsuariosEvento'
+        ? ''
         : 'https://api-rcco-abogados.grstechs.com/toggleUsuarioEvento';
 
     const body =
@@ -243,6 +313,12 @@ export default function RegistradosPage() {
       )
     );
 
+    mostrarExito(
+      nuevoValor
+        ? 'Usuario activado correctamente.'
+        : 'Usuario desactivado correctamente.'
+    );
+
     setConfirmModal(false);
   };
 
@@ -273,11 +349,14 @@ export default function RegistradosPage() {
           ? {
               ...u,
               ...formEdit,
-              NombreCompleto: `${formEdit.nb_Nombre} ${formEdit.nb_ApellidoPaterno} ${formEdit.nb_ApellidoMaterno}`.trim(),
+              NombreCompleto:
+                `${formEdit.nb_Nombre} ${formEdit.nb_ApellidoPaterno} ${formEdit.nb_ApellidoMaterno}`.trim(),
             }
           : u
       )
     );
+
+    mostrarExito('Los datos del usuario se actualizaron correctamente.');
 
     setConfirmModal(false);
   };
@@ -466,6 +545,100 @@ export default function RegistradosPage() {
           Siguiente
         </button>
       </div>
+
+      {/* MODAL CONFIRMAR PAGO */}
+      {confirmModalPago && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
+          <div className="bg-white rounded-2xl p-8 shadow-xl max-w-sm w-full text-center">
+            <h2 className="text-xl font-bold mb-4">¿Confirmar acción?</h2>
+
+            <p className="text-slate-700 mb-6">
+              ¿Deseas marcar como{' '}
+              <b>{nuevoValorPago ? 'PAGADO' : 'NO PAGADO'}</b> al usuario?
+              <br />
+              <span className="font-semibold">
+                {selectedUser?.NombreCompleto}
+              </span>
+            </p>
+
+            <div className="flex justify-between gap-4">
+              <button
+                onClick={() => setConfirmModalPago(false)}
+                className="w-1/2 py-2 bg-slate-300 hover:bg-slate-400 rounded-lg font-semibold"
+              >
+                Cancelar
+              </button>
+
+              <button
+                onClick={confirmarPago}
+                className="w-1/2 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold"
+              >
+                Confirmar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* MODAL ACTIVAR / DESACTIVAR */}
+      {confirmModal && tipoAccion === 'activo' && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
+          <div className="bg-white rounded-2xl p-8 shadow-xl max-w-sm w-full text-center">
+            <h2 className="text-xl font-bold mb-4">
+              {nuevoValor ? 'Activar usuario' : 'Desactivar usuario'}
+            </h2>
+
+            <p className="text-slate-700 mb-6">
+              ¿Estás seguro que deseas{' '}
+              <b>{nuevoValor ? 'ACTIVAR' : 'DESACTIVAR'}</b> al usuario:
+              <br />
+              <span className="font-semibold">
+                {selectedUser?.NombreCompleto}
+              </span>
+            </p>
+
+            <div className="flex gap-4">
+              <button
+                onClick={() => setConfirmModal(false)}
+                className="w-1/2 py-2 bg-slate-300 hover:bg-slate-400 rounded-lg font-semibold"
+              >
+                Cancelar
+              </button>
+
+              <button
+                onClick={confirmarAccion}
+                className={`w-1/2 py-2 text-white rounded-lg font-semibold ${
+                  nuevoValor
+                    ? 'bg-green-600 hover:bg-green-700'
+                    : 'bg-red-600 hover:bg-red-700'
+                }`}
+              >
+                Confirmar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* MODAL OPERACIÓN EXITOSA */}
+      {successModal && (
+        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 px-4">
+          <div className="bg-white rounded-2xl p-8 shadow-xl max-w-sm w-full text-center">
+            <CheckCircle className="w-14 h-14 text-green-600 mx-auto mb-4" />
+
+            <h2 className="text-xl font-bold mb-3">Operación exitosa</h2>
+
+            <p className="text-slate-700 mb-6">{successMessage}</p>
+
+            <button
+              onClick={() => setSuccessModal(false)}
+              className="w-full py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-semibold"
+            >
+              Aceptar
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* MODAL EDITAR */}
       {confirmModal && tipoAccion === 'editar' && (
