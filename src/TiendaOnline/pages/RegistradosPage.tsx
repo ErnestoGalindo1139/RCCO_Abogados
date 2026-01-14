@@ -360,6 +360,26 @@ export default function RegistradosPage() {
           </select>
         </div>
 
+        {/* PAGE SIZE */}
+        <div className="flex justify-between items-center mb-3 text-md mt-[1rem]">
+          <span>
+            Mostrando {items.length} de {filtrados.length} registros
+          </span>
+
+          <select
+            value={pageSize}
+            onChange={(e) => setPageSize(Number(e.target.value))}
+            className="px-3 py-2 rounded-lg border"
+          >
+            <option value={filtrados.length}>Todos</option>
+            <option value={5}>5</option>
+            <option value={10}>10</option>
+            <option value={50}>50</option>
+            <option value={100}>100</option>
+            <option value={500}>500</option>
+          </select>
+        </div>
+
         {/* TABLA */}
         <div className="overflow-x-auto bg-white rounded-2xl shadow mt-4">
           <table className="min-w-[1600px] w-full text-sm">
@@ -423,6 +443,29 @@ export default function RegistradosPage() {
           </table>
         </div>
       </section>
+
+      {/* PAGINACIÓN */}
+      <div className="flex justify-center gap-4 mt-8 pb-8">
+        <button
+          disabled={page === 1}
+          onClick={() => setPage(page - 1)}
+          className="px-4 py-2 bg-blue-700 text-white rounded-lg disabled:opacity-40"
+        >
+          Anterior
+        </button>
+
+        <span className="font-medium">
+          Página {page} de {pages}
+        </span>
+
+        <button
+          disabled={page === pages}
+          onClick={() => setPage(page + 1)}
+          className="px-4 py-2 bg-blue-700 text-white rounded-lg disabled:opacity-40"
+        >
+          Siguiente
+        </button>
+      </div>
 
       {/* MODAL EDITAR */}
       {confirmModal && tipoAccion === 'editar' && (
