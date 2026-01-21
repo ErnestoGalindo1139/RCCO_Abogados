@@ -1,29 +1,31 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CheckCircle, XCircle, Pencil, Trash2, RotateCcw } from 'lucide-react';
+import { UsuariosEventoTable } from '../components/UsuariosEventoTable';
+import { UsuarioEvento } from '../types/UsuarioEvento';
 
 // ===============================
 // TIPOS
 // ===============================
-type UsuarioEvento = {
-  id_UsuarioEvento: number;
+// type UsuarioEvento = {
+//   id_UsuarioEvento: number;
 
-  nb_Nombre: string;
-  nb_ApellidoPaterno: string;
-  nb_ApellidoMaterno: string | null;
+//   nb_Nombre: string;
+//   nb_ApellidoPaterno: string;
+//   nb_ApellidoMaterno: string | null;
 
-  NombreCompleto: string;
+//   NombreCompleto: string;
 
-  Celular: string;
-  Correo: string;
-  Empresa: string | null;
-  Comentarios: string | null;
-  FechaRegistro: string;
-  FechaPago: string | null;
-  sn_Pagado: boolean;
-  nu_Folio: string;
-  sn_Activo: boolean;
-};
+//   Celular: string;
+//   Correo: string;
+//   Empresa: string | null;
+//   Comentarios: string | null;
+//   FechaRegistro: string;
+//   FechaPago: string | null;
+//   sn_Pagado: boolean;
+//   nu_Folio: string;
+//   sn_Activo: boolean;
+// };
 
 type TipoAccion = 'pago' | 'activo' | 'editar';
 
@@ -78,6 +80,10 @@ export default function RegistradosPage() {
     Celular: '',
     Correo: '',
     Comentarios: '',
+
+    // ⭐ NUEVOS
+    sn_UsuarioEspecial: false,
+    nb_TipoUsuarioEspecial: '',
   });
 
   // =====================================================
@@ -115,6 +121,10 @@ export default function RegistradosPage() {
           sn_Pagado: u.sn_Pagado,
           nu_Folio: u.nu_Folio,
           sn_Activo: u.sn_Activo,
+
+          // ⭐ NUEVOS
+          sn_UsuarioEspecial: u.sn_UsuarioEspecial,
+          nb_TipoUsuarioEspecial: u.nb_TipoUsuarioEspecial,
         }));
 
         setUsuarios(mapped);
@@ -268,6 +278,10 @@ export default function RegistradosPage() {
       Celular: u.Celular,
       Correo: u.Correo,
       Comentarios: u.Comentarios || '',
+
+      // ⭐ NUEVOS
+      sn_UsuarioEspecial: u.sn_UsuarioEspecial,
+      nb_TipoUsuarioEspecial: u.nb_TipoUsuarioEspecial || '',
     });
     setConfirmModal(true);
   };
@@ -340,6 +354,12 @@ export default function RegistradosPage() {
         de_Celular: formEdit.Celular,
         de_Correo: formEdit.Correo,
         de_Comentarios: formEdit.Comentarios,
+
+        // ⭐ NUEVOS
+        sn_UsuarioEspecial: formEdit.sn_UsuarioEspecial,
+        nb_TipoUsuarioEspecial: formEdit.sn_UsuarioEspecial
+          ? formEdit.nb_TipoUsuarioEspecial
+          : null,
       }),
     });
 
@@ -460,67 +480,12 @@ export default function RegistradosPage() {
         </div>
 
         {/* TABLA */}
-        <div className="overflow-x-auto bg-white rounded-2xl shadow mt-4">
-          <table className="min-w-[1600px] w-full text-sm">
-            <thead className="bg-slate-200">
-              <tr>
-                <th className="px-4 py-3 text-left">Nombre</th>
-                <th className="px-4 py-3 text-left">Empresa</th>
-                <th className="px-4 py-3 text-center">Pago</th>
-                <th className="px-4 py-3">Celular</th>
-                <th className="px-4 py-3">Correo</th>
-                <th className="px-4 py-3">Comentarios</th>
-                <th className="px-4 py-3">Folio</th>
-                <th className="px-4 py-3">Fecha</th>
-                <th className="px-4 py-3 text-center">Acciones</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {items.map((u) => (
-                <tr key={u.id_UsuarioEvento} className="even:bg-slate-50">
-                  <td className="px-4 py-3 font-medium">{u.NombreCompleto}</td>
-                  <td className="px-4 py-3">{u.Empresa || '-'}</td>
-                  <td className="px-4 py-3 flex justify-center gap-2">
-                    <span
-                      className={`px-3 py-1 rounded-xl text-xs text-white ${
-                        u.sn_Pagado ? 'bg-green-600' : 'bg-red-600'
-                      }`}
-                    >
-                      {u.sn_Pagado ? 'Pagado' : 'No pagado'}
-                    </span>
-                    <button onClick={() => abrirModalPago(u)}>
-                      {u.sn_Pagado ? (
-                        <XCircle className="w-5 h-5 text-red-600" />
-                      ) : (
-                        <CheckCircle className="w-5 h-5 text-green-600" />
-                      )}
-                    </button>
-                  </td>
-                  <td className="px-4 py-3">{u.Celular}</td>
-                  <td className="px-4 py-3">{u.Correo}</td>
-                  <td className="px-4 py-3">{u.Comentarios || '-'}</td>
-                  <td className="px-4 py-3 font-semibold">{u.nu_Folio}</td>
-                  <td className="px-4 py-3">
-                    {new Date(u.FechaRegistro).toLocaleString('es-MX')}
-                  </td>
-                  <td className="px-4 py-3 flex justify-center gap-3">
-                    <button onClick={() => abrirModalEditar(u)}>
-                      <Pencil className="w-5 h-5 text-blue-600" />
-                    </button>
-                    <button onClick={() => abrirModalActivo(u)}>
-                      {u.sn_Activo ? (
-                        <Trash2 className="w-5 h-5 text-red-600" />
-                      ) : (
-                        <RotateCcw className="w-5 h-5 text-green-600" />
-                      )}
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <UsuariosEventoTable
+          items={items}
+          onEditar={abrirModalEditar}
+          onToggleActivo={abrirModalActivo}
+          onTogglePago={abrirModalPago}
+        />
       </section>
 
       {/* PAGINACIÓN */}
@@ -712,6 +677,37 @@ export default function RegistradosPage() {
                   setFormEdit({ ...formEdit, Comentarios: e.target.value })
                 }
               />
+
+              {/* ⭐ USUARIO ESPECIAL */}
+              <div className="flex items-center gap-3">
+                <input
+                  type="checkbox"
+                  checked={formEdit.sn_UsuarioEspecial}
+                  onChange={(e) =>
+                    setFormEdit({
+                      ...formEdit,
+                      sn_UsuarioEspecial: e.target.checked,
+                    })
+                  }
+                  className="w-4 h-4"
+                />
+                <span className="font-medium">Usuario especial</span>
+              </div>
+
+              {/* ⭐ TIPO USUARIO ESPECIAL */}
+              {formEdit.sn_UsuarioEspecial && (
+                <input
+                  className="w-full px-4 py-2 border rounded-lg"
+                  placeholder="Tipo de usuario especial (Cortesía, STAFF, VIP, Prensa, etc.)"
+                  value={formEdit.nb_TipoUsuarioEspecial}
+                  onChange={(e) =>
+                    setFormEdit({
+                      ...formEdit,
+                      nb_TipoUsuarioEspecial: e.target.value,
+                    })
+                  }
+                />
+              )}
 
               <div className="flex gap-4 pt-4">
                 <button
