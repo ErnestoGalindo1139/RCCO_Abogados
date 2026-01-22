@@ -1,31 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { CheckCircle, XCircle, Pencil, Trash2, RotateCcw } from 'lucide-react';
+import { CheckCircle, Download } from 'lucide-react';
 import { UsuariosEventoTable } from '../components/UsuariosEventoTable';
 import { UsuarioEvento } from '../types/UsuarioEvento';
-
-// ===============================
-// TIPOS
-// ===============================
-// type UsuarioEvento = {
-//   id_UsuarioEvento: number;
-
-//   nb_Nombre: string;
-//   nb_ApellidoPaterno: string;
-//   nb_ApellidoMaterno: string | null;
-
-//   NombreCompleto: string;
-
-//   Celular: string;
-//   Correo: string;
-//   Empresa: string | null;
-//   Comentarios: string | null;
-//   FechaRegistro: string;
-//   FechaPago: string | null;
-//   sn_Pagado: boolean;
-//   nu_Folio: string;
-//   sn_Activo: boolean;
-// };
 
 type TipoAccion = 'pago' | 'activo' | 'editar';
 
@@ -70,6 +47,8 @@ export default function RegistradosPage() {
 
   const [successModal, setSuccessModal] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
+
+  const [exportando, setExportando] = useState(false);
 
   // ===== FORM EDITAR =====
   const [formEdit, setFormEdit] = useState({
@@ -382,6 +361,45 @@ export default function RegistradosPage() {
   };
 
   // =====================================================
+  // EXPORTAR EXCEL
+  // =====================================================
+  const exportarExcel = async () => {
+    try {
+      setExportando(true);
+
+      const res = await fetch(
+        // 'https://api-rcco-abogados.grstechs.com/reportes/usuariosEvento/excel',
+        'http://localhost:4005/registrosSimposio/EXCEL',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            sn_Pagado:
+              filtroPago == 'todos' ? null : filtroPago == 'pagados' ? 1 : 0,
+            nb_Empresa: filtroEmpresa == 'todas' ? null : filtroEmpresa,
+          }),
+        }
+      );
+
+      if (!res.ok) throw new Error('Error al generar Excel');
+
+      const blob = await res.blob();
+      const url = window.URL.createObjectURL(blob);
+
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'UsuariosEvento.xlsx';
+      a.click();
+
+      window.URL.revokeObjectURL(url);
+    } catch (err) {
+      alert('Error al exportar Excel');
+    } finally {
+      setExportando(false);
+    }
+  };
+
+  // =====================================================
   // LOGOUT
   // =====================================================
   const logout = () => {
@@ -508,6 +526,15 @@ export default function RegistradosPage() {
           className="px-4 py-2 bg-blue-700 text-white rounded-lg disabled:opacity-40"
         >
           Siguiente
+        </button>
+
+        <button
+          onClick={exportarExcel}
+          disabled={exportando}
+          className="flex items-center gap-2 bg-green-600 hover:bg-green-700 px-4 py-2 rounded-lg font-semibold disabled:opacity-50"
+        >
+          <Download size={18} />
+          {exportando ? 'Generando...' : 'Exportar Excel'}
         </button>
       </div>
 
