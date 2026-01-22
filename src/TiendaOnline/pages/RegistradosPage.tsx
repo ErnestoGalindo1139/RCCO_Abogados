@@ -443,30 +443,51 @@ export default function RegistradosPage() {
         <h1 className="text-3xl font-bold">Registros del Evento</h1>
       </div>
 
+      <button
+        onClick={exportarExcel}
+        disabled={exportando}
+        className="flex items-center gap-2 bg-green-600 hover:bg-green-700 px-4 py-2 rounded-lg font-semibold disabled:opacity-50 ml-[2.4rem] mt-[1rem] text-white"
+      >
+        <Download size={18} />
+        {exportando ? 'Generando...' : 'Exportar Excel'}
+      </button>
+
       {/* FILTROS */}
-      <section className="max-w-[98vw] mx-auto px-6 py-6">
-        <div className="bg-white rounded-2xl shadow p-6 flex gap-4">
+      {/* FILTROS */}
+      <section className="max-w-[98vw] mx-auto px-4 sm:px-6 py-6">
+        {/* CONTENEDOR FILTROS */}
+        <div
+          className="bg-white rounded-2xl shadow p-4 sm:p-6
+                  flex flex-col gap-3
+                  sm:flex-row sm:gap-4 sm:items-center"
+        >
+          {/* BUSCADOR */}
           <input
-            className="w-1/2 px-4 py-2 border rounded-xl"
+            className="w-full sm:w-1/2 px-4 py-2 border rounded-xl
+                 focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Buscar..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
 
+          {/* FILTRO PAGO */}
           <select
             value={filtroPago}
             onChange={(e) => setFiltroPago(e.target.value as any)}
-            className="px-4 py-2 border rounded-xl"
+            className="w-full sm:w-auto px-4 py-2 border rounded-xl
+                 focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             <option value="todos">Todos</option>
             <option value="pagados">Pagados</option>
             <option value="nopagados">No pagados</option>
           </select>
 
+          {/* FILTRO EMPRESA */}
           <select
             value={filtroEmpresa}
             onChange={(e) => setFiltroEmpresa(e.target.value)}
-            className="px-4 py-2 border rounded-xl"
+            className="w-full sm:w-auto px-4 py-2 border rounded-xl
+                 focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             <option value="todas">Todas las empresas</option>
             {empresas.map((emp) => (
@@ -477,8 +498,11 @@ export default function RegistradosPage() {
           </select>
         </div>
 
-        {/* PAGE SIZE */}
-        <div className="flex justify-between items-center mb-3 text-md mt-[1rem]">
+        {/* PAGE SIZE + CONTADOR */}
+        <div
+          className="mt-4 flex flex-col gap-2 text-sm
+               sm:flex-row sm:justify-between sm:items-center sm:text-md"
+        >
           <span>
             Mostrando {items.length} de {filtrados.length} registros
           </span>
@@ -486,7 +510,8 @@ export default function RegistradosPage() {
           <select
             value={pageSize}
             onChange={(e) => setPageSize(Number(e.target.value))}
-            className="px-3 py-2 rounded-lg border"
+            className="w-full sm:w-auto px-3 py-2 rounded-lg border
+                 focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             <option value={filtrados.length}>Todos</option>
             <option value={5}>5</option>
@@ -498,12 +523,14 @@ export default function RegistradosPage() {
         </div>
 
         {/* TABLA */}
-        <UsuariosEventoTable
-          items={items}
-          onEditar={abrirModalEditar}
-          onToggleActivo={abrirModalActivo}
-          onTogglePago={abrirModalPago}
-        />
+        <div className="mt-4 overflow-x-auto">
+          <UsuariosEventoTable
+            items={items}
+            onEditar={abrirModalEditar}
+            onToggleActivo={abrirModalActivo}
+            onTogglePago={abrirModalPago}
+          />
+        </div>
       </section>
 
       {/* PAGINACIÓN */}
@@ -526,15 +553,6 @@ export default function RegistradosPage() {
           className="px-4 py-2 bg-blue-700 text-white rounded-lg disabled:opacity-40"
         >
           Siguiente
-        </button>
-
-        <button
-          onClick={exportarExcel}
-          disabled={exportando}
-          className="flex items-center gap-2 bg-green-600 hover:bg-green-700 px-4 py-2 rounded-lg font-semibold disabled:opacity-50"
-        >
-          <Download size={18} />
-          {exportando ? 'Generando...' : 'Exportar Excel'}
         </button>
       </div>
 
