@@ -164,9 +164,11 @@ export const EventoEnero: React.FC = () => {
             ) : folioGenerado === 'ERROR_GENERAL' ? (
               <>
                 <h2 className="text-xl font-bold text-red-600 mb-2">
-                  Error en el registro
+                  Registro cerrado
                 </h2>
-                <p className="text-gray-700">Inténtalo más tarde.</p>
+                <p className="text-gray-700">
+                  El registro para este evento ya ha sido cerrado.
+                </p>
               </>
             ) : (
               <>
