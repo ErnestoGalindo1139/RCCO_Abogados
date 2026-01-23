@@ -1,7 +1,6 @@
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { HomePage } from '../pages/HomePage';
 import { BlogPage } from '../pages/BlogPage';
-
 import { BlogPostPage } from '../pages/BlogPostPage';
 import { Footer } from '../components/FooterPlantilla';
 import { NavBar } from '../components/NavBar';
@@ -12,25 +11,47 @@ import { LoginPage } from '../pages/LoginPage';
 import { ProtectedRoute } from '../components/ProtectedRoute';
 import { MaterialesPage } from '../pages/MaterialesPage';
 import { SimposioPage } from '../pages/SimposioPage';
+import VerificadorRegistroPage from '../pages/VerificadorRegistroPage';
+import LoginVerificadorPage from '../pages/LoginVerificadorPage';
 
 export const TiendaOnlineRoutes = () => {
-
   const location = useLocation();
 
-  // Rutas donde NO debe aparecer el NavBar ni el Footer
-  const hideLayout = [
-    "/login",
-    "/materiales",
-    "/registradosEvento",
-  ].includes(location.pathname);
+  // Rutas sin layout
+  const hideLayoutRoutes = [
+    '/login',
+    '/loginVerificador',
+    '/materiales',
+    '/registradosEvento',
+    '/verificar-registro',
+  ];
+
+  const hideLayout = hideLayoutRoutes.includes(location.pathname);
 
   return (
     <>
+      {!hideLayout && <NavBar />}
 
-      {/* SIN NAVBAR/FOOTER */}
       <Routes>
-        <Route path="/login" element={<LoginPage />} />
+        {/* ===== PUBLICAS ===== */}
+        <Route path="/" element={<HomePage />} />
+        <Route path="/blog" element={<BlogPage />} />
+        <Route path="/blog/:slug" element={<BlogPostPage />} />
+        <Route path="/simposio" element={<SimposioPage />} />
+        <Route
+          path="/PoliticaDePrivacidad"
+          element={<PoliticaDePrivacidadPage />}
+        />
+        <Route
+          path="/TerminosYCondiciones"
+          element={<TerminosYCondicionesPage />}
+        />
 
+        {/* ===== LOGIN ===== */}
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/loginVerificador" element={<LoginVerificadorPage />} />
+
+        {/* ===== PROTEGIDAS ===== */}
         <Route
           path="/materiales"
           element={
@@ -48,18 +69,15 @@ export const TiendaOnlineRoutes = () => {
             </ProtectedRoute>
           }
         />
-      </Routes>
 
-      {/* SOLO MOSTRAR NAVBAR Y FOOTER SI NO ESTAMOS EN LAS RUTAS PRIVADAS */}
-      {!hideLayout && <NavBar />}
-
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/PoliticaDePrivacidad" element={<PoliticaDePrivacidadPage />} />
-        <Route path="/TerminosYCondiciones" element={<TerminosYCondicionesPage />} />
-        <Route path="/blog" element={<BlogPage />} />
-        <Route path="/blog/:slug" element={<BlogPostPage />} />
-        <Route path="/simposio" element={<SimposioPage />} />
+        <Route
+          path="/verificar-registro"
+          element={
+            <ProtectedRoute role="verificador">
+              <VerificadorRegistroPage />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
 
       {!hideLayout && <Footer />}
