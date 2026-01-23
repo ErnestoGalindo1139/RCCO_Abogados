@@ -369,7 +369,7 @@ export default function RegistradosPage() {
 
       const res = await fetch(
         // 'https://api-rcco-abogados.grstechs.com/reportes/usuariosEvento/excel',
-        'http://localhost:4005/registrosSimposio/EXCEL',
+        'https://api-rcco-abogados.grstechs.com/registrosSimposio/EXCEL',
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },

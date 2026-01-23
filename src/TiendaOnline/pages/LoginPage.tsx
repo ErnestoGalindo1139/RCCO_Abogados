@@ -8,34 +8,43 @@ export const LoginPage: React.FC = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
+  // ⚠️ SOLO REDIRIGE SI YA ESTÁ LOGUEADO COMO ADMIN O USER
   useEffect(() => {
-    const logged = localStorage.getItem('rcco_user_logged');
-    if (logged === 'true') {
-      const role = localStorage.getItem('rcco_role');
-      navigate(role === 'admin' ? '/registradosEvento' : '/materiales');
+    const logged = localStorage.getItem('rcco_user_logged') === 'true';
+    const role = localStorage.getItem('rcco_role');
+
+    if (!logged) return;
+
+    if (role === 'admin') {
+      navigate('/registradosEvento', { replace: true });
     }
-  }, []);
+
+    if (role === 'user') {
+      navigate('/materiales', { replace: true });
+    }
+
+    // ❌ NO TOCAR verificador aquí
+  }, [navigate]);
 
   const login = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Login para admin
+    // ADMIN
     if (usuario === 'admin' && password === 'Rcco2025!') {
       localStorage.setItem('rcco_user_logged', 'true');
       localStorage.setItem('rcco_role', 'admin');
-      navigate('/registradosEvento');
+      navigate('/registradosEvento', { replace: true });
       return;
     }
 
-    // Login para usuario normal
+    // USER
     if (usuario === 'prueba' && password === 'Rcco2025!') {
       localStorage.setItem('rcco_user_logged', 'true');
       localStorage.setItem('rcco_role', 'user');
-      navigate('/materiales');
+      navigate('/materiales', { replace: true });
       return;
     }
 
-    // Si no coincide →
     setError('Usuario o contraseña incorrectos');
   };
 
