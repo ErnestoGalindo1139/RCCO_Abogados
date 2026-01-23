@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { UsuarioEvento } from '../types/UsuarioEvento';
 import { CheckCircle, XCircle, Star } from 'lucide-react';
 
@@ -12,15 +12,6 @@ export default function VerificadorRegistroPage() {
   const [resultados, setResultados] = useState<UsuarioEvento[]>([]);
   const [mensaje, setMensaje] = useState('');
   const [loading, setLoading] = useState(false);
-
-  // ===============================
-  // AUTH SIMPLE
-  // ===============================
-  useEffect(() => {
-    if (localStorage.getItem('rcco_verificador_logged') !== 'true') {
-      window.location.href = '/login-verificador';
-    }
-  }, []);
 
   // ===============================
   // HELPERS FOLIO
@@ -150,7 +141,7 @@ export default function VerificadorRegistroPage() {
         <div className="bg-white rounded-2xl shadow-xl p-6 sm:p-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
 
-            {/* ===== FOLIO (UNIFICADO) ===== */}
+            {/* ===== FOLIO ===== */}
             <div className="md:col-span-3">
               <label className="text-sm font-semibold text-slate-600">
                 Folio
@@ -206,16 +197,14 @@ export default function VerificadorRegistroPage() {
               className="px-4 py-3 border rounded-xl md:col-span-2"
             />
 
-            {/* ===== BOTÓN ===== */}
             <button
               onClick={buscar}
               disabled={loading || !tieneCriteriosBusqueda}
-              className={`w-full rounded-xl font-semibold px-6 py-4 transition text-lg
-                ${
-                  loading || !tieneCriteriosBusqueda
-                    ? 'bg-slate-400 cursor-not-allowed'
-                    : 'bg-blue-700 hover:bg-blue-800 text-white'
-                }`}
+              className={`w-full rounded-xl font-semibold px-6 py-4 transition text-lg ${
+                loading || !tieneCriteriosBusqueda
+                  ? 'bg-slate-400 cursor-not-allowed'
+                  : 'bg-blue-700 hover:bg-blue-800 text-white'
+              }`}
             >
               {loading ? 'Buscando…' : 'Buscar'}
             </button>
@@ -256,8 +245,7 @@ export default function VerificadorRegistroPage() {
                 <p>Correo: {u.Correo}</p>
                 <p>Celular: {u.Celular}</p>
                 <p className="break-all">
-                  Folio:{' '}
-                  <span className="font-semibold">{u.nu_Folio}</span>
+                  Folio: <span className="font-semibold">{u.nu_Folio}</span>
                 </p>
               </div>
 
