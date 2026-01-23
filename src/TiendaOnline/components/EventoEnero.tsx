@@ -63,11 +63,11 @@ export const EventoEnero: React.FC = () => {
 
   const crearRegistro = async () => {
     // if (!form.nombre || !form.apellidoPaterno || !form.correo || !form.telefono ) {
-    if (!form.nombre || !form.apellidoPaterno) {
-      setModalOpen(true);
-      setFolioGenerado('ERROR_FALTAN_CAMPOS');
-      return;
-    }
+    // if (!form.nombre || !form.apellidoPaterno) {
+    //   setModalOpen(true);
+    //   setFolioGenerado('ERROR_FALTAN_CAMPOS');
+    //   return;
+    // }
 
     setLoading(true);
 
