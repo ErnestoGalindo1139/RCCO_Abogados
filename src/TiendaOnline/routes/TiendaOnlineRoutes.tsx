@@ -13,15 +13,16 @@ import { MaterialesPage } from '../pages/MaterialesPage';
 import { SimposioPage } from '../pages/SimposioPage';
 import VerificadorRegistroPage from '../pages/VerificadorRegistroPage';
 import LoginVerificadorPage from '../pages/LoginVerificadorPage';
+import { LoginFolioPage } from '../pages/LoginFolioPage';
+import { ProtectedFolioRoute } from '../components/ProtectedFolioRoute';
 
 export const TiendaOnlineRoutes = () => {
   const location = useLocation();
 
-  // Rutas sin layout
+  // ⛔ SOLO rutas que NO deben tener layout
   const hideLayoutRoutes = [
     '/login',
     '/loginVerificador',
-    '/materiales',
     '/registradosEvento',
     '/verificar-registro',
   ];
@@ -30,6 +31,7 @@ export const TiendaOnlineRoutes = () => {
 
   return (
     <>
+      {/* NAVBAR */}
       {!hideLayout && <NavBar />}
 
       <Routes>
@@ -38,6 +40,7 @@ export const TiendaOnlineRoutes = () => {
         <Route path="/blog" element={<BlogPage />} />
         <Route path="/blog/:slug" element={<BlogPostPage />} />
         <Route path="/simposio" element={<SimposioPage />} />
+
         <Route
           path="/PoliticaDePrivacidad"
           element={<PoliticaDePrivacidadPage />}
@@ -47,20 +50,24 @@ export const TiendaOnlineRoutes = () => {
           element={<TerminosYCondicionesPage />}
         />
 
-        {/* ===== LOGIN ===== */}
+        {/* ===== LOGINS ===== */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/loginVerificador" element={<LoginVerificadorPage />} />
 
-        {/* ===== PROTEGIDAS ===== */}
+        {/* 👇 LOGIN FOLIO CON NAVBAR */}
+        <Route path="/login-folio" element={<LoginFolioPage />} />
+
+        {/* 👇 MATERIALES CON NAVBAR */}
         <Route
           path="/materiales"
           element={
-            <ProtectedRoute role="user">
+            <ProtectedFolioRoute>
               <MaterialesPage />
-            </ProtectedRoute>
+            </ProtectedFolioRoute>
           }
         />
 
+        {/* ===== ADMIN ===== */}
         <Route
           path="/registradosEvento"
           element={
@@ -70,6 +77,7 @@ export const TiendaOnlineRoutes = () => {
           }
         />
 
+        {/* ===== VERIFICADOR ===== */}
         <Route
           path="/verificar-registro"
           element={
@@ -78,8 +86,12 @@ export const TiendaOnlineRoutes = () => {
             </ProtectedRoute>
           }
         />
+
+        {/* ===== FALLBACK ===== */}
+        <Route path="*" element={<HomePage />} />
       </Routes>
 
+      {/* FOOTER */}
       {!hideLayout && <Footer />}
     </>
   );

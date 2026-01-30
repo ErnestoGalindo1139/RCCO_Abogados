@@ -1,4 +1,10 @@
-import React, { useEffect, useMemo, useRef, useState, useCallback } from 'react';
+import React, {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  useCallback,
+} from 'react';
 import { Menu, X } from 'lucide-react';
 import { FaWhatsapp } from 'react-icons/fa';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -21,6 +27,8 @@ const LINKS: LinkItem[] = [
   { id: 'simposio', label: 'nav.simposio', type: 'route' },
   { id: 'blog', label: 'nav.blog', type: 'route' },
   // 👉 Nuevo item Login
+  // ✅ NUEVO: acceso a materiales
+  { id: 'login-folio', label: 'nav.materiales', type: 'route' },
 ];
 
 // Ajusta el alto si cambias el tamaño del navbar
@@ -33,15 +41,13 @@ interface NavBarProps {
   lockScrollOnOpen?: boolean;
 }
 
-export const NavBar: React.FC<NavBarProps> = ({
-  lockScrollOnOpen = true,
-}) => {
+export const NavBar: React.FC<NavBarProps> = ({ lockScrollOnOpen = true }) => {
   const [open, setOpen] = useState(false);
-  const [active, setActive] = useState<string>('');  // Inicializado vacío para que no haya selección al cargar
+  const [active, setActive] = useState<string>(''); // Inicializado vacío para que no haya selección al cargar
   const [isScrolled, setIsScrolled] = useState(false);
   const [bannerHeight, setBannerHeight] = useState(0);
   const [isBannerVisible, setIsBannerVisible] = useState(true);
-  
+
   // Referencias para optimización
   const observerRef = useRef<IntersectionObserver | null>(null);
   const lastScrollY = useRef(0);
@@ -52,6 +58,9 @@ export const NavBar: React.FC<NavBarProps> = ({
   const navigate = useNavigate();
   const isHome = location.pathname === '/';
 
+  // 🔐 Sesión por folio
+  const tieneFolio = Boolean(localStorage.getItem('rcco_folio_logged'));
+
   const { t } = useTranslation(['common']);
   const { t: trans } = useTranslation('home');
 
@@ -59,7 +68,8 @@ export const NavBar: React.FC<NavBarProps> = ({
   const scrollToId = useCallback((id: string): void => {
     const el = document.getElementById(id);
     if (!el) return;
-    const top = el.getBoundingClientRect().top + window.scrollY - NAV_HEIGHT + 1;
+    const top =
+      el.getBoundingClientRect().top + window.scrollY - NAV_HEIGHT + 1;
     window.scrollTo({ top, behavior: 'smooth' });
   }, []);
 
@@ -76,10 +86,10 @@ export const NavBar: React.FC<NavBarProps> = ({
     };
 
     getBannerHeight();
-    
+
     let resizeObserver: ResizeObserver | null = null;
     const bannerElement = document.getElementById('inicio');
-    
+
     if (bannerElement && window.ResizeObserver) {
       resizeObserver = new ResizeObserver(getBannerHeight);
       resizeObserver.observe(bannerElement);
@@ -109,7 +119,7 @@ export const NavBar: React.FC<NavBarProps> = ({
       if (bannerElement) {
         const rect = bannerElement.getBoundingClientRect();
         const isInBanner = rect.bottom > 0;
-        
+
         setIsBannerVisible(isInBanner);
         setIsScrolled(!isInBanner);
       }
@@ -141,7 +151,7 @@ export const NavBar: React.FC<NavBarProps> = ({
       document.body.style.top = '';
       document.body.style.width = '';
       window.scrollTo(0, scrollY);
-      
+
       // Recalcular la sección activa cuando se cierra el slider
       const currentScroll = window.scrollY;
       let closestSection = '';
@@ -168,15 +178,18 @@ export const NavBar: React.FC<NavBarProps> = ({
   }, [open, lockScrollOnOpen]);
 
   // Scrollspy optimizado (solo en Home)
-  const observerCallback = useCallback((entries: IntersectionObserverEntry[]): void => {
-    const visible = entries
-      .filter((e) => e.isIntersecting)
-      .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-    
-    if (visible?.target?.id) {
-      setActive(visible.target.id);
-    }
-  }, []);
+  const observerCallback = useCallback(
+    (entries: IntersectionObserverEntry[]): void => {
+      const visible = entries
+        .filter((e) => e.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+      if (visible?.target?.id) {
+        setActive(visible.target.id);
+      }
+    },
+    []
+  );
 
   useEffect(() => {
     if (!isHome) return;
@@ -223,29 +236,37 @@ export const NavBar: React.FC<NavBarProps> = ({
   }, [location.pathname, navigate]);
 
   // Función de navegación optimizada con useCallback
-  const handleNav = useCallback((item: LinkItem): void => {
-    const performNavigation = (): void => {
-      if (item.type === 'route') {
-        navigate(`/${item.id}`);
-        return;
-      }
+  const handleNav = useCallback(
+    (item: LinkItem): void => {
+      const performNavigation = (): void => {
+        if (item.id === 'login-folio') {
+          navigate(tieneFolio ? '/materiales' : '/login-folio');
+          return;
+        }
 
-      setActive(item.id);
+        if (item.type === 'route') {
+          navigate(`/${item.id}`);
+          return;
+        }
 
-      if (isHome) {
-        scrollToId(item.id);
+        setActive(item.id);
+
+        if (isHome) {
+          scrollToId(item.id);
+        } else {
+          navigate(`/#${item.id}`);
+        }
+      };
+
+      if (open) {
+        setOpen(false);
+        setTimeout(performNavigation, 300);
       } else {
-        navigate(`/#${item.id}`);
+        performNavigation();
       }
-    };
-
-    if (open) {
-      setOpen(false);
-      setTimeout(performNavigation, 300);
-    } else {
-      performNavigation();
-    }
-  }, [isHome, navigate, open, scrollToId]);
+    },
+    [isHome, navigate, open, scrollToId]
+  );
 
   const DesktopLinks = useMemo(
     () => (
@@ -394,13 +415,22 @@ export const NavBar: React.FC<NavBarProps> = ({
 
                 {/* Redes sociales */}
                 <div className="flex justify-start space-x-4 pt-2">
-                  <a href="https://www.facebook.com/profile.php?id=100063488083767" className="text-white/80 hover:text-white">
+                  <a
+                    href="https://www.facebook.com/profile.php?id=100063488083767"
+                    className="text-white/80 hover:text-white"
+                  >
                     <LuFacebook className="size-6" />
                   </a>
-                  <a href="https://wa.me/6692291634" className="text-white/80 hover:text-white">
+                  <a
+                    href="https://wa.me/6692291634"
+                    className="text-white/80 hover:text-white"
+                  >
                     <FaWhatsapp className="size-6" />
                   </a>
-                  <a href="https://www.instagram.com/rccoabogados/" className="text-white/80 hover:text-white">
+                  <a
+                    href="https://www.instagram.com/rccoabogados/"
+                    className="text-white/80 hover:text-white"
+                  >
                     <LuInstagram className="size-6" />
                   </a>
                 </div>
@@ -431,9 +461,11 @@ export const NavBar: React.FC<NavBarProps> = ({
           transition-all duration-500
           hover:scale-110
           z-40
-          ${isBannerVisible 
-            ? 'opacity-0 pointer-events-none translate-y-10' 
-            : 'opacity-100 pointer-events-auto translate-y-0'}
+          ${
+            isBannerVisible
+              ? 'opacity-0 pointer-events-none translate-y-10'
+              : 'opacity-100 pointer-events-auto translate-y-0'
+          }
         `}
         aria-label="Abrir chat de WhatsApp"
       >

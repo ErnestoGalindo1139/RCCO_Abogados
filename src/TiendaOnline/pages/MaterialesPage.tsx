@@ -10,12 +10,27 @@ interface Material {
 export const MaterialesPage: React.FC = () => {
   const navigate = useNavigate();
 
+  // ===============================
+  // 🔐 VALIDAR SESIÓN POR FOLIO
+  // ===============================
+  useEffect(() => {
+    const folio = localStorage.getItem('rcco_folio_logged');
+    if (!folio) {
+      navigate('/login-folio');
+    }
+  }, [navigate]);
+
+  // ===============================
+  // LOGOUT
+  // ===============================
   const logout = () => {
-    localStorage.removeItem('rcco_user_logged');
-    navigate('/login');
+    localStorage.removeItem('rcco_folio_logged');
+    navigate('/login-folio');
   };
 
-  // ✅ Lista oficial de materiales (ya definidos desde hoy)
+  // ===============================
+  // 📚 MATERIALES
+  // ===============================
   const materiales: Material[] = [
     {
       titulo: 'Programa Oficial del Simposio',
@@ -34,83 +49,94 @@ export const MaterialesPage: React.FC = () => {
     },
   ];
 
-  // ✅ Aquí guardamos cuáles existen realmente
+  // ===============================
+  // 📦 DISPONIBILIDAD REAL
+  // ===============================
   const [disponibles, setDisponibles] = useState<Record<string, boolean>>({});
+  const [loading, setLoading] = useState(true);
 
-  // ===============================
-  // VERIFICAR SI EXISTE EL ARCHIVO
-  // ===============================
   useEffect(() => {
     const verificarArchivos = async () => {
       const results: Record<string, boolean> = {};
 
       for (const mat of materiales) {
         try {
-          const res = await fetch(mat.archivo);
-
+          const res = await fetch(mat.archivo, { method: 'HEAD' });
           const contentType = res.headers.get('content-type');
 
-          // ✅ Solo desbloquea si es PDF real
+          // ✅ FORZAR A BOOLEAN
           results[mat.archivo] =
-            res.ok && contentType?.includes('application/pdf');
+            res.ok && !!contentType && contentType.includes('application/pdf');
         } catch {
           results[mat.archivo] = false;
         }
       }
 
       setDisponibles(results);
+      setLoading(false);
     };
 
     verificarArchivos();
   }, []);
 
+  // ===============================
+  // UI
+  // ===============================
   return (
-    <main className="min-h-screen bg-slate-50 pb-20">
+    <main className="min-h-screen bg-slate-50 pb-20 mt-[3rem]">
       {/* HEADER */}
-      <div className="bg-gradient-to-r from-[#113873] via-[#164b98] to-[#0D47A1] py-12 px-6 text-white">
+      <header className="bg-gradient-to-r from-[#113873] via-[#164b98] to-[#0D47A1] py-12 px-6 text-white">
         <h1 className="text-3xl font-bold">Materiales del Simposio</h1>
         <p className="text-white/80 mt-1">
-          Acceso exclusivo para asistentes con usuario autorizado.
+          Acceso exclusivo para asistentes registrados
         </p>
-      </div>
+      </header>
 
       {/* CONTENT */}
       <section className="max-w-4xl mx-auto px-6 py-10 -mt-6">
         <div className="bg-white shadow-lg rounded-2xl p-8 ring-1 ring-black/5">
           <h2 className="text-2xl font-bold text-[#113873] mb-6">
-            Descargas Disponibles
+            Descargas disponibles
           </h2>
+
+          {loading && (
+            <p className="text-slate-500 text-sm mb-4">
+              Verificando materiales disponibles...
+            </p>
+          )}
 
           {/* LISTA */}
           <div className="space-y-4">
             {materiales.map((mat, idx) => {
-              const existe = disponibles[mat.archivo];
+              const existe = disponibles[mat.archivo] ?? false;
 
               return existe ? (
-                // ✅ ACTIVO
+                // ✅ DISPONIBLE
                 <a
                   key={idx}
                   href={mat.archivo}
                   target="_blank"
+                  rel="noopener noreferrer"
                   className="block p-4 rounded-xl border border-blue-200 hover:border-blue-600 hover:bg-blue-50 transition"
                 >
-                  {mat.icono} <strong>{mat.titulo}</strong>
+                  <span className="text-lg">{mat.icono}</span>{' '}
+                  <strong>{mat.titulo}</strong>
                   <span className="ml-3 text-xs bg-green-600 text-white px-2 py-1 rounded-full">
                     Disponible
                   </span>
                 </a>
               ) : (
-                // ❌ BLOQUEADO
+                // ❌ NO DISPONIBLE
                 <div
                   key={idx}
-                  className="p-4 rounded-xl border border-slate-200 bg-slate-100 text-slate-500 cursor-not-allowed flex justify-between items-center"
+                  className="p-4 rounded-xl border border-slate-200 bg-slate-100 text-slate-500 flex justify-between items-center"
                 >
                   <span>
                     {mat.icono} <strong>{mat.titulo}</strong>
                   </span>
 
                   <span className="text-xs bg-slate-300 text-slate-700 px-3 py-1 rounded-full">
-                    Próximamente (15 de Febrero)
+                    Próximamente
                   </span>
                 </div>
               );
@@ -119,8 +145,8 @@ export const MaterialesPage: React.FC = () => {
 
           {/* LOGOUT */}
           <button
-            className="mt-10 w-full py-3 bg-red-600 hover:bg-red-700 text-white rounded-xl font-semibold"
             onClick={logout}
+            className="mt-10 w-full py-3 bg-red-600 hover:bg-red-700 text-white rounded-xl font-semibold"
           >
             Cerrar sesión
           </button>
