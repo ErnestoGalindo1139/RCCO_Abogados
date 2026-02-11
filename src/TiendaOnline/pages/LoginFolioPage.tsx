@@ -39,7 +39,17 @@ export const LoginFolioPage: React.FC = () => {
       return;
     }
 
+    const FOLIO_RESULTADOS = 'PLD-2026-2026-1139';
+
     const folioCompleto = `${FOLIO_PREFIX}-${formattedValue}`;
+
+    // 🔥 FOLIO ESPECIAL → RESULTADOS
+    if (folioCompleto === FOLIO_RESULTADOS) {
+      localStorage.setItem('rcco_folio_logged', folioCompleto);
+      localStorage.setItem('rcco_folio_role', 'resultados');
+      navigate('/resultados-encuesta');
+      return;
+    }
 
     setLoading(true);
 

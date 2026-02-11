@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { EncuestaPopUp } from '../components/EncuestaPopUp';
 
 interface Material {
   titulo: string;
@@ -26,6 +27,13 @@ export const MaterialesPage: React.FC = () => {
   const logout = () => {
     localStorage.removeItem('rcco_folio_logged');
     navigate('/login-folio');
+  };
+
+  // ===============================
+  // 👉 IR A ENCUESTA
+  // ===============================
+  const irAEncuesta = () => {
+    navigate('/encuesta-satisfaccion');
   };
 
   // ===============================
@@ -64,7 +72,6 @@ export const MaterialesPage: React.FC = () => {
           const res = await fetch(mat.archivo, { method: 'HEAD' });
           const contentType = res.headers.get('content-type');
 
-          // ✅ FORZAR A BOOLEAN
           results[mat.archivo] =
             res.ok && !!contentType && contentType.includes('application/pdf');
         } catch {
@@ -84,6 +91,8 @@ export const MaterialesPage: React.FC = () => {
   // ===============================
   return (
     <main className="min-h-screen bg-slate-50 pb-20 mt-[3rem]">
+      <EncuestaPopUp />
+
       {/* HEADER */}
       <header className="bg-gradient-to-r from-[#113873] via-[#164b98] to-[#0D47A1] py-12 px-6 text-white">
         <h1 className="text-3xl font-bold">Materiales del Simposio</h1>
@@ -95,7 +104,22 @@ export const MaterialesPage: React.FC = () => {
       {/* CONTENT */}
       <section className="max-w-4xl mx-auto px-6 py-10 -mt-6">
         <div className="bg-white shadow-lg rounded-2xl p-8 ring-1 ring-black/5">
-          <h2 className="text-2xl font-bold text-[#113873] mb-6">
+          {/* CTA ENCUESTA */}
+          <div className="mb-8">
+            <button
+              onClick={irAEncuesta}
+              className="w-full py-4 bg-[#113873] hover:bg-[#0D47A1] 
+                         text-white rounded-xl font-semibold text-lg 
+                         shadow-md transition"
+            >
+              Responder encuesta de satisfacción
+            </button>
+            <p className="text-center text-sm text-slate-500 mt-2">
+              Tu opinión nos ayuda a mejorar futuras ediciones del simposio
+            </p>
+          </div>
+
+          <h2 className="text-2xl font-bold text-[#113873] mb-4">
             Descargas disponibles
           </h2>
 
@@ -105,19 +129,19 @@ export const MaterialesPage: React.FC = () => {
             </p>
           )}
 
-          {/* LISTA */}
+          {/* LISTA DE MATERIALES */}
           <div className="space-y-4">
             {materiales.map((mat, idx) => {
               const existe = disponibles[mat.archivo] ?? false;
 
               return existe ? (
-                // ✅ DISPONIBLE
                 <a
                   key={idx}
                   href={mat.archivo}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block p-4 rounded-xl border border-blue-200 hover:border-blue-600 hover:bg-blue-50 transition"
+                  className="block p-4 rounded-xl border border-blue-200 
+                             hover:border-blue-600 hover:bg-blue-50 transition"
                 >
                   <span className="text-lg">{mat.icono}</span>{' '}
                   <strong>{mat.titulo}</strong>
@@ -126,10 +150,11 @@ export const MaterialesPage: React.FC = () => {
                   </span>
                 </a>
               ) : (
-                // ❌ NO DISPONIBLE
                 <div
                   key={idx}
-                  className="p-4 rounded-xl border border-slate-200 bg-slate-100 text-slate-500 flex justify-between items-center"
+                  className="p-4 rounded-xl border border-slate-200 
+                             bg-slate-100 text-slate-500 
+                             flex justify-between items-center"
                 >
                   <span>
                     {mat.icono} <strong>{mat.titulo}</strong>
@@ -146,7 +171,8 @@ export const MaterialesPage: React.FC = () => {
           {/* LOGOUT */}
           <button
             onClick={logout}
-            className="mt-10 w-full py-3 bg-red-600 hover:bg-red-700 text-white rounded-xl font-semibold"
+            className="mt-8 w-full py-3 bg-red-600 hover:bg-red-700 
+                       text-white rounded-xl font-semibold"
           >
             Cerrar sesión
           </button>

@@ -15,16 +15,22 @@ import VerificadorRegistroPage from '../pages/VerificadorRegistroPage';
 import LoginVerificadorPage from '../pages/LoginVerificadorPage';
 import { LoginFolioPage } from '../pages/LoginFolioPage';
 import { ProtectedFolioRoute } from '../components/ProtectedFolioRoute';
+import { EncuestaSatisfaccionPage } from '../pages/EncuestaSatisfaccionPage';
+import { GraciasEncuestaPage } from '../pages/GraciasEncuestaPage';
+import { ResultadosEncuestaPage } from '../pages/ResultadosEncuestaPage';
 
 export const TiendaOnlineRoutes = () => {
   const location = useLocation();
 
-  // ⛔ SOLO rutas que NO deben tener layout
+  // ⛔ Rutas que NO deben tener Navbar/Footer
   const hideLayoutRoutes = [
     '/login',
     '/loginVerificador',
     '/registradosEvento',
     '/verificar-registro',
+    '/encuesta-satisfaccion', // 👈 encuesta sin distracciones
+    '/gracias',
+    '/resultados-encuesta', // 👈 NUEVO (dashboard limpio)
   ];
 
   const hideLayout = hideLayoutRoutes.includes(location.pathname);
@@ -54,15 +60,41 @@ export const TiendaOnlineRoutes = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/loginVerificador" element={<LoginVerificadorPage />} />
 
-        {/* 👇 LOGIN FOLIO CON NAVBAR */}
+        {/* 👇 LOGIN POR FOLIO */}
         <Route path="/login-folio" element={<LoginFolioPage />} />
 
-        {/* 👇 MATERIALES CON NAVBAR */}
+        {/* 👇 RESULTADOS (FOLIO ESPECIAL 2025-1139) */}
+        <Route
+          path="/resultados-encuesta"
+          element={<ResultadosEncuestaPage />}
+        />
+
+        {/* 👇 MATERIALES (PROTEGIDO POR FOLIO) */}
         <Route
           path="/materiales"
           element={
             <ProtectedFolioRoute>
               <MaterialesPage />
+            </ProtectedFolioRoute>
+          }
+        />
+
+        {/* 👇 ENCUESTA (PROTEGIDA POR FOLIO, SIN LAYOUT) */}
+        <Route
+          path="/encuesta-satisfaccion"
+          element={
+            <ProtectedFolioRoute>
+              <EncuestaSatisfaccionPage />
+            </ProtectedFolioRoute>
+          }
+        />
+
+        {/* 👇 GRACIAS (MISMO FLUJO, SIN LAYOUT) */}
+        <Route
+          path="/gracias"
+          element={
+            <ProtectedFolioRoute>
+              <GraciasEncuestaPage />
             </ProtectedFolioRoute>
           }
         />
