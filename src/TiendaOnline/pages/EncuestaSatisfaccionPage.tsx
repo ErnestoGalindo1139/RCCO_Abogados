@@ -44,7 +44,9 @@ export const EncuestaSatisfaccionPage: React.FC = () => {
   useEffect(() => {
     const fetchPreguntas = async () => {
       try {
-        const res = await fetch('http://localhost:4005/preguntasEncuesta');
+        const res = await fetch(
+          'https://api-rcco-abogados.grstechs.com/preguntasEncuesta'
+        );
 
         const data = await res.json();
 
@@ -85,7 +87,7 @@ export const EncuestaSatisfaccionPage: React.FC = () => {
 
       const res = await fetch(
         // 'https://api-rcco-abogados.grstechs.com/createEncuestaRespuesta',
-        'http://localhost:4005/createEncuestaRespuesta',
+        'https://api-rcco-abogados.grstechs.com/createEncuestaRespuesta',
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
