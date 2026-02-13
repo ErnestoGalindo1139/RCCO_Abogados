@@ -108,7 +108,9 @@ export const ResultadosEncuestaPage: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch('http://localhost:4005/resultados-encuesta');
+        const res = await fetch(
+          'https://api-rcco-abogados.grstechs.com/resultados-encuesta'
+        );
         const json: ApiResponse = await res.json();
         setData(json.body);
       } catch (err) {
