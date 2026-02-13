@@ -9,8 +9,7 @@ import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { AreasEspecializadas } from '../components/AreasEspecializadas';
 import { ConstruccionJuridica } from '../components/ConstruccionJuridica';
-import { EventoPopup } from '../components/EventoPopUp';
-import { EventoEnero } from '../components/EventoEnero';
+import { EncuestaPopUpHomePage } from '../components/EncuestaPopUpHomePage';
 
 export const HomePage = (): React.JSX.Element => {
   const location = useLocation();
@@ -35,6 +34,7 @@ export const HomePage = (): React.JSX.Element => {
     <div className="w-full min-w-full overflow-x-hidden">
       {/* Popup del evento */}
       {/* <EventoPopup /> */}
+      <EncuestaPopUpHomePage />
       <Banner />
 
       <Nosotros />
