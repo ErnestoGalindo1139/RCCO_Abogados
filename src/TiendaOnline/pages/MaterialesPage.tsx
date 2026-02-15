@@ -1,94 +1,120 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { EncuestaPopUp } from '../components/EncuestaPopUp';
+import { CertificadoCard } from '../components/CertificadoCard';
 
-interface Material {
-  titulo: string;
+interface Documento {
+  nombre: string;
   archivo: string;
-  icono: string;
+}
+
+interface SeccionDocumentos {
+  titulo: string;
+  ponentes: string[];
+  documentos: Documento[];
 }
 
 export const MaterialesPage: React.FC = () => {
   const navigate = useNavigate();
 
   // ===============================
-  // 🔐 VALIDAR SESIÓN POR FOLIO
+  // VALIDAR SESIÓN
   // ===============================
   useEffect(() => {
     const folio = localStorage.getItem('rcco_folio_logged');
-    if (!folio) {
-      navigate('/login-folio');
-    }
+    if (!folio) navigate('/login-folio');
   }, [navigate]);
 
-  // ===============================
-  // LOGOUT
-  // ===============================
   const logout = () => {
     localStorage.removeItem('rcco_folio_logged');
     navigate('/login-folio');
   };
 
-  // ===============================
-  // 👉 IR A ENCUESTA
-  // ===============================
   const irAEncuesta = () => {
     navigate('/encuesta-satisfaccion');
   };
 
-  // ===============================
-  // 📚 MATERIALES
-  // ===============================
-  const materiales: Material[] = [
-    {
-      titulo: 'Programa Oficial del Simposio',
-      archivo: '/docs/Programa-Oficial.pdf',
-      icono: '📄',
-    },
-    {
-      titulo: 'Guía de Cumplimiento PLD 2025',
-      archivo: '/docs/Guia-PLD-2025.pdf',
-      icono: '📘',
-    },
-    {
-      titulo: 'Análisis de la Reforma a la LFPIORPI',
-      archivo: '/docs/Reforma-LFPIORPI.pdf',
-      icono: '⚖️',
-    },
-  ];
-
-  // ===============================
-  // 📦 DISPONIBILIDAD REAL
-  // ===============================
-  const [disponibles, setDisponibles] = useState<Record<string, boolean>>({});
-  const [loading, setLoading] = useState(true);
+  const [usuario, setUsuario] = useState<any>(null);
 
   useEffect(() => {
-    const verificarArchivos = async () => {
-      const results: Record<string, boolean> = {};
-
-      for (const mat of materiales) {
-        try {
-          const res = await fetch(mat.archivo, { method: 'HEAD' });
-          const contentType = res.headers.get('content-type');
-
-          results[mat.archivo] =
-            res.ok && !!contentType && contentType.includes('application/pdf');
-        } catch {
-          results[mat.archivo] = false;
-        }
-      }
-
-      setDisponibles(results);
-      setLoading(false);
-    };
-
-    verificarArchivos();
+    const data = localStorage.getItem('rcco_folio_usuario');
+    if (data) setUsuario(JSON.parse(data));
   }, []);
 
   // ===============================
-  // UI
+  // SECCIONES POR PONENTE
   // ===============================
+  const secciones: SeccionDocumentos[] = [
+    {
+      titulo: 'Ponencia 1',
+      ponentes: ['Lic. Lizbeth M. Lascarez Calderón'],
+      documentos: [
+        {
+          nombre: 'México ante el lavado de dinero-eficacia de la Ley.',
+          archivo:
+            '/img/materialesPonencias/México ante el lavado de dinero-eficacia de la Ley. (Liz Lacarez).pdf',
+        },
+      ],
+    },
+    {
+      titulo: 'Ponencia 2',
+      ponentes: ['Mtro. Miguel Ángel Mojica', 'Lic. Alfredo Eduardo Soto Vela'],
+      documentos: [
+        {
+          nombre: 'PANORAMA ESTRATÉGICO DE LA REFORMA EN PLD 2025 VER.22-01-26',
+          archivo:
+            '/img/materialesPonencias/PANORAMA ESTRATÉGICO DE LA REFORMA EN PLD 2025 VER.22-01-26 (Ultima).pdf',
+        },
+      ],
+    },
+    {
+      titulo: 'Ponencia 3',
+      ponentes: [
+        'C.P.C. Alejandra Vallejo Parcero',
+        'Lic. Alejandro Ponce Rivera y Chávez',
+      ],
+      documentos: [
+        {
+          nombre: 'Simposium - Visitas LFPIORPI',
+          archivo: '/img/materialesPonencias/Simposium - Visitas LFPIORPI.pdf',
+        },
+      ],
+    },
+    {
+      titulo: 'Ponencia 4',
+      ponentes: [
+        'Lic. GPC Guadalupe Félix Sarabia',
+        'Lic. Joel Gibrán Osuna Laveaga',
+      ],
+      documentos: [
+        {
+          nombre: 'BENEFICIARIO CONTROLADOR FISCAL_PLD 2.0',
+          archivo:
+            '/img/materialesPonencias/BENEFICIARIO CONTROLADOR FISCAL_PLD 2.0 (1).pdf',
+        },
+      ],
+    },
+    {
+      titulo: 'Ponencia 5',
+      ponentes: ['José Antonio Manzanero Escutia'],
+      documentos: [
+        {
+          nombre: 'LEY ANTILAVADO',
+          archivo: '/img/materialesPonencias/LEY ANTILAVADO.pptx.pdf',
+        },
+        {
+          nombre: 'BENEFICIARIO CONTROLADOR 2025',
+          archivo:
+            '/img/materialesPonencias/BENEFICIARIO CONTROLADOR 2025.pptx.pdf',
+        },
+        {
+          nombre: 'FECHAS MEMORABLES',
+          archivo: '/img/materialesPonencias/FECHAS MEMORABLES.pdf',
+        },
+      ],
+    },
+  ];
+
   return (
     <main className="min-h-screen bg-slate-50 pb-20 mt-[3rem]">
       <EncuestaPopUp />
@@ -101,82 +127,75 @@ export const MaterialesPage: React.FC = () => {
         </p>
       </header>
 
-      {/* CONTENT */}
-      <section className="max-w-4xl mx-auto px-6 py-10 -mt-6">
-        <div className="bg-white shadow-lg rounded-2xl p-8 ring-1 ring-black/5">
-          {/* CTA ENCUESTA */}
-          <div className="mb-8">
-            <button
-              onClick={irAEncuesta}
-              className="w-full py-4 bg-[#113873] hover:bg-[#0D47A1] 
-                         text-white rounded-xl font-semibold text-lg 
-                         shadow-md transition"
-            >
-              Responder encuesta de satisfacción
-            </button>
-            <p className="text-center text-sm text-slate-500 mt-2">
-              Tu opinión nos ayuda a mejorar futuras ediciones del simposio
-            </p>
-          </div>
+      <section className="max-w-5xl mx-auto px-6 py-10 -mt-6 space-y-10">
+        {/* CERTIFICADO */}
+        {usuario?.sn_Pagado && usuario?.ar_Certificado && (
+          <CertificadoCard
+            nombre={usuario.nb_Nombre}
+            idUsuario={usuario.id_UsuarioEvento}
+            certificadoUrl={usuario.ar_Certificado}
+          />
+        )}
 
-          <h2 className="text-2xl font-bold text-[#113873] mb-4">
-            Descargas disponibles
+        {/* BLOQUE ENCUESTA SEPARADO */}
+        <div className="bg-gradient-to-r from-[#113873] to-[#164b98] text-white p-8 rounded-2xl shadow-xl">
+          <h2 className="text-2xl font-bold mb-2">
+            📝 Encuesta de Satisfacción
           </h2>
+          <p className="text-white/80 mb-6">
+            Tu opinión es fundamental para mejorar futuras ediciones del
+            simposio.
+          </p>
 
-          {loading && (
-            <p className="text-slate-500 text-sm mb-4">
-              Verificando materiales disponibles...
-            </p>
-          )}
+          <button
+            onClick={irAEncuesta}
+            className="bg-white text-[#113873] font-semibold py-3 px-6 rounded-xl hover:bg-gray-100 transition"
+          >
+            Responder encuesta
+          </button>
+        </div>
 
-          {/* LISTA DE MATERIALES */}
-          <div className="space-y-4">
-            {materiales.map((mat, idx) => {
-              const existe = disponibles[mat.archivo] ?? false;
+        {/* SECCIONES POR PONENTE */}
+        {secciones.map((sec, index) => (
+          <div
+            key={index}
+            className="bg-white p-8 rounded-2xl shadow-lg ring-1 ring-black/5"
+          >
+            <h2 className="text-2xl font-bold text-[#113873] mb-3">
+              {sec.titulo}
+            </h2>
 
-              return existe ? (
+            <div className="text-sm text-slate-600 mb-6 space-y-1">
+              {sec.ponentes.map((p, i) => (
+                <div key={i}>• {p}</div>
+              ))}
+            </div>
+
+            <div className="space-y-3">
+              {sec.documentos.map((doc, idx) => (
                 <a
                   key={idx}
-                  href={mat.archivo}
+                  href={doc.archivo}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="block p-4 rounded-xl border border-blue-200 
                              hover:border-blue-600 hover:bg-blue-50 transition"
                 >
-                  <span className="text-lg">{mat.icono}</span>{' '}
-                  <strong>{mat.titulo}</strong>
-                  <span className="ml-3 text-xs bg-green-600 text-white px-2 py-1 rounded-full">
-                    Disponible
-                  </span>
+                  📄 <strong>{doc.nombre}</strong>
                 </a>
-              ) : (
-                <div
-                  key={idx}
-                  className="p-4 rounded-xl border border-slate-200 
-                             bg-slate-100 text-slate-500 
-                             flex justify-between items-center"
-                >
-                  <span>
-                    {mat.icono} <strong>{mat.titulo}</strong>
-                  </span>
-
-                  <span className="text-xs bg-slate-300 text-slate-700 px-3 py-1 rounded-full">
-                    Próximamente
-                  </span>
-                </div>
-              );
-            })}
+              ))}
+            </div>
           </div>
+        ))}
 
-          {/* LOGOUT */}
-          <button
-            onClick={logout}
-            className="mt-8 w-full py-3 bg-red-600 hover:bg-red-700 
-                       text-white rounded-xl font-semibold"
-          >
-            Cerrar sesión
-          </button>
-        </div>
+        {/* LOGOUT */}
+        <button
+          onClick={logout}
+          className="mt-6 w-full py-3 bg-red-600 hover:bg-red-700 
+                     text-white rounded-xl font-semibold"
+        >
+          Cerrar sesión
+        </button>
       </section>
     </main>
   );
