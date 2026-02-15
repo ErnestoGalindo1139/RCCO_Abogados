@@ -19,8 +19,8 @@ export const CertificadoCard: React.FC<Props> = ({
 
     if (!usuario?.id_UsuarioEvento) return;
 
-    // window.location.href = `https://api-rcco-abogados.grstechs.com/descargar-certificado/${usuario.id_UsuarioEvento}`;
-    window.location.href = `http://localhost:4005/descargar-certificado/${usuario.id_UsuarioEvento}`;
+    window.location.href = `https://api-rcco-abogados.grstechs.com/descargar-certificado/${usuario.id_UsuarioEvento}`;
+    // window.location.href = `http://localhost:4005/descargar-certificado/${usuario.id_UsuarioEvento}`;
   };
 
   return (
