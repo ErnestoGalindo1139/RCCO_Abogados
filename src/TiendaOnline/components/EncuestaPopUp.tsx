@@ -74,6 +74,9 @@ export const EncuestaPopUp = () => {
             <img src={LogoCafe} alt="Logo LE FROLLE" />
           </div>
         </div>
+
+        {/* LEYENDA VALIDEZ */}
+        <div className="evento-validity">Válido hasta el 10 de marzo</div>
       </div>
 
       <style>{`
@@ -252,6 +255,18 @@ export const EncuestaPopUp = () => {
           justify-content: space-between;
           align-items: center;
           gap: 20px;
+        }
+
+        .evento-validity {
+          margin-top: 22px;
+          padding-top: 14px;
+          border-top: 1px dashed rgba(163, 90, 44, 0.4);
+          font-size: 12px;
+          font-weight: 700;
+          letter-spacing: 1px;
+          text-transform: uppercase;
+          color: #6f3b16;
+          opacity: 0.8;
         }
 
         /* TEXTO IZQUIERDA */
