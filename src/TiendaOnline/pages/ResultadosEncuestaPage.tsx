@@ -10,21 +10,62 @@ import {
 } from 'recharts';
 
 /* ===========================================================
-   🎨 Colores corporativos
+   🎨 Colores contrastados reales (no monocromáticos)
 =========================================================== */
-const COLORS = [
-  '#113873',
-  '#1D4ED8',
-  '#2563EB',
-  '#3B82F6',
-  '#60A5FA',
-  '#93C5FD',
-  '#0F172A',
+
+const CONTRAST_COLORS = [
+  '#1E3A8A', // Azul
+  '#10B981', // Verde
+  '#F59E0B', // Amarillo
+  '#EF4444', // Rojo
+  '#8B5CF6', // Morado
+  '#14B8A6', // Teal
+  '#F97316', // Naranja
+  '#0EA5E9', // Azul claro
 ];
+
+/* ===========================================================
+   🎨 Colores semánticos inteligentes
+=========================================================== */
+
+const getColorByOption = (label: string, index: number) => {
+  const text = label.toLowerCase().trim();
+
+  // 🔴 Negativo fuerte
+  if (text === 'no') return '#EF4444';
+
+  // 🟡 Neutral
+  if (text.includes('no estoy')) return '#F59E0B';
+  if (text.includes('seguro')) return '#F59E0B';
+
+  // 🟢 Probable positivo
+  if (text.includes('probablemente')) return '#3B82F6'; // Azul diferente
+
+  // 🟢 Positivo fuerte
+  if (text === 'sí') return '#10B981';
+
+  // Otros casos tipo evaluación
+  if (text.includes('excelente')) return '#3B82F6';
+  if (text.includes('bueno')) return '#22C55E';
+  if (text.includes('regular')) return '#F59E0B';
+  if (text.includes('deficiente')) return '#EF4444';
+
+  // Fallback
+  return CONTRAST_COLORS[index % CONTRAST_COLORS.length];
+};
+
+const getAverageColor = (value: number) => {
+  if (value >= 4.5) return '#1067b9'; // Verde excelente
+  if (value >= 4) return '#278be9'; // Verde bueno
+  if (value >= 3) return '#4aa0f0'; // Amarillo regular
+  if (value >= 2) return '#75b8f7'; // Naranja bajo
+  return '#EF4444'; // Rojo deficiente
+};
 
 /* ===========================================================
    📦 Tipos
 =========================================================== */
+
 interface ApiResponse {
   success: boolean;
   message: string;
@@ -66,8 +107,9 @@ interface Comentario {
 }
 
 /* ===========================================================
-   🧠 Tooltip Personalizado
+   🧠 Tooltip personalizado
 =========================================================== */
+
 const CustomTooltip = ({ active, payload, total }: any) => {
   if (!active || !payload?.length) return null;
 
@@ -80,7 +122,7 @@ const CustomTooltip = ({ active, payload, total }: any) => {
     totalNumber > 0 ? ((value / totalNumber) * 100).toFixed(1) : '0.0';
 
   return (
-    <div className="bg-white p-3 rounded-lg shadow-lg border text-sm">
+    <div className="bg-white p-3 rounded-xl shadow-lg border text-sm">
       <p className="font-semibold text-[#113873] mb-1">{name}</p>
       <p>
         Respuestas: <strong>{value}</strong>
@@ -95,6 +137,7 @@ const CustomTooltip = ({ active, payload, total }: any) => {
 /* ===========================================================
    🚀 COMPONENTE PRINCIPAL
 =========================================================== */
+
 export const ResultadosEncuestaPage: React.FC = () => {
   const navigate = useNavigate();
 
@@ -103,8 +146,10 @@ export const ResultadosEncuestaPage: React.FC = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [selectedPregunta, setSelectedPregunta] = useState<number | 'all'>(
+    'all'
+  );
 
-  /* ================= FETCH ================= */
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -123,18 +168,30 @@ export const ResultadosEncuestaPage: React.FC = () => {
     fetchData();
   }, []);
 
-  /* ================= COMENTARIOS ================= */
   const comentarios = data?.comentarios ?? [];
+  const preguntasUnicas = useMemo(() => {
+    const map = new Map<number, string>();
+    comentarios.forEach((c) => {
+      if (!map.has(c.id_Pregunta)) {
+        map.set(c.id_Pregunta, c.nb_Pregunta);
+      }
+    });
+    return Array.from(map.entries()); // [ [id, pregunta], ... ]
+  }, [comentarios]);
 
-  const totalPages = Math.ceil(comentarios.length / rowsPerPage);
+  const comentariosFiltrados =
+    selectedPregunta === 'all'
+      ? comentarios
+      : comentarios.filter((c) => c.id_Pregunta === selectedPregunta);
+
+  const totalPages = Math.ceil(comentariosFiltrados.length / rowsPerPage);
 
   const paginatedComentarios = useMemo(() => {
     const start = (currentPage - 1) * rowsPerPage;
-    return comentarios.slice(start, start + rowsPerPage);
-  }, [comentarios, currentPage, rowsPerPage]);
+    return comentariosFiltrados.slice(start, start + rowsPerPage);
+  }, [comentariosFiltrados, currentPage, rowsPerPage]);
 
-  /* ================= LOADING ================= */
-  if (loading || !data) {
+  if (!data) {
     return (
       <main className="min-h-screen flex items-center justify-center text-xl">
         Cargando resultados...
@@ -144,9 +201,6 @@ export const ResultadosEncuestaPage: React.FC = () => {
 
   const { kpis, promedios, opciones } = data;
 
-  /* =======================================================
-     🔥 Agrupar opciones por pregunta
-  ======================================================= */
   const opcionesAgrupadas = Object.values(
     opciones.reduce((acc: any, op) => {
       if (!acc[op.id_Pregunta]) {
@@ -222,7 +276,7 @@ export const ResultadosEncuestaPage: React.FC = () => {
                           outerRadius={90}
                           dataKey="value"
                         >
-                          <Cell fill={COLORS[index % COLORS.length]} />
+                          <Cell fill={getAverageColor(p.promedioPregunta)} />
                           <Cell fill="#E5E7EB" />
                         </Pie>
                         <Tooltip />
@@ -242,7 +296,7 @@ export const ResultadosEncuestaPage: React.FC = () => {
           </div>
         </section>
 
-        {/* OPCIONES DONUT */}
+        {/* OPCIONES DONUTS */}
         {opcionesAgrupadas.map((grupo: any, index) => {
           const total = grupo.opciones.reduce(
             (sum: number, op: Opcion) => sum + op.totalSeleccionado,
@@ -255,7 +309,7 @@ export const ResultadosEncuestaPage: React.FC = () => {
           }));
 
           return (
-            <section key={index} className="bg-white p-8 rounded-3xl shadow">
+            <section key={index} className="bg-white p-8 rounded-3xl shadow-md">
               <h2 className="text-xl font-bold mb-8">{grupo.pregunta}</h2>
 
               <div className="w-full h-96">
@@ -267,8 +321,8 @@ export const ResultadosEncuestaPage: React.FC = () => {
                       outerRadius={130}
                       dataKey="value"
                     >
-                      {dataChart.map((_, i) => (
-                        <Cell key={i} fill={COLORS[i % COLORS.length]} />
+                      {dataChart.map((entry, i) => (
+                        <Cell key={i} fill={getColorByOption(entry.name, i)} />
                       ))}
                     </Pie>
 
@@ -290,12 +344,59 @@ export const ResultadosEncuestaPage: React.FC = () => {
         <section className="bg-white p-8 rounded-3xl shadow">
           <h2 className="text-2xl font-bold mb-6">Comentarios detallados</h2>
 
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+            {/* SELECT DE PREGUNTAS */}
+            <div className="flex items-center gap-3">
+              <label className="text-sm font-medium text-slate-600">
+                Filtrar por pregunta:
+              </label>
+
+              <select
+                value={selectedPregunta}
+                onChange={(e) => {
+                  const value =
+                    e.target.value === 'all' ? 'all' : Number(e.target.value);
+
+                  setSelectedPregunta(value);
+                  setCurrentPage(1);
+                }}
+                className="border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+              >
+                <option value="all">Todas las preguntas</option>
+
+                {preguntasUnicas.map(([id, pregunta]) => (
+                  <option key={id} value={id}>
+                    {pregunta}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* SELECT FILAS */}
+            <div>
+              <select
+                value={rowsPerPage}
+                onChange={(e) => {
+                  setRowsPerPage(Number(e.target.value));
+                  setCurrentPage(1);
+                }}
+                className="border rounded-lg px-3 py-2 text-sm"
+              >
+                <option value={10}>10</option>
+                <option value={25}>25</option>
+                <option value={50}>50</option>
+                <option value={100}>100</option>
+              </select>
+            </div>
+          </div>
+
           <div className="flex justify-between items-center mb-4">
             <span className="text-sm text-slate-500">
-              Mostrando {paginatedComentarios.length} de {comentarios.length}
+              Mostrando {paginatedComentarios.length} de{' '}
+              {comentariosFiltrados.length}
             </span>
 
-            <select
+            {/* <select
               value={rowsPerPage}
               onChange={(e) => {
                 setRowsPerPage(Number(e.target.value));
@@ -307,7 +408,7 @@ export const ResultadosEncuestaPage: React.FC = () => {
               <option value={25}>25</option>
               <option value={50}>50</option>
               <option value={100}>100</option>
-            </select>
+            </select> */}
           </div>
 
           <div className="overflow-x-auto">
@@ -368,7 +469,7 @@ export const ResultadosEncuestaPage: React.FC = () => {
 
 /* KPI */
 const Kpi = ({ title, value }: { title: string; value: string | number }) => (
-  <div className="bg-white p-6 rounded-2xl shadow text-center">
+  <div className="bg-white p-6 rounded-2xl shadow-md text-center">
     <p className="text-sm text-slate-500 uppercase tracking-wide">{title}</p>
     <p className="text-3xl font-bold text-[#113873] mt-2">{value}</p>
   </div>

@@ -42,6 +42,14 @@ export const MaterialesPage: React.FC = () => {
   }, []);
 
   // ===============================
+  // DOCUMENTO PRINCIPAL DEL EVENTO
+  // ===============================
+  const documentoPrincipal: Documento = {
+    nombre: 'ANÁLISIS AL SISTEMA PLD',
+    archivo: '/ANÁLISIS AL SISTEMA PLD.pdf',
+  };
+
+  // ===============================
   // SECCIONES POR PONENTE
   // ===============================
   const secciones: SeccionDocumentos[] = [
@@ -61,7 +69,8 @@ export const MaterialesPage: React.FC = () => {
       ponentes: ['Mtro. Miguel Ángel Mojica', 'Lic. Alfredo Eduardo Soto Vela'],
       documentos: [
         {
-          nombre: 'PANORAMA ESTRATÉGICO DE LA REFORMA EN PLD 2025 VER.22-01-26',
+          nombre:
+            'PANORAMA ESTRATÉGICO DE LA REFORMA EN PLD 2025 VER.22-01-26',
           archivo:
             '/img/materialesPonencias/PANORAMA ESTRATÉGICO DE LA REFORMA EN PLD 2025 VER.22-01-26 (Ultima).pdf',
         },
@@ -128,6 +137,7 @@ export const MaterialesPage: React.FC = () => {
       </header>
 
       <section className="max-w-5xl mx-auto px-6 py-10 -mt-6 space-y-10">
+
         {/* CERTIFICADO */}
         {usuario?.sn_Pagado && usuario?.ar_Certificado && (
           <CertificadoCard
@@ -137,7 +147,24 @@ export const MaterialesPage: React.FC = () => {
           />
         )}
 
-        {/* BLOQUE ENCUESTA SEPARADO */}
+        {/* DOCUMENTO PRINCIPAL */}
+        <div className="bg-white p-8 rounded-2xl shadow-xl ring-2 ring-[#113873]">
+          <h2 className="text-2xl font-bold text-[#113873] mb-4">
+            📘 Entregables en Materia de PLD
+          </h2>
+
+          <a
+            href={documentoPrincipal.archivo}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block p-5 rounded-xl border-2 border-[#113873]
+                       hover:bg-blue-50 hover:shadow-lg transition"
+          >
+            📄 <strong>{documentoPrincipal.nombre}</strong>
+          </a>
+        </div>
+
+        {/* BLOQUE ENCUESTA */}
         <div className="bg-gradient-to-r from-[#113873] to-[#164b98] text-white p-8 rounded-2xl shadow-xl">
           <h2 className="text-2xl font-bold mb-2">
             📝 Encuesta de Satisfacción
