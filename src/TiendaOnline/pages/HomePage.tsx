@@ -34,7 +34,7 @@ export const HomePage = (): React.JSX.Element => {
     <div className="w-full min-w-full overflow-x-hidden">
       {/* Popup del evento */}
       {/* <EventoPopup /> */}
-      <EncuestaPopUpHomePage />
+      {/* <EncuestaPopUpHomePage /> */}
       <Banner />
 
       <Nosotros />

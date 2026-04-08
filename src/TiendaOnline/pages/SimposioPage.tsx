@@ -302,7 +302,7 @@ export const SimposioPage = (): React.JSX.Element => {
       </div>
 
       <CarruselExpositores />
-      <EventoEnero />
+      {/* <EventoEnero /> */}
 
       {/* MODAL */}
       {archivoSeleccionado && (
