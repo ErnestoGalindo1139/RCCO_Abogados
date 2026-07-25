@@ -7,6 +7,7 @@
     "blog": "Blog",
     "simposio": "Simposio",
     "materiales": "Materiales Simposio",
+    "terms": "Términos y Condiciones",
     "menu": "Menú",
     "logoAlt": "Logotipo RCCO"
   },
@@ -29,7 +30,9 @@
     "poweredBy": "Desarrollado por",
     "poweredByAria": "Abrir {{brand}}",
     "privacy": "Política de Privacidad",
-    "terminosYCondiciones": "Términos y Condiciones"
+    "terminosYCondicionesPagina": "Términos y Condiciones Página Web",
+    "terminosYCondicionesServicios": "Términos y Condiciones Servicios",
+    "consultTerms": "CONSULTA TÉRMINOS Y CONDICIONES DE NUESTROS SERVICIOS"
   },
   "waitScreen": {
     "text": "Cambiando idioma..."

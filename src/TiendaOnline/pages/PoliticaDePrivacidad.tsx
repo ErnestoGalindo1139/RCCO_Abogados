@@ -3,13 +3,22 @@ import { Shield, Phone, Mail, Globe } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 // dentro de TerminosYCondiciones.tsx, arriba del export principal
-const SectionTitle: React.FC<{ id: string; icon?: React.ReactNode; title: string; subtitle?: string }> = ({ id, icon, title, subtitle }) => (
+const SectionTitle: React.FC<{
+  id: string;
+  icon?: React.ReactNode;
+  title: string;
+  subtitle?: string;
+}> = ({ id, icon, title, subtitle }) => (
   <header id={id} className="scroll-mt-24">
     <div className="flex items-center gap-3">
       <span className="text-blue-600">{icon}</span>
-      <h2 className="text-2xl md:text-3xl font-semibold tracking-tight text-slate-900">{title}</h2>
+      <h2 className="text-2xl md:text-3xl font-semibold tracking-tight text-slate-900">
+        {title}
+      </h2>
     </div>
-    {subtitle && <p className="mt-1 text-slate-600 text-sm md:text-base">{subtitle}</p>}
+    {subtitle && (
+      <p className="mt-1 text-slate-600 text-sm md:text-base">{subtitle}</p>
+    )}
     <div className="mt-4 h-px w-full bg-gradient-to-r from-blue-500/60 via-blue-500/20 to-transparent" />
   </header>
 );
@@ -22,7 +31,9 @@ const Bullet: React.FC<{ children: React.ReactNode }> = ({ children }) => (
 );
 
 const Callout: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-  <div className="rounded-2xl border border-blue-300 bg-blue-50 p-4 md:p-5 text-blue-900">{children}</div>
+  <div className="rounded-2xl border border-blue-300 bg-blue-50 p-4 md:p-5 text-blue-900">
+    {children}
+  </div>
 );
 
 const MetaBadge: React.FC<{ label: string }> = ({ label }) => (
@@ -31,7 +42,6 @@ const MetaBadge: React.FC<{ label: string }> = ({ label }) => (
   </span>
 );
 
-
 export const PoliticaDePrivacidadPage: React.FC = () => {
   const { t } = useTranslation('home'); // usa tu namespace
 
@@ -39,7 +49,9 @@ export const PoliticaDePrivacidadPage: React.FC = () => {
     const prev = window.history.scrollRestoration;
     window.history.scrollRestoration = 'manual';
     window.scrollTo({ top: 0, behavior: 'auto' });
-    return () => { window.history.scrollRestoration = prev || 'auto'; };
+    return () => {
+      window.history.scrollRestoration = prev || 'auto';
+    };
   }, []);
 
   const arr = (key: string) => t(key, { returnObjects: true }) as string[];
@@ -48,7 +60,7 @@ export const PoliticaDePrivacidadPage: React.FC = () => {
 
   const heroTitle = t('privacy.title');
   const heroIntro = t('privacy.intro', {
-    defaultValue: t('hero.intro', { brand: 'RCCO ABOGADOS®' })
+    defaultValue: t('hero.intro', { brand: 'RCCO ABOGADOS®' }),
   });
 
   return (
@@ -75,36 +87,49 @@ export const PoliticaDePrivacidadPage: React.FC = () => {
           subtitle={t('privacy.subtitle')}
         />
 
-        <div className="prose prose-slate max-w-none">
+        <div
+          className="prose prose-slate max-w-none text-justify"
+          style={{ textAlign: 'justify' }}
+        >
           <p>{t('privacy.responsable')}</p>
 
           <h3>{t('privacy.i.title')}</h3>
           <p>{t('privacy.i.ident.text')}</p>
           <ul className="list-none space-y-2">
-            {arr('privacy.i.ident.items').map((li, i) => <Bullet key={i}>{li}</Bullet>)}
+            {arr('privacy.i.ident.items').map((li, i) => (
+              <Bullet key={i}>{li}</Bullet>
+            ))}
           </ul>
 
           <p>{t('privacy.i.finanzas.text')}</p>
           <ul className="list-none space-y-2">
-            {arr('privacy.i.finanzas.items').map((li, i) => <Bullet key={i}>{li}</Bullet>)}
+            {arr('privacy.i.finanzas.items').map((li, i) => (
+              <Bullet key={i}>{li}</Bullet>
+            ))}
           </ul>
 
           <Callout>{t('privacy.consentCallout')}</Callout>
 
           <h3>{t('privacy.ii.title')}</h3>
           <ul className="list-none space-y-2">
-            {arr('privacy.ii.items').map((li, i) => <Bullet key={i}>{li}</Bullet>)}
+            {arr('privacy.ii.items').map((li, i) => (
+              <Bullet key={i}>{li}</Bullet>
+            ))}
           </ul>
 
           <h3>{t('privacy.iii.title')}</h3>
           <p>{t('privacy.iii.principalesLabel')}</p>
           <ul className="list-none space-y-2">
-            {arr('privacy.iii.principales').map((li, i) => <Bullet key={i}>{li}</Bullet>)}
+            {arr('privacy.iii.principales').map((li, i) => (
+              <Bullet key={i}>{li}</Bullet>
+            ))}
           </ul>
 
           <p>{t('privacy.iii.secundariasLabel')}</p>
           <ul className="list-none space-y-2">
-            {arr('privacy.iii.secundarias').map((li, i) => <Bullet key={i}>{li}</Bullet>)}
+            {arr('privacy.iii.secundarias').map((li, i) => (
+              <Bullet key={i}>{li}</Bullet>
+            ))}
           </ul>
 
           <h3>{t('privacy.iv.title')}</h3>
@@ -113,7 +138,10 @@ export const PoliticaDePrivacidadPage: React.FC = () => {
           <h3>{t('privacy.v.title')}</h3>
           <p>
             {t('privacy.v.text.beforeEmail')}
-            <a className="text-blue-700 font-medium hover:underline" href={`mailto:${t('privacy.v.email')}`}>
+            <a
+              className="text-blue-700 font-medium hover:underline"
+              href={`mailto:${t('privacy.v.email')}`}
+            >
               {t('privacy.v.email')}
             </a>
             {t('privacy.v.text.afterEmail')}
@@ -130,24 +158,32 @@ export const PoliticaDePrivacidadPage: React.FC = () => {
             <div className="rounded-xl border border-blue-300 bg-blue-50 p-4">
               <div className="flex items-center gap-2 text-blue-800">
                 <Mail className="w-4 h-4" />
-                <span className="font-medium">{t('privacy.viii.cards.email.title')}</span>
+                <span className="font-medium">
+                  {t('privacy.viii.cards.email.title')}
+                </span>
               </div>
               <p className="mt-1">{t('privacy.viii.cards.email.value')}</p>
             </div>
             <div className="rounded-xl border border-blue-300 bg-blue-50 p-4">
               <div className="flex items-center gap-2 text-blue-800">
                 <Phone className="w-4 h-4" />
-                <span className="font-medium">{t('privacy.viii.cards.phone.title')}</span>
+                <span className="font-medium">
+                  {t('privacy.viii.cards.phone.title')}
+                </span>
               </div>
               <p className="mt-1">{t('privacy.viii.cards.phone.value')}</p>
             </div>
             <div className="rounded-xl border border-blue-300 bg-blue-50 p-4 sm:col-span-2">
               <div className="flex items-center gap-2 text-blue-800">
                 <Globe className="w-4 h-4" />
-                <span className="font-medium">{t('privacy.viii.cards.addresses.title')}</span>
+                <span className="font-medium">
+                  {t('privacy.viii.cards.addresses.title')}
+                </span>
               </div>
               <ul className="mt-1 space-y-1">
-                {arr('privacy.viii.cards.addresses.items').map((li, i) => <li key={i}>{li}</li>)}
+                {arr('privacy.viii.cards.addresses.items').map((li, i) => (
+                  <li key={i}>{li}</li>
+                ))}
               </ul>
             </div>
           </div>

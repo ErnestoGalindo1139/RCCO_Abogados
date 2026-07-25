@@ -29,6 +29,8 @@ const LINKS: LinkItem[] = [
   // 👉 Nuevo item Login
   // ✅ NUEVO: acceso a materiales
   { id: 'login-folio', label: 'nav.materiales', type: 'route' },
+  // Términos y Condiciones (visibles en el navbar)
+  { id: 'TerminosYCondiciones/Servicios', label: 'nav.terms', type: 'route' },
 ];
 
 // Ajusta el alto si cambias el tamaño del navbar

@@ -19,6 +19,7 @@ import {
   ShieldCheck,
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import type { TFunction } from 'i18next';
 
 // ──────────────────────────────────────────────────────────────────────────────
@@ -98,7 +99,7 @@ const useResponsiveChunk = (): number => {
 
 // ──────────────────────────────────────────────────────────────────────────────
 export const Servicios: React.FC = () => {
-  const { t, i18n } = useTranslation('home');
+  const { t, i18n } = useTranslation(['home', 'common']);
 
   // Construye los 12 servicios desde i18n
   const DATA = useMemo(() => buildServicios(t), [t]);
@@ -220,7 +221,6 @@ export const Servicios: React.FC = () => {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   className="rounded-3xl bg-white/5 ring-1 ring-white/10 p-8 lg:p-5 text-white/70"
-
                 >
                   <p className="text-lg lg:text-base">
                     {t('servicios.placeholder')}
@@ -326,6 +326,24 @@ export const Servicios: React.FC = () => {
               </button>
             </div>
           </div>
+        </div>
+        {/* Términos y Condiciones: centrado respecto a toda la sección */}
+        <div className="mt-10 flex w-full justify-center">
+          <Link
+            to="/TerminosYCondiciones/Servicios"
+            className="
+              w-full max-w-2xl
+              rounded-xl
+              bg-white/5 hover:bg-white/10
+              px-6 py-4
+              text-center text-sm
+              text-white/80 hover:text-white
+              ring-1 ring-white/10
+              transition-all duration-300
+            "
+          >
+            {t('footer.consultTerms', { ns: 'common' })}
+          </Link>
         </div>
       </div>
 

@@ -9,6 +9,8 @@ type FooterProps = {
   brandHref?: string; // link del “powered by”
   brandLabel?: string; // texto visible del “powered by”
   privacyHref?: string; // URL de tu política
+  terminosYCondicionesHref?: string; // URL de tus términos y condiciones
+  terminosYCondicionesServiciosHref?: string; // URL de tus términos y condiciones de servicios
 };
 
 export const Footer: React.FC<FooterProps> = ({
@@ -16,7 +18,8 @@ export const Footer: React.FC<FooterProps> = ({
   brandHref = 'https://grstechs.com',
   brandLabel = 'grstechs.com',
   privacyHref = '/PoliticaDePrivacidad',
-  terminosYCondicionesHref = '/TerminosYCondiciones',
+  terminosYCondicionesHref = '/TerminosYCondiciones/Pagina',
+  terminosYCondicionesServiciosHref = '/TerminosYCondiciones/Servicios',
 }) => {
   const { t } = useTranslation('common');
 
@@ -108,8 +111,18 @@ export const Footer: React.FC<FooterProps> = ({
             {t('footer.privacy')}
           </Link>
           <span className="hidden md:inline">•</span>
-          <Link to={terminosYCondicionesHref} className="hover:text-blue-300 font-medium">
-            {t('footer.terminosYCondiciones')}
+          <Link
+            to={terminosYCondicionesHref}
+            className="hover:text-blue-300 font-medium"
+          >
+            {t('footer.terminosYCondicionesPagina')}
+          </Link>
+          <span className="hidden md:inline">•</span>
+          <Link
+            to={terminosYCondicionesServiciosHref}
+            className="hover:text-blue-300 font-medium"
+          >
+            {t('footer.terminosYCondicionesServicios')}
           </Link>
         </div>
       </div>

@@ -18,6 +18,7 @@ import { ProtectedFolioRoute } from '../components/ProtectedFolioRoute';
 import { EncuestaSatisfaccionPage } from '../pages/EncuestaSatisfaccionPage';
 import { GraciasEncuestaPage } from '../pages/GraciasEncuestaPage';
 import { ResultadosEncuestaPage } from '../pages/ResultadosEncuestaPage';
+import { TerminosYCondicionesServicios } from '../pages/TerminoYCondicionesServicios';
 
 export const TiendaOnlineRoutes = () => {
   const location = useLocation();
@@ -52,7 +53,11 @@ export const TiendaOnlineRoutes = () => {
           element={<PoliticaDePrivacidadPage />}
         />
         <Route
-          path="/TerminosYCondiciones"
+          path="/TerminosYCondiciones/Servicios"
+          element={<TerminosYCondicionesServicios />}
+        />
+        <Route
+          path="/TerminosYCondiciones/Pagina"
           element={<TerminosYCondicionesPage />}
         />
 
