@@ -19,6 +19,7 @@ import { EncuestaSatisfaccionPage } from '../pages/EncuestaSatisfaccionPage';
 import { GraciasEncuestaPage } from '../pages/GraciasEncuestaPage';
 import { ResultadosEncuestaPage } from '../pages/ResultadosEncuestaPage';
 import { TerminosYCondicionesServicios } from '../pages/TerminoYCondicionesServicios';
+import { SimposioPage2 } from '../pages/SimposioPage2';
 
 export const TiendaOnlineRoutes = () => {
   const location = useLocation();
@@ -46,7 +47,7 @@ export const TiendaOnlineRoutes = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="/blog" element={<BlogPage />} />
         <Route path="/blog/:slug" element={<BlogPostPage />} />
-        <Route path="/simposio" element={<SimposioPage />} />
+        <Route path="/simposio" element={<SimposioPage2 />} />
 
         <Route
           path="/PoliticaDePrivacidad"
