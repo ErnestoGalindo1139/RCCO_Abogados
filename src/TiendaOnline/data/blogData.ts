@@ -12,6 +12,133 @@ export type Post = {
 };
 
 export const POSTS: Post[] = [
+  // Reemplaza el objeto con id 5 dentro de POSTS por este bloque.
+  {
+    id: '5',
+    slug: 'uso-efectivo-compraventa-inmuebles',
+    title:
+      'Uso de efectivo en compraventas inmobiliarias: la ley y el criterio del SAT.',
+    excerpt:
+      'La semana pasada llegó a mi oficina un amigo desarrollador, comentándome que iba a llevar a cabo una operación de compraventa de un inmueble por la cantidad de $4´000,000.00 M.N. (cuatro millones de pesos 00/100 Moneda Nacional), que de esa operación recibiría $900,000.00 M.N. (novecientas mil pesos 00/100 Moneda Nacional) en efectivo, me preguntó si con las reformas y la publicación de las nuevas reglas en materia de Prevención de Lavado de Dinero había restricciones al uso de efectivo en operaciones inmobiliarias, le comenté que en el análisis de fondo, la restricción esencial permanece inalterada, sin embargo, había que considerar ciertos detalles que las reformas aclararon como las siguientes:',
+    cover:
+      'https://images.mediotiempo.com/qWSOD7_K7FdLL8xpUtbOmtfhlws=/345x194/uploads/media/2026/07/13/limite-efectivo-puedes-pagar-inmueble.jpg',
+    date: '2026-10-09',
+    readTime: '7 min',
+    tag: 'Prevención de Lavado de Dinero',
+    content: `
+## EL USO DE EFECTIVO SE ENCUENTRA COMPLETAMENTE PROHIBIDO EN COMPRAVENTAS DONDE EL VALOR DE OPERACIÓN SEA IGUAL O SUPERIOR A 8,025 UMA ($941,412.75 M.N. (NOVECIENTOS CUARENTA Y UN MIL CUATROCIENTOS DOCE PESOS 74/100 MONEDA NACIONAL).
+
+La semana pasada llegó a mi oficina un amigo desarrollador, comentándome que iba a llevar a cabo una operación de compraventa de un inmueble por la cantidad de $4´000,000.00 M.N. (cuatro millones de pesos 00/100 Moneda Nacional), que de esa operación recibiría $900,000.00 M.N. (novecientas mil pesos 00/100 Moneda Nacional) en efectivo, me preguntó si con las reformas y la publicación de las nuevas reglas en materia de Prevención de Lavado de Dinero había restricciones al uso de efectivo en operaciones inmobiliarias, le comenté que en el análisis de fondo, la restricción esencial permanece inalterada, sin embargo, había que considerar ciertos detalles que las reformas aclararon como las siguientes:
+
+- Se confirma que los pagos en efectivo, aun cuando su liquidación se efectúe mediante una entidad financiera como el depósito directo en ventanilla a la cuenta del vendedor, se considerarán legalmente como uso de efectivo. Esta precisión ratifica que el medio material de pago es el que define la naturaleza de la operación,
+
+- Que conforme a la modificación del artículo 6 del Reglamento de la Ley Federal para la Prevención e Identificación de Operaciones con Recursos de Procedencia Ilícita (LFPIORPI), las contribuciones generadas forman parte del valor del acto para determinar la restricción. Así, en inmuebles comerciales gravados con IVA, dicho impuesto debe sumarse al importe de la operación para verificar el umbral de 8,025 UMA.
+
+- Se establece explícitamente la prohibición de realizar consignaciones de pago, ya sean judiciales o extrajudiciales, en efectivo respecto de los actos señalados en el artículo 32 de la Ley
+
+Tales modificaciones, no afectaban la operación.
+
+No obstante lo comentado con el cliente, hay un punto que llamó bastante mi atención, la manera en cómo está redactada la modificación del último párrafo del artículo 6 del Reglamento:
+
+Para determinar el monto de los actos u operaciones a que se refiere el artículo 32 de la Ley, deberán considerarse las contribuciones y demás accesorios que en dicho acto u operación se generen.
+
+Dispone que, para determinar el monto de los actos u operaciones sujetos a la restricción del uso de efectivo, deben incluirse las contribuciones correspondientes. Esta precisión, lejos de ser superflua, implica confirmar algo que ya nos venía diciendo la ley y el reglamento, que el pago en efectivo queda totalmente prohibido cuando el valor de la operación —al sumar las contribuciones y accesorios— alcance o supere los umbrales previstos en las fracciones del artículo 32 de la Ley; en consecuencia, no podrá liquidarse monto alguno en efectivo, ni siquiera de forma parcial, cuando la operación sea por montos iguales o mayores 8,025 veces el valor diario de la UMA.
+
+Pongámoslo en contexto, imaginemos que un desarrollador vende un local comercial a un precio menor de 8,025 veces el valor diario de la UMA, supongamos, a $940,0000.00 M.N. (novecientos cuarenta mil pesos 00/100 Moneda Nacional), a ese local, al ser un inmueble comercial, le sumamos el IVA, $150,400.00 M.N. (ciento cincuenta mil cuatrocientos pesos 00/100 Moneda Nacional), lo cual da un valor total de la operación de $1´090,400.00 M.N. (un millón noventa mil cuatrocientos pesos 00/100 Moneda Nacional), al alcanzar y rebasar el umbral el artículo 32 fracción I de la ley, en esta operación queda completamente prohibido el uso de efectivo, incluso, parcialmente.
+
+Esta interpretación no es nueva, es reiterativa y la vuelvo a sacar a la luz, porque se nos olvida en ocasiones como abogados el verdadero espíritu de la ley cuando la autoridad publica sus criterios. Por mucho tiempo se ha pensado, que en la enajenación de inmuebles se puede recibir efectivo en tanto no se reciba igual o más de ocho mil veinticinco veces el valor diario de la UMA ($941,412.75 M.N. al día de hoy), pero esto no es conforme a la ley, ni su reglamento faculta a eso, sino que lo hace la autoridad por medio de sus criterios, por lo cual, la redacción del artículo 6 del reglamento no está de más, es confirmativa de un criterio que ya se establecía en la ley.
+
+Es que cuando nosotros leemos el artículo 32 de la ley, poniendo especial atención a la fracción I, este dice a la letra lo siguiente:
+
+Capítulo IV
+
+Del Uso de Efectivo y Metales
+
+Artículo 32. Queda prohibido dar cumplimiento a obligaciones y, en general, liquidar o pagar, así como aceptar la liquidación o el pago, de actos u operaciones mediante el uso de monedas y billetes, en moneda nacional o divisas y Metales Preciosos, aun cuando la liquidación o el pago se realice en efectivo por conducto de una Entidad Financiera, en los supuestos siguientes:
+
+- Constitución o transmisión de derechos reales sobre bienes inmuebles por un valor igual o superior al equivalente a ocho mil veinticinco veces el valor diario de la UMA, al día en que se realice el pago o se cumpla la obligación;
+
+Parafraseando este artículo, podemos decir que: queda estrictamente prohibido pagar, liquidar o recibir pagos en efectivo —ya sea en moneda nacional, divisas extranjeras o metales preciosos— para la compraventa o constitución de derechos sobre bienes inmuebles, si el importe de la operación alcanza o supera las 8,025 UMA al momento de realizar la transacción. Esta restricción aplica de manera idéntica aunque el dinero se entregue en ventanilla bancaria a través de una entidad financiera. Hasta aquí no da cabida a que tal prohibición sea parcial, sino que es tajante y total, “prohibido dar cumplimiento”.
+
+La primera conclusión que sacamos hasta aquí, es que la ley, prohibe pagar total o parcialmente operaciones de compraventa (y constitución de otros derechos reales) sobre inmuebles cuando alcance o supere el valor de las 8,025 UMA.
+
+Por otro lado, los criterios del SAT se fundamentan en que “Se podrán dar o aceptar para cubrir las obligaciones de pago, monedas y billetes, en moneda nacional o divisas, así como Metales Preciosos hasta por debajo del monto máximo que establece en cada uno de los supuestos del artículo 32 de la Ley, ya sea que este monto se cubra en una o varias exhibiciones, en términos de lo señalado en el artículo 42, fracción I, del Reglamento.”, pero la interpretación del artículo 42 fracción I del reglamento es incorrecta, cito a la letra el artículo:
+
+Art. 42. Las prohibiciones de uso de monedas y billetes, en moneda nacional o divisas y Metales Preciosos, establecidas en el Capítulo IV de la Ley, deberán ser observadas en los términos establecidos en la Ley cuando:
+
+I. Se dé cumplimiento a la obligación, se liquide, se pague, se consigne o se acepte el pago o liquidación de un acto u operación individual, ya sea en una o más exhibiciones, o
+
+II. Se dé cumplimiento a la obligación, se liquide, se pague, se consigne o se acepte el pago o la liquidación de un conjunto de actos u operaciones, y una sola persona aporte recursos para pagarlos o liquidarlos
+
+Lo que nos dice dicho artículo es que las restricciones al uso de efectivo deben acatarse tanto si se cubre una sola operación —ya sea en una sola exhibición o mediante abonos fraccionados—, como si se tratase de varias operaciones distintas cuyos recursos provengan de una misma persona y rebasen conjuntamente los topes legales permitidos, a mi consideración refuerza la primera de las conclusiones, que el efectivo se prohibe total o parcialmente cuando se alcanzan los umbrales de restricción del artículo 32 en una operación, y que los pagos parciales computan para el efectivo, y que no importa si estos son menores que las 8,025 UMA.
+
+Hasta aquí la conclusión número dos es que, si la operación es a plazos o pagos fraccionados, también se consideran los pagos parciales restringidos si la operación no permite el pago en efectivo por alcanzar el umbral.
+
+Mis conclusiones consolidadas son las siguientes:
+
+- En una operación inmobiliaria solo se permite total o parcialmente efectivo cuando el valor de la operación es inferior a 8,025 UMA.
+
+- Cuando la operación -contando contribuciones y accesorios- alcanza o supera 8,025 UMA no se puede pagar ni un peso en efectivo, queda completamente restringido el uso de efectivo.
+
+- Si la operación se paga en fracciones o parcialmente, pero sabemos que el valor de operación alcanzará libre o con contribuciones y accesorios el monto de 8,025 UMA, se deben restringir en esos pagos parciales o fraccionados el uso de efectivo.
+
+En este tenor, solo se permite el efectivo cuando la operación inmobiliaria es inferior (al día de hoy) a $941,412.75 M.N. (considerando contribuciones y accesorios en el conteo), es decir, solo permite prácticamente, en terrenos, inmuebles de interés social o locales comerciales económicos. Ahora, habría de considerar si el ISAI (impuesto municipal sobre adquisición de inmuebles) y pagos de registro público entran en el conteo global de la operación, en sentido literal si.
+
+Entonces ¿que sostiene que se permitan pagos parciales en efectivo en operaciones compraventas (constitución de otros derechos reales) sobre inmuebles que alcanzan o superan el monto de 8,025 UMA? simplemente un par de criterios del SAT publicados en el portal de PLD (https://sppld.sat.gob.mx/pld/interiores/preguntas.html), los cuales dicen:
+
+“8.- ¿Cuando la operación exceda del monto permitido para operaciones en efectivo, se pueden pagar una parte en efectivo y la otra con tarjeta de débito, crédito o cheque?
+
+[Ver respuesta]
+
+“Sí, se podrá pagar en moneda nacional o divisas y Metales Preciosos el monto por debajo del límite establecido de la restricción y el remanente a través de otro medio de pago.”
+
+Cito literalmente el recuadro de la consulta:
+
+> “32
+
+> “II
+
+> “¿Se puede aceptar para el cumplimiento de las obligaciones de pago monedas y billetes o Metales Preciosos, siempre y cuando la suma del pago recibido en una o varias exhibiciones sea menor a la cantidad máxima que establece la Ley?
+
+> “Se podrán dar o aceptar para cubrir las obligaciones de pago, monedas y billetes, en moneda nacional o divisas, así como Metales Preciosos hasta por debajo del monto máximo que establece en cada uno de los supuestos del artículo 32 de la Ley, ya sea que este monto se cubra en una o varias exhibiciones, en términos de lo señalado en el artículo 42, fracción I, del Reglamento.”
+
+Tales criterios resultan técnicamente erróneos, aun cuando admito que son convenientes tanto para el Sujeto Obligado como para el cliente o usuario de Actividades Vulnerables. Sin embargo, vale la pena tener en cuenta este escenario, ya que la autoridad válidamente puede modificarlos cuando exista una imperante necesidad de interés público. Dicha variación interpretativa no sería infundada ni arbitraria, pues el propio orden jurídico reconoce la facultad revisora del Estado en aras del interés colectivo; no obstante, la autoridad se encuentra jurídicamente impedida para aplicar el nuevo criterio de manera retroactiva.  
+
+Lo anterior encuentra sustento en el principio de confianza legítima, el cual —conforme a la jurisprudencia de la Segunda Sala de la Suprema Corte de Justicia de la Nación (Tesis 2a./J. 103/2018 y 2a. XXXVIII/2017)— constituye una manifestación directa de la seguridad jurídica y de la interdicción de la arbitrariedad tuteladas en los artículos 14 y 16 constitucionales. En términos de dicho criterio jurisdiccional, la seguridad jurídica descansa en la premisa elemental de que el gobernado debe "saber a qué atenerse" respecto de la conducta estatal, protegiendo las expectativas razonablemente inducidas por la propia autoridad a través de sus actos u omisiones persistentes en el tiempo. Por tanto, si los particulares ajustaron su actuar y estructuraron sus operaciones conforme a las posturas administrativas emitidas previamente por el órgano regulador, un cambio intempestivo o retroactivo vulneraría la estabilidad jurídica y rompería la expectativa inducida, rigiendo además el principio de irrevocabilidad unilateral de los actos administrativos favorables. En consecuencia, cualquier rectificación de criterio por razones de orden público únicamente puede surtir efectos hacia el futuro (ex nunc).
+
+En tanto la autoridad no modifique su criterio, lo prudente —y lo que en la práctica va a seguir ocurriendo— es operar bajo la interpretación más laxa que el propio SAT ha publicado, precisamente porque es esa postura la que hoy genera la expectativa legítima que discutimos. Pero esto no debe confundirse con seguridad jurídica absoluta: quien estructura sus operaciones asumiendo que el criterio permanecerá intacto para siempre, está construyendo sobre una base que la autoridad puede modificar en cualquier momento, sin que ello constituya, por sí mismo, un acto arbitrario.
+
+De ahí que, para quienes intervienen en este tipo de operaciones —notarios, desarrolladores, oficiales de cumplimiento—, valga la pena adoptar, desde ahora, algunas prácticas mínimas:
+
+- Documentar expresamente, dentro del expediente de la operación, el criterio vigente al momento en que se recibió el pago —incluyendo, de ser posible, una captura o copia del criterio publicado en el portal del SAT—, de manera que quede acreditada la buena fe y la conformidad con la postura oficial vigente en esa fecha.
+
+- Precisar, en cada operación, si el monto de referencia para el umbral del artículo 32 incluye o no contribuciones, dejando constancia del desglose (precio base, IVA, y en su caso ISAI), en lugar de manejar únicamente una cifra global.
+
+- Ante la duda sobre partidas específicas —como el propio ISAI, que aquí dejamos abierta—, no asumir un criterio propio: lo conducente es plantear una consulta formal ante el SAT o la UIF, cuya respuesta, además de resolver el caso concreto, se sumaría como un nuevo elemento de esa misma confianza legítima si más adelante la autoridad pretendiera variar su postura.
+
+Al final, el ejercicio no es distinto del que hacemos con cualquier criterio administrativo: aprovecharlo mientras esté vigente, sin perder de vista que su origen no está en la ley, sino en una interpretación de la autoridad —y que, como toda interpretación, puede corregirse.
+
+Autor: Lic. Joel Gibrán Osuna Laveaga.
+
+## BIBLIOGRAFÍA Y FUENTES DE CONSULTA
+
+### I. Legislación y Reglamentos
+
+- Congreso General de los Estados Unidos Mexicanos. (2012). Ley Federal para la Prevención e Identificación de Operaciones con Recursos de Procedencia Ilícita. Diario Oficial de la Federación, 17 de octubre de 2012 (con sus reformas y adiciones). Artículos 32, fracción I, y 33.
+
+- Presidencia de la República. (2013). Reglamento de la Ley Federal para la Prevención e Identificación de Operaciones con Recursos de Procedencia Ilícita. Diario Oficial de la Federación, 16 de agosto de 2013 (con sus reformas y adiciones). Artículos 6, último párrafo, y 42, fracciones I y II.
+
+### II. Criterios Administrativos e Institucionales
+
+- Servicio de Administración Tributaria (SAT) & Unidad de Inteligencia Financiera (UIF). (s. f.). Preguntas Frecuentes y Criterios de la Autoridad en materia de Prevención de Lavado de Dinero. Sistema del Portal de Prevención de Lavado de Dinero (SPPLD), Secretaría de Hacienda y Crédito Público. Recuperado de: https://sppld.sat.gob.mx/pld/interiores/preguntas.html (Preguntas 8 y 32, fracción II).
+
+### III. Jurisprudencia del Poder Judicial de la Federación
+
+- Suprema Corte de Justicia de la Nación. Segunda Sala. (2017). Tesis 2a. XXXVIII/2017 (10a.), Semanario Judicial de la Federación, Décima Época, Materia Administrativa, Tesis Aislada, Registro digital: 2013882. Rubro: CONFIANZA LEGÍTIMA. SU APLICACIÓN EN EL ORDEN JURÍDICO MEXICANO RESPECTO DE ACTOS ADMINISTRATIVOS.
+
+- Suprema Corte de Justicia de la Nación. Segunda Sala. (2018). Tesis 2a./J. 103/2018 (10a.), Gaceta del Semanario Judicial de la Federación, Décima Época, Libro 59, Tomo I, página 847, Materia Constitucional, Jurisprudencia, Registro digital: 2018050. Rubro: CONFIANZA LEGÍTIMA. CONSTITUYE UNA MANIFESTACIÓN DEL DERECHO A LA SEGURIDAD JURÍDICA, EN SU FACETA DE INTERDICCIÓN DE LA ARBITRARIEDAD.
+`,
+  },
   {
     id: '1',
     slug: 'distintivo-hecho-en-mexico',
@@ -20,7 +147,7 @@ export const POSTS: Post[] = [
     excerpt:
       'Análisis jurídico y estratégico del sello “Hecho en México”, su marco normativo, obligaciones y utilidad empresarial.',
     cover:
-      'https://brouo.com/v5/wp-content/uploads/2025/02/blog-5-hecho-en-mexico_5.webp',
+      'https://iphonegr.reforma.com/libre/online07/imagetransformer2/ImageTransformer.aspx?img=https://img.gruporeforma.com/imagenes/960x640/6/936/5935487.jpg&imagencompleta=1',
     date: '2025-02-17',
     readTime: '10 min',
     // tag: 'Propiedad Industrial',
@@ -77,8 +204,7 @@ En RCCO Abogados asesoramos a empresas de distintos sectores en el proceso de ob
     title: 'Semana de la Planeación Patrimonial para la Sucesión Efectiva',
     excerpt:
       'Reflexión jurídica y humana sobre la importancia de organizar la herencia y los instrumentos legales para lograr una sucesión efectiva.',
-    cover:
-      'img/blogPlaneacion.jpg',
+    cover: 'img/blogPlaneacion.jpg',
     date: '2025-09-15',
     readTime: '12 min',
     // tag: 'Planeación Patrimonial',
