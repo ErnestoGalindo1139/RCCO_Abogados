@@ -179,7 +179,7 @@ const patrocinadores = [
   'img/patrocinadores/SOMOFA.png',
   'img/patrocinadores/grupoAHRE.png',
   'img/patrocinadores/ESlogo.png',
-  'img/patrocinadores/Le logo.png',
+  // 'img/patrocinadores/Le logo.png',
 ];
 
 // Imágenes ilustrativas incluidas en el export de Stitch. Reemplazar por fotografías reales.
@@ -214,13 +214,6 @@ const pilares: {
     pie: 'Perspectiva jurídica',
   },
   {
-    icon: Users,
-    titulo: 'Networking de alto nivel',
-    texto:
-      'Conecta con profesionales del derecho, cumplimiento y sector empresarial en un entorno de diálogo e intercambio.',
-    pie: 'Comunidad profesional',
-  },
-  {
     icon: ClipboardList,
     titulo: 'Enfoque práctico',
     texto:
@@ -233,6 +226,13 @@ const pilares: {
     texto:
       'Consulta el brochure oficial para conocer los materiales, documentos y beneficios de participación de esta edición.',
     pie: 'Información oficial',
+  },
+  {
+    icon: Users,
+    titulo: 'Networking de alto nivel',
+    texto:
+      'Conecta con profesionales del derecho, cumplimiento y sector empresarial en un entorno de diálogo e intercambio.',
+    pie: 'Comunidad profesional',
   },
 ];
 const incluye: { icon: LucideIcon; titulo: string; texto: string }[] = [
@@ -254,7 +254,7 @@ const incluye: { icon: LucideIcon; titulo: string; texto: string }[] = [
   {
     icon: BookOpen,
     titulo: 'Materiales digitales',
-    texto: 'Información sobre documentos del evento.',
+    texto: 'Material digital de las ponencias y kit de bienvenida.',
   },
   {
     icon: Award,
@@ -634,7 +634,7 @@ export const SimposioPage2 = (): React.JSX.Element => {
             texto="Una experiencia diseñada para actualizarte, conectar y fortalecer tu práctica profesional frente a la evolución regulatoria."
           />
           <div className="sp-pillars">
-            {pilares.map(({ icon: Icon, titulo, texto, pie }) => (
+            {pilares.map(({ icon: Icon, titulo, texto }) => (
               <article className="sp-pillar" key={titulo}>
                 <div className="sp-icon-box">
                   <Icon size={24} />
@@ -642,8 +642,8 @@ export const SimposioPage2 = (): React.JSX.Element => {
                 <h3>{titulo}</h3>
                 <p>{texto}</p>
                 <div className="sp-pillar-foot">
-                  {pie}
-                  <ArrowRight size={14} />
+                  {/* {pie}
+                  <ArrowRight size={14} /> */}
                 </div>
               </article>
             ))}
@@ -689,11 +689,11 @@ export const SimposioPage2 = (): React.JSX.Element => {
               <CarruselExpositores />
             </div>
           )}
-          <div className="sp-section-bottom">
+          {/* <div className="sp-section-bottom">
             <button className="sp-text-link" onClick={() => irA('programa')}>
               Conoce el programa y sus sesiones <ArrowRight size={15} />
             </button>
-          </div>
+          </div> */}
         </div>
       </section>
 
