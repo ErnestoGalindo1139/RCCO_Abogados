@@ -516,62 +516,69 @@ export const SimposioPage2 = (): React.JSX.Element => {
 
   return (
     <div ref={root} className="rcco-simposio">
-      {/* El header y footer pertenecen al layout existente del sitio. */}
-      <section
-        className="sp-hero"
-        id="inicio"
-        aria-labelledby="simposio-titulo"
-      >
-        <h1 id="simposio-titulo" className="sp-visually-hidden">
-          2.º Simposio Anual Corporativo sobre Prevención de Lavado de Dinero
-        </h1>
-        <picture className="sp-hero-picture">
-          <source
-            media="(max-width: 767px)"
-            srcSet="/img/simposio/simposio_banner_movil.jpeg"
-          />
-          <source
-            media="(max-width: 1100px) and (orientation: portrait)"
-            srcSet="/img/simposio/simposio_banner_tablet_vertical.png"
-          />
-          <source
-            media="(max-width: 1100px)"
-            srcSet="/img/simposio/simposio_banner_tablet.jpeg"
-          />
-          <source
-            media="(min-width: 1101px) and (max-height: 800px)"
-            srcSet="/img/simposio/simposio_banner_desktop_ultrawide.png"
-          />
-          <source
-            media="(min-width: 1101px) and (min-height: 801px)"
-            srcSet="/img/simposio/simposio_banner_desktop_ultrawide.png"
-          />
-          <img
-            className="sp-hero-banner"
-            src="/img/simposio/simposio_banner_laptop.png"
-            alt=""
-            fetchPriority="high"
-          />
-        </picture>
-        <div className="sp-hero-actions">
-          <div className="sp-actions sp-actions--center">
-            <button
-              className="sp-button sp-button--gold"
-              onClick={() => irA('inversion')}
-            >
-              Reservar mi lugar <ArrowRight size={18} />
-            </button>
-            <button
-              className="sp-button sp-button--outline"
-              onClick={() => irA('programa')}
-            >
-              <CalendarDays size={18} /> Ver programa
-            </button>
+      <div className="sp-intro">
+        <LogoCarousel
+          className="sp-intro-sponsors"
+          title="logos.tituloPatrocinadores"
+          logos={[...patrocinadores, ...patrocinadores]}
+        />
+        {/* El header y footer pertenecen al layout existente del sitio. */}
+        <section
+          className="sp-hero"
+          id="inicio"
+          aria-labelledby="simposio-titulo"
+        >
+          <h1 id="simposio-titulo" className="sp-visually-hidden">
+            2.º Simposio Anual Corporativo sobre Prevención de Lavado de Dinero
+          </h1>
+          <picture className="sp-hero-picture">
+            <source
+              media="(max-width: 767px)"
+              srcSet="/img/simposio/simposio_banner_movil.jpeg"
+            />
+            <source
+              media="(max-width: 1100px) and (orientation: portrait)"
+              srcSet="/img/simposio/simposio_banner_tablet_vertical.png"
+            />
+            <source
+              media="(max-width: 1100px)"
+              srcSet="/img/simposio/simposio_banner_tablet.jpeg"
+            />
+            <source
+              media="(min-width: 1101px) and (max-height: 800px)"
+              srcSet="/img/simposio/simposio_banner_desktop_ultrawide.png"
+            />
+            <source
+              media="(min-width: 1101px) and (min-height: 801px)"
+              srcSet="/img/simposio/simposio_banner_desktop_ultrawide.png"
+            />
+            <img
+              className="sp-hero-banner"
+              src="/img/simposio/simposio_banner_laptop.png"
+              alt=""
+              fetchPriority="high"
+            />
+          </picture>
+          <div className="sp-hero-actions">
+            <div className="sp-actions sp-actions--center">
+              <button
+                className="sp-button sp-button--gold"
+                onClick={() => irA('inversion')}
+              >
+                Reservar mi lugar <ArrowRight size={18} />
+              </button>
+              <button
+                className="sp-button sp-button--outline"
+                onClick={() => irA('programa')}
+              >
+                <CalendarDays size={18} /> Ver programa
+              </button>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
 
-      <section className="sp-section sp-section--raised" id="resultados">
+      {/* <section className="sp-section sp-section--raised" id="resultados">
         <div className="sp-container" data-sp-reveal>
           <Encabezado
             etiqueta="Impacto e historial"
@@ -588,7 +595,7 @@ export const SimposioPage2 = (): React.JSX.Element => {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       <section className="sp-section" id="galeria">
         <div className="sp-container" data-sp-reveal>
@@ -656,12 +663,6 @@ export const SimposioPage2 = (): React.JSX.Element => {
 
       <section className="sp-section sp-section--raised" id="ponentes">
         <div className="sp-container" data-sp-reveal>
-          <Encabezado
-            etiqueta="Expertos que generan perspectiva"
-            titulo="Ponentes magistrales y panelistas"
-            texto="Conoce las voces y perspectivas que forman parte de nuestro encuentro."
-            centrado
-          />
           {SIMPOSIO.ponentes.length > 0 ? (
             <div className="sp-speakers">
               {SIMPOSIO.ponentes.map((ponente) => (
@@ -830,9 +831,9 @@ export const SimposioPage2 = (): React.JSX.Element => {
         </div>
       </section>
 
-      <EventoEnero2 />
+      {/* <EventoEnero2 /> */}
 
-      <section className="sp-section sp-section--raised" id="experiencia">
+      {/* <section className="sp-section sp-section--raised" id="experiencia">
         <div className="sp-container" data-sp-reveal>
           <Encabezado
             etiqueta="Tu participación, paso a paso"
@@ -850,7 +851,7 @@ export const SimposioPage2 = (): React.JSX.Element => {
             ))}
           </ol>
         </div>
-      </section>
+      </section> */}
 
       <section className="sp-section" id="faq">
         <div className="sp-container sp-container--narrow" data-sp-reveal>
@@ -891,7 +892,7 @@ export const SimposioPage2 = (): React.JSX.Element => {
         </div>
       </section>
 
-      <section className="sp-section sp-closing" id="contacto">
+      {/* <section className="sp-section sp-closing" id="contacto">
         <img
           className="sp-closing-photo"
           src={asset('cierre')}
@@ -931,14 +932,7 @@ export const SimposioPage2 = (): React.JSX.Element => {
             </a>
           </div>
         </div>
-      </section>
-
-      <div className="sp-sponsors">
-        <LogoCarousel
-          title="logos.tituloPatrocinadores"
-          logos={[...patrocinadores, ...patrocinadores]}
-        />
-      </div>
+      </section> */}
 
       {archivoSeleccionado && (
         <VerArchivo

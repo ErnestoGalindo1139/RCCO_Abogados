@@ -1,11 +1,12 @@
-/* Todo está limitado a .rcco-simposio: no altera header, footer ni otras páginas. */
+/* Estilos limitados a .rcco-simposio. */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
 .rcco-simposio {
-  --sp-navy: #172b49; --sp-raised: #244163; --sp-slate: #315174;
-  --sp-gold: #f0c96f; --sp-gold-deep: #a47b2d;
-  --sp-ink: #ffffff; --sp-muted: #e0e8f0;
-  --sp-line: rgba(255,255,255,.16); --sp-gold-line: rgba(240,201,111,.5);
+  --sp-navy: #10296b; --sp-raised: #153782; --sp-slate: #2351a5;
+  --sp-blue: #447df1; --sp-cream: #f8f7f3;
+  --sp-gold: #e5bb63; --sp-gold-deep: #806023;
+  --sp-ink: #f8f7f3; --sp-muted: #dce6fa;
+  --sp-line: rgba(255,255,255,.16); --sp-gold-line: rgba(229,187,99,.5);
   --sp-heading: 'Playfair Display', Georgia, serif;
   /* Ajustar si el header fijo del proyecto tiene otra altura. */
   --sp-header-height: 72px;
@@ -26,8 +27,8 @@
 .rcco-simposio .sp-container { width: min(100%,1280px); margin: 0 auto; padding-inline: 64px; }
 .rcco-simposio .sp-container--narrow { max-width: 1024px; }
 .rcco-simposio .sp-section { padding-block: 72px; border-bottom: 1px solid var(--sp-line); }
-.rcco-simposio .sp-section--raised { background: linear-gradient(135deg,#29496d,#203a59); }
-.rcco-simposio .sp-section--light { padding-block: 96px; background: #f3f4f6; color: #0c0f10; }
+.rcco-simposio .sp-section--raised { background: linear-gradient(135deg,#193e91,var(--sp-navy)); }
+.rcco-simposio .sp-section--light { padding-block: 96px; background: var(--sp-cream); color: var(--sp-navy); }
 .rcco-simposio .sp-eyebrow { display: block; color: var(--sp-gold); font-size: 13px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; line-height: 1.5; }
 .rcco-simposio .sp-heading { margin-bottom: 40px; }
 .rcco-simposio .sp-heading h2 { margin: 5px 0 8px; font-family: var(--sp-heading); font-size: clamp(28px,3.1vw,36px); font-weight: 600; line-height: 1.3; letter-spacing: -.025em; }
@@ -37,17 +38,17 @@
 .rcco-simposio .sp-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; }
 .rcco-simposio .sp-actions--center { justify-content: center; }
 .rcco-simposio .sp-button { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 14px 24px; min-height: 50px; border: 1px solid transparent; border-radius: 3px; color: var(--sp-ink); font-size: 14px; font-weight: 700; letter-spacing: .025em; line-height: 1.4; transition: background .2s, border-color .2s, transform .2s, filter .2s; }
-.rcco-simposio .sp-button--gold { background: linear-gradient(135deg,#dfba68,#c5a059 55%,#9e7d3b); color: #0b1325; }
+.rcco-simposio .sp-button--gold { background: linear-gradient(135deg,#f0d18d,var(--sp-gold)); color: var(--sp-navy); }
 .rcco-simposio .sp-button--gold:hover { filter: brightness(1.1); transform: translateY(-2px); }
 .rcco-simposio .sp-button--outline { background: var(--sp-raised); border-color: var(--sp-gold-line); }
-.rcco-simposio .sp-button--outline:hover { background: #1b2539; border-color: var(--sp-gold); }
+.rcco-simposio .sp-button--outline:hover { background: var(--sp-slate); border-color: var(--sp-gold); }
 .rcco-simposio .sp-button:active { transform: translateY(0); }
 .rcco-simposio .sp-text-link { display: inline-flex; align-items: center; gap: 8px; padding: 3px 0; background: none; border: 0; border-bottom: 1px solid var(--sp-gold-line); color: var(--sp-gold); font-size: 14px; font-weight: 600; transition: color .2s,border-color .2s; }
 .rcco-simposio .sp-text-link:hover { color: #ffdea5; border-color: var(--sp-gold); }
 .rcco-simposio .sp-section-bottom { display: flex; justify-content: center; margin-top: 32px; }
 .rcco-simposio .sp-hero { position: relative; height: calc(100dvh - var(--sp-header-height)); overflow: hidden; border-bottom: 1px solid var(--sp-line); background: var(--sp-navy); }
 .rcco-simposio .sp-hero-picture { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
-.rcco-simposio .sp-hero-banner { display: block; width: 100%; max-width: none; height: 100%; object-fit: cover; object-position: center; opacity: .95; }
+.rcco-simposio .sp-hero-banner { display: block; width: 100%; max-width: none; height: 100%; object-fit: cover; object-position: center; opacity: 1; }
 .rcco-simposio .sp-hero-actions { position: absolute; z-index: 2; left: 50%; bottom: calc(18px + env(safe-area-inset-bottom,0px)); width: min(100% - 24px,520px); transform: translateX(-50%); }
 .rcco-simposio .sp-hero-actions .sp-actions { flex-direction: row; flex-wrap: nowrap; justify-content: center; gap: 10px; }
 .rcco-simposio .sp-stats { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 24px; }
@@ -65,19 +66,19 @@
 .rcco-simposio .sp-gallery-item--2 { grid-column: span 5; height: 360px; }
 .rcco-simposio .sp-gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s; }
 .rcco-simposio .sp-gallery-item:hover img { transform: scale(1.035); }
-.rcco-simposio .sp-gallery-caption { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: 22px; background: linear-gradient(0deg,rgba(11,19,37,.96),rgba(11,19,37,.25) 50%,transparent); }
+.rcco-simposio .sp-gallery-caption { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: 22px; background: linear-gradient(0deg,rgba(16,41,107,.96),rgba(16,41,107,.25) 50%,transparent); }
 .rcco-simposio .sp-gallery-caption strong { font-size: 16px; line-height: 1.5; margin-top: 5px; }
 .rcco-simposio .sp-small-note { color: var(--sp-muted); font-size: 13px; margin-top: 14px; opacity: .95; }
-.rcco-simposio .sp-section--light .sp-eyebrow { color: #85652c; }
+.rcco-simposio .sp-section--light .sp-eyebrow { color: var(--sp-gold-deep); }
 .rcco-simposio .sp-section--light .sp-heading h2 { color: var(--sp-raised); font-size: clamp(30px,3.2vw,40px); }
 .rcco-simposio .sp-section--light .sp-description { color: #45464c; font-size: 17px; }
 .rcco-simposio .sp-pillars { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 24px; }
-.rcco-simposio .sp-pillar { display: flex; flex-direction: column; padding: 32px; background: #fff; border: 1px solid #e5e7eb; border-radius: 3px; transition: transform .25s,border-color .25s; }
-.rcco-simposio .sp-pillar:hover { transform: translateY(-3px); border-color: #c5a059; }
+.rcco-simposio .sp-pillar { display: flex; flex-direction: column; padding: 32px; background: #fffefa; border: 1px solid #dbe2ef; border-radius: 3px; transition: transform .25s,border-color .25s; }
+.rcco-simposio .sp-pillar:hover { transform: translateY(-3px); border-color: var(--sp-blue); }
 .rcco-simposio .sp-icon-box { width: 48px; height: 48px; display: grid; place-items: center; background: var(--sp-navy); color: var(--sp-gold); border-radius: 3px; margin-bottom: 20px; }
 .rcco-simposio .sp-pillar h3 { color: var(--sp-raised); font-size: 20px; line-height: 1.4; margin-bottom: 10px; font-weight: 600; }
 .rcco-simposio .sp-pillar p { color: #4f5968; font-size: 16px; line-height: 1.8; flex: 1; }
-.rcco-simposio .sp-pillar-foot { display: flex; align-items: center; gap: 8px; margin-top: 24px; padding-top: 16px; border-top: 1px solid #f0f1f3; color: #85652c; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .09em; }
+.rcco-simposio .sp-pillar-foot { display: flex; align-items: center; gap: 8px; margin-top: 24px; padding-top: 16px; border-top: 1px solid #dbe2ef; color: var(--sp-gold-deep); font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .09em; }
 .rcco-simposio .sp-speakers { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 24px; }
 .rcco-simposio .sp-speaker { background: var(--sp-navy); border: 1px solid var(--sp-line); border-radius: 3px; overflow: hidden; transition: border-color .25s,transform .25s; }
 .rcco-simposio .sp-speaker:hover { border-color: var(--sp-gold-line); transform: translateY(-3px); }
@@ -93,7 +94,7 @@
 .rcco-simposio .sp-program-note { color: var(--sp-muted); font-size: 14px; text-align: center; margin: -18px auto 22px; }
 .rcco-simposio .sp-tabs { display: flex; justify-content: center; gap: 6px; width: fit-content; max-width: 100%; margin: 0 auto 40px; padding: 5px; background: var(--sp-raised); border: 1px solid var(--sp-line); border-radius: 3px; }
 .rcco-simposio .sp-tabs button { border: 0; background: transparent; color: var(--sp-muted); padding: 12px 24px; border-radius: 2px; font-size: 14px; font-weight: 600; }
-.rcco-simposio .sp-tabs button[aria-selected='true'] { color: var(--sp-navy); background: #e9c176; }
+.rcco-simposio .sp-tabs button[aria-selected='true'] { color: var(--sp-navy); background: var(--sp-gold); }
 .rcco-simposio .sp-timeline { display: grid; gap: 24px; border-left: 1px solid var(--sp-gold-line); padding-left: 30px; margin-left: 8px; animation: sp-panel-in .25s ease both; }
 .rcco-simposio .sp-session { position: relative; padding: 20px 24px; background: var(--sp-raised); border: 1px solid var(--sp-line); border-radius: 3px; }
 .rcco-simposio .sp-session::before { content: ''; position: absolute; left: -39px; top: 22px; width: 16px; height: 16px; border-radius: 50%; background: var(--sp-raised); border: 2px solid var(--sp-gold); }
@@ -101,7 +102,7 @@
 .rcco-simposio .sp-session--featured::before { background: var(--sp-gold); }
 .rcco-simposio .sp-session-meta { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 7px; color: var(--sp-gold); font-size: 13px; font-weight: 700; }
 .rcco-simposio .sp-tag { background: var(--sp-slate); color: var(--sp-muted); border-radius: 2px; padding: 3px 8px; font-size: 11px; font-weight: 500; }
-.rcco-simposio .sp-session--featured .sp-tag { color: var(--sp-gold); background: #c5a05920; border: 1px solid var(--sp-gold-line); }
+.rcco-simposio .sp-session--featured .sp-tag { color: var(--sp-gold); background: #e5bb6320; border: 1px solid var(--sp-gold-line); }
 .rcco-simposio .sp-session h3 { font-size: 16px; line-height: 1.45; margin-bottom: 4px; }
 .rcco-simposio .sp-session p { color: var(--sp-muted); font-size: 14px; }
 .rcco-simposio .sp-includes { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 20px; }
@@ -110,7 +111,7 @@
 .rcco-simposio .sp-include h3 { font-size: 16px; line-height: 1.45; margin-bottom: 5px; }
 .rcco-simposio .sp-include p { color: var(--sp-muted); font-size: 13px; line-height: 1.65; }
 .rcco-simposio .sp-pricing { position: relative; overflow: hidden; padding: 40px; background: var(--sp-raised); border: 2px solid var(--sp-gold-line); border-radius: 4px; box-shadow: 0 12px 32px -4px #050a1430; }
-.rcco-simposio .sp-pricing-ribbon { position: absolute; right: -46px; top: 22px; transform: rotate(45deg); padding: 5px 48px; background: #e9c176; color: var(--sp-navy); font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; }
+.rcco-simposio .sp-pricing-ribbon { position: absolute; right: -46px; top: 22px; transform: rotate(45deg); padding: 5px 48px; background: var(--sp-gold); color: var(--sp-navy); font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; }
 .rcco-simposio .sp-pricing-grid { display: grid; grid-template-columns: 7fr 5fr; align-items: center; gap: 32px; }
 .rcco-simposio .sp-pricing h3 { font-family: var(--sp-heading); font-size: 30px; line-height: 1.3; margin: 7px 0 12px; }
 .rcco-simposio .sp-pricing .sp-description { font-size: 15px; }
@@ -193,7 +194,7 @@
 .rcco-simposio .sp-closing::before { content: ''; position: absolute; inset: 0; background: linear-gradient(0deg,var(--sp-raised),transparent); z-index: 1; }
 .rcco-simposio .sp-closing-content { position: relative; z-index: 2; }
 .rcco-simposio .sp-closing blockquote { position: relative; padding: 28px 32px; margin: 32px 0; background: #0b1325cc; border-left: 2px solid var(--sp-gold); text-align: left; }
-.rcco-simposio .sp-closing blockquote::after { content: '“'; position: absolute; top: 0; right: 20px; color: #c5a05930; font-family: var(--sp-heading); font-size: 90px; line-height: 1; }
+.rcco-simposio .sp-closing blockquote::after { content: '\201C'; position: absolute; top: 0; right: 20px; color: #c5a05930; font-family: var(--sp-heading); font-size: 90px; line-height: 1; }
 .rcco-simposio .sp-closing blockquote p { position: relative; z-index: 1; font-family: var(--sp-heading); font-size: 20px; font-style: italic; line-height: 1.6; margin-bottom: 15px; }
 .rcco-simposio .sp-closing cite { display: block; color: var(--sp-gold); font-size: 13px; letter-spacing: .08em; font-style: normal; text-transform: uppercase; }
 .rcco-simposio .sp-sponsors { padding: 24px 0; background: var(--sp-navy); }
@@ -282,4 +283,90 @@
 @media (prefers-reduced-motion: reduce) {
   .rcco-simposio *, .rcco-simposio *::before,.rcco-simposio *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
   .rcco-simposio .sp-reveal { opacity: 1; transform: none; }
+}
+
+/* Colores de los componentes compartidos, limitados a esta página. */
+.rcco-simposio .sp-intro-sponsors {
+  background: var(--sp-navy);
+  border-bottom: 1px solid var(--sp-line);
+}
+.rcco-simposio .sp-existing-speakers h2 {
+  color: var(--sp-ink);
+  font-family: var(--sp-heading);
+}
+.rcco-simposio .sp-existing-speakers p { color: var(--sp-muted); }
+.rcco-simposio .sp-existing-speakers button {
+  background: var(--sp-cream);
+  border: 1px solid var(--sp-gold-line);
+  color: var(--sp-navy);
+}
+.rcco-simposio .sp-existing-speakers button:hover { background: #e4ecfc; }
+.rcco-simposio .sp-existing-speakers button svg { color: var(--sp-navy); }
+.rcco-simposio .sp-existing-speakers .shadow-xl {
+  background: var(--sp-cream);
+  border: 1px solid var(--sp-line);
+  box-shadow: 0 12px 32px rgba(8,24,68,.24);
+}
+.rcco-simposio .sp-session--featured { border-top: 2px solid var(--sp-blue); }
+.rcco-simposio .sp-faq-item--open { border-top: 2px solid var(--sp-blue); }
+
+/* Superficies claras alternadas con los bloques azules del evento. */
+.rcco-simposio :is(#galeria,#programa,#faq) {
+  --sp-ink: #10296b;
+  --sp-muted: #505d73;
+  --sp-raised: #fffefa;
+  --sp-slate: #e8eef9;
+  --sp-gold: #806023;
+  --sp-gold-line: rgba(128,96,35,.35);
+  --sp-line: rgba(16,41,107,.14);
+  background: var(--sp-cream);
+  color: var(--sp-ink);
+}
+.rcco-simposio #galeria { background: #fffefa; }
+.rcco-simposio #galeria .sp-gallery-item {
+  --sp-ink: #f8f7f3;
+  --sp-gold: #e5bb63;
+  color: var(--sp-ink);
+}
+.rcco-simposio #programa .sp-tabs button[aria-selected='true'] {
+  background: var(--sp-navy);
+  color: var(--sp-cream);
+}
+.rcco-simposio #programa .sp-session--featured {
+  background: #eef3fd;
+  border-color: rgba(68,125,241,.35);
+}
+.rcco-simposio :is(#galeria,#programa,#faq) .sp-text-link:hover {
+  color: var(--sp-navy);
+  border-color: var(--sp-navy);
+}
+.rcco-simposio #faq .sp-faq-item--open { background: #eef3fd; }
+.rcco-simposio .sp-intro-sponsors h3 {
+  color: var(--sp-ink);
+  margin-bottom: 32px;
+}
+
+/* Una pantalla compartida en movil y pantallas amplias. */
+@media (min-width: 1600px) {
+  .rcco-simposio .sp-hero-actions { display: none; }
+}
+
+@media (max-width: 767px), (min-width: 1600px) {
+  .rcco-simposio .sp-intro {
+    display: flex;
+    flex-direction: column;
+    height: calc(100dvh - var(--sp-header-height));
+  }
+  .rcco-simposio .sp-intro-sponsors {
+    flex: 0 0 auto;
+    padding-block: clamp(16px,3dvh,32px);
+  }
+  .rcco-simposio .sp-intro-sponsors h3 {
+    margin-bottom: clamp(16px,3dvh,32px);
+  }
+  .rcco-simposio .sp-intro .sp-hero {
+    flex: 1;
+    min-height: 0;
+    height: auto;
+  }
 }

@@ -138,34 +138,19 @@ export const CarruselExpositores = (): React.JSX.Element => {
               "
             >
               <div className="bg-white rounded-2xl shadow-xl overflow-hidden h-full">
-                {/* CONTENEDOR QUE MANDA */}
-                <div className="relative w-full sm:h-[460px] md:h-[500px] overflow-hidden">
-                  {/* Mobile */}
+                {/* La imagen define la altura para conservar todo el contenido. */}
+                <picture className="block w-full">
+                  <source
+                    media="(min-width: 768px)"
+                    srcSet={expositor.imagenDesktop}
+                  />
                   <img
                     src={expositor.imagenMobile}
                     alt={expositor.nombre}
-                    className="
-                      w-full h-full
-                      md:hidden
-                      object-cover
-                    "
+                    className="block w-full h-auto object-contain"
                     loading="lazy"
                   />
-
-                  {/* Desktop */}
-                  <img
-                    src={expositor.imagenDesktop}
-                    alt={expositor.nombre}
-                    className="
-                      absolute inset-0
-                      w-full h-full
-                      object-cover
-                      object-[60%_center]
-                      hidden md:block
-                    "
-                    loading="lazy"
-                  />
-                </div>
+                </picture>
               </div>
             </motion.div>
           ))}
