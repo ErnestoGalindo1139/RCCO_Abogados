@@ -126,9 +126,8 @@ export const CarruselExpositores = (): React.JSX.Element => {
       <div ref={emblaRef} className="overflow-hidden">
         <div className="flex py-10 mx-auto">
           {EXPOSITORES.map((expositor) => (
-            <motion.div
+            <div
               key={expositor.id}
-              whileHover={{ scale: 1.03 }}
               className="
                 px-3
                 flex-[0_0_80%]
@@ -137,7 +136,10 @@ export const CarruselExpositores = (): React.JSX.Element => {
                 lg:flex-[0_0_30%]
               "
             >
-              <div className="bg-white rounded-2xl shadow-xl overflow-hidden h-full">
+              <motion.div
+                whileHover={{ scale: 1.03 }}
+                className="bg-white rounded-2xl shadow-xl overflow-hidden h-full"
+              >
                 {/* La imagen define la altura para conservar todo el contenido. */}
                 <picture className="block w-full">
                   <source
@@ -151,8 +153,8 @@ export const CarruselExpositores = (): React.JSX.Element => {
                     loading="lazy"
                   />
                 </picture>
-              </div>
-            </motion.div>
+              </motion.div>
+            </div>
           ))}
         </div>
       </div>

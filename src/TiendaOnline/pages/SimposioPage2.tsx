@@ -92,7 +92,7 @@ export const SIMPOSIO: {
   // Si está vacío se conserva CarruselExpositores, con los datos de tu proyecto.
   // Añade los ponentes confirmados aquí para usar las cuatro cards del diseño Stitch.
   ponentes: [],
-  programaConfirmado: false,
+  programaConfirmado: true,
   // Estructura de referencia; sustituye por el programa autorizado antes de publicarlo.
   jornadas: [
     {
@@ -185,29 +185,19 @@ const patrocinadores = [
 // Imágenes ilustrativas incluidas en el export de Stitch. Reemplazar por fotografías reales.
 const galeria = [
   {
-    foto: 'galeria-panel',
+    foto: 'img1',
     etiqueta: 'El encuentro',
     texto: 'Un espacio para compartir conocimiento',
   },
   {
-    foto: 'galeria-networking',
+    foto: 'img2',
     etiqueta: 'Networking',
     texto: 'Conexiones que trascienden el evento',
   },
   {
-    foto: 'galeria-taller',
+    foto: 'img3',
     etiqueta: 'Perspectiva práctica',
     texto: 'Aprendizaje e intercambio profesional',
-  },
-  {
-    foto: 'galeria-auditorio',
-    etiqueta: 'Comunidad',
-    texto: 'Una misma visión de cumplimiento',
-  },
-  {
-    foto: 'galeria-constancias',
-    etiqueta: 'Participación',
-    texto: 'El valor de seguir preparándonos',
   },
 ];
 const pilares: {
@@ -629,17 +619,17 @@ export const SimposioPage2 = (): React.JSX.Element => {
               </button>
             ))}
           </div>
-          <p className="sp-small-note">
+          {/* <p className="sp-small-note">
             Imágenes ilustrativas de la propuesta visual. La galería oficial se
             publicará próximamente.
-          </p>
+          </p> */}
         </div>
       </section>
 
       <section className="sp-section sp-section--light" id="beneficios">
         <div className="sp-container" data-sp-reveal>
           <Encabezado
-            etiqueta="Propuesta de valor"
+            etiqueta=""
             titulo="¿Por qué asistir?"
             texto="Una experiencia diseñada para actualizarte, conectar y fortalecer tu práctica profesional frente a la evolución regulatoria."
           />
