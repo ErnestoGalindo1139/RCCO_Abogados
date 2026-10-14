@@ -109,7 +109,7 @@ export const SIMPOSIO: {
           tipo: 'Magistral',
           titulo: 'Conferencia de apertura',
           descripcion: 'Tema y ponente por anunciar.',
-          destacada: true,
+          // destacada: true,
         },
         {
           hora: 'Por confirmar',
@@ -151,7 +151,7 @@ export const SIMPOSIO: {
           tipo: 'Magistral',
           titulo: 'Conferencia especializada',
           descripcion: 'Tema y ponente por anunciar.',
-          destacada: true,
+          // destacada: true,
         },
         {
           hora: 'Por confirmar',
@@ -588,7 +588,7 @@ export const SimposioPage2 = (): React.JSX.Element => {
       </section> */}
 
       <section className="sp-section" id="galeria">
-        <div className="sp-container" data-sp-reveal>
+        <div className="sp-container">
           <div className="sp-gallery-heading">
             <Encabezado
               etiqueta="Memorias visuales"
@@ -606,11 +606,14 @@ export const SimposioPage2 = (): React.JSX.Element => {
                 aria-label={`Ampliar imagen: ${item.texto}`}
               >
                 <img
-                  src={asset(item.foto)}
+                  src={asset(`${item.foto}-1280`)}
+                  srcSet={`${asset(`${item.foto}-640`)} 640w, ${asset(`${item.foto}-1280`)} 1280w`}
+                  sizes="(max-width: 420px) calc(100vw - 40px), (max-width: 767px) calc(100vw - 40px), (max-width: 1100px) 55vw, 700px"
                   alt={item.texto}
                   loading="lazy"
-                  width="1024"
-                  height="768"
+                  decoding="async"
+                  width="1280"
+                  height="960"
                 />
                 <span className="sp-gallery-caption">
                   <span className="sp-eyebrow">{item.etiqueta}</span>
