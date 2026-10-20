@@ -217,7 +217,7 @@ const pilares: {
     icon: ClipboardList,
     titulo: 'Enfoque práctico',
     texto:
-      'Comparte experiencias y conoce perspectivas que contribuyan al fortalecimiento de los procesos de tu organización.',
+      'Participa activamente en los talleres y desarrolla tu perfil profesional',
     pie: 'Conocimiento aplicable',
   },
   {
@@ -783,14 +783,14 @@ export const SimposioPage2 = (): React.JSX.Element => {
               El programa se anunciará próximamente.
             </p>
           )}
-          <div className="sp-section-bottom">
+          {/* <div className="sp-section-bottom">
             <button
               className="sp-text-link"
               onClick={() => abrirDocumento('brochure')}
             >
               <Download size={15} /> Consultar información del evento
             </button>
-          </div>
+          </div> */}
         </div>
       </section>
 
@@ -813,14 +813,14 @@ export const SimposioPage2 = (): React.JSX.Element => {
               </article>
             ))}
           </div>
-          <div className="sp-section-bottom">
+          {/* <div className="sp-section-bottom">
             <button
               className="sp-text-link"
               onClick={() => abrirDocumento('precio')}
             >
               Ver inversión y beneficios oficiales <ArrowRight size={15} />
             </button>
-          </div>
+          </div> */}
         </div>
       </section>
 
