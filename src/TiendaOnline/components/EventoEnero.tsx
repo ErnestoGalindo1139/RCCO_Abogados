@@ -1,3 +1,4 @@
+import { API_URL } from '../../config/api';
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import {
@@ -74,26 +75,23 @@ export const EventoEnero: React.FC = () => {
     try {
       const folio = generarFolio();
 
-      const res = await fetch(
-        'https://api-rcco-abogados.grstechs.com/createUsuariosEvento',
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            nb_Nombre: form.nombre,
-            nb_ApellidoPaterno: form.apellidoPaterno,
-            nb_ApellidoMaterno: form.apellidoMaterno,
-            de_Celular: form.telefono,
-            de_Correo: form.correo,
-            nb_Empresa: form.empresa,
-            de_Comentarios: form.mensaje,
-            fh_Pago: null,
-            nu_Folio: folio,
-            sn_Pagado: false,
-            sn_Activo: true,
-          }),
-        }
-      );
+      const res = await fetch(`${API_URL}/createUsuariosEvento`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          nb_Nombre: form.nombre,
+          nb_ApellidoPaterno: form.apellidoPaterno,
+          nb_ApellidoMaterno: form.apellidoMaterno,
+          de_Celular: form.telefono,
+          de_Correo: form.correo,
+          nb_Empresa: form.empresa,
+          de_Comentarios: form.mensaje,
+          fh_Pago: null,
+          nu_Folio: folio,
+          sn_Pagado: false,
+          sn_Activo: true,
+        }),
+      });
 
       const data = await res.json();
       if (!data.success) throw new Error(data.message);

@@ -7,131 +7,128 @@ import {
   Star,
 } from 'lucide-react';
 import { UsuarioEvento } from '../types/UsuarioEvento';
-
-// ===============================
-// TIPOS
-// ===============================
-// export type UsuarioEvento = {
-//   id_UsuarioEvento: number;
-//   NombreCompleto: string;
-//   Empresa: string | null;
-//   Celular: string;
-//   Correo: string;
-//   Comentarios: string | null;
-//   FechaRegistro: string;
-//   nu_Folio: string;
-//   sn_Pagado: boolean;
-//   sn_Activo: boolean;
-
-//   // ⭐ NUEVOS
-//   sn_UsuarioEspecial: boolean;
-//   nb_TipoUsuarioEspecial: string | null;
-// };
-
 type Props = {
   items: UsuarioEvento[];
   onEditar: (u: UsuarioEvento) => void;
   onToggleActivo: (u: UsuarioEvento) => void;
   onTogglePago: (u: UsuarioEvento) => void;
 };
-
+const fecha = (value: string) => {
+  const match = value?.match(/^(\d{4})-(\d{2})-(\d{2})(?:T(\d{2}:\d{2}))?/);
+  return match
+    ? `${match[3]}/${match[2]}/${match[1]}${match[4] ? ' · ' + match[4] : ''}`
+    : '—';
+};
 export const UsuariosEventoTable = ({
   items,
   onEditar,
   onToggleActivo,
   onTogglePago,
-}: Props) => {
-  const formatFechaSinZona = (iso: string) => {
-    if (!iso) return '-';
-
-    const [fecha, hora] = iso.split('T');
-    const [hh, mm, ss] = hora.split('.')[0].split(':');
-
-    const [yyyy, mmf, dd] = fecha.split('-');
-
-    return `${dd}/${mmf}/${yyyy}, ${hh}:${mm}:${ss}`;
-  };
-
-  return (
-    <div className="overflow-x-auto bg-white rounded-2xl shadow mt-4">
-      <table className="min-w-[1800px] w-full text-sm">
-        <thead className="bg-slate-200">
-          <tr>
-            <th className="px-4 py-3 text-left">Nombre</th>
-            <th className="px-4 py-3">Empresa</th>
-            <th className="px-4 py-3 text-center">Pago</th>
-            <th className="px-4 py-3">Celular</th>
-            <th className="px-4 py-3">Correo</th>
-            <th className="px-4 py-3">Comentarios</th>
-            <th className="px-4 py-3">Folio</th>
-            <th className="px-4 py-3">Fecha</th>
-            <th className="px-4 py-3 text-center">Acciones</th>
-            <th className="px-4 py-3 text-center">Especial</th>
-            <th className="px-4 py-3">Tipo Especial</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {items.map((u) => (
-            <tr key={u.id_UsuarioEvento} className="even:bg-slate-50">
-              <td className="px-4 py-3 font-medium">{u.NombreCompleto}</td>
-              <td className="px-4 py-3">{u.Empresa || '-'}</td>
-
-              {/* PAGO */}
-              <td className="px-4 py-3 flex justify-center gap-2">
-                <span
-                  className={`px-3 py-1 rounded-xl text-xs text-white ${
-                    u.sn_Pagado ? 'bg-green-600' : 'bg-red-600'
-                  }`}
-                >
-                  {u.sn_Pagado ? 'Pagado' : 'No pagado'}
-                </span>
-
-                <button onClick={() => onTogglePago(u)}>
-                  {u.sn_Pagado ? (
-                    <XCircle className="w-5 h-5 text-red-600" />
-                  ) : (
-                    <CheckCircle className="w-5 h-5 text-green-600" />
-                  )}
-                </button>
-              </td>
-
-              <td className="px-4 py-3">{u.Celular}</td>
-              <td className="px-4 py-3">{u.Correo}</td>
-              <td className="px-4 py-3">{u.Comentarios || '-'}</td>
-              <td className="px-4 py-3 font-semibold">{u.nu_Folio}</td>
-              <td className="px-4 py-3">
-                {formatFechaSinZona(u.FechaRegistro)}
-              </td>
-
-              <td className="px-4 py-3 flex justify-center gap-3">
-                <button onClick={() => onEditar(u)}>
-                  <Pencil className="w-5 h-5 text-blue-600" />
-                </button>
-
-                <button onClick={() => onToggleActivo(u)}>
-                  {u.sn_Activo ? (
-                    <Trash2 className="w-5 h-5 text-red-600" />
-                  ) : (
-                    <RotateCcw className="w-5 h-5 text-green-600" />
-                  )}
-                </button>
-              </td>
-
-              {/* ⭐ USUARIO ESPECIAL */}
-              <td className="px-4 py-3 text-center">
-                {u.sn_UsuarioEspecial ? (
-                  <Star className="w-5 h-5 text-yellow-500 inline" />
-                ) : (
-                  <XCircle className="w-5 h-5 text-gray-300 inline" />
-                )}
-              </td>
-
-              <td className="px-4 py-3">{u.nb_TipoUsuarioEspecial || '-'}</td>
-            </tr>
+}: Props) => (
+  <div
+    className="rg-table-scroll"
+    tabIndex={0}
+    role="region"
+    aria-label="Tabla de asistentes, desplazamiento horizontal"
+  >
+    <table className="rg-table">
+      <thead>
+        <tr>
+          {[
+            'Asistente',
+            'Empresa',
+            'Evento',
+            'Pago',
+            'Contacto',
+            'Folio / Registro',
+            'Comentarios',
+            'Acciones',
+          ].map((h) => (
+            <th key={h} scope="col">
+              {h}
+            </th>
           ))}
-        </tbody>
-      </table>
-    </div>
-  );
-};
+        </tr>
+      </thead>
+      <tbody>
+        {items.map((u) => (
+          <tr key={u.id_UsuarioEvento}>
+            <td>
+              <span className="rg-person">{u.NombreCompleto}</span>
+              <span className="rg-secondary">
+                {u.sn_UsuarioEspecial ? (
+                  <>
+                    <Star size={11} className="inline text-amber-500" />{' '}
+                    {u.nb_TipoUsuarioEspecial || 'Invitado especial'}
+                  </>
+                ) : (
+                  'Asistente general'
+                )}
+                {!u.sn_Activo && ' · Inactivo'}
+              </span>
+            </td>
+            <td>{u.Empresa || '—'}</td>
+            <td>
+              <span>{u.nu_AnioEvento || 'Sin clasificar'}</span>
+              <span className="rg-secondary">
+                {u.nu_EdicionEvento
+                  ? u.nu_EdicionEvento + '.ª edición'
+                  : 'Edición sin asignar'}
+              </span>
+            </td>
+            <td>
+              <div className="rg-actions">
+                <span
+                  className={`rg-badge ${u.sn_Pagado ? 'rg-paid' : 'rg-pending'}`}
+                >
+                  {u.sn_Pagado ? 'Pagado' : 'Pendiente'}
+                </span>
+                <button
+                  onClick={() => onTogglePago(u)}
+                  title={
+                    u.sn_Pagado ? 'Marcar como pendiente' : 'Confirmar pago'
+                  }
+                  aria-label={`${u.sn_Pagado ? 'Cambiar pago' : 'Confirmar pago'} de ${u.NombreCompleto}`}
+                >
+                  {u.sn_Pagado ? (
+                    <XCircle size={15} />
+                  ) : (
+                    <CheckCircle size={15} />
+                  )}
+                </button>
+              </div>
+            </td>
+            <td>
+              <span className="rg-contact">{u.Correo || '—'}</span>
+              <span className="rg-secondary">{u.Celular || '—'}</span>
+            </td>
+            <td>
+              <span className="rg-folio">{u.nu_Folio}</span>
+              <span className="rg-secondary">{fecha(u.FechaRegistro)}</span>
+            </td>
+            <td className="rg-comment">{u.Comentarios || '—'}</td>
+            <td>
+              <div className="rg-actions">
+                <button
+                  onClick={() => onEditar(u)}
+                  title="Editar asistente"
+                  aria-label={`Editar a ${u.NombreCompleto}`}
+                >
+                  <Pencil size={15} />
+                </button>
+                <button
+                  className="rg-danger"
+                  onClick={() => onToggleActivo(u)}
+                  title={u.sn_Activo ? 'Desactivar' : 'Reactivar'}
+                  aria-label={`${u.sn_Activo ? 'Desactivar' : 'Reactivar'} a ${u.NombreCompleto}`}
+                >
+                  {u.sn_Activo ? <Trash2 size={15} /> : <RotateCcw size={15} />}
+                </button>
+              </div>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+);

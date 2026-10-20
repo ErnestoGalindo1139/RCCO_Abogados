@@ -1,5 +1,15 @@
 # React + TypeScript + Vite
 
+## URL de la API
+
+El frontend usa `VITE_API_URL`, centralizada en `src/config/api.ts`.
+
+- `.env`: `VITE_API_URL=http://localhost:4005` para desarrollo local.
+- `.env.production`: URL pública de RCCO para `npm run build`.
+- `.env.example`: referencia para configurar otro entorno.
+
+Reiniciar Vite después de cambiar variables. Un `.env.local` existente puede sobrescribir estos valores. En hosting, configurar `VITE_API_URL` antes de compilar; las variables de Vite se incorporan al build.
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:

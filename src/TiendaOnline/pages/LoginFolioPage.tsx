@@ -1,3 +1,4 @@
+import { API_URL } from '../../config/api';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FOLIO_PREFIX } from '../auth/folioAuth';
@@ -54,15 +55,11 @@ export const LoginFolioPage: React.FC = () => {
     setLoading(true);
 
     try {
-      const res = await fetch(
-        // 'http://localhost:4005/verificar-folio-materiales',
-        'https://api-rcco-abogados.grstechs.com/verificar-folio-materiales',
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ nu_Folio: folioCompleto }),
-        }
-      );
+      const res = await fetch(`${API_URL}/verificar-folio-materiales`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nu_Folio: folioCompleto }),
+      });
 
       const text = await res.text();
       let data;
@@ -84,7 +81,7 @@ export const LoginFolioPage: React.FC = () => {
       localStorage.setItem('rcco_folio_usuario', JSON.stringify(data.body));
 
       navigate('/materiales');
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       console.error('❌ Error login folio:', err);
       setError(err.message || 'Error al verificar el folio');

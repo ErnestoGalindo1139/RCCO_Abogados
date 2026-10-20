@@ -1,9 +1,10 @@
+import { RegistrationResultModal } from './RegistrationResultModal';
+import { API_URL } from '../../config/api';
 import React, { useState } from 'react';
 import {
   Building2,
   CalendarDays,
   CheckCircle2,
-  CircleAlert,
   LoaderCircle,
   Mail,
   MapPin,
@@ -12,7 +13,6 @@ import {
   Send,
   UserRound,
   Users,
-  X,
 } from 'lucide-react';
 
 type FormState = {
@@ -39,6 +39,10 @@ type Result = 'success' | 'missing' | 'error' | null;
 
 export const EventoEnero2 = (): React.JSX.Element => {
   const [form, setForm] = useState<FormState>(initialForm);
+  const [consent, setConsent] = useState(false);
+  const [folio, setFolio] = useState('');
+  const [whatsappAccepted, setWhatsappAccepted] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<Result>(null);
 
@@ -51,33 +55,17 @@ export const EventoEnero2 = (): React.JSX.Element => {
     }));
   };
 
-  const openWhatsApp = (folio: string): void => {
-    const message = [
-      'Hola, quiero registrarme al 2.º Simposio Anual Corporativo sobre Prevención de Lavado de Dinero.',
-      '',
-      `Nombre: ${form.nombre} ${form.apellidoPaterno} ${form.apellidoMaterno}`.trim(),
-      `Teléfono: ${form.telefono}`,
-      `Correo: ${form.correo}`,
-      `Empresa: ${form.empresa || 'No especificada'}`,
-      `Mensaje: ${form.mensaje || 'Sin mensaje adicional'}`,
-      `Folio: ${folio}`,
-    ].join('\n');
-    window.open(
-      `https://wa.me/526692291634?text=${encodeURIComponent(message)}`,
-      '_blank',
-      'noopener,noreferrer'
-    );
-  };
-
   const submit = async (
     event: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
     event.preventDefault();
+    if (loading) return;
     if (
       !form.nombre.trim() ||
       !form.apellidoPaterno.trim() ||
       !form.telefono.trim() ||
-      !form.correo.trim()
+      !form.correo.trim() ||
+      !consent
     ) {
       setResult('missing');
       return;
@@ -85,38 +73,39 @@ export const EventoEnero2 = (): React.JSX.Element => {
 
     setLoading(true);
     try {
-      const folio = `PLD-2027-${Math.floor(1000 + Math.random() * 9000)}-${String(Date.now()).slice(-4)}`;
-      const response = await fetch(
-        'https://api-rcco-abogados.grstechs.com/createUsuariosEvento',
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            nb_Nombre: form.nombre.trim(),
-            nb_ApellidoPaterno: form.apellidoPaterno.trim(),
-            nb_ApellidoMaterno: form.apellidoMaterno.trim(),
-            de_Celular: form.telefono.trim(),
-            de_Correo: form.correo.trim(),
-            nb_Empresa: form.empresa.trim(),
-            de_Comentarios: form.mensaje.trim(),
-            fh_Pago: null,
-            nu_Folio: folio,
-            sn_Pagado: false,
-            sn_Activo: true,
-          }),
-        }
-      );
+      const response = await fetch(`${API_URL}/registroSimposio`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          nb_Nombre: form.nombre.trim(),
+          nb_ApellidoPaterno: form.apellidoPaterno.trim(),
+          nb_ApellidoMaterno: form.apellidoMaterno.trim(),
+          de_Celular: form.telefono.trim(),
+          de_Correo: form.correo.trim(),
+          nb_Empresa: form.empresa.trim(),
+          de_Comentarios: form.mensaje.trim(),
+          fh_Pago: null,
+          whatsappConsent: consent,
+          sn_Pagado: false,
+          sn_Activo: true,
+        }),
+      });
       const data = (await response.json()) as {
         success?: boolean;
         message?: string;
+        body?: { nu_Folio: string; whatsapp: { status: string } };
       };
       if (!response.ok || !data.success) throw new Error(data.message);
 
+      setFolio(data.body?.nu_Folio || '');
+      setWhatsappAccepted(data.body?.whatsapp.status === 'accepted');
+      setConsent(false);
       setForm(initialForm);
       setResult('success');
-      openWhatsApp(folio);
     } catch (error: unknown) {
-      console.error(error);
+      setErrorMessage(
+        error instanceof Error ? error.message : 'Inténtalo nuevamente.'
+      );
       setResult('error');
     } finally {
       setLoading(false);
@@ -212,7 +201,8 @@ export const EventoEnero2 = (): React.JSX.Element => {
                       <input
                         name={name}
                         type={type}
-                      placeholder={label.replace(' *', '')}
+                        placeholder={label.replace(' *', '')}
+                        maxLength={name === 'telefono' ? 25 : 200}
                         autoComplete={autoComplete}
                         value={form[name]}
                         onChange={onChange}
@@ -229,6 +219,7 @@ export const EventoEnero2 = (): React.JSX.Element => {
                   <textarea
                     name="mensaje"
                     rows={3}
+                    maxLength={350}
                     placeholder="Escribe aquí cualquier comentario adicional"
                     value={form.mensaje}
                     onChange={onChange}
@@ -237,6 +228,23 @@ export const EventoEnero2 = (): React.JSX.Element => {
               </label>
             </div>
 
+            <label className="sp-whatsapp-consent">
+              <input
+                type="checkbox"
+                checked={consent}
+                onChange={(event) => setConsent(event.target.checked)}
+                required
+              />
+              <span>
+                Autorizo a RCCO Abogados a enviarme por WhatsApp la confirmación
+                de mi registro y las indicaciones de pago al número
+                proporcionado.
+              </span>
+            </label>
+            <p className="sp-phone-help">
+              Teléfono de México: 10 dígitos. Para otro país, incluye + y el
+              código de país.
+            </p>
             <button
               type="submit"
               className="sp-button sp-button--gold sp-registration-submit"
@@ -261,49 +269,13 @@ export const EventoEnero2 = (): React.JSX.Element => {
       </div>
 
       {result && (
-        <div
-          className="sp-registration-modal"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="sp-registration-result"
-        >
-          <div className="sp-registration-modal-card">
-            <button
-              type="button"
-              className="sp-registration-modal-close"
-              onClick={() => setResult(null)}
-              aria-label="Cerrar mensaje"
-            >
-              <X aria-hidden="true" />
-            </button>
-            {result === 'success' ? (
-              <CheckCircle2 className="sp-result-icon sp-result-icon--success" />
-            ) : (
-              <CircleAlert className="sp-result-icon sp-result-icon--error" />
-            )}
-            <h2 id="sp-registration-result">
-              {result === 'success'
-                ? 'Registro recibido'
-                : result === 'missing'
-                  ? 'Completa los campos obligatorios'
-                  : 'No fue posible registrar tus datos'}
-            </h2>
-            <p>
-              {result === 'success'
-                ? 'Abrimos WhatsApp para continuar con la confirmación de tu lugar.'
-                : result === 'missing'
-                  ? 'Revisa nombre, apellido paterno, teléfono y correo electrónico.'
-                  : 'Inténtalo nuevamente o contacta al equipo de RCCO por WhatsApp.'}
-            </p>
-            <button
-              type="button"
-              className="sp-button sp-button--gold"
-              onClick={() => setResult(null)}
-            >
-              Entendido
-            </button>
-          </div>
-        </div>
+        <RegistrationResultModal
+          result={result}
+          folio={folio}
+          whatsappAccepted={whatsappAccepted}
+          errorMessage={errorMessage}
+          onClose={() => setResult(null)}
+        />
       )}
     </section>
   );

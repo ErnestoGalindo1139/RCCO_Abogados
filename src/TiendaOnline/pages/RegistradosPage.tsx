@@ -1,6 +1,17 @@
+import { API_URL } from '../../config/api';
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { CheckCircle, Download } from 'lucide-react';
+import '../../RegistradosPage.css';
+import {
+  CheckCircle,
+  Download,
+  Search,
+  Users,
+  Building2,
+  Clock3,
+  LogOut,
+  SlidersHorizontal,
+} from 'lucide-react';
 import { UsuariosEventoTable } from '../components/UsuariosEventoTable';
 import { UsuarioEvento } from '../types/UsuarioEvento';
 
@@ -24,6 +35,7 @@ export default function RegistradosPage() {
   // ===============================
   // ESTADOS
   // ===============================
+  const [filtroAnio, setFiltroAnio] = useState('2027');
   const [query, setQuery] = useState('');
   const [filtroPago, setFiltroPago] = useState<
     'todos' | 'pagados' | 'nopagados'
@@ -71,9 +83,7 @@ export default function RegistradosPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(
-          'https://api-rcco-abogados.grstechs.com/usuariosEvento'
-        );
+        const res = await fetch(`${API_URL}/usuariosEvento`);
         const data = await res.json();
 
         if (!data.success || !Array.isArray(data.body)) {
@@ -82,6 +92,8 @@ export default function RegistradosPage() {
 
         const mapped = data.body.map((u: any) => ({
           id_UsuarioEvento: u.id_UsuarioEvento,
+          nu_AnioEvento: u.nu_AnioEvento ?? null,
+          nu_EdicionEvento: u.nu_EdicionEvento ?? null,
 
           nb_Nombre: u.nb_Nombre,
           nb_ApellidoPaterno: u.nb_ApellidoPaterno,
@@ -94,7 +106,18 @@ export default function RegistradosPage() {
           Celular: u.de_Celular,
           Correo: u.de_Correo,
           Empresa: u.nb_Empresa,
-          Comentarios: u.de_Comentarios,
+          Comentarios: (u.de_Comentarios || '')
+            .replace(
+              /\s*\[WhatsApp: autoriza[^\]\r\n]*; \d{4}-\d{2}-\d{2}T[^\]\r\n]+\]/g,
+              ''
+            )
+            .trim(),
+          constanciaWhatsApp:
+            (u.de_Comentarios || '')
+              .match(
+                /\[WhatsApp: autoriza[^\]\r\n]*; \d{4}-\d{2}-\d{2}T[^\]\r\n]+\]/g
+              )
+              ?.join('\n') || '',
           FechaRegistro: u.fh_Registro,
           FechaPago: u.sn_Pagado ? 'PAGADO' : null,
           sn_Pagado: u.sn_Pagado,
@@ -146,6 +169,8 @@ export default function RegistradosPage() {
         norm(u.Comentarios || '').includes(q);
 
       if (!match) return false;
+      if (filtroAnio !== 'todos' && String(u.nu_AnioEvento) !== filtroAnio)
+        return false;
       if (filtroPago === 'pagados' && !u.sn_Pagado) return false;
       if (filtroPago === 'nopagados' && u.sn_Pagado) return false;
       if (filtroEmpresa !== 'todas' && u.Empresa !== filtroEmpresa)
@@ -153,17 +178,32 @@ export default function RegistradosPage() {
 
       return true;
     });
-  }, [query, filtroPago, filtroEmpresa, usuarios]);
+  }, [query, filtroPago, filtroEmpresa, filtroAnio, usuarios]);
 
   // =====================================================
   // PAGINADO
   // =====================================================
-  const pages = Math.max(1, Math.ceil(filtrados.length / pageSize));
-  const items = filtrados.slice((page - 1) * pageSize, page * pageSize);
+  const effectiveSize = pageSize || Math.max(1, filtrados.length);
+  const pages = Math.max(1, Math.ceil(filtrados.length / effectiveSize));
+  const currentPage = Math.min(page, pages);
+  const items = filtrados.slice(
+    (currentPage - 1) * effectiveSize,
+    currentPage * effectiveSize
+  );
+  const anios = [
+    ...new Set([
+      2026,
+      2027,
+      ...usuarios
+        .map((u) => u.nu_AnioEvento)
+        .filter((v): v is number => v != null),
+    ]),
+  ].sort((a, b) => b - a);
+  const pagados = filtrados.filter((u) => u.sn_Pagado).length;
 
   useEffect(() => {
     setPage(1);
-  }, [query, filtroPago, filtroEmpresa, pageSize]);
+  }, [query, filtroPago, filtroEmpresa, filtroAnio, pageSize]);
 
   // =====================================================
   // MODALES
@@ -180,17 +220,14 @@ export default function RegistradosPage() {
     if (!selectedUser) return;
 
     try {
-      const res = await fetch(
-        'https://api-rcco-abogados.grstechs.com/updatePagoUsuariosEvento',
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            id_UsuarioEvento: selectedUser.id_UsuarioEvento,
-            sn_Pagado: nuevoValorPago,
-          }),
-        }
-      );
+      const res = await fetch(`${API_URL}/updatePagoUsuariosEvento`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          id_UsuarioEvento: selectedUser.id_UsuarioEvento,
+          sn_Pagado: nuevoValorPago,
+        }),
+      });
 
       const data = await res.json();
 
@@ -208,18 +245,15 @@ export default function RegistradosPage() {
       );
 
       if (nuevoValorPago) {
-        await fetch(
-          'https://api-rcco-abogados.grstechs.com/enviarCorreoPagoEvento',
-          {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              correo: selectedUser.Correo,
-              nombre: selectedUser.NombreCompleto,
-              folio: selectedUser.nu_Folio,
-            }),
-          }
-        );
+        await fetch(`${API_URL}/enviarCorreoPagoEvento`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            correo: selectedUser.Correo,
+            nombre: selectedUser.NombreCompleto,
+            folio: selectedUser.nu_Folio,
+          }),
+        });
       }
     } catch {
       alert('Error al actualizar pago.');
@@ -273,8 +307,8 @@ export default function RegistradosPage() {
 
     const endpoint =
       tipoAccion === 'pago'
-        ? ''
-        : 'https://api-rcco-abogados.grstechs.com/toggleUsuarioEvento';
+        ? `${API_URL}/updatePagoUsuariosEvento`
+        : `${API_URL}/toggleUsuarioEvento`;
 
     const body =
       tipoAccion === 'pago'
@@ -321,7 +355,7 @@ export default function RegistradosPage() {
   const guardarEdicion = async () => {
     if (!selectedUser) return;
 
-    await fetch('https://api-rcco-abogados.grstechs.com/updateUsuarioEvento', {
+    await fetch(`${API_URL}/updateUsuarioEvento`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -332,7 +366,12 @@ export default function RegistradosPage() {
         nb_Empresa: formEdit.Empresa,
         de_Celular: formEdit.Celular,
         de_Correo: formEdit.Correo,
-        de_Comentarios: formEdit.Comentarios,
+        de_Comentarios: [
+          formEdit.Comentarios.trim(),
+          selectedUser.constanciaWhatsApp,
+        ]
+          .filter(Boolean)
+          .join('\n'),
 
         // ⭐ NUEVOS
         sn_UsuarioEspecial: formEdit.sn_UsuarioEspecial,
@@ -367,19 +406,17 @@ export default function RegistradosPage() {
     try {
       setExportando(true);
 
-      const res = await fetch(
-        // 'https://api-rcco-abogados.grstechs.com/reportes/usuariosEvento/excel',
-        'https://api-rcco-abogados.grstechs.com/registrosSimposio/EXCEL',
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            sn_Pagado:
-              filtroPago == 'todos' ? null : filtroPago == 'pagados' ? 1 : 0,
-            nb_Empresa: filtroEmpresa == 'todas' ? null : filtroEmpresa,
-          }),
-        }
-      );
+      const res = await fetch(`${API_URL}/registrosSimposio/EXCEL`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          nu_AnioEvento: filtroAnio === 'todos' ? null : Number(filtroAnio),
+          query,
+          sn_Pagado:
+            filtroPago == 'todos' ? null : filtroPago == 'pagados' ? 1 : 0,
+          nb_Empresa: filtroEmpresa == 'todas' ? null : filtroEmpresa,
+        }),
+      });
 
       if (!res.ok) throw new Error('Error al generar Excel');
 
@@ -429,133 +466,211 @@ export default function RegistradosPage() {
   // RENDER
   // =====================================================
   return (
-    <main className="min-h-screen bg-slate-100">
-      <div className="w-full bg-slate-900 text-right px-6 py-3">
-        <button
-          onClick={logout}
-          className="px-4 py-2 bg-red-600 text-white rounded-lg font-semibold"
-        >
-          Cerrar sesión
-        </button>
-      </div>
-
-      <div className="bg-gradient-to-r from-[#113873] to-[#0D47A1] py-6 px-6 text-white">
-        <h1 className="text-3xl font-bold">Registros del Evento</h1>
-      </div>
-
-      <button
-        onClick={exportarExcel}
-        disabled={exportando}
-        className="flex items-center gap-2 bg-green-600 hover:bg-green-700 px-4 py-2 rounded-lg font-semibold disabled:opacity-50 ml-[2.4rem] mt-[1rem] text-white"
-      >
-        <Download size={18} />
-        {exportando ? 'Generando...' : 'Exportar Excel'}
-      </button>
-
-      {/* FILTROS */}
-      {/* FILTROS */}
-      <section className="max-w-[98vw] mx-auto px-4 sm:px-6 py-6">
-        {/* CONTENEDOR FILTROS */}
-        <div
-          className="bg-white rounded-2xl shadow p-4 sm:p-6
-                  flex flex-col gap-3
-                  sm:flex-row sm:gap-4 sm:items-center"
-        >
-          {/* BUSCADOR */}
-          <input
-            className="w-full sm:w-1/2 px-4 py-2 border rounded-xl
-                 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="Buscar..."
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-          />
-
-          {/* FILTRO PAGO */}
-          <select
-            value={filtroPago}
-            onChange={(e) => setFiltroPago(e.target.value as any)}
-            className="w-full sm:w-auto px-4 py-2 border rounded-xl
-                 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            <option value="todos">Todos</option>
-            <option value="pagados">Pagados</option>
-            <option value="nopagados">No pagados</option>
-          </select>
-
-          {/* FILTRO EMPRESA */}
-          <select
-            value={filtroEmpresa}
-            onChange={(e) => setFiltroEmpresa(e.target.value)}
-            className="w-full sm:w-auto px-4 py-2 border rounded-xl
-                 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            <option value="todas">Todas las empresas</option>
-            {empresas.map((emp) => (
-              <option key={emp} value={emp}>
-                {emp}
-              </option>
-            ))}
-          </select>
+    <main className="rcco-registros">
+      <header className="rg-header">
+        <div className="rg-topbar">
+          <a href="/" className="rg-brand">
+            RCCO <span>ABOGADOS</span>
+          </a>
+          <span className="rg-private">Administración · Simposio</span>
+          <button className="rg-logout" onClick={logout}>
+            <LogOut size={16} /> Cerrar sesión
+          </button>
         </div>
-
-        {/* PAGE SIZE + CONTADOR */}
-        <div
-          className="mt-4 flex flex-col gap-2 text-sm
-               sm:flex-row sm:justify-between sm:items-center sm:text-md"
-        >
-          <span>
-            Mostrando {items.length} de {filtrados.length} registros
-          </span>
-
-          <select
-            value={pageSize}
-            onChange={(e) => setPageSize(Number(e.target.value))}
-            className="w-full sm:w-auto px-3 py-2 rounded-lg border
-                 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        <div className="rg-hero">
+          <div>
+            <span className="rg-eyebrow">GESTIÓN DE ASISTENTES</span>
+            <h1>
+              Registros del evento<span>.</span>
+            </h1>
+            <p>
+              Cada edición, cada asistente. Toda la información en un solo
+              lugar.
+            </p>
+          </div>
+          <button
+            className="rg-export"
+            onClick={exportarExcel}
+            disabled={exportando || !filtrados.length}
           >
-            <option value={filtrados.length}>Todos</option>
-            <option value={5}>5</option>
-            <option value={10}>10</option>
-            <option value={50}>50</option>
-            <option value={100}>100</option>
-            <option value={500}>500</option>
-          </select>
+            <Download size={18} />
+            {exportando ? 'Generando…' : 'Exportar Excel'}
+          </button>
         </div>
-
-        {/* TABLA */}
-        <div className="mt-4 overflow-x-auto">
-          <UsuariosEventoTable
-            items={items}
-            onEditar={abrirModalEditar}
-            onToggleActivo={abrirModalActivo}
-            onTogglePago={abrirModalPago}
-          />
-        </div>
-      </section>
-
-      {/* PAGINACIÓN */}
-      <div className="flex justify-center gap-4 mt-8 pb-8">
-        <button
-          disabled={page === 1}
-          onClick={() => setPage(page - 1)}
-          className="px-4 py-2 bg-blue-700 text-white rounded-lg disabled:opacity-40"
+      </header>
+      <div className="rg-content">
+        <section
+          className="rg-stats"
+          aria-label="Resumen de los registros filtrados"
         >
-          Anterior
-        </button>
+          {[
+            {
+              label: 'Registros',
+              value: filtrados.length,
+              icon: Users,
+              detail: 'Asistentes en la selección',
+            },
+            {
+              label: 'Pagos confirmados',
+              value: pagados,
+              icon: CheckCircle,
+              detail: 'Registro de pago completado',
+            },
+            {
+              label: 'Pagos pendientes',
+              value: filtrados.length - pagados,
+              icon: Clock3,
+              detail: 'Por confirmar',
+            },
+            {
+              label: 'Empresas',
+              value: new Set(
+                filtrados.map((u) => u.Empresa?.trim()).filter(Boolean)
+              ).size,
+              icon: Building2,
+              detail: 'Organizaciones representadas',
+            },
+          ].map(({ label, value, icon: Icon, detail }) => (
+            <article className="rg-stat" key={label}>
+              <div>
+                <span>{label}</span>
+                <Icon size={19} />
+              </div>
+              <strong>{value.toLocaleString('es-MX')}</strong>
+              <small>{detail}</small>
+            </article>
+          ))}
+        </section>
+        <section className="rg-panel" aria-label="Filtros y asistentes">
+          <div className="rg-panel-title">
+            <div>
+              <h2>Directorio de asistentes</h2>
+              <p>Consulta y administra los registros de cada edición.</p>
+            </div>
+            <span className="rg-live">Control de registros</span>
+          </div>
+          <div className="rg-filters">
+            <label className="rg-search">
+              <span>Buscar asistente</span>
+              <div>
+                <Search size={18} />
+                <input
+                  placeholder="Nombre, correo, empresa o folio…"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                />
+              </div>
+            </label>
+            <label>
+              <span>Año del evento</span>
+              <select
+                value={filtroAnio}
+                onChange={(e) => {
+                  setFiltroAnio(e.target.value);
+                }}
+              >
+                <option value="todos">Todos los años</option>
+                {anios.map((v) => (
+                  <option key={v} value={v}>
+                    {v}
+                  </option>
+                ))}
+              </select>
+            </label>
 
-        <span className="font-medium">
-          Página {page} de {pages}
-        </span>
-
-        <button
-          disabled={page === pages}
-          onClick={() => setPage(page + 1)}
-          className="px-4 py-2 bg-blue-700 text-white rounded-lg disabled:opacity-40"
-        >
-          Siguiente
-        </button>
+            <label>
+              <span>Estado del pago</span>
+              <select
+                value={filtroPago}
+                onChange={(e) =>
+                  setFiltroPago(e.target.value as typeof filtroPago)
+                }
+              >
+                <option value="todos">Todos los pagos</option>
+                <option value="pagados">Pagados</option>
+                <option value="nopagados">Pendientes</option>
+              </select>
+            </label>
+            <label>
+              <span>Empresa</span>
+              <select
+                value={filtroEmpresa}
+                onChange={(e) => setFiltroEmpresa(e.target.value)}
+              >
+                <option value="todas">Todas las empresas</option>
+                {empresas.map((emp) => (
+                  <option key={emp}>{emp}</option>
+                ))}
+              </select>
+            </label>
+          </div>
+          <div className="rg-results">
+            <span>
+              <b>{filtrados.length}</b> registros encontrados
+            </span>
+            <button
+              onClick={() => {
+                setQuery('');
+                setFiltroAnio('2027');
+                setFiltroEmpresa('todas');
+                setFiltroPago('todos');
+              }}
+            >
+              <SlidersHorizontal size={14} /> Limpiar filtros
+            </button>
+          </div>
+          {items.length ? (
+            <UsuariosEventoTable
+              items={items}
+              onEditar={abrirModalEditar}
+              onToggleActivo={abrirModalActivo}
+              onTogglePago={abrirModalPago}
+            />
+          ) : (
+            <div className="rg-empty">
+              <Search size={32} />
+              <h3>No encontramos registros</h3>
+              <p>Prueba con otra búsqueda o cambia los filtros.</p>
+            </div>
+          )}
+          <footer className="rg-pagination">
+            <label>
+              Mostrar{' '}
+              <select
+                aria-label="Registros por página"
+                value={pageSize}
+                onChange={(e) => setPageSize(Number(e.target.value))}
+              >
+                {[10, 25, 50, 100].map((n) => (
+                  <option key={n} value={n}>
+                    {n}
+                  </option>
+                ))}
+                <option value={0}>Todos</option>
+              </select>{' '}
+              por página
+            </label>
+            <div>
+              <button
+                disabled={currentPage === 1}
+                onClick={() => setPage(currentPage - 1)}
+              >
+                Anterior
+              </button>
+              <span>
+                {currentPage} / {pages}
+              </span>
+              <button
+                disabled={currentPage === pages}
+                onClick={() => setPage(currentPage + 1)}
+              >
+                Siguiente
+              </button>
+            </div>
+          </footer>
+        </section>
+        <p className="rg-footnote">RCCO ABOGADOS · Administración de eventos</p>
       </div>
-
       {/* MODAL CONFIRMAR PAGO */}
       {confirmModalPago && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
