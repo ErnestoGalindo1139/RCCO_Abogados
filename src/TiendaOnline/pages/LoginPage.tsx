@@ -30,7 +30,7 @@ export const LoginPage: React.FC = () => {
     e.preventDefault();
 
     // ADMIN
-    if (usuario === 'admin' && password === 'Rcco2025!') {
+    if (usuario === 'admin' && password === 'Rcco2027!') {
       localStorage.setItem('rcco_user_logged', 'true');
       localStorage.setItem('rcco_role', 'admin');
       navigate('/registradosEvento', { replace: true });
@@ -38,7 +38,7 @@ export const LoginPage: React.FC = () => {
     }
 
     // USER
-    if (usuario === 'prueba' && password === 'Rcco2025!') {
+    if (usuario === 'prueba' && password === 'Rcco2027!') {
       localStorage.setItem('rcco_user_logged', 'true');
       localStorage.setItem('rcco_role', 'user');
       navigate('/materiales', { replace: true });

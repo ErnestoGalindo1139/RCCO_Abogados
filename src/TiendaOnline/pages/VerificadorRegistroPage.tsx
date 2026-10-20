@@ -1,3 +1,4 @@
+import { API_URL } from '../../config/api';
 import { useState, useMemo } from 'react';
 import { UsuarioEvento } from '../types/UsuarioEvento';
 import { CheckCircle, XCircle, Star } from 'lucide-react';
@@ -66,20 +67,17 @@ export default function VerificadorRegistroPage() {
     }
 
     try {
-      const res = await fetch(
-        'https://api-rcco-abogados.grstechs.com/usuariosEvento/buscar',
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            nu_Folio: folio,
-            nb_Nombre: nombre || null,
-            nb_ApellidoPaterno: apPaterno || null,
-            nb_ApellidoMaterno: apMaterno || null,
-            nb_Empresa: empresa || null,
-          }),
-        }
-      );
+      const res = await fetch(`${API_URL}/usuariosEvento/buscar`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          nu_Folio: folio,
+          nb_Nombre: nombre || null,
+          nb_ApellidoPaterno: apPaterno || null,
+          nb_ApellidoMaterno: apMaterno || null,
+          nb_Empresa: empresa || null,
+        }),
+      });
 
       const data = await res.json();
 
@@ -93,9 +91,10 @@ export default function VerificadorRegistroPage() {
           nb_ApellidoPaterno: u.nb_ApellidoPaterno?.trim(),
           nb_ApellidoMaterno: u.nb_ApellidoMaterno?.trim() || null,
 
-          NombreCompleto: `${u.nb_Nombre?.trim()} ${u.nb_ApellidoPaterno?.trim()} ${
-            u.nb_ApellidoMaterno?.trim() || ''
-          }`.trim(),
+          NombreCompleto:
+            `${u.nb_Nombre?.trim()} ${u.nb_ApellidoPaterno?.trim()} ${
+              u.nb_ApellidoMaterno?.trim() || ''
+            }`.trim(),
 
           Celular: u.de_Celular,
           Correo: u.de_Correo,
@@ -140,7 +139,6 @@ export default function VerificadorRegistroPage() {
       <section className="max-w-6xl mx-auto px-4 sm:px-6 -mt-8">
         <div className="bg-white rounded-2xl shadow-xl p-6 sm:p-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-
             {/* ===== FOLIO ===== */}
             <div className="md:col-span-3">
               <label className="text-sm font-semibold text-slate-600">

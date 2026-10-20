@@ -1,5 +1,7 @@
 export type UsuarioEvento = {
   id_UsuarioEvento: number;
+  nu_AnioEvento?: number | null;
+  nu_EdicionEvento?: number | null;
 
   nb_Nombre: string;
   nb_ApellidoPaterno: string;
@@ -11,6 +13,7 @@ export type UsuarioEvento = {
   Correo: string;
   Empresa: string | null;
   Comentarios: string | null;
+  constanciaWhatsApp?: string;
   FechaRegistro: string;
   FechaPago: string | null;
   sn_Pagado: boolean;

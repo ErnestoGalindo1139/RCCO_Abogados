@@ -1,3 +1,4 @@
+import { API_URL } from '../../config/api';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -153,9 +154,7 @@ export const ResultadosEncuestaPage: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(
-          'https://api-rcco-abogados.grstechs.com/resultados-encuesta'
-        );
+        const res = await fetch(`${API_URL}/resultados-encuesta`);
         const json: ApiResponse = await res.json();
         setData(json.body);
       } catch (err) {

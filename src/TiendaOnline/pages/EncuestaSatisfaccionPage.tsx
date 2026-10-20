@@ -1,3 +1,4 @@
+import { API_URL } from '../../config/api';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { EncuestaPopUp } from '../components/EncuestaPopUp';
@@ -44,9 +45,7 @@ export const EncuestaSatisfaccionPage: React.FC = () => {
   useEffect(() => {
     const fetchPreguntas = async () => {
       try {
-        const res = await fetch(
-          'https://api-rcco-abogados.grstechs.com/preguntasEncuesta'
-        );
+        const res = await fetch(`${API_URL}/preguntasEncuesta`);
 
         const data = await res.json();
 
@@ -85,18 +84,14 @@ export const EncuestaSatisfaccionPage: React.FC = () => {
     try {
       setEnviando(true);
 
-      const res = await fetch(
-        // 'https://api-rcco-abogados.grstechs.com/createEncuestaRespuesta',
-        'https://api-rcco-abogados.grstechs.com/createEncuestaRespuesta',
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            folio,
-            respuestas,
-          }),
-        }
-      );
+      const res = await fetch(`${API_URL}/createEncuestaRespuesta`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          folio,
+          respuestas,
+        }),
+      });
 
       const data = await res.json();
 

@@ -1,0 +1,468 @@
+.rcco-registros {
+  min-height: 100vh;
+  background: #f5f6f9;
+  color: #182b4d;
+  font-family: 'Plus Jakarta Sans', Arial, sans-serif;
+  line-height: 1.5;
+}
+.rcco-registros * {
+  box-sizing: border-box;
+}
+.rcco-registros button,
+.rcco-registros select {
+  cursor: pointer;
+}
+.rcco-registros button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.rcco-registros :is(button, input, select, a):focus-visible {
+  outline: 3px solid #c59b45;
+  outline-offset: 3px;
+}
+.rg-header {
+  background: linear-gradient(115deg, #10296b, #173c87);
+  color: #fff;
+  padding: 0 max(24px, 4vw) 68px;
+}
+.rg-topbar {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  border-bottom: 1px solid #ffffff24;
+  min-height: 78px;
+}
+.rg-brand {
+  font-family: Georgia, serif;
+  font-size: 28px;
+  letter-spacing: 0.06em;
+  color: #fff;
+}
+.rg-brand span {
+  font-family: Arial, sans-serif;
+  display: block;
+  font-size: 9px;
+  letter-spacing: 0.33em;
+  color: #e5bb63;
+}
+.rg-private {
+  font-size: 14px;
+  color: #c5d4f0;
+}
+.rg-logout {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 14px;
+  border: 1px solid #ffffff38;
+  padding: 10px 15px;
+  border-radius: 7px;
+}
+.rg-logout:hover {
+  background: #ffffff15;
+}
+.rg-hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  padding: 38px 0 10px;
+}
+.rg-eyebrow {
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  font-weight: 700;
+  color: #e5bb63;
+}
+.rg-hero h1 {
+  font-family: Georgia, serif;
+  font-size: clamp(30px, 3vw, 46px);
+  line-height: 1.2;
+  margin: 12px 0;
+}
+.rg-hero h1 span {
+  color: #e5bb63;
+}
+.rg-hero p {
+  font-size: 14px;
+  color: #c7d6f1;
+}
+.rg-export {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: #e5bb63;
+  color: #10296b;
+  border-radius: 7px;
+  padding: 14px 20px;
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.rg-export:hover {
+  background: #f1d190;
+}
+.rg-content {
+  max-width: 1800px;
+  margin: -38px auto 0;
+  padding: 0 max(20px, 4vw) 30px;
+  position: relative;
+}
+.rg-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  margin-bottom: 28px;
+}
+.rg-stat {
+  background: #fff;
+  border: 1px solid #e3e8f0;
+  border-radius: 12px;
+  padding: 22px;
+  box-shadow: 0 6px 18px #10296b05;
+}
+.rg-stat > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #5f6c82;
+}
+.rg-stat svg {
+  color: #a17d35;
+}
+.rg-stat strong {
+  display: block;
+  font-size: 32px;
+  line-height: 1.3;
+  margin: 14px 0 5px;
+  letter-spacing: -0.04em;
+}
+.rg-stat small {
+  font-size: 13px;
+  color: #8993a3;
+}
+.rg-panel {
+  background: #fff;
+  border: 1px solid #e0e6ef;
+  border-radius: 13px;
+  overflow: hidden;
+  box-shadow: 0 8px 30px #10296b04;
+}
+.rg-panel-title {
+  padding: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  border-bottom: 1px solid #eef0f4;
+}
+.rg-panel-title h2 {
+  font-family: Georgia, serif;
+  font-size: 23px;
+  margin: 0 0 6px;
+}
+.rg-panel-title p {
+  font-size: 14px;
+  color: #7a8598;
+}
+.rg-live {
+  font-size: 12px;
+  color: #65738c;
+  background: #f3f5f9;
+  border-radius: 30px;
+  padding: 8px 13px;
+  white-space: nowrap;
+}
+.rg-filters {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1.3fr;
+  gap: 14px;
+  padding: 24px 26px 18px;
+}
+.rg-filters label {
+  min-width: 0;
+}
+.rg-filters label > span {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 9px;
+  color: #66748b;
+}
+.rg-filters select,
+.rg-search > div {
+  width: 100%;
+  border: 1px solid #dfe5ee;
+  border-radius: 7px;
+  background: #fff;
+  height: 46px;
+  font-size: 14px;
+}
+.rg-filters select {
+  padding: 0 10px;
+}
+.rg-search > div {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 0 12px;
+  color: #8b96a7;
+}
+.rg-search input {
+  width: 100%;
+  outline: 0;
+  min-width: 0;
+  background: transparent;
+  color: #182b4d;
+  font-size: 14px;
+}
+.rg-results {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 26px 18px;
+  font-size: 13px;
+  color: #8390a4;
+}
+.rg-results b {
+  color: #182b4d;
+}
+.rg-results button {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #596b89;
+}
+.rg-pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 26px;
+  font-size: 13px;
+  color: #65738c;
+  border-top: 1px solid #e9edf4;
+}
+.rg-pagination select {
+  padding: 7px;
+  border: 1px solid #dfe5ee;
+  border-radius: 5px;
+  margin: 0 6px;
+}
+.rg-pagination > div {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.rg-pagination button {
+  border: 1px solid #dfe5ee;
+  border-radius: 6px;
+  padding: 8px 12px;
+  color: #18336e;
+}
+.rg-footnote {
+  text-align: center;
+  font-size: 12px;
+  letter-spacing: 0.09em;
+  color: #97a0af;
+  margin-top: 25px;
+}
+.rg-empty {
+  padding: 60px 20px;
+  text-align: center;
+  color: #8190a8;
+}
+.rg-empty svg {
+  margin: auto;
+}
+.rg-empty h3 {
+  margin: 14px 0 5px;
+  color: #223a62;
+}
+.rg-empty p {
+  font-size: 14px;
+}
+.rg-table-scroll {
+  overflow: auto;
+  max-height: 680px;
+}
+.rg-table {
+  width: 100%;
+  min-width: 1180px;
+  font-size: 14px;
+  text-align: left;
+  border-collapse: collapse;
+}
+.rg-table thead {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #f3f5f9;
+}
+.rg-table th {
+  padding: 15px 18px;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #7c889c;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.rg-table td {
+  padding: 18px;
+  border-bottom: 1px solid #edf0f5;
+  vertical-align: middle;
+}
+.rg-table tbody tr:hover {
+  background: #f8faff;
+}
+.rg-table td:first-child {
+  min-width: 220px;
+}
+.rg-person {
+  font-weight: 600;
+  color: #193567;
+}
+.rg-secondary {
+  display: block;
+  margin-top: 5px;
+  color: #8b96a7;
+  font-size: 12px;
+}
+.rg-contact {
+  display: block;
+  color: #4c6180;
+  margin-bottom: 5px;
+}
+.rg-badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 30px;
+  padding: 5px 9px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.rg-paid {
+  background: #eaf6ef;
+  color: #2c8050;
+}
+.rg-pending {
+  background: #fff5e2;
+  color: #9b731f;
+}
+.rg-actions {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+}
+.rg-actions button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 30px;
+  min-height: 30px;
+  border: 1px solid #e5eaf2;
+  border-radius: 6px;
+  color: #58749d;
+}
+.rg-actions button:hover {
+  background: #edf2fa;
+}
+.rg-actions .rg-danger {
+  color: #b86060;
+}
+.rg-comment {
+  max-width: 200px;
+  white-space: normal;
+  color: #7b879a;
+}
+.rg-folio {
+  font-family: monospace;
+  font-size: 13px;
+  color: #506789;
+}
+@media (min-width: 1800px) {
+  .rg-content {
+    padding-inline: 40px;
+  }
+}
+@media (max-width: 1100px) {
+  .rg-filters {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .rg-search {
+    grid-column: 1/-1;
+  }
+  .rg-stat {
+    padding: 18px;
+  }
+}
+@media (max-width: 650px) {
+  .rg-private {
+    display: none;
+  }
+  .rg-header {
+    padding-inline: 20px;
+  }
+  .rg-hero {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .rg-hero p {
+    line-height: 1.7;
+  }
+  .rg-export {
+    width: 100%;
+    margin-top: 8px;
+  }
+  .rg-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .rg-stat {
+    padding: 15px;
+  }
+  .rg-stat strong {
+    font-size: 28px;
+  }
+  .rg-stat small {
+    font-size: 12px;
+  }
+  .rg-stat > div {
+    font-size: 12px;
+  }
+  .rg-filters {
+    grid-template-columns: 1fr 1fr;
+    padding: 18px;
+    gap: 12px;
+  }
+  .rg-filters label:last-child {
+    grid-column: 1/-1;
+  }
+  .rg-panel-title {
+    padding: 20px;
+  }
+  .rg-panel-title h2 {
+    font-size: 21px;
+  }
+  .rg-live {
+    display: none;
+  }
+  .rg-results {
+    padding: 0 18px 18px;
+  }
+  .rg-pagination {
+    padding: 16px;
+    flex-wrap: wrap;
+    gap: 18px;
+  }
+  .rg-pagination > div {
+    width: 100%;
+    justify-content: space-between;
+  }
+}

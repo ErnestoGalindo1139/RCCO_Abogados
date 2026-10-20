@@ -824,7 +824,7 @@ export const SimposioPage2 = (): React.JSX.Element => {
         </div>
       </section>
 
-      {/* <EventoEnero2 /> */}
+      <EventoEnero2 />
 
       {/* <section className="sp-section sp-section--raised" id="experiencia">
         <div className="sp-container" data-sp-reveal>
