@@ -34,7 +34,7 @@ type Sesion = {
   hora: string;
   tipo: string;
   titulo: string;
-  descripcion: string;
+  descripcion?: string;
   destacada?: boolean;
 };
 type Jornada = { nombre: string; sesiones: Sesion[] };
@@ -92,78 +92,82 @@ export const SIMPOSIO: {
   // Si está vacío se conserva CarruselExpositores, con los datos de tu proyecto.
   // Añade los ponentes confirmados aquí para usar las cuatro cards del diseño Stitch.
   ponentes: [],
-  programaConfirmado: true,
-  // Estructura de referencia; sustituye por el programa autorizado antes de publicarlo.
+  programaConfirmado: false,
+  // Programa académico preliminar proporcionado por RCCO.
   jornadas: [
     {
-      nombre: 'Día 1',
+      nombre: 'Viernes 22 de enero de 2027',
       sesiones: [
         {
-          hora: 'Por confirmar',
-          tipo: 'Acreditación',
-          titulo: 'Registro y bienvenida',
-          descripcion: 'Recepción de participantes e inicio del encuentro.',
+          hora: '2:00 – 2:25 p.m.',
+          tipo: 'Registro',
+          titulo: 'Registro, bienvenida e inauguración',
         },
         {
-          hora: 'Por confirmar',
-          tipo: 'Magistral',
-          titulo: 'Conferencia de apertura',
-          descripcion: 'Tema y ponente por anunciar.',
-          // destacada: true,
+          hora: '2:25 – 4:05 p.m.',
+          tipo: 'Conferencia 1 (inaugural)',
+          titulo: 'Panorama general de la Reforma Integral al régimen de PLD',
         },
         {
-          hora: 'Por confirmar',
-          tipo: 'Panel',
-          titulo: 'Diálogo entre especialistas',
-          descripcion: 'Participantes y temas por anunciar.',
+          hora: '4:05 – 5:15 p.m.',
+          tipo: 'Conferencia 2',
+          titulo:
+            'Enfoque Basado en Riesgo: metodología, medición y mitigantes',
         },
         {
-          hora: 'Por confirmar',
+          hora: '5:15 – 5:30 p.m.',
           tipo: 'Networking',
-          titulo: 'Espacio de vinculación profesional',
-          descripcion: 'Un momento para conectar con otros asistentes.',
+          titulo: 'Receso y networking',
         },
         {
-          hora: 'Por confirmar',
-          tipo: 'Sesión académica',
-          titulo: 'Análisis y experiencias de cumplimiento',
-          descripcion: 'Contenido académico por anunciar.',
+          hora: '5:30 – 7:10 p.m.',
+          tipo: 'Conferencia 3',
+          titulo:
+            'Del expediente al Perfil Transaccional: grados de riesgo y Debida Diligencia',
         },
         {
-          hora: 'Por confirmar',
-          tipo: 'Cierre',
-          titulo: 'Conclusiones de la jornada',
-          descripcion: 'Horario y dinámica por anunciar.',
+          hora: '7:10 – 8:50 p.m.',
+          tipo: 'Conferencia 4',
+          titulo:
+            'Beneficiario Controlador: identificación, control y trazabilidad',
         },
       ],
     },
     {
-      nombre: 'Día 2',
+      nombre: 'Sábado 23 de enero de 2027',
       sesiones: [
         {
-          hora: 'Por confirmar',
-          tipo: 'Bienvenida',
-          titulo: 'Inicio de la siguiente jornada',
-          descripcion: 'Horario y dinámica por anunciar.',
+          hora: '8:40 – 8:50 a.m.',
+          tipo: 'Registro',
+          titulo: 'Registro',
         },
         {
-          hora: 'Por confirmar',
-          tipo: 'Magistral',
-          titulo: 'Conferencia especializada',
-          descripcion: 'Tema y ponente por anunciar.',
-          // destacada: true,
+          hora: '8:50 – 10:00 a.m.',
+          tipo: 'Conferencia 5',
+          titulo:
+            'Mecanismos automatizados, alertas y auditoría PLD: del monitoreo a la efectividad del cumplimiento',
         },
         {
-          hora: 'Por confirmar',
-          tipo: 'Panel',
-          titulo: 'Perspectivas y retos profesionales',
-          descripcion: 'Participantes y temas por anunciar.',
+          hora: '10:00 – 10:15 a.m.',
+          tipo: 'Networking',
+          titulo: 'Receso y networking',
         },
         {
-          hora: 'Por confirmar',
+          hora: '10:15 – 11:40 a.m.',
+          tipo: 'Conferencia 6',
+          titulo:
+            'Responsabilidades notariales ante la Reforma Integral al régimen de PLD: nueva operación y cumplimiento',
+        },
+        {
+          hora: '11:40 a.m. – 12:55 p.m.',
+          tipo: 'Panel especial',
+          titulo:
+            'Arquitectura interna del cumplimiento: Manual de Políticas, capacitación y profesionalización',
+        },
+        {
+          hora: '12:55 – 1:20 p.m.',
           tipo: 'Clausura',
-          titulo: 'Conclusiones y cierre del Simposio',
-          descripcion: 'Horario y dinámica por anunciar.',
+          titulo: 'Ceremonia de clausura y cóctel de networking',
         },
       ],
     },
@@ -217,7 +221,7 @@ const pilares: {
     icon: ClipboardList,
     titulo: 'Enfoque práctico',
     texto:
-      'Participa activamente en los talleres y desarrolla tu perfil profesional',
+      'Analiza el enfoque basado en riesgo, la debida diligencia y las herramientas de cumplimiento en seis conferencias y un panel especial.',
     pie: 'Conocimiento aplicable',
   },
   {
@@ -239,17 +243,17 @@ const incluye: { icon: LucideIcon; titulo: string; texto: string }[] = [
   {
     icon: Gavel,
     titulo: 'Conferencias',
-    texto: 'Consulta las sesiones del programa oficial.',
+    texto: 'Seis conferencias sobre la Reforma Integral al régimen de PLD.',
   },
   {
     icon: ClipboardList,
     titulo: 'Contenido académico',
-    texto: 'Temas y actividades de esta edición.',
+    texto: 'Panel especial sobre la arquitectura interna del cumplimiento.',
   },
   {
     icon: Coffee,
     titulo: 'Espacios de encuentro',
-    texto: 'Consulta los servicios y actividades incluidos.',
+    texto: 'Recesos y cóctel de networking al cierre del Simposio.',
   },
   {
     icon: BookOpen,
@@ -704,14 +708,14 @@ export const SimposioPage2 = (): React.JSX.Element => {
         <div className="sp-container sp-container--narrow" data-sp-reveal>
           <Encabezado
             etiqueta="Itinerario académico"
-            titulo="Programa del evento"
-            texto="Conferencias, perspectivas y espacios de vinculación para enriquecer tu experiencia."
+            titulo="Programa académico preliminar"
+            texto="Seis conferencias, un panel especial y espacios de networking los días 22 y 23 de enero de 2027. Cada conferencia incluye 15 minutos de preguntas y respuestas."
             centrado
           />
           {!SIMPOSIO.programaConfirmado && (
             <p className="sp-program-note">
-              Programa por confirmar. Las jornadas y sesiones muestran la
-              estructura prevista.
+              Programa preliminar, sujeto a ajustes conforme a la confirmación
+              de ponentes.
             </p>
           )}
           {SIMPOSIO.jornadas.length > 0 ? (
@@ -771,7 +775,7 @@ export const SimposioPage2 = (): React.JSX.Element => {
                           <span className="sp-tag">{sesion.tipo}</span>
                         </div>
                         <h3>{sesion.titulo}</h3>
-                        <p>{sesion.descripcion}</p>
+                        {sesion.descripcion && <p>{sesion.descripcion}</p>}
                       </article>
                     ))}
                   </div>
