@@ -39,7 +39,6 @@ type Result = 'success' | 'missing' | 'error' | null;
 
 export const EventoEnero2 = (): React.JSX.Element => {
   const [form, setForm] = useState<FormState>(initialForm);
-  const [consent, setConsent] = useState(false);
   const [folio, setFolio] = useState('');
   const [whatsappAccepted, setWhatsappAccepted] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -64,8 +63,7 @@ export const EventoEnero2 = (): React.JSX.Element => {
       !form.nombre.trim() ||
       !form.apellidoPaterno.trim() ||
       !form.telefono.trim() ||
-      !form.correo.trim() ||
-      !consent
+      !form.correo.trim()
     ) {
       setResult('missing');
       return;
@@ -85,7 +83,7 @@ export const EventoEnero2 = (): React.JSX.Element => {
           nb_Empresa: form.empresa.trim(),
           de_Comentarios: form.mensaje.trim(),
           fh_Pago: null,
-          whatsappConsent: consent,
+          whatsappConsent: true,
           sn_Pagado: false,
           sn_Activo: true,
         }),
@@ -99,7 +97,6 @@ export const EventoEnero2 = (): React.JSX.Element => {
 
       setFolio(data.body?.nu_Folio || '');
       setWhatsappAccepted(data.body?.whatsapp.status === 'accepted');
-      setConsent(false);
       setForm(initialForm);
       setResult('success');
     } catch (error: unknown) {
@@ -140,9 +137,6 @@ export const EventoEnero2 = (): React.JSX.Element => {
       <div className="sp-container" data-sp-reveal>
         <div className="sp-registration-grid">
           <div className="sp-registration-copy">
-            <span className="sp-registration-index" aria-hidden="true">
-              02
-            </span>
             <p className="sp-eyebrow">Inscripción oficial · Segunda edición</p>
             <h2>Tu lugar comienza aquí</h2>
             <p className="sp-description">
@@ -228,19 +222,6 @@ export const EventoEnero2 = (): React.JSX.Element => {
               </label>
             </div>
 
-            <label className="sp-whatsapp-consent">
-              <input
-                type="checkbox"
-                checked={consent}
-                onChange={(event) => setConsent(event.target.checked)}
-                required
-              />
-              <span>
-                Autorizo a RCCO Abogados a enviarme por WhatsApp la confirmación
-                de mi registro y las indicaciones de pago al número
-                proporcionado.
-              </span>
-            </label>
             <p className="sp-phone-help">
               Teléfono de México: 10 dígitos. Para otro país, incluye + y el
               código de país.

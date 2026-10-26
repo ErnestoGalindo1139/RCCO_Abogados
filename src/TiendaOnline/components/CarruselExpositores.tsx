@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
 import { motion } from 'framer-motion';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, UserRound } from 'lucide-react';
 
 interface Expositor {
   id: number;
@@ -65,7 +65,11 @@ const EXPOSITORES: Expositor[] = [
   },
 ];
 
-export const CarruselExpositores = (): React.JSX.Element => {
+export const CarruselExpositores = ({
+  porConfirmar = false,
+}: {
+  porConfirmar?: boolean;
+}): React.JSX.Element => {
   const [emblaRef, emblaApi] = useEmblaCarousel(
     {
       loop: true,
@@ -97,18 +101,25 @@ export const CarruselExpositores = (): React.JSX.Element => {
           Expositores Destacados
         </h2>
         <p className="mt-3 text-base md:text-lg">
-          Conoce a los especialistas que participarán en el{' '}
-          <strong>
-            1er Simposio Anual Corporativo sobre Prevención del Lavado de Dinero
-            en Sinaloa
-          </strong>
-          .
+          {porConfirmar ? (
+            'Próximamente anunciaremos a los especialistas de la segunda edición.'
+          ) : (
+            <>
+              Conoce a los especialistas que participar?n en el{' '}
+              <strong>
+                1er Simposio Anual Corporativo sobre Prevenci?n del Lavado de
+                Dinero en Sinaloa
+              </strong>
+              .
+            </>
+          )}
         </p>
       </div>
 
       {/* Flecha izquierda */}
       <button
         onClick={scrollPrev}
+        aria-label="Ver ponente anterior"
         className="absolute left-0 top-[65%] md:top-[60%] z-10 -translate-y-1/2 bg-white/90 hover:bg-white shadow-lg rounded-full p-2 transition"
       >
         <ChevronLeft className="w-6 h-6 text-gray-800" />
@@ -117,6 +128,7 @@ export const CarruselExpositores = (): React.JSX.Element => {
       {/* Flecha derecha */}
       <button
         onClick={scrollNext}
+        aria-label="Ver siguiente ponente"
         className="absolute right-0 top-[65%] md:top-[60%] z-10 -translate-y-1/2 bg-white/90 hover:bg-white shadow-lg rounded-full p-2 transition"
       >
         <ChevronRight className="w-6 h-6 text-gray-800" />
@@ -141,18 +153,32 @@ export const CarruselExpositores = (): React.JSX.Element => {
                 className="bg-white rounded-2xl shadow-xl overflow-hidden h-full"
               >
                 {/* La imagen define la altura para conservar todo el contenido. */}
-                <picture className="block w-full">
-                  <source
-                    media="(min-width: 768px)"
-                    srcSet={expositor.imagenDesktop}
-                  />
-                  <img
-                    src={expositor.imagenMobile}
-                    alt={expositor.nombre}
-                    className="block w-full h-auto object-contain"
-                    loading="lazy"
-                  />
-                </picture>
+                {porConfirmar ? (
+                  <div className="sp-speaker-pending">
+                    <span
+                      className="sp-speaker-pending-icon"
+                      aria-hidden="true"
+                    >
+                      <UserRound size={64} strokeWidth={1.2} />
+                    </span>
+                    <span className="sp-eyebrow">Ponentes Segunda edición</span>
+                    <h3>Por confirmar</h3>
+                    <p>Próximamente más información</p>
+                  </div>
+                ) : (
+                  <picture className="block w-full">
+                    <source
+                      media="(min-width: 768px)"
+                      srcSet={expositor.imagenDesktop}
+                    />
+                    <img
+                      src={expositor.imagenMobile}
+                      alt={expositor.nombre}
+                      className="block w-full h-auto object-contain"
+                      loading="lazy"
+                    />
+                  </picture>
+                )}
               </motion.div>
             </div>
           ))}

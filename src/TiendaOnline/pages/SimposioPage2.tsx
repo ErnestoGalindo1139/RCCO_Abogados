@@ -99,34 +99,34 @@ export const SIMPOSIO: {
       nombre: 'Viernes 22 de enero de 2027',
       sesiones: [
         {
-          hora: '2:00 – 2:25 p.m.',
+          hora: '2:00 – 2:25 p. m.',
           tipo: 'Registro',
           titulo: 'Registro, bienvenida e inauguración',
         },
         {
-          hora: '2:25 – 4:05 p.m.',
+          hora: '2:25 – 4:05 p. m.',
           tipo: 'Conferencia 1 (inaugural)',
           titulo: 'Panorama general de la Reforma Integral al régimen de PLD',
         },
         {
-          hora: '4:05 – 5:15 p.m.',
+          hora: '4:05 – 5:15 p. m.',
           tipo: 'Conferencia 2',
           titulo:
             'Enfoque Basado en Riesgo: metodología, medición y mitigantes',
         },
         {
-          hora: '5:15 – 5:30 p.m.',
+          hora: '5:15 – 5:30 p. m.',
           tipo: 'Networking',
           titulo: 'Receso y networking',
         },
         {
-          hora: '5:30 – 7:10 p.m.',
+          hora: '5:30 – 7:10 p. m.',
           tipo: 'Conferencia 3',
           titulo:
             'Del expediente al Perfil Transaccional: grados de riesgo y Debida Diligencia',
         },
         {
-          hora: '7:10 – 8:50 p.m.',
+          hora: '7:10 – 8:50 p. m.',
           tipo: 'Conferencia 4',
           titulo:
             'Beneficiario Controlador: identificación, control y trazabilidad',
@@ -137,35 +137,35 @@ export const SIMPOSIO: {
       nombre: 'Sábado 23 de enero de 2027',
       sesiones: [
         {
-          hora: '8:40 – 8:50 a.m.',
+          hora: '8:40 – 8:50 a. m.',
           tipo: 'Registro',
           titulo: 'Registro',
         },
         {
-          hora: '8:50 – 10:00 a.m.',
+          hora: '8:50 – 10:00 a. m.',
           tipo: 'Conferencia 5',
           titulo:
             'Mecanismos automatizados, alertas y auditoría PLD: del monitoreo a la efectividad del cumplimiento',
         },
         {
-          hora: '10:00 – 10:15 a.m.',
+          hora: '10:00 – 10:15 a. m.',
           tipo: 'Networking',
           titulo: 'Receso y networking',
         },
         {
-          hora: '10:15 – 11:40 a.m.',
+          hora: '10:15 – 11:40 a. m.',
           tipo: 'Conferencia 6',
           titulo:
             'Responsabilidades notariales ante la Reforma Integral al régimen de PLD: nueva operación y cumplimiento',
         },
         {
-          hora: '11:40 a.m. – 12:55 p.m.',
+          hora: '11:40 a. m. – 12:55 p. m.',
           tipo: 'Panel especial',
           titulo:
             'Arquitectura interna del cumplimiento: Manual de Políticas, capacitación y profesionalización',
         },
         {
-          hora: '12:55 – 1:20 p.m.',
+          hora: '12:55 – 1:20 p. m.',
           tipo: 'Clausura',
           titulo: 'Ceremonia de clausura y cóctel de networking',
         },
@@ -181,7 +181,6 @@ const patrocinadores = [
   'img/patrocinadores/P&C.png',
   'img/patrocinadores/RCCO NEGOCIOS.png',
   'img/patrocinadores/SOMOFA.png',
-  'img/patrocinadores/grupoAHRE.png',
   'img/patrocinadores/ESlogo.png',
   // 'img/patrocinadores/Le logo.png',
 ];
@@ -329,7 +328,7 @@ const preguntas = [
   {
     pregunta: '¿Puedo registrar a varios integrantes de mi empresa?',
     respuesta:
-      'Sí puedes solicitar información para un registro grupal. El equipo de RCCO te orientará sobre el proceso y las condiciones aplicables.',
+      'Sí, puedes solicitar información para un registro grupal. El equipo de RCCO te orientará sobre el proceso y las condiciones aplicables.',
   },
   {
     pregunta: '¿Cómo consulto los materiales y mi constancia?',
@@ -693,7 +692,7 @@ export const SimposioPage2 = (): React.JSX.Element => {
             </div>
           ) : (
             <div className="sp-existing-speakers">
-              <CarruselExpositores />
+              <CarruselExpositores porConfirmar />
             </div>
           )}
           {/* <div className="sp-section-bottom">

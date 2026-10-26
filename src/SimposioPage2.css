@@ -129,12 +129,10 @@
 .rcco-simposio .sp-trust svg { color: var(--sp-gold); }
 .rcco-simposio .sp-group-contact { margin-top: 24px; text-align: center; color: var(--sp-muted); font-size: 14px; }
 .rcco-simposio .sp-group-contact a { display: inline-flex; align-items: center; gap: 4px; color: var(--sp-gold); }
-.rcco-simposio .sp-registration { position: relative; overflow: clip; background: #162d4b; }
-.rcco-simposio .sp-registration::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(circle at 8% 12%,rgba(48,83,149,.25),transparent 31%),linear-gradient(135deg,transparent 0 48%,rgba(223,186,104,.035) 49% 50%,transparent 51%); background-size: auto,84px 84px; }
-.rcco-simposio .sp-registration-grid { position: relative; display: grid; grid-template-columns: minmax(0,5fr) minmax(520px,7fr); align-items: stretch; gap: 0; overflow: hidden; border: 1px solid var(--sp-gold-line); border-top: 3px solid var(--sp-gold); border-radius: 4px; background: linear-gradient(115deg,#2b4d73,#1b3556); box-shadow: 0 24px 60px rgba(6,20,38,.3); }
-.rcco-simposio .sp-registration-copy { position: relative; display: flex; flex-direction: column; justify-content: center; padding: 54px 48px; overflow: hidden; border-right: 1px solid var(--sp-gold-line); }
-.rcco-simposio .sp-registration-copy::after { content: ''; position: absolute; right: -110px; bottom: -110px; width: 260px; height: 260px; border: 52px solid rgba(61,99,172,.12); border-radius: 50%; }
-.rcco-simposio .sp-registration-index { position: absolute; top: 24px; right: 30px; color: rgba(223,186,104,.1); font-family: var(--sp-heading); font-size: 92px; font-weight: 700; line-height: 1; }
+.rcco-simposio .sp-registration { position: relative; overflow: clip; background: #19366F; }
+.rcco-simposio .sp-registration::before { content: none; }
+.rcco-simposio .sp-registration-grid { position: relative; display: grid; grid-template-columns: minmax(0,5fr) minmax(520px,7fr); align-items: stretch; gap: 0; overflow: hidden; border: 0; border-top: 2px solid var(--sp-gold); border-radius: 4px; background: #142e63; box-shadow: 0 24px 60px rgba(6,20,38,.3); }
+.rcco-simposio .sp-registration-copy { position: relative; display: flex; flex-direction: column; justify-content: center; padding: 54px 48px; overflow: hidden; background: #1f3e7d; }
 .rcco-simposio .sp-registration-copy h2 { max-width: 520px; margin: 7px 0 14px; color: #f4f3ef; font-family: var(--sp-heading); font-size: clamp(34px,4vw,48px); font-weight: 600; line-height: 1.16; letter-spacing: -.035em; }
 .rcco-simposio .sp-registration-copy > .sp-description { max-width: 500px; font-size: 16px; }
 .rcco-simposio .sp-registration-details { display: grid; gap: 18px; margin-top: 34px; }
@@ -144,28 +142,27 @@
 .rcco-simposio .sp-registration-details small { display: block; margin-bottom: 1px; color: var(--sp-muted); font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
 .rcco-simposio .sp-registration-note { position: relative; z-index: 1; display: flex; gap: 11px; max-width: 560px; margin-top: 34px; padding: 16px 18px; border-left: 2px solid var(--sp-gold); background: rgba(12,35,62,.58); color: var(--sp-muted); font-size: 14px; line-height: 1.65; }
 .rcco-simposio .sp-registration-note svg { flex: 0 0 auto; width: 19px; color: var(--sp-gold); }
-.rcco-simposio .sp-registration-form { padding: 46px; background: rgba(7,14,29,.68); color: var(--sp-ink); }
+.rcco-simposio .sp-registration-form { padding: 46px; background: #ffffff; color: #183153; --sp-line: #dce3ec; --sp-muted: #5c6b7e; }
 .rcco-simposio .sp-form-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; margin-bottom: 28px; padding-bottom: 20px; border-bottom: 1px solid var(--sp-line); }
-.rcco-simposio .sp-form-heading .sp-eyebrow { color: var(--sp-gold); }
-.rcco-simposio .sp-form-heading h3 { margin-top: 4px; color: #f4f3ef; font-family: var(--sp-heading); font-size: 30px; font-weight: 600; line-height: 1.25; }
+.rcco-simposio .sp-form-heading .sp-eyebrow { color: var(--sp-gold-deep); }
+.rcco-simposio .sp-form-heading h3 { margin-top: 4px; color: var(--sp-navy); font-family: var(--sp-heading); font-size: 30px; font-weight: 600; line-height: 1.25; }
 .rcco-simposio .sp-form-heading > span { flex-shrink: 0; color: var(--sp-muted); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
 .rcco-simposio .sp-form-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 17px; }
-.rcco-simposio .sp-form-grid label { display: grid; gap: 7px; color: #f0f3f7; font-size: 13px; font-weight: 700; letter-spacing: .025em; }
+.rcco-simposio .sp-form-grid label { display: grid; gap: 7px; color: #243b5a; font-size: 13px; font-weight: 700; letter-spacing: .025em; }
 .rcco-simposio .sp-form-full { grid-column: 1 / -1; }
 .rcco-simposio .sp-input-wrap { position: relative; display: block; }
-.rcco-simposio .sp-input-wrap > svg { position: absolute; top: 50%; left: 13px; width: 17px; height: 17px; transform: translateY(-50%); color: var(--sp-gold); pointer-events: none; }
-.rcco-simposio .sp-input-wrap :is(input,textarea) { width: 100%; border: 1px solid rgba(255,255,255,.2); border-radius: 2px; background: #193654; color: #f4f3ef; caret-color: var(--sp-gold); font: inherit; font-size: 15px; outline: 0; transition: border-color .2s,background .2s,box-shadow .2s; }
+.rcco-simposio .sp-input-wrap > svg { position: absolute; top: 50%; left: 13px; width: 17px; height: 17px; transform: translateY(-50%); color: #64758c; pointer-events: none; }
+.rcco-simposio .sp-input-wrap :is(input,textarea) { width: 100%; border: 1px solid #cbd5e1; border-radius: 2px; background: #f8fafc; color: #183153; caret-color: var(--sp-navy); font: inherit; font-size: 15px; outline: 0; transition: border-color .2s,background .2s,box-shadow .2s; }
+.rcco-simposio .sp-input-wrap :is(input,textarea)::placeholder { color: #64748b; opacity: 1; }
 .rcco-simposio .sp-input-wrap input { min-height: 46px; padding: 11px 13px 11px 40px; }
 .rcco-simposio .sp-input-wrap textarea { display: block; min-height: 94px; resize: vertical; padding: 12px 13px 12px 40px; line-height: 1.55; }
 .rcco-simposio .sp-input-wrap--textarea > svg { top: 14px; transform: none; }
-.rcco-simposio .sp-input-wrap :is(input,textarea):hover { border-color: rgba(223,186,104,.48); background: #162640; }
-.rcco-simposio .sp-input-wrap :is(input,textarea):focus { border-color: var(--sp-gold); background: #162640; box-shadow: 0 0 0 3px rgba(197,160,89,.13); }
+.rcco-simposio .sp-input-wrap :is(input,textarea):hover { border-color: #94a3b8; background: #ffffff; }
+.rcco-simposio .sp-input-wrap :is(input,textarea):focus { border-color: var(--sp-navy); background: #ffffff; box-shadow: 0 0 0 3px rgba(16,41,107,.12); }
 .rcco-simposio .sp-registration-submit { width: 100%; min-height: 52px; margin-top: 22px; text-transform: uppercase; letter-spacing: .09em; }
 .rcco-simposio .sp-registration-submit:disabled { cursor: wait; opacity: .72; }
-.rcco-simposio .sp-form-privacy { margin-top: 12px; color: #c8d3df; font-size: 12px; letter-spacing: .025em; text-align: center; }
-.rcco-simposio .sp-whatsapp-consent { display: flex; align-items: flex-start; gap: 10px; margin-top: 20px; color: #e4eaf0; font-size: 13px; line-height: 1.5; cursor: pointer; }
-.rcco-simposio .sp-whatsapp-consent input { flex: 0 0 auto; width: 18px; height: 18px; margin-top: 2px; accent-color: #e9be61; }
-.rcco-simposio .sp-phone-help { margin-top: 8px; color: #c8d3df; font-size: 12px; }
+.rcco-simposio .sp-form-privacy { margin-top: 12px; color: #5c6b7e; font-size: 12px; letter-spacing: .025em; text-align: center; }
+.rcco-simposio .sp-phone-help { margin-top: 8px; color: #5c6b7e; font-size: 12px; }
 .rcco-simposio .sp-spinner { animation: sp-spin .8s linear infinite; }
 @keyframes sp-spin { to { transform: rotate(360deg); } }
 .rcco-simposio .sp-steps { display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); gap: 24px; list-style: none; padding: 0; }
@@ -176,7 +173,6 @@
 .rcco-simposio .sp-step p { font-size: 14px; line-height: 1.7; color: var(--sp-muted); }
 .rcco-simposio .sp-faq { display: grid; gap: 12px; }
 .rcco-simposio .sp-faq-item { background: var(--sp-raised); border: 1px solid var(--sp-line); border-radius: 3px; overflow: hidden; }
-.rcco-simposio .sp-faq-item--open { border-color: var(--sp-gold-line); }
 .rcco-simposio .sp-faq h3 { font-size: inherit; }
 .rcco-simposio .sp-faq button { display: flex; justify-content: space-between; align-items: center; gap: 20px; width: 100%; border: 0; background: transparent; color: var(--sp-ink); text-align: left; padding: 20px 24px; font-size: 14px; font-weight: 600; }
 .rcco-simposio .sp-faq svg { flex-shrink: 0; color: var(--sp-gold); transition: transform .25s; }
@@ -201,8 +197,8 @@
 @keyframes sp-panel-in { from { opacity: .4; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 @media (max-width: 1100px) {
   .rcco-simposio .sp-container { padding-inline: 40px; }
-  .rcco-simposio .sp-registration-grid { grid-template-columns: 1fr; gap: 42px; }
-  .rcco-simposio .sp-registration-copy { max-width: none; padding: 44px; border-right: 0; border-bottom: 1px solid var(--sp-gold-line); }
+  .rcco-simposio .sp-registration-grid { grid-template-columns: 1fr; gap: 0; }
+  .rcco-simposio .sp-registration-copy { max-width: none; padding: 44px; border-right: 0; border-bottom: 0; }
   .rcco-simposio .sp-stats,.rcco-simposio .sp-speakers,.rcco-simposio .sp-includes { grid-template-columns: repeat(2,minmax(0,1fr)); }
   .rcco-simposio .sp-steps { gap: 12px; }
   .rcco-simposio .sp-pricing { padding: 32px; }
@@ -301,7 +297,6 @@
   box-shadow: 0 12px 32px rgba(8,24,68,.24);
 }
 .rcco-simposio .sp-session--featured { border-top: 2px solid var(--sp-blue); }
-.rcco-simposio .sp-faq-item--open { border-top: 2px solid var(--sp-blue); }
 
 /* Superficies claras alternadas con los bloques azules del evento. */
 .rcco-simposio :is(#galeria,#programa,#faq) {
@@ -333,7 +328,6 @@
   color: var(--sp-navy);
   border-color: var(--sp-navy);
 }
-.rcco-simposio #faq .sp-faq-item--open { background: #eef3fd; }
 .rcco-simposio .sp-intro-sponsors h3 {
   color: var(--sp-ink);
   margin-bottom: 32px;
@@ -363,3 +357,18 @@
     height: auto;
   }
 }
+
+/* Espacios de los ponentes de la segunda edici?n. */
+.rcco-simposio .sp-speaker-pending {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  min-height: 360px; padding: 36px 20px; text-align: center;
+  background: radial-gradient(circle at 50% 20%,#527bb1,transparent 65%),linear-gradient(145deg,#365f98,#26497d);
+  color: #f4f7ff;
+}
+.rcco-simposio .sp-speaker-pending-icon {
+  display: grid; place-items: center; width: 112px; height: 112px; margin-bottom: 28px;
+  border: 1px solid rgba(255,255,255,.25); border-radius: 50%; background: rgba(255,255,255,.1); color: #e0ecff;
+}
+.rcco-simposio .sp-speaker-pending .sp-eyebrow { color: #dce9ff; font-size: 10px; }
+.rcco-simposio .sp-speaker-pending h3 { margin-top: 8px; font-family: var(--sp-heading); font-size: 30px; }
+.rcco-simposio .sp-speaker-pending p { margin-top: 10px; color: #dce9ff; font-size: 13px; }

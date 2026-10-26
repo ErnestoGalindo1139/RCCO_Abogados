@@ -6,7 +6,6 @@ import {
   CheckCircle2,
   CircleAlert,
   Copy,
-  MessageCircle,
   ShieldCheck,
   X,
 } from 'lucide-react';
@@ -84,9 +83,11 @@ export const RegistrationResultModal = ({
         className={`sp-registration-modal-card ${success ? 'sp-registration-modal-card--success' : 'sp-registration-modal-card--notice'}`}
       >
         <div className="sp-result-topline">
-          <span className="sp-result-brand">
-            RCCO<span>ABOGADOS</span>
-          </span>
+          <img
+            className="sp-result-brand"
+            src="/img/logoSinFondo.jpeg"
+            alt="RCCO Abogados"
+          />
           <span className="sp-result-edition">
             SIMPOSIO ANUAL <b>2027</b>
           </span>
@@ -101,21 +102,17 @@ export const RegistrationResultModal = ({
         </div>
 
         <div className="sp-result-content">
-          <div
-            className={`sp-result-seal ${success ? '' : 'sp-result-seal--notice'}`}
-            aria-hidden="true"
-          >
-            {success ? (
-              <Check size={29} strokeWidth={1.8} />
-            ) : (
-              <CircleAlert size={28} strokeWidth={1.7} />
-            )}
-          </div>
-          <p className="sp-result-eyebrow">
-            {success
-              ? 'Un encuentro. Nuevas perspectivas.'
-              : 'Revisemos un detalle'}
-          </p>
+          {!success && (
+            <>
+              <div
+                className="sp-result-seal sp-result-seal--notice"
+                aria-hidden="true"
+              >
+                <CircleAlert size={28} strokeWidth={1.7} />
+              </div>
+              <p className="sp-result-eyebrow">Revisemos un detalle</p>
+            </>
+          )}
           <h2 id="sp-registration-result">
             {success ? (
               <>
@@ -131,7 +128,7 @@ export const RegistrationResultModal = ({
             {success
               ? 'Gracias por ser parte del próximo encuentro de RCCO Abogados. Este es tu folio de seguimiento.'
               : result === 'missing'
-                ? 'Revisa nombre, apellido paterno, teléfono, correo y la autorización para recibir tu confirmación por WhatsApp.'
+                ? 'Revisa tu nombre, apellido paterno, teléfono y correo electrónico.'
                 : errorMessage ||
                   'Ocurrió un inconveniente al guardar tus datos. Vuelve al formulario para intentarlo de nuevo.'}
           </p>
@@ -204,23 +201,11 @@ export const RegistrationResultModal = ({
                 </li>
               </ol>
 
-              <div
-                className={`sp-result-whatsapp ${whatsappAccepted ? '' : 'sp-result-whatsapp--pending'}`}
-              >
-                <MessageCircle size={19} aria-hidden="true" />
-                <div>
-                  <strong>
-                    {whatsappAccepted
-                      ? 'Revisa tu WhatsApp'
-                      : 'Tu folio ya está guardado'}
-                  </strong>
-                  <p>
-                    {whatsappAccepted
-                      ? 'Solicitamos el envío de tu registro y los siguientes pasos al número que proporcionaste.'
-                      : 'No pudimos solicitar el WhatsApp. Contacta a RCCO con tu folio; no necesitas registrarte otra vez.'}
-                  </p>
-                </div>
-              </div>
+              <p className="sp-result-whatsapp-text">
+                {whatsappAccepted
+                  ? 'Te enviamos un mensaje por WhatsApp con los siguientes pasos. Revisa el número que proporcionaste.'
+                  : 'No pudimos enviar el mensaje por WhatsApp. Contacta a RCCO con tu folio para conocer los siguientes pasos.'}
+              </p>
             </>
           )}
 
@@ -250,10 +235,6 @@ export const RegistrationResultModal = ({
               Tu inscripción quedará confirmada una vez validado el pago.
             </p>
           )}
-        </div>
-        <div className="sp-result-bottomline">
-          <span>CONOCIMIENTO · EXPERIENCIA · CONEXIONES</span>
-          <span aria-hidden="true">02</span>
         </div>
       </div>
     </dialog>
