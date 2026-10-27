@@ -176,12 +176,13 @@ export const SIMPOSIO: {
 
 const patrocinadores = [
   'img/patrocinadores/ANMX.png',
-  'img/patrocinadores/DIAZ SALAZAR Y ASOCIADOS.png',
-  'img/patrocinadores/LF DESPACHO.png',
-  'img/patrocinadores/P&C.png',
+  // 'img/patrocinadores/DIAZ SALAZAR Y ASOCIADOS.png',
+  // 'img/patrocinadores/LF DESPACHO.png',
+  // 'img/patrocinadores/P&C.png',
   'img/patrocinadores/RCCO NEGOCIOS.png',
-  'img/patrocinadores/SOMOFA.png',
-  'img/patrocinadores/ESlogo.png',
+  'img/patrocinadores/caffe_treva.png',
+  // 'img/patrocinadores/SOMOFA.png',
+  // 'img/patrocinadores/ESlogo.png',
   // 'img/patrocinadores/Le logo.png',
 ];
 
@@ -513,7 +514,7 @@ export const SimposioPage2 = (): React.JSX.Element => {
         <LogoCarousel
           className="sp-intro-sponsors"
           title="logos.tituloPatrocinadores"
-          logos={[...patrocinadores, ...patrocinadores]}
+          logos={[...patrocinadores, ...patrocinadores, ...patrocinadores]}
         />
         {/* El header y footer pertenecen al layout existente del sitio. */}
         <section
