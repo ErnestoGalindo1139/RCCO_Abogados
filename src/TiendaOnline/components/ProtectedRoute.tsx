@@ -7,7 +7,7 @@ interface Props {
 }
 
 export const ProtectedRoute: React.FC<Props> = ({ children, role }) => {
-  const logged = localStorage.getItem('rcco_user_logged') === 'true';
+  const logged = !!sessionStorage.getItem('rcco_session');
   const userRole = localStorage.getItem('rcco_role'); // user | admin | verificador
 
   // ❌ No logueado

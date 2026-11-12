@@ -5,6 +5,7 @@ import {
   Trash2,
   RotateCcw,
   Star,
+  QrCode,
 } from 'lucide-react';
 import { UsuarioEvento } from '../types/UsuarioEvento';
 type Props = {
@@ -12,6 +13,7 @@ type Props = {
   onEditar: (u: UsuarioEvento) => void;
   onToggleActivo: (u: UsuarioEvento) => void;
   onTogglePago: (u: UsuarioEvento) => void;
+  onVerPase: (u: UsuarioEvento) => void;
 };
 const fecha = (value: string) => {
   const match = value?.match(/^(\d{4})-(\d{2})-(\d{2})(?:T(\d{2}:\d{2}))?/);
@@ -24,6 +26,7 @@ export const UsuariosEventoTable = ({
   onEditar,
   onToggleActivo,
   onTogglePago,
+  onVerPase,
 }: Props) => (
   <div
     className="rg-table-scroll"
@@ -37,6 +40,7 @@ export const UsuariosEventoTable = ({
           {[
             'Asistente',
             'Empresa',
+            'Puesto / cargo',
             'Evento',
             'Pago',
             'Contacto',
@@ -67,7 +71,10 @@ export const UsuariosEventoTable = ({
                 {!u.sn_Activo && ' · Inactivo'}
               </span>
             </td>
-            <td>{u.Empresa || '—'}</td>
+            <td>
+              <span>{u.Empresa || '—'}</span>
+            </td>
+            <td>{u.Cargo || '—'}</td>
             <td>
               <span>{u.nu_AnioEvento || 'Sin clasificar'}</span>
               <span className="rg-secondary">
@@ -78,6 +85,15 @@ export const UsuariosEventoTable = ({
             </td>
             <td>
               <div className="rg-actions">
+                {u.sn_Pagado && u.nu_AnioEvento === 2027 && (
+                  <button
+                    onClick={() => onVerPase(u)}
+                    title="Ver pase QR"
+                    aria-label={`Ver pase QR de ${u.NombreCompleto}`}
+                  >
+                    <QrCode size={15} />
+                  </button>
+                )}
                 <span
                   className={`rg-badge ${u.sn_Pagado ? 'rg-paid' : 'rg-pending'}`}
                 >

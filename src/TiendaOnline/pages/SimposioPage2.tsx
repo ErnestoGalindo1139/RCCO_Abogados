@@ -57,7 +57,7 @@ export const SIMPOSIO: {
   edicion: '2.ª edición',
   fecha: '22 y 23 de enero de 2027',
   ciudad: 'Mazatlán, Sinaloa',
-  sede: 'Hotel Fiesta Inn de Plaza Isla Tres, Mazatlán, Sinaloa',
+  sede: 'Hotel Fiesta Inn en Plaza Isla Tres, Mazatlán, Sinaloa',
   registroUrl: null, // Añade la ruta o URL real del registro cuando esté disponible.
   whatsapp: '526692291634',
   precio: null, // MXN. La información existente se consulta con VerArchivo.
@@ -319,7 +319,7 @@ const preguntas = [
   {
     pregunta: '¿Cuándo y dónde se realizará?',
     respuesta:
-      'El Simposio se realizará el 22 y 23 de enero de 2027 en el Hotel Fiesta Inn de Plaza Isla Tres, Mazatlán, Sinaloa.',
+      'El Simposio se realizará el 22 y 23 de enero de 2027 en el Hotel Fiesta Inn en Plaza Isla Tres, Mazatlán, Sinaloa.',
   },
   {
     pregunta: '¿Cómo obtengo mi acceso y código QR?',
@@ -528,27 +528,27 @@ export const SimposioPage2 = (): React.JSX.Element => {
           <picture className="sp-hero-picture">
             <source
               media="(max-width: 767px)"
-              srcSet="/img/simposio/simposio_banner_movil.jpeg"
+              srcSet="/img/simposio/simposio_banner_movil_en.png"
             />
             <source
               media="(max-width: 1100px) and (orientation: portrait)"
-              srcSet="/img/simposio/simposio_banner_tablet_vertical.png"
+              srcSet="/img/simposio/simposio_banner_tablet_vertical_en.png"
             />
             <source
               media="(max-width: 1100px)"
-              srcSet="/img/simposio/simposio_banner_tablet.jpeg"
+              srcSet="/img/simposio/simposio_banner_tablet_en.png"
             />
             <source
               media="(min-width: 1101px) and (max-height: 800px)"
-              srcSet="/img/simposio/simposio_banner_desktop_ultrawide.png"
+              srcSet="/img/simposio/simposio_banner_desktop_ultrawide_en.png"
             />
             <source
               media="(min-width: 1101px) and (min-height: 801px)"
-              srcSet="/img/simposio/simposio_banner_desktop_ultrawide.png"
+              srcSet="/img/simposio/simposio_banner_desktop_ultrawide_en.png"
             />
             <img
               className="sp-hero-banner"
-              src="/img/simposio/simposio_banner_laptop.png"
+              src="/img/simposio/simposio_banner_laptop_en.png"
               alt=""
               fetchPriority="high"
             />

@@ -1,3 +1,4 @@
+import { loginSession } from '../auth/session';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -10,7 +11,7 @@ export const LoginPage: React.FC = () => {
 
   // ⚠️ SOLO REDIRIGE SI YA ESTÁ LOGUEADO COMO ADMIN O USER
   useEffect(() => {
-    const logged = localStorage.getItem('rcco_user_logged') === 'true';
+    const logged = !!sessionStorage.getItem('rcco_session');
     const role = localStorage.getItem('rcco_role');
 
     if (!logged) return;
@@ -26,26 +27,22 @@ export const LoginPage: React.FC = () => {
     // ❌ NO TOCAR verificador aquí
   }, [navigate]);
 
-  const login = (e: React.FormEvent) => {
+  const login = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    // ADMIN
-    if (usuario === 'admin' && password === 'Rcco2027!') {
-      localStorage.setItem('rcco_user_logged', 'true');
-      localStorage.setItem('rcco_role', 'admin');
-      navigate('/registradosEvento', { replace: true });
-      return;
+    setError('');
+    try {
+      const role = await loginSession(usuario, password);
+      navigate(
+        role === 'admin'
+          ? '/registradosEvento'
+          : role === 'verificador'
+            ? '/admin'
+            : '/materiales',
+        { replace: true }
+      );
+    } catch (cause) {
+      setError((cause as Error).message);
     }
-
-    // USER
-    if (usuario === 'prueba' && password === 'Rcco2027!') {
-      localStorage.setItem('rcco_user_logged', 'true');
-      localStorage.setItem('rcco_role', 'user');
-      navigate('/materiales', { replace: true });
-      return;
-    }
-
-    setError('Usuario o contraseña incorrectos');
   };
 
   return (

@@ -3,6 +3,7 @@ import { API_URL } from '../../config/api';
 import React, { useState } from 'react';
 import {
   Building2,
+  BriefcaseBusiness,
   CalendarDays,
   CheckCircle2,
   LoaderCircle,
@@ -22,6 +23,7 @@ type FormState = {
   telefono: string;
   correo: string;
   empresa: string;
+  cargo: string;
   mensaje: string;
 };
 
@@ -32,6 +34,7 @@ const initialForm: FormState = {
   telefono: '',
   correo: '',
   empresa: '',
+  cargo: '',
   mensaje: '',
 };
 
@@ -81,6 +84,7 @@ export const EventoEnero2 = (): React.JSX.Element => {
           de_Celular: form.telefono.trim(),
           de_Correo: form.correo.trim(),
           nb_Empresa: form.empresa.trim(),
+          nb_Cargo: form.cargo.trim(),
           de_Comentarios: form.mensaje.trim(),
           fh_Pago: null,
           whatsappConsent: true,
@@ -130,6 +134,14 @@ export const EventoEnero2 = (): React.JSX.Element => {
     ['telefono', 'Teléfono *', Phone, 'tel', 'tel', true],
     ['correo', 'Correo electrónico *', Mail, 'email', 'email', true],
     ['empresa', 'Empresa', Building2, 'organization', 'text', false],
+    [
+      'cargo',
+      'Puesto / cargo en la empresa',
+      BriefcaseBusiness,
+      'organization-title',
+      'text',
+      false,
+    ],
   ] as const;
 
   return (
@@ -154,7 +166,7 @@ export const EventoEnero2 = (): React.JSX.Element => {
               <div>
                 <MapPin aria-hidden="true" />
                 <span>
-                  <small>Sede</small>Hotel Fiesta Inn de Plaza Isla Tres
+                  <small>Sede</small>Hotel Fiesta Inn en Plaza Isla Tres
                   <br />
                   Mazatlán, Sinaloa
                 </span>
@@ -188,7 +200,7 @@ export const EventoEnero2 = (): React.JSX.Element => {
             <div className="sp-form-grid">
               {fields.map(
                 ([name, label, Icon, autoComplete, type, required]) => (
-                  <label key={name}>
+                  <label key={name} className={name === 'cargo' ? 'sp-form-full' : undefined}>
                     <span>{label}</span>
                     <span className="sp-input-wrap">
                       <Icon aria-hidden="true" />

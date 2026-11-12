@@ -12,6 +12,7 @@ export type UsuarioEvento = {
   Celular: string;
   Correo: string;
   Empresa: string | null;
+  Cargo?: string | null;
   Comentarios: string | null;
   constanciaWhatsApp?: string;
   FechaRegistro: string;

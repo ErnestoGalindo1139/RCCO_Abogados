@@ -1,0 +1,253 @@
+.pass-wrapper {
+  max-width: 680px;
+  margin: 24px auto;
+  padding: 16px;
+}
+.pass-ticket {
+  background: #fffaf0;
+  color: #27413e;
+  border: 2px solid #b99a69;
+  border-top: 14px solid #27413e;
+  border-bottom: 14px solid #27413e;
+  padding: 28px;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  overflow-wrap: anywhere;
+}
+.pass-ticket h2 {
+  font:
+    bold 25px Georgia,
+    serif;
+  margin-bottom: 20px;
+}
+.pass-ticket p {
+  color: #796e5c;
+  margin: 10px 0;
+}
+.pass-ticket p:first-of-type {
+  font:
+    bold 23px Georgia,
+    serif;
+  color: #27413e;
+}
+.pass-qr {
+  border-top: 2px dashed #b99a69;
+  margin-top: 22px;
+  padding-top: 20px;
+}
+.pass-qr img {
+  width: 100%;
+  max-width: 196px;
+  height: auto;
+  margin: auto;
+}
+.pass-wrapper button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #27413e;
+  color: #fffaf0;
+  padding: 10px 16px;
+  border-radius: 6px;
+}
+.pass-wrapper button:disabled {
+  opacity: 0.5;
+}
+#rcco-print-pass {
+  display: none;
+}
+.pass-modal {
+  width: min(720px, calc(100% - 24px));
+  max-height: calc(100dvh - 32px);
+  margin: auto;
+  padding: 0;
+  border: 1px solid #dbe4ed;
+  border-radius: 22px;
+  background: #f6f8fb;
+  color: #173458;
+  box-shadow: 0 32px 100px #071d3b55;
+  overflow-y: auto;
+}
+.pass-modal::backdrop {
+  background: #071d3ba8;
+  backdrop-filter: blur(5px);
+}
+.pass-modal-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 24px;
+  background: white;
+  border-bottom: 1px solid #e5ebf2;
+}
+.pass-modal-icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: #eaf1fc;
+  color: #194e91;
+}
+.pass-modal-eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  color: #72839b;
+  margin-bottom: 4px;
+}
+.pass-modal-header h2 {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+.pass-modal-header p:last-child {
+  font-size: 13px;
+  color: #758296;
+  margin-top: 5px;
+}
+.pass-modal-close {
+  padding: 6px;
+  border-radius: 8px;
+  color: #6f7f93;
+}
+.pass-modal-close:hover {
+  background: #edf2f7;
+}
+.pass-modal-body {
+  padding: 20px 24px 4px;
+}
+.pass-modal-person {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 12px;
+  color: #718199;
+}
+.pass-modal-paid {
+  border: 1px solid #bde4cf;
+  border-radius: 99px;
+  padding: 5px 10px;
+  background: #eaf7ef;
+  color: #24714c;
+  font-weight: 600;
+}
+.pass-modal .pass-wrapper {
+  margin: 16px auto 0;
+  padding: 0;
+}
+.pass-modal .pass-ticket {
+  border-radius: 12px;
+  padding: 22px;
+}
+.pass-modal .pass-ticket h2 {
+  font-size: 21px;
+}
+.pass-modal .pass-ticket p {
+  margin: 7px 0;
+  font-size: 13px;
+}
+.pass-modal .pass-ticket p:first-of-type {
+  font-size: 21px;
+}
+.pass-modal .pass-wrapper button {
+  background: white;
+  color: #34516e;
+  border: 1px solid #dbe4ed;
+  font-size: 12px;
+}
+.pass-modal-footer {
+  padding: 18px 24px 22px;
+  background: white;
+  border-top: 1px solid #e5ebf2;
+}
+.pass-modal-footer-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+.pass-modal-footer-row p {
+  font-size: 12px;
+  color: #758296;
+}
+.pass-modal-send {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-shrink: 0;
+  padding: 12px 16px;
+  border-radius: 11px;
+  background: #12834b;
+  color: white;
+  font-size: 13px;
+  font-weight: 600;
+}
+.pass-modal-send:hover {
+  background: #0d6d3d;
+}
+.pass-modal button:disabled {
+  opacity: 0.55;
+  cursor: wait;
+}
+.pass-modal button:focus-visible {
+  outline: 3px solid #88b6ee;
+  outline-offset: 3px;
+}
+.pass-modal-feedback {
+  padding: 12px;
+  margin-bottom: 14px;
+  border-radius: 9px;
+  background: #eef4fb;
+  color: #34516e;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+@media (max-width: 540px) {
+  .pass-modal-header {
+    padding: 18px;
+    gap: 10px;
+  }
+  .pass-modal-body {
+    padding: 16px 14px 0;
+  }
+  .pass-modal-footer {
+    padding: 16px;
+  }
+  .pass-modal-footer-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .pass-modal-header h2 {
+    font-size: 21px;
+  }
+  .pass-modal-icon {
+    width: 38px;
+    height: 38px;
+  }
+}
+@media print {
+  .pass-modal::backdrop {
+    background: transparent;
+  }
+  body > *:not(#rcco-print-pass) {
+    display: none !important;
+  }
+  #rcco-print-pass {
+    display: block !important;
+    max-width: 680px;
+    margin: auto;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  .pass-ticket {
+    break-inside: avoid;
+  }
+  @page {
+    margin: 15mm;
+  }
+}

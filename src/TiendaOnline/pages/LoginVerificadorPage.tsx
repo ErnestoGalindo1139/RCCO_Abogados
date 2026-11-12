@@ -1,3 +1,4 @@
+import { loginSession } from '../auth/session';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -10,27 +11,29 @@ export default function LoginVerificadorPage() {
 
   // 🔐 SI YA ESTÁ LOGUEADO COMO VERIFICADOR, NO DEJAR ENTRAR AQUÍ
   useEffect(() => {
-    const logged = localStorage.getItem('rcco_user_logged') === 'true';
+    const logged = !!sessionStorage.getItem('rcco_session');
     const role = localStorage.getItem('rcco_role');
 
     if (logged && role === 'verificador') {
-      navigate('/verificar-registro', { replace: true });
+      navigate(sessionStorage.getItem('rcco_qr_return') || '/admin', {
+        replace: true,
+      });
     }
   }, [navigate]);
 
-  const login = (e: React.FormEvent) => {
+  const login = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    // 🔑 CREDENCIALES DEL VERIFICADOR
-    if (usuario === 'verificador' && password === 'PLD2026') {
-      localStorage.setItem('rcco_user_logged', 'true');
-      localStorage.setItem('rcco_role', 'verificador');
-
-      navigate('/verificar-registro', { replace: true });
-      return;
+    setError('');
+    try {
+      const role = await loginSession(usuario, password);
+      if (!['admin', 'verificador'].includes(role))
+        throw new Error('Se requiere acceso de verificador.');
+      const pending = sessionStorage.getItem('rcco_qr_return');
+      sessionStorage.removeItem('rcco_qr_return');
+      navigate(pending || '/admin', { replace: true });
+    } catch (cause) {
+      setError((cause as Error).message);
     }
-
-    setError('Credenciales incorrectas');
   };
 
   return (

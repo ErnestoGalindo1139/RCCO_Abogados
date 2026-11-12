@@ -1,3 +1,5 @@
+import { apiFetch } from '../auth/session';
+import { Link } from 'react-router-dom';
 import { API_URL } from '../../config/api';
 import { useState, useMemo } from 'react';
 import { UsuarioEvento } from '../types/UsuarioEvento';
@@ -67,7 +69,7 @@ export default function VerificadorRegistroPage() {
     }
 
     try {
-      const res = await fetch(`${API_URL}/usuariosEvento/buscar`, {
+      const res = await apiFetch(`${API_URL}/usuariosEvento/buscar`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -123,6 +125,9 @@ export default function VerificadorRegistroPage() {
 
   return (
     <main className="min-h-screen bg-slate-50">
+      <Link to="/admin" className="block p-4 text-blue-900 underline">
+        Escanear o consultar pase QR
+      </Link>
       {/* ================= HEADER ================= */}
       <header className="bg-gradient-to-r from-[#113873] to-[#0D47A1] text-white py-8 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">

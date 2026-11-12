@@ -1,3 +1,4 @@
+import { PassReaderPage } from '../pages/PassReaderPage';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { HomePage } from '../pages/HomePage';
 import { BlogPage } from '../pages/BlogPage';
@@ -26,6 +27,7 @@ export const TiendaOnlineRoutes = () => {
 
   // ⛔ Rutas que NO deben tener Navbar/Footer
   const hideLayoutRoutes = [
+    '/admin',
     '/login',
     '/loginVerificador',
     '/registradosEvento',
@@ -63,6 +65,7 @@ export const TiendaOnlineRoutes = () => {
         />
 
         {/* ===== LOGINS ===== */}
+        <Route path="/admin" element={<PassReaderPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/loginVerificador" element={<LoginVerificadorPage />} />
 

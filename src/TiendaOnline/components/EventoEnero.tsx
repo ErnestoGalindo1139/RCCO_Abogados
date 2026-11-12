@@ -18,6 +18,7 @@ export const EventoEnero: React.FC = () => {
     telefono: '',
     correo: '',
     empresa: '',
+    cargo: '',
     mensaje: '',
   });
 
@@ -85,6 +86,7 @@ export const EventoEnero: React.FC = () => {
           de_Celular: form.telefono,
           de_Correo: form.correo,
           nb_Empresa: form.empresa,
+          nb_Cargo: form.cargo.trim(),
           de_Comentarios: form.mensaje,
           fh_Pago: null,
           nu_Folio: folio,
@@ -103,6 +105,7 @@ export const EventoEnero: React.FC = () => {
         telefono: '',
         correo: '',
         empresa: '',
+        cargo: '',
         mensaje: '',
       });
 
@@ -312,6 +315,16 @@ export const EventoEnero: React.FC = () => {
               placeholder="Empresa (opcional)"
               onChange={onChange}
               value={form.empresa}
+              className={inputClass}
+            />
+            <input
+              name="cargo"
+              placeholder="Puesto / cargo en la empresa"
+              aria-label="Puesto / cargo en la empresa"
+              autoComplete="organization-title"
+              maxLength={200}
+              onChange={onChange}
+              value={form.cargo}
               className={inputClass}
             />
           </div>
