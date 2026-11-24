@@ -1,9 +1,34 @@
 import { apiFetch } from '../auth/session';
 import { Link } from 'react-router-dom';
 import { API_URL } from '../../config/api';
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 import { UsuarioEvento } from '../types/UsuarioEvento';
 import { CheckCircle, XCircle, Star } from 'lucide-react';
+
+type RegistroEncontrado = Pick<
+  UsuarioEvento,
+  | 'id_UsuarioEvento'
+  | 'nb_Nombre'
+  | 'nb_ApellidoPaterno'
+  | 'nb_ApellidoMaterno'
+  | 'nu_Folio'
+  | 'sn_Pagado'
+  | 'sn_Activo'
+  | 'sn_UsuarioEspecial'
+  | 'nb_TipoUsuarioEspecial'
+> & {
+  de_Celular: string;
+  de_Correo: string;
+  nb_Empresa: string | null;
+  de_Comentarios: string | null;
+  fh_Registro: string;
+  fh_Pago: string | null;
+};
+
+function construirFolio(input: string) {
+  const match = /^(?:SIM27-)?(\d+)$/i.exec(input.trim());
+  return match ? `SIM27-${match[1].padStart(4, '0')}` : null;
+}
 
 export default function VerificadorRegistroPage() {
   const [folioInput, setFolioInput] = useState('');
@@ -16,35 +41,13 @@ export default function VerificadorRegistroPage() {
   const [mensaje, setMensaje] = useState('');
   const [loading, setLoading] = useState(false);
 
-  // ===============================
-  // HELPERS FOLIO
-  // ===============================
-  const formatearBloques = (value: string) => {
-    const soloNumeros = value.replace(/\D/g, '').slice(0, 8);
-    if (soloNumeros.length <= 4) return soloNumeros;
-    return `${soloNumeros.slice(0, 4)}-${soloNumeros.slice(4)}`;
-  };
-
-  const construirFolio = (input: string) => {
-    const limpio = input.replace(/\D/g, '');
-    if (limpio.length !== 8) return null;
-    return `PLD-2026-${limpio.slice(0, 4)}-${limpio.slice(4, 8)}`;
-  };
-
-  // ===============================
-  // VALIDACIÓN FRONT
-  // ===============================
-  const tieneCriteriosBusqueda = useMemo(() => {
-    const hayFolioValido = construirFolio(folioInput) !== null;
-
-    return (
-      hayFolioValido ||
-      nombre.trim() !== '' ||
-      apPaterno.trim() !== '' ||
-      apMaterno.trim() !== '' ||
-      empresa.trim() !== ''
-    );
-  }, [folioInput, nombre, apPaterno, apMaterno, empresa]);
+  const tieneCriteriosBusqueda = [
+    folioInput,
+    nombre,
+    apPaterno,
+    apMaterno,
+    empresa,
+  ].some((value) => value.trim());
 
   // ===============================
   // BUSCAR
@@ -58,16 +61,14 @@ export default function VerificadorRegistroPage() {
       return;
     }
 
-    setLoading(true);
+    const folio = construirFolio(folioInput);
 
-    const folio = folioInput ? construirFolio(folioInput) : null;
-
-    if (folioInput && !folio) {
-      setMensaje('El folio debe contener exactamente 8 números');
-      setLoading(false);
+    if (folioInput.trim() && !folio) {
+      setMensaje('Usa un folio como SIM27-0004 o escribe solo el número.');
       return;
     }
 
+    setLoading(true);
     try {
       const res = await apiFetch(`${API_URL}/usuariosEvento/buscar`, {
         method: 'POST',
@@ -86,33 +87,35 @@ export default function VerificadorRegistroPage() {
       if (!data.success || data.body.length === 0) {
         setMensaje('No se encontraron registros');
       } else {
-        const mapped: UsuarioEvento[] = data.body.map((u: any) => ({
-          id_UsuarioEvento: u.id_UsuarioEvento,
+        const mapped: UsuarioEvento[] = data.body.map(
+          (u: RegistroEncontrado) => ({
+            id_UsuarioEvento: u.id_UsuarioEvento,
 
-          nb_Nombre: u.nb_Nombre?.trim(),
-          nb_ApellidoPaterno: u.nb_ApellidoPaterno?.trim(),
-          nb_ApellidoMaterno: u.nb_ApellidoMaterno?.trim() || null,
+            nb_Nombre: u.nb_Nombre?.trim(),
+            nb_ApellidoPaterno: u.nb_ApellidoPaterno?.trim(),
+            nb_ApellidoMaterno: u.nb_ApellidoMaterno?.trim() || null,
 
-          NombreCompleto:
-            `${u.nb_Nombre?.trim()} ${u.nb_ApellidoPaterno?.trim()} ${
-              u.nb_ApellidoMaterno?.trim() || ''
-            }`.trim(),
+            NombreCompleto:
+              `${u.nb_Nombre?.trim()} ${u.nb_ApellidoPaterno?.trim()} ${
+                u.nb_ApellidoMaterno?.trim() || ''
+              }`.trim(),
 
-          Celular: u.de_Celular,
-          Correo: u.de_Correo,
-          Empresa: u.nb_Empresa,
-          Comentarios: u.de_Comentarios,
+            Celular: u.de_Celular,
+            Correo: u.de_Correo,
+            Empresa: u.nb_Empresa,
+            Comentarios: u.de_Comentarios,
 
-          FechaRegistro: u.fh_Registro,
-          FechaPago: u.fh_Pago,
+            FechaRegistro: u.fh_Registro,
+            FechaPago: u.fh_Pago,
 
-          nu_Folio: u.nu_Folio,
-          sn_Pagado: u.sn_Pagado,
-          sn_Activo: u.sn_Activo,
+            nu_Folio: u.nu_Folio,
+            sn_Pagado: u.sn_Pagado,
+            sn_Activo: u.sn_Activo,
 
-          sn_UsuarioEspecial: u.sn_UsuarioEspecial,
-          nb_TipoUsuarioEspecial: u.nb_TipoUsuarioEspecial,
-        }));
+            sn_UsuarioEspecial: u.sn_UsuarioEspecial,
+            nb_TipoUsuarioEspecial: u.nb_TipoUsuarioEspecial,
+          })
+        );
 
         setResultados(mapped);
       }
@@ -135,40 +138,38 @@ export default function VerificadorRegistroPage() {
             Verificación de Registro
           </h1>
           <p className="mt-2 text-blue-100 text-sm sm:text-base max-w-2xl">
-            Ingresa tu folio o tus datos para verificar tu estatus en el evento.
+            Busca al titular del pase por folio, nombre o empresa.
           </p>
         </div>
       </header>
 
       {/* ================= FORM ================= */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 -mt-8">
-        <div className="bg-white rounded-2xl shadow-xl p-6 sm:p-8">
+        <form
+          className="bg-white rounded-2xl shadow-xl p-6 sm:p-8"
+          onSubmit={(event) => {
+            event.preventDefault();
+            void buscar();
+          }}
+        >
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {/* ===== FOLIO ===== */}
             <div className="md:col-span-3">
-              <label className="text-sm font-semibold text-slate-600">
-                Folio
+              <label
+                htmlFor="registro-folio"
+                className="text-sm font-semibold text-slate-600"
+              >
+                Folio de registro
               </label>
-
-              <div className="mt-2 flex items-center border rounded-xl overflow-hidden bg-white">
-                <span className="px-4 py-4 bg-slate-100 text-slate-600 font-semibold">
-                  PLD-2026-
-                </span>
-
-                <input
-                  inputMode="numeric"
-                  placeholder="0000-0000"
-                  value={formatearBloques(folioInput)}
-                  onChange={(e) =>
-                    setFolioInput(e.target.value.replace(/\D/g, ''))
-                  }
-                  className="flex-1 px-4 py-3 text-center tracking-widest text-lg outline-none"
-                />
-              </div>
-
-              <p className="mt-1 text-xs text-slate-400">
-                Ejemplo: PLD-2026-4758-3832
-              </p>
+              <input
+                id="registro-folio"
+                placeholder="SIM27-0004 o 0004"
+                value={folioInput}
+                onChange={(e) => setFolioInput(e.target.value)}
+                autoCapitalize="characters"
+                spellCheck={false}
+                className="mt-2 block w-full rounded-xl border px-4 py-3 text-base sm:max-w-xs"
+              />
             </div>
 
             {/* ===== INPUTS ===== */}
@@ -201,7 +202,7 @@ export default function VerificadorRegistroPage() {
             />
 
             <button
-              onClick={buscar}
+              type="submit"
               disabled={loading || !tieneCriteriosBusqueda}
               className={`w-full rounded-xl font-semibold px-6 py-4 transition text-lg ${
                 loading || !tieneCriteriosBusqueda
@@ -212,7 +213,7 @@ export default function VerificadorRegistroPage() {
               {loading ? 'Buscando…' : 'Buscar'}
             </button>
           </div>
-        </div>
+        </form>
       </section>
 
       {/* ================= RESULTADOS ================= */}

@@ -5,10 +5,16 @@ import { passToken } from '../passes/pass';
 
 type Props = {
   disabled?: boolean;
+  readyLabel?: string;
   onRead: (token: string) => void;
   onStart: () => void;
 };
-export function QrScanner({ disabled = false, onRead, onStart }: Props) {
+export function QrScanner({
+  disabled = false,
+  readyLabel = 'Escanear QR',
+  onRead,
+  onStart,
+}: Props) {
   const video = useRef<HTMLVideoElement>(null);
   const [open, setOpen] = useState(false);
   const [error, setError] = useState('');
@@ -158,23 +164,34 @@ export function QrScanner({ disabled = false, onRead, onStart }: Props) {
       <button
         type="button"
         disabled={disabled}
-        className="flex items-center gap-2 rounded bg-blue-900 text-white px-4 py-3 disabled:opacity-50"
+        aria-expanded={open}
+        className="flex min-h-14 w-full items-center justify-center gap-2 rounded-xl bg-[#19513e] px-4 font-semibold text-white hover:bg-[#123d2f] disabled:opacity-50"
         onClick={() => setOpen(!open)}
       >
-        {open ? <X /> : <Camera />} {open ? 'Cerrar cámara' : 'Escanear QR'}
+        {open ? <X aria-hidden="true" /> : <Camera aria-hidden="true" />}
+        {open ? 'Cerrar cámara' : readyLabel}
       </button>
       {open && !disabled && (
-        <video
-          ref={video}
-          autoPlay
-          muted
-          playsInline
-          className="w-full max-w-xl rounded mt-4"
-          aria-label="Lector de pases QR"
-        />
+        <div className="relative mt-3 grid aspect-[4/3] place-items-center overflow-hidden rounded-xl bg-[#102c27]">
+          <video
+            ref={video}
+            autoPlay
+            muted
+            playsInline
+            className="size-full object-contain"
+            aria-label="Lector de pases QR"
+          />
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute aspect-square w-1/2 rounded-2xl border-2 border-white/80 shadow-[0_0_0_100vmax_#0004]"
+          />
+        </div>
       )}
       {error && (
-        <p role="alert" className="text-red-700 mt-3">
+        <p
+          role="alert"
+          className="mt-3 rounded-xl bg-red-50 p-3 text-sm text-red-900"
+        >
           {error}
         </p>
       )}

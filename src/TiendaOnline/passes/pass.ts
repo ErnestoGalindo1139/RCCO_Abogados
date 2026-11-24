@@ -7,6 +7,7 @@ export type Pass = {
   nb_TokenQR: string;
   nu_Folio: string;
   nu_AnioEvento: number;
+  fh_Entrada?: string | null;
 };
 
 export const passToken = (value: string): string => {
