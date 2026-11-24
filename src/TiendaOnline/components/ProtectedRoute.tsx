@@ -21,7 +21,11 @@ export const ProtectedRoute: React.FC<Props> = ({ children, role }) => {
   }
 
   // ❌ Logueado pero rol incorrecto
-  if (role && userRole !== role) {
+  if (
+    role &&
+    userRole !== role &&
+    !(role === 'verificador' && userRole === 'admin')
+  ) {
     return (
       <Navigate
         to={role === 'verificador' ? '/loginVerificador' : '/login'}
